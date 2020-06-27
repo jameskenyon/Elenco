@@ -16,9 +16,15 @@ struct ShadowView: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 20)
             .cornerRadius(10)
-            .shadow(color: .black, radius: 5)
+            .shadow(color: Color("Dark-Gray"), radius: 4)
             .foregroundColor(.white)
             .frame(width: self.width, height: self.height)
     }
     
+}
+
+struct ShadowView_Previews: PreviewProvider {
+    static var previews: some View {
+        ShadowView(width: 200, height: 100)
+    }
 }
