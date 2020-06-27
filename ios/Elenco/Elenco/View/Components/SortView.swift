@@ -47,13 +47,33 @@ struct SortView: View {
     
     var body: some View {
         ZStack {
-            ShadowView(width: 350, height: 100)
-            HStack {
-                SortViewItem(title: "Name", isSelected: true)
-                SortViewItem(title: "Type", isSelected: false)
-                SortViewItem(title: "Quantity", isSelected: false)
+            ShadowView(width: 380, height: 150)
+            VStack(alignment: .leading) {
+                HStack(alignment: .center, spacing: 150) {
+                    Text("Sort By")
+                    .padding(.vertical, 15)
+                    .font(.system(.title))
+                    
+                    
+                    Button(action: {
+                        print("hide")
+                    }) {
+                        Text("Hide")
+                        .foregroundColor(Color("Orange"))
+                        .font(.system(size: 20))
+                        .alignmentGuide(.leading) {d in  d[.leading] }
+                        .padding(.vertical, 15)
+                    }
+                }.padding(.vertical, 15)
                 
+                HStack {
+                    SortViewItem(title: "Name", isSelected: true)
+                    SortViewItem(title: "Type", isSelected: false)
+                    SortViewItem(title: "Quantity", isSelected: false)
+                    
+                }
             }
+            
             
             
         }
