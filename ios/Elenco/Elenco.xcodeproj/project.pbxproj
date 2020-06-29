@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A20D3DF24AA401700C6633F /* IngredientsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A20D3DE24AA401700C6633F /* IngredientsListView.swift */; };
 		1A420B3024A7A14000433CC3 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A420B2F24A7A14000433CC3 /* ShadowView.swift */; };
 		8AAEE48424A7A3BC0025D15D /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE48324A7A3BC0025D15D /* Ingredient.swift */; };
 		8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A20D3DE24AA401700C6633F /* IngredientsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsListView.swift; sourceTree = "<group>"; };
 		1A420B2F24A7A14000433CC3 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		8AAEE48324A7A3BC0025D15D /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAPIService.swift; sourceTree = "<group>"; };
@@ -66,6 +68,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A20D3E024AA478D00C6633F /* IngredientsListView */ = {
+			isa = PBXGroup;
+			children = (
+				1A20D3DE24AA401700C6633F /* IngredientsListView.swift */,
+			);
+			path = IngredientsListView;
+			sourceTree = "<group>";
+		};
 		8AD4BBDD24A796E900F81AAF = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				1A420B2F24A7A14000433CC3 /* ShadowView.swift */,
+				1A20D3E024AA478D00C6633F /* IngredientsListView */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -267,6 +278,7 @@
 				8AD4BC0F24A7978000F81AAF /* MyListView.swift in Sources */,
 				1A420B3024A7A14000433CC3 /* ShadowView.swift in Sources */,
 				8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */,
+				1A20D3DF24AA401700C6633F /* IngredientsListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
