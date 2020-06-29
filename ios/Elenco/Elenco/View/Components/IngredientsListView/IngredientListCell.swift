@@ -18,7 +18,7 @@ struct IngredientListCell: View {
                .stroke(Color("Orange"), lineWidth: 2)
                .foregroundColor(.clear)
                .frame(width: 30, height: 30)
-               .padding(.leading, 20)
+               .padding(.leading, 15)
            
            Text(ingredient.name)
                .font(.system(size: 23, weight: .medium, design: .default))
@@ -28,7 +28,7 @@ struct IngredientListCell: View {
            
            Text("\(ingredient.id)")
            .foregroundColor(Color("Light-Gray"))
-               .padding(.trailing, 20)
+               .padding(.trailing, 15)
        }
     }
     
