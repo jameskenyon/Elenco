@@ -22,7 +22,7 @@ struct AddIngredientView: View {
                     .padding(.top, viewModel.ingredients.count == 0 ? 0:10)
                     .accentColor(Color("Teal"))
                 ForEach(viewModel.ingredients.indices, id: \.self) { index in
-                    IngredientSearchCell(ingredient: self.viewModel.ingredients[index], index: index)
+                    IngredientSearchCell(ingredient: self.viewModel.ingredients[index], index: index, query: self.viewModel.query)
                         .padding(.top).padding(.bottom)
                         .background(index == 0 ? Color("Opaque-Teal"):Color.white)
                 }
@@ -36,6 +36,7 @@ struct AddIngredientView: View {
 }
 
 extension AddIngredientView {
+    
     class ViewModel: ObservableObject {
         
         @Published private(set) var ingredients: Ingredients = []
@@ -47,7 +48,6 @@ extension AddIngredientView {
         }
         
         // ⚠️ Change this to minimise the calls to the api
-        // ⚠️ Fix the bug that stops users from searching with spaces
         private func loadIngredientsFor(query: String) {
             IngredientAPIService.getPossibleIngredientsFor(query: query) { (ingredients) in
                 DispatchQueue.main.async {
@@ -65,6 +65,7 @@ struct IngredientSearchCell:View {
     // Properties
     var ingredient: Ingredient
     var index: Int
+    var query: String
     
     var body: some View {
         HStack {
@@ -73,8 +74,7 @@ struct IngredientSearchCell:View {
                 .font(.custom("HelveticaNeue-Regular", size: 18))
                 .foregroundColor(index == 0 ?
                     Color("Dark-Gray") : Color("Light-Gray"))
-            Text(ingredient.name)
-                .font(.custom("HelveticaNeue-Regular", size: 18))
+            SemiBoldLabel(text: ingredient.name.lowercased(), query: query.lowercased(), font: .custom("HelveticaNeue-Regular", size: 20))
             Spacer()
         }
     }
