@@ -17,6 +17,7 @@ struct AddIngredientView: View {
             VStack(alignment: .leading) {
                 TextField("Add Ingredient...", text: $viewModel.query)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .font(Font.custom("HelveticaNeue-Medium", size: 22))
                     .padding()
                 ForEach(viewModel.ingredients.indices, id: \.self) { index in
                     IngredientSearchCell(ingredient: self.viewModel.ingredients[index], index: index)
@@ -40,7 +41,6 @@ extension AddIngredientView {
         
         @Published var query:String = "" {
             didSet {
-                print(query)
                 // update ingredients when new query is set
                 loadIngredientsFor(query: self.query)
             }
@@ -55,16 +55,13 @@ extension AddIngredientView {
                 Ingredient(name: "Carrot Cake", id: 3, aisle: "Sweet"),
                 Ingredient(name: "Peas and Carrots", id: 4, aisle: "Veg")
             ]
-            /*
-             
-             
-             */
         }
         
         // ⚠️ Change this to minimise the calls to the api
+        // ⚠️ Fix the bug that stops users from searching with spaces
         private func loadIngredientsFor(query: String) {
             if query.count >= 3 {
-                IngredientAPIService.getPossibleIngredientsFor(query: query, numResults: 5) { (ingredients) in
+                IngredientAPIService.getPossibleIngredientsFor(query: query) { (ingredients) in
                     DispatchQueue.main.async {
                         self.ingredients = ingredients
                     }
@@ -85,9 +82,11 @@ struct IngredientSearchCell:View {
             Text("\(index + 1)")
                 .padding(.trailing)
                 .padding(.leading, 30)
+                .font(.custom("HelveticaNeue-Regular", size: 18))
                 .foregroundColor(index == 0 ?
                     Color("Dark-Gray") : Color("Light-Gray"))
             Text(ingredient.name)
+                .font(.custom("HelveticaNeue-Regular", size: 18))
             Spacer()
         }
     }
