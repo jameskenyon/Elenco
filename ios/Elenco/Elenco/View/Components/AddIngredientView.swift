@@ -25,6 +25,9 @@ struct AddIngredientView: View {
                     IngredientSearchCell(ingredient: self.viewModel.ingredients[index], index: index, query: self.viewModel.query)
                         .padding(.top).padding(.bottom)
                         .background(index == 0 ? Color("Opaque-Teal"):Color.white)
+                        .onTapGesture {
+                            self.viewModel.query = self.viewModel.ingredients[index].name
+                        }
                 }
             }
             .background(Color.white)
