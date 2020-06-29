@@ -22,7 +22,8 @@ internal class IngredientAPIService {
             
      */
     static func getPossibleIngredientsFor(query: String, numResults: Int = 5, completion: @escaping (Ingredients)->()) {
-        let url = "\(autocompleteAddress)?apiKey=\(apiKey)&query=\(query)&number=\(numResults)&metaInformation=true"
+        let formattedQuery = query.replacingOccurrences(of: " ", with: "%20")
+        let url = "\(autocompleteAddress)?apiKey=\(apiKey)&query=\(formattedQuery)&number=\(numResults)&metaInformation=true"
         guard let nsUrl = NSURL(string: url) else {
             completion([])
             return

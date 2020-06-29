@@ -46,10 +46,6 @@ extension AddIngredientView {
             }
         }
         
-        init() {
-            self.ingredients = []
-        }
-        
         // ⚠️ Change this to minimise the calls to the api
         // ⚠️ Fix the bug that stops users from searching with spaces
         private func loadIngredientsFor(query: String) {
