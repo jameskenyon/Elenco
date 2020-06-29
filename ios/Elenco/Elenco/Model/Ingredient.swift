@@ -17,10 +17,14 @@ import Foundation
 
  */
 
-struct Ingredient: Codable {
+struct Ingredient: Codable, Identifiable, Hashable {
+    // properties for the json decoder
     let name: String
     let id: Int
     let aisle: String
+    
+    // other properties that might be added 
+    var quantity: String?
 }
 
 typealias Ingredients = [Ingredient]
