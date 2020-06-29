@@ -23,25 +23,7 @@ struct IngredientsListView: View {
     
     var body: some View {
         List(ingredients, id: \.id) { ingredient in
-            
-            HStack {
-                Circle()
-                    .stroke(Color("Orange"), lineWidth: 2)
-                    .foregroundColor(.clear)
-                    .frame(width: 30, height: 30)
-                    .padding(.leading, 20)
-                
-                Text(ingredient.name)
-                    .font(.system(size: 23, weight: .medium, design: .default))
-                    .padding(.horizontal, 15)
-                
-                Spacer()
-                
-                Text("\(ingredient.id)")
-                .foregroundColor(Color("Light-Gray"))
-                    .padding(.trailing, 20)
-            }
-            
+            IngredientListCell(ingredient: ingredient)
         }
     }
     
