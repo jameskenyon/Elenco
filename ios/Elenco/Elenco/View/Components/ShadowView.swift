@@ -25,6 +25,6 @@ struct ShadowView: View {
 
 struct ShadowView_Previews: PreviewProvider {
     static var previews: some View {
-        ShadowView(width: 200, height: 100)
+        ShadowView(width: 30, height: 30)
     }
 }
