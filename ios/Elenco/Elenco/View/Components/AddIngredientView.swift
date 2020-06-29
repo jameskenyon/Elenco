@@ -16,18 +16,18 @@ struct AddIngredientView: View {
         VStack {
             VStack(alignment: .leading) {
                 TextField("Add Ingredient...", text: $viewModel.query)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(PlainTextFieldStyle())
                     .font(Font.custom("HelveticaNeue-Medium", size: 22))
-                    .padding()
+                    .padding(15).padding(.leading)
+                    .padding(.top, viewModel.ingredients.count == 0 ? 0:10)
                 ForEach(viewModel.ingredients.indices, id: \.self) { index in
                     IngredientSearchCell(ingredient: self.viewModel.ingredients[index], index: index)
-                        .padding(.top)
-                        .padding(.bottom)
+                        .padding(.top).padding(.bottom)
                         .background(index == 0 ? Color("Opaque-Teal"):Color.white)
                 }
             }
             .background(Color.white)
-            .cornerRadius(20)
+            .cornerRadius(10)
             .shadow(color: Color("Dark-Gray"), radius: 4)
         }
         .padding()
@@ -41,30 +41,34 @@ extension AddIngredientView {
         
         @Published var query:String = "" {
             didSet {
-                // update ingredients when new query is set
-                loadIngredientsFor(query: self.query)
+                if query.count >= 3 {
+                    // update ingredients when new query is set
+                    loadIngredientsFor(query: self.query)
+                } else {
+                    ingredients = []
+                }
             }
         }
         
         init() {
             self.ingredients = []
             
+            /*
             self.ingredients = [
                 Ingredient(name: "Carrot", id: 1, aisle: "Veg"),
                 Ingredient(name: "Carrot Juice", id: 2, aisle: "Drink"),
                 Ingredient(name: "Carrot Cake", id: 3, aisle: "Sweet"),
                 Ingredient(name: "Peas and Carrots", id: 4, aisle: "Veg")
             ]
+             */
         }
         
         // ⚠️ Change this to minimise the calls to the api
         // ⚠️ Fix the bug that stops users from searching with spaces
         private func loadIngredientsFor(query: String) {
-            if query.count >= 3 {
-                IngredientAPIService.getPossibleIngredientsFor(query: query) { (ingredients) in
-                    DispatchQueue.main.async {
-                        self.ingredients = ingredients
-                    }
+            IngredientAPIService.getPossibleIngredientsFor(query: query) { (ingredients) in
+                DispatchQueue.main.async {
+                    self.ingredients = ingredients
                 }
             }
         }
@@ -80,8 +84,7 @@ struct IngredientSearchCell:View {
     var body: some View {
         HStack {
             Text("\(index + 1)")
-                .padding(.trailing)
-                .padding(.leading, 30)
+                .padding(.trailing).padding(.leading, 30)
                 .font(.custom("HelveticaNeue-Regular", size: 18))
                 .foregroundColor(index == 0 ?
                     Color("Dark-Gray") : Color("Light-Gray"))
