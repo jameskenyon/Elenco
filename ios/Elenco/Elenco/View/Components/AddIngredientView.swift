@@ -41,12 +41,7 @@ extension AddIngredientView {
         
         @Published var query:String = "" {
             didSet {
-                if query.count >= 3 {
-                    // update ingredients when new query is set
-                    loadIngredientsFor(query: self.query)
-                } else {
-                    ingredients = []
-                }
+                loadIngredientsFor(query: query.count >= 3 ? query : "")
             }
         }
         
@@ -68,7 +63,9 @@ extension AddIngredientView {
         private func loadIngredientsFor(query: String) {
             IngredientAPIService.getPossibleIngredientsFor(query: query) { (ingredients) in
                 DispatchQueue.main.async {
-                    self.ingredients = ingredients
+                    withAnimation { () -> () in
+                        self.ingredients = ingredients
+                    }
                 }
             }
         }
