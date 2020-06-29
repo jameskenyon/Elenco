@@ -10,6 +10,7 @@
 		1A420B3024A7A14000433CC3 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A420B2F24A7A14000433CC3 /* ShadowView.swift */; };
 		8A381C3724AA1FD90023A5CD /* HelveticaNeue.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */; };
 		8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */; };
+		8A381C3D24AA86120023A5CD /* HostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A381C3C24AA86120023A5CD /* HostingView.swift */; };
 		8AAEE48424A7A3BC0025D15D /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE48324A7A3BC0025D15D /* Ingredient.swift */; };
 		8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */; };
 		8AD4BBEA24A796E900F81AAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4BBE924A796E900F81AAF /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 		1A420B2F24A7A14000433CC3 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeue.ttc; sourceTree = "<group>"; };
 		8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiBoldLabel.swift; sourceTree = "<group>"; };
+		8A381C3C24AA86120023A5CD /* HostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingView.swift; sourceTree = "<group>"; };
 		8AAEE48324A7A3BC0025D15D /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAPIService.swift; sourceTree = "<group>"; };
 		8AD4BBE624A796E900F81AAF /* Elenco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Elenco.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +150,7 @@
 			children = (
 				8AD4BBE924A796E900F81AAF /* AppDelegate.swift */,
 				8AD4BBEB24A796E900F81AAF /* SceneDelegate.swift */,
+				8A381C3C24AA86120023A5CD /* HostingView.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				8AD4BBEF24A796E900F81AAF /* Elenco.xcdatamodeld in Sources */,
 				8AD4BBEA24A796E900F81AAF /* AppDelegate.swift in Sources */,
 				8AAEE48424A7A3BC0025D15D /* Ingredient.swift in Sources */,
+				8A381C3D24AA86120023A5CD /* HostingView.swift in Sources */,
 				8AD4BBEC24A796E900F81AAF /* SceneDelegate.swift in Sources */,
 				8AD4BC0F24A7978000F81AAF /* MyListView.swift in Sources */,
 				1A420B3024A7A14000433CC3 /* ShadowView.swift in Sources */,
