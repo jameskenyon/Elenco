@@ -43,17 +43,22 @@ extension AddIngredientView {
         
         @Published var query:String = "" {
             didSet {
-                loadIngredientsFor(query: query.count >= 3 ? query : "")
+                loadIngredientsFor(query: query)
             }
         }
         
-        // ⚠️ Change this to minimise the calls to the api
         private func loadIngredientsFor(query: String) {
-            IngredientAPIService.getPossibleIngredientsFor(query: query) { (ingredients) in
-                DispatchQueue.main.async {
-                    withAnimation { () -> () in
-                        self.ingredients = ingredients
+            if query.count >= 3 {
+                IngredientAPIService.getPossibleIngredientsFor(query: query) { (ingredients) in
+                    DispatchQueue.main.async {
+                        withAnimation { () -> () in
+                            self.ingredients = ingredients
+                        }
                     }
+                }
+            } else {
+                withAnimation { () -> () in
+                    self.ingredients = []
                 }
             }
         }
