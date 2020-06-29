@@ -20,6 +20,7 @@ struct AddIngredientView: View {
                     .font(Font.custom("HelveticaNeue-Medium", size: 22))
                     .padding(15).padding(.leading)
                     .padding(.top, viewModel.ingredients.count == 0 ? 0:10)
+                    .accentColor(Color("Teal"))
                 ForEach(viewModel.ingredients.indices, id: \.self) { index in
                     IngredientSearchCell(ingredient: self.viewModel.ingredients[index], index: index)
                         .padding(.top).padding(.bottom)
@@ -47,15 +48,6 @@ extension AddIngredientView {
         
         init() {
             self.ingredients = []
-            
-            /*
-            self.ingredients = [
-                Ingredient(name: "Carrot", id: 1, aisle: "Veg"),
-                Ingredient(name: "Carrot Juice", id: 2, aisle: "Drink"),
-                Ingredient(name: "Carrot Cake", id: 3, aisle: "Sweet"),
-                Ingredient(name: "Peas and Carrots", id: 4, aisle: "Veg")
-            ]
-             */
         }
         
         // ⚠️ Change this to minimise the calls to the api
