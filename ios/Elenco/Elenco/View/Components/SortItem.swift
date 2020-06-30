@@ -19,4 +19,3 @@ enum SortType: String {
     case aisle    = "Aisle"
     case quantity = "Quantity"
 }
-
