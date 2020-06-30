@@ -24,6 +24,31 @@ internal class IngredientAPIService {
     // MARK: Public Interface
     
     /*
+     Load all of the ingredients into the app (use background thread)
+     */
+    static func configureIngredientCache() {
+        DispatchQueue.global().async {
+            if let path = Bundle.main.path(forResource: "IngredientData", ofType: "json") {
+                do {
+                    let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                    let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                    if let jsonResult = jsonResult as? [[String: AnyObject]] {
+                        for ingredient in jsonResult {
+                            if let name = ingredient["name"] as? String,
+                                let id = ingredient["id"] as? Int,
+                                let aisle = ingredient["aisle"] as? String {
+                                ingredientCache[name] = Ingredient(name: name, id: id, aisle: aisle)
+                            }
+                        }
+                    }
+                } catch {
+                    print("Error")
+                }
+            }
+        }
+    }
+    
+    /*
         Return all the possible ingredients for a given search
         Param:
             query - the name that of the ingredient that the user is searching for
