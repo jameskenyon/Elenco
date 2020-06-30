@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A20D3DF24AA401700C6633F /* IngredientsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A20D3DE24AA401700C6633F /* IngredientsListView.swift */; };
+		1A20D3E424AA490600C6633F /* IngredientListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A20D3E324AA490600C6633F /* IngredientListCell.swift */; };
+		1A20D3E624AA4D6800C6633F /* IngredientSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A20D3E524AA4D6800C6633F /* IngredientSectionHeader.swift */; };
 		1A420B3024A7A14000433CC3 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A420B2F24A7A14000433CC3 /* ShadowView.swift */; };
 		8A381C3724AA1FD90023A5CD /* HelveticaNeue.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */; };
 		8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */; };
@@ -37,6 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A20D3DE24AA401700C6633F /* IngredientsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsListView.swift; sourceTree = "<group>"; };
+		1A20D3E324AA490600C6633F /* IngredientListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListCell.swift; sourceTree = "<group>"; };
+		1A20D3E524AA4D6800C6633F /* IngredientSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientSectionHeader.swift; sourceTree = "<group>"; };
 		1A420B2F24A7A14000433CC3 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeue.ttc; sourceTree = "<group>"; };
 		8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiBoldLabel.swift; sourceTree = "<group>"; };
@@ -78,6 +84,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A20D3E024AA478D00C6633F /* IngredientsListView */ = {
+			isa = PBXGroup;
+			children = (
+				1A20D3DE24AA401700C6633F /* IngredientsListView.swift */,
+				1A20D3E524AA4D6800C6633F /* IngredientSectionHeader.swift */,
+				1A20D3E324AA490600C6633F /* IngredientListCell.swift */,
+			);
+			path = IngredientsListView;
+			sourceTree = "<group>";
+		};
 		8AD4BBDD24A796E900F81AAF = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +162,7 @@
 				8AEF2EED24A7E5FB0071C69A /* AddIngredientView.swift */,
 				8A381C3E24AB42EF0023A5CD /* MyListHeaderView.swift */,
 				8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */,
+				1A20D3E024AA478D00C6633F /* IngredientsListView */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -280,17 +297,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AD4BBEF24A796E900F81AAF /* Elenco.xcdatamodeld in Sources */,
+				1A20D3E624AA4D6800C6633F /* IngredientSectionHeader.swift in Sources */,
 				8AD4BBEA24A796E900F81AAF /* AppDelegate.swift in Sources */,
 				8AAEE48424A7A3BC0025D15D /* Ingredient.swift in Sources */,
 				8A381C4124AB44580023A5CD /* MyListData.swift in Sources */,
 				8A381C3D24AA86120023A5CD /* HostingView.swift in Sources */,
 				8A381C3F24AB42EF0023A5CD /* MyListHeaderView.swift in Sources */,
 				8AD4BBEC24A796E900F81AAF /* SceneDelegate.swift in Sources */,
+				1A20D3E424AA490600C6633F /* IngredientListCell.swift in Sources */,
 				8AD4BC0F24A7978000F81AAF /* MyListView.swift in Sources */,
 				1A420B3024A7A14000433CC3 /* ShadowView.swift in Sources */,
 				8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */,
 				8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */,
 				8AEF2EEE24A7E5FB0071C69A /* AddIngredientView.swift in Sources */,
+				1A20D3DF24AA401700C6633F /* IngredientsListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
