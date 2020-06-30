@@ -25,7 +25,7 @@ struct IngredientsListView: View {
     var body: some View {
         
         List {
-            ForEach(myListModel.getIngredientSections(), id: \.title) { section in
+            ForEach(myListModel.ingredientsSortedByName(), id: \.title) { section in
                 Section(header:
                     IngredientSectionHeader(title: section.title)
                         .padding(.top, -18)
