@@ -42,13 +42,19 @@ struct SortView: View {
 
                 HStack {
                     ForEach(sortItems, id: \.self) { item in
-                        SortViewButtonItem(type: item)
+                        SortViewButtonItem(sortItem: item)
                     }
 
                 }
             }.padding(.horizontal, 20)
         )
     }
+    
+    // Return the selected option or nil if nothing is selected
+    func getSelectedSortType() -> SortType? {
+        return sortItems.filter({ $0.isSelected }).first?.type
+    }
+    
 }
 
 
