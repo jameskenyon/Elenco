@@ -20,7 +20,7 @@ struct IngredientListCell: View {
                .frame(width: 30, height: 30)
                .padding(.leading, 15)
            
-           Text(ingredient.name)
+            Text(ingredient.name.first!.uppercased() + ingredient.name.dropFirst())
                .font(.system(size: 23, weight: .medium, design: .default))
                .padding(.horizontal, 15)
            
