@@ -14,7 +14,11 @@ internal class IngredientAPIService {
     private static let autocompleteAddress = "https://api.spoonacular.com/food/ingredients/autocomplete"
     private static let apiKey = "85c4130102284fe0ad261a1cb5dd5551"
     
+    // save [IngredientName:Ingredient]
+    private static var ingredientCache: [String: Ingredient] = [:]
+    // save [IngredientSearch: Ingredients]
     private static var ingredientListCache: [String: Ingredients] = [:]
+    // save the most recent api request query
     private static var mostRecentAPIQuery: String = ""
     
     // MARK: Public Interface
@@ -24,7 +28,6 @@ internal class IngredientAPIService {
         Param:
             query - the name that of the ingredient that the user is searching for
             numResults - the number of results to return
-            
      */
     static func getPossibleIngredientsFor(query: String, numResults: Int = 5, completion: @escaping (Ingredients)->()) {
         if let cachedList = ingredientListCache[query] {
@@ -50,6 +53,7 @@ internal class IngredientAPIService {
                                 // save details to cache and memory before returning
                                 mostRecentAPIQuery = query
                                 ingredientListCache[query] = ingredients
+                                updateIngredientCache(ingredients: ingredients)
                                 completion(ingredients)
                             }
                         }
@@ -58,6 +62,21 @@ internal class IngredientAPIService {
                 dataTask.resume()
             }
         }
+    }
+    
+    /*/
+        Return the Aisle that the ingredient belongs to, if nothing can be found then use
+        nil.
+        Param:
+            ingredientName - the name of the ingredient
+            completion - the completion closure that will contain the name of the aisle that the
+                         ingredient belongs to.
+     */
+    public static func getAisleForIngredient(ingredientName: String) -> String {
+        if let aisle = ingredientCache[ingredientName.lowercased()]?.aisle {
+            return aisle
+        }
+        return "Other"
     }
     
     // MARK: Private Interface
@@ -76,6 +95,15 @@ internal class IngredientAPIService {
             }
         }
         return returnIngredients
+    }
+    
+    /*
+     Save the new values to the ingredient cache
+     */
+    private static func updateIngredientCache(ingredients: Ingredients) {
+        for ingredient in ingredients {
+            self.ingredientCache[ingredient.name] = ingredient
+        }
     }
 
 }
