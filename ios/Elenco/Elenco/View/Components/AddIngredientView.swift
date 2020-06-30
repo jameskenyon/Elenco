@@ -25,7 +25,6 @@ struct AddIngredientView: View {
                         let name  = nameAndQuantity.0
                         let quantity = nameAndQuantity.1
                         let aisle = IngredientAPIService.getAisleForIngredient(ingredientName: name)
-                        print(name, quantity, aisle)
                         self.myListModel.addIngredient(ingredient:
                             Ingredient(name: self.searchViewModel.query, id: 0, aisle: aisle, quantity: quantity)
                         )
