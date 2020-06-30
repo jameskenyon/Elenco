@@ -72,16 +72,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1A20D3D724AA209B00C6633F /* SortViewComponents */ = {
-			isa = PBXGroup;
-			children = (
-				1A20D3D524A7E8BE00C6633F /* SortView.swift */,
-				1A20D3D824AA20D000C6633F /* SortViewButtonItem.swift */,
-				1A20D3E724AB49E900C6633F /* SortItem.swift */,
-			);
-			path = SortViewComponents;
-			sourceTree = "<group>";
-		};
 		8AD4BBDD24A796E900F81AAF = {
 			isa = PBXGroup;
 			children = (
@@ -146,7 +136,9 @@
 			isa = PBXGroup;
 			children = (
 				1A420B2F24A7A14000433CC3 /* ShadowView.swift */,
-				1A20D3D724AA209B00C6633F /* SortViewComponents */,
+				1A20D3E724AB49E900C6633F /* SortItem.swift */,
+				1A20D3D524A7E8BE00C6633F /* SortView.swift */,
+				1A20D3D824AA20D000C6633F /* SortViewButtonItem.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
