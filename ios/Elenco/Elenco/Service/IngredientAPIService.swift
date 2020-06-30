@@ -17,6 +17,8 @@ internal class IngredientAPIService {
     private static var ingredientListCache: [String: Ingredients] = [:]
     private static var mostRecentAPIQuery: String = ""
     
+    // MARK: Public Interface
+    
     /*
         Return all the possible ingredients for a given search
         Param:
@@ -57,6 +59,8 @@ internal class IngredientAPIService {
             }
         }
     }
+    
+    // MARK: Private Interface
     
     /*
      Limit the requests being sent to the api by searching through the cache.

@@ -9,9 +9,7 @@
 import SwiftUI
 
 struct MyListView: View {
-    
-    @State var numItems = 20
-    
+        
     var body: some View {
         VStack {
             MyListHeaderView()

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MyListHeaderView: View {
     
-    var numItems: Int = 20
+    @EnvironmentObject var myListModel: MyListData
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -20,11 +20,11 @@ struct MyListHeaderView: View {
                     .font(.custom("HelveticaNeue-Bold", size: 36))
                     .foregroundColor(Color.white)
                 Spacer()
-                Text("\(numItems)")
+                Text("\(self.myListModel.ingredients.count)")
                     .padding(.trailing, -5).padding(.bottom, -25).padding(.top, 60)
                     .font(.custom("HelveticaNeue-Bold", size: 36))
                     .foregroundColor(Color.white)
-                Text(numItems == 1 ? "Item":"Items")
+                Text(self.myListModel.ingredients.count == 1 ? "Item":"Items")
                 .padding(.trailing, 20).padding(.bottom, -25).padding(.top, 75)
                     .font(.custom("HelveticaNeue-Bold", size: 16))
                     .foregroundColor(Color.white)
