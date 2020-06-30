@@ -27,4 +27,33 @@ struct Ingredient: Codable, Identifiable, Hashable {
     var quantity: String?
 }
 
+extension Ingredient {
+    
+    // get an ingredient name from a
+    // Returns:
+    //        (name, quantity)
+    public static func getIngredientNameAndQuantity(searchText: String) -> (String, String) {
+        //split the string
+        let formattedSearchText = searchText.split(separator: " ")
+        var name     = ""
+        var quantity = ""
+        for text in formattedSearchText {
+            if stringContainsNumber(str: String(text)) {
+                quantity += text
+            } else {
+                name += text + " "
+            }
+        }
+        name.removeLast()
+        return (name, quantity == "" ? "Other": quantity)
+    }
+    
+    private static func stringContainsNumber(str: String) -> Bool {
+        let numberRegEx = ".*[0-9]+.*"
+        let testCase = NSPredicate(format: "SELF MATCHES %@", numberRegEx)
+        return testCase.evaluate(with: str)
+    }
+    
+}
+
 typealias Ingredients = [Ingredient]

@@ -19,11 +19,17 @@ struct AddIngredientView: View {
         VStack {
             VStack(alignment: .leading) {
                 TextField("Add Ingredient...", text: $searchViewModel.query, onCommit: {
-                    let name  = self.searchViewModel.query
-                    let aisle = IngredientAPIService.getAisleForIngredient(ingredientName: name)
-                    self.myListModel.addIngredient(ingredient:
-                        Ingredient(name: self.searchViewModel.query, id: 0, aisle: aisle, quantity: "")
-                    )
+                    if self.searchViewModel.query.trimmingCharacters(in: [" "]) != "" {
+                        let nameAndQuantity = Ingredient.getIngredientNameAndQuantity(searchText:
+                            self.searchViewModel.query)
+                        let name  = nameAndQuantity.0
+                        let quantity = nameAndQuantity.1
+                        let aisle = IngredientAPIService.getAisleForIngredient(ingredientName: name)
+                        print(name, quantity, aisle)
+                        self.myListModel.addIngredient(ingredient:
+                            Ingredient(name: self.searchViewModel.query, id: 0, aisle: aisle, quantity: quantity)
+                        )
+                    }
                 })
                     .textFieldStyle(PlainTextFieldStyle())
                     .font(Font.custom("HelveticaNeue-Medium", size: 22))
