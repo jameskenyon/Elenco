@@ -45,7 +45,7 @@ extension Ingredient {
             }
         }
         name.removeLast()
-        return (name, quantity == "" ? "Other": quantity)
+        return (name, quantity == "" ? "1": quantity)
     }
     
     private static func stringContainsNumber(str: String) -> Bool {

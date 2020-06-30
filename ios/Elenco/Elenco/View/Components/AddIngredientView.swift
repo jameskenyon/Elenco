@@ -19,16 +19,7 @@ struct AddIngredientView: View {
         VStack {
             VStack(alignment: .leading) {
                 TextField("Add Ingredient...", text: $searchViewModel.query, onCommit: {
-                    if self.searchViewModel.query.trimmingCharacters(in: [" "]) != "" {
-                        let nameAndQuantity = Ingredient.getIngredientNameAndQuantity(searchText:
-                            self.searchViewModel.query)
-                        let name  = nameAndQuantity.0
-                        let quantity = nameAndQuantity.1
-                        let aisle = IngredientAPIService.getAisleForIngredient(ingredientName: name)
-                        self.myListModel.addIngredient(ingredient:
-                            Ingredient(name: name, id: 0, aisle: aisle, quantity: quantity)
-                        )
-                    }
+                    self.userDidAddReturnOnTextField()
                 })
                     .textFieldStyle(PlainTextFieldStyle())
                     .font(Font.custom("HelveticaNeue-Medium", size: 22))
@@ -51,6 +42,33 @@ struct AddIngredientView: View {
         }
         .padding()
     }
+    
+    // Called when the user adds an ingredient by returning on the text field
+    private func userDidAddReturnOnTextField() {
+        let query = self.searchViewModel.query
+        if query.trimmingCharacters(in: [" "]) != "" {
+            if myListModel.userHasIngredient(name: query) {
+                myListModel.window.displayAlert(title: "You already have this ingredient.",
+                                                okTitle: "Add anyway") { (alert) -> (Void) in
+                                                    self.addIngredient()
+                }
+            } else {
+                addIngredient()
+            }
+        }
+    }
+    
+    private func addIngredient() {
+        let nameAndQuantity = Ingredient.getIngredientNameAndQuantity(searchText:
+                   self.searchViewModel.query)
+        let name  = nameAndQuantity.0
+        let quantity = nameAndQuantity.1
+        let aisle = IngredientAPIService.getAisleForIngredient(ingredientName: name)
+        self.myListModel.addIngredient(ingredient:
+            Ingredient(name: name, id: 0, aisle: aisle, quantity: quantity)
+        )
+    }
+    
 }
 
 extension AddIngredientView {

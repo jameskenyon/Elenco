@@ -21,18 +21,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Get the managed object context from the shared persistent container.
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
-        // data for the my list view that will be shared between subviews
-        let myListModel = MyListData()
-        
-        // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
-        // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
-        let contentView = MyListView()
-            .environment(\.managedObjectContext, context)
-            .environmentObject(myListModel)
-
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
+
+            let myListModel = MyListData(window: window)
+            
+            let contentView = MyListView()
+                .environment(\.managedObjectContext, context)
+                .environmentObject(myListModel)
+            
             window.rootViewController = DarkHostingController(rootView: contentView)
             self.window = window
             window.makeKeyAndVisible()
