@@ -30,7 +30,12 @@ class MyListData: ObservableObject {
     
     public func addIngredient(ingredient: Ingredient) {
         self.ingredients.append(ingredient)
-        self.saveIngredient(ingredinet: ingredient)
+        self.saveIngredient(ingredient: ingredient)
+    }
+    
+    public func removeIngredient(ingredient: Ingredient) {
+//        self.ingredients.removeAll(where: { $0.name == ingredient.name })
+        self.deleteIngredient(ingredient: ingredient)
     }
     
     // MARK: Private Interface
@@ -48,7 +53,12 @@ class MyListData: ObservableObject {
     }
     
     // ⚠️ save the ingredient to the core data model
-    private func saveIngredient(ingredinet: Ingredient) {
+    private func saveIngredient(ingredient: Ingredient) {
+        
+    }
+    
+    // ⚠️ remove the ingredient from the core data model
+    private func deleteIngredient(ingredient: Ingredient) {
         
     }
     
