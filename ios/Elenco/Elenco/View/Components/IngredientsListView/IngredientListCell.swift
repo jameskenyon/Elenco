@@ -26,7 +26,7 @@ struct IngredientListCell: View {
            
            Spacer()
            
-           Text("\(ingredient.id)")
+           Text("\(ingredient.quantity ?? "Other")")
            .foregroundColor(Color("Light-Gray"))
                .padding(.trailing, 15)
        }
