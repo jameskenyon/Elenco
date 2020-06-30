@@ -13,17 +13,8 @@ struct IngredientSectionHeader: View {
     var title: String
     
     var body: some View {
-//        HStack {
-//            Text(title)
-//                .foregroundColor(Color("Teal"))
-//                .font(.system(size: 25, weight: .bold, design: .default))
-//                .padding()
-//            Spacer()
-//        }.background(Color.white)
-//        .listRowInsets(EdgeInsets(top: 0,
-//        leading: 0, bottom: 0, trailing: 0)))
         HStack {
-            Text(title)
+            Text(title.uppercased())
                 .font(.system(size: 25, weight: .bold, design: .default))
                 .foregroundColor(Color("Teal"))
                 .padding(.leading, 40)

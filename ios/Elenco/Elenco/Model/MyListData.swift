@@ -37,12 +37,12 @@ class MyListData: ObservableObject {
     // ⚠️ update this to get the proper list of ingredients from CoreData
     private func loadLocalIngredientList() -> Ingredients {
         return [
-            Ingredient(name: "Carrot", id: 1, aisle: "Veg", quantity: "1kg"),
-            Ingredient(name: "Butternut Squash", id: 2, aisle: "Veg", quantity: "2kg"),
-            Ingredient(name: "Salad Leaves", id: 3, aisle: "Veg", quantity: "5"),
-            Ingredient(name: "Summer Fruits", id: 4, aisle: "Fruit", quantity: "10g"),
-            Ingredient(name: "Tangerine", id: 5, aisle: "Fruit", quantity: "1"),
-            Ingredient(name: "Toast", id: 10, aisle: "Cooked", quantity: "10"),
+            Ingredient(name: "carrot", id: 1, aisle: "Veg", quantity: "1kg"),
+            Ingredient(name: "butternut Squash", id: 2, aisle: "Veg", quantity: "2kg"),
+            Ingredient(name: "salad Leaves", id: 3, aisle: "Veg", quantity: "5"),
+            Ingredient(name: "summer Fruits", id: 4, aisle: "Fruit", quantity: "10g"),
+            Ingredient(name: "tangerine", id: 5, aisle: "Fruit", quantity: "1"),
+            Ingredient(name: "toast", id: 10, aisle: "Cooked", quantity: "10"),
         ]
     }
     
