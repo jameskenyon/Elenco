@@ -162,6 +162,9 @@
 			isa = PBXGroup;
 			children = (
 				1A420B2F24A7A14000433CC3 /* ShadowView.swift */,
+				1A20D3E724AB49E900C6633F /* SortItem.swift */,
+				1A20D3D524A7E8BE00C6633F /* SortView.swift */,
+				1A20D3D824AA20D000C6633F /* SortViewButtonItem.swift */,
 				8AEF2EED24A7E5FB0071C69A /* AddIngredientView.swift */,
 				8A381C3E24AB42EF0023A5CD /* MyListHeaderView.swift */,
 				8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */,
