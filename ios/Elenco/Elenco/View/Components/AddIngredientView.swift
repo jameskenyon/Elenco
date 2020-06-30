@@ -67,13 +67,11 @@ extension AddIngredientView {
         
         private func loadIngredientsFor(query: String) {
             // user must type at least 3 letters before beginning auto-complete
-            if query.count >= 3 {
-                IngredientAPIService.getPossibleIngredientsFor(query: query) {
-                    (ingredients) in
-                    DispatchQueue.main.async {
-                        withAnimation { () -> () in
-                            self.searchIngredients = ingredients
-                        }
+            if query.count >= 2 {
+                let results = IngredientAPIService.getPossibleIngredientsFor(query: query)
+                DispatchQueue.main.async {
+                    withAnimation { () -> () in
+                        self.searchIngredients = results
                     }
                 }
             } else {
