@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1A20D3D624A7E8BE00C6633F /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A20D3D524A7E8BE00C6633F /* SortView.swift */; };
 		1A20D3D924AA20D000C6633F /* SortViewButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A20D3D824AA20D000C6633F /* SortViewButtonItem.swift */; };
+		1A20D3E824AB49E900C6633F /* SortItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A20D3E724AB49E900C6633F /* SortItem.swift */; };
 		1A420B3024A7A14000433CC3 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A420B2F24A7A14000433CC3 /* ShadowView.swift */; };
 		8AAEE48424A7A3BC0025D15D /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE48324A7A3BC0025D15D /* Ingredient.swift */; };
 		8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		1A20D3D524A7E8BE00C6633F /* SortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortView.swift; sourceTree = "<group>"; };
 		1A20D3D824AA20D000C6633F /* SortViewButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewButtonItem.swift; sourceTree = "<group>"; };
+		1A20D3E724AB49E900C6633F /* SortItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortItem.swift; sourceTree = "<group>"; };
 		1A420B2F24A7A14000433CC3 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		8AAEE48324A7A3BC0025D15D /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAPIService.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			children = (
 				1A20D3D524A7E8BE00C6633F /* SortView.swift */,
 				1A20D3D824AA20D000C6633F /* SortViewButtonItem.swift */,
+				1A20D3E724AB49E900C6633F /* SortItem.swift */,
 			);
 			path = SortViewComponents;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				8AD4BBEF24A796E900F81AAF /* Elenco.xcdatamodeld in Sources */,
 				8AD4BBEA24A796E900F81AAF /* AppDelegate.swift in Sources */,
 				8AAEE48424A7A3BC0025D15D /* Ingredient.swift in Sources */,
+				1A20D3E824AB49E900C6633F /* SortItem.swift in Sources */,
 				8AD4BBEC24A796E900F81AAF /* SceneDelegate.swift in Sources */,
 				1A20D3D624A7E8BE00C6633F /* SortView.swift in Sources */,
 				8AD4BC0F24A7978000F81AAF /* MyListView.swift in Sources */,

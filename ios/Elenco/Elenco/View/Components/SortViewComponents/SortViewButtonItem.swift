@@ -10,14 +10,13 @@ import SwiftUI
 
 struct SortViewButtonItem: View {
     
-    var title: String
-    @State var isSelected: Bool
+    @State var sortItem: SortItem
     
     var body: some View {
         Button(action: {
-            self.isSelected = !self.isSelected
+            self.sortItem.isSelected = !self.sortItem.isSelected
         }) {
-            Text(self.title)
+            Text(self.sortItem.type.rawValue)
                 .padding(.vertical, 10)
                 .padding(.horizontal, 20)
                 .border(borderColor(), width: 3)
@@ -30,14 +29,14 @@ struct SortViewButtonItem: View {
     
     // Return border colour
     private func borderColor() -> Color {
-        return isSelected ? Color("Orange") : Color("Dark-Gray")
+        return sortItem.isSelected ? Color("Orange") : Color("Dark-Gray")
     }
     
     private func viewBackgroundColor() -> Color {
-        return isSelected ? Color("Orange") : Color(.white)
+        return sortItem.isSelected ? Color("Orange") : Color(.white)
     }
     
     private func viewTitleColor() -> Color {
-        return isSelected ? Color(.white) : Color("Dark-Gray")
+        return sortItem.isSelected ? Color(.white) : Color("Dark-Gray")
     }
 }

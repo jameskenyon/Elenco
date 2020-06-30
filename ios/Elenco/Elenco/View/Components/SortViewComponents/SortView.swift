@@ -12,6 +12,12 @@ import SwiftUI
 
 struct SortView: View {
     
+    let sortItems: [SortItem] = [
+        SortItem(type: .name, isSelected: true),
+        SortItem(type: .quantity, isSelected: false),
+        SortItem(type: .aisle, isSelected: false),
+    ]
+    
     var body: some View {
         ShadowView(width: 380, height: 140)
         .overlay(
@@ -35,9 +41,9 @@ struct SortView: View {
                     .padding(.bottom, 10)
 
                 HStack {
-                    SortViewButtonItem(title: "Name", isSelected: true)
-                    SortViewButtonItem(title: "Type", isSelected: false)
-                    SortViewButtonItem(title: "Quantity", isSelected: false)
+                    ForEach(sortItems, id: \.self) { item in
+                        SortViewButtonItem(type: item)
+                    }
 
                 }
             }.padding(.horizontal, 20)
