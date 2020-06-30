@@ -19,8 +19,10 @@ struct AddIngredientView: View {
         VStack {
             VStack(alignment: .leading) {
                 TextField("Add Ingredient...", text: $searchViewModel.query, onCommit: {
+                    let name  = self.searchViewModel.query
+                    let aisle = IngredientAPIService.getAisleForIngredient(ingredientName: name)
                     self.myListModel.addIngredient(ingredient:
-                        Ingredient(name: self.searchViewModel.query, id: 0, aisle: "", quantity: "")
+                        Ingredient(name: self.searchViewModel.query, id: 0, aisle: aisle, quantity: "")
                     )
                 })
                     .textFieldStyle(PlainTextFieldStyle())
