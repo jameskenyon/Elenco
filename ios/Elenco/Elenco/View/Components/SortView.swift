@@ -13,7 +13,7 @@ import SwiftUI
 struct SortView: View {
     @EnvironmentObject var myListModel: MyListData
     
-    let sortTypes: [SortType] = [.name, .quantity, .aisle]
+    let sortTypes: [SortType] = [.name, .aisle, .quantity]
     
     var body: some View {
         ShadowView(width: 380, height: 140)

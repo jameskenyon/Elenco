@@ -25,7 +25,7 @@ struct IngredientsListView: View {
     var body: some View {
         
         List {
-            ForEach(myListModel.ingredientsSortedByName(), id: \.title) { section in
+            ForEach(getSortedIngredientSections(), id: \.title) { section in
                 Section(header:
                     IngredientSectionHeader(title: section.title)
                         .padding(.top, -18)
@@ -37,6 +37,15 @@ struct IngredientsListView: View {
 
             }
         }.listStyle(GroupedListStyle())
+    }
+    
+    // Return ingredients sorted according to the sort view options
+    func getSortedIngredientSections() -> [IngredientSection] {
+        switch myListModel.sortType {
+        case .name:     return myListModel.ingredientsSortedByName()
+        case .quantity: return myListModel.ingredientsSortedByQuantity()
+        case .aisle:    return myListModel.ingredientsSortedByAisle()
+        }
     }
 }
 
