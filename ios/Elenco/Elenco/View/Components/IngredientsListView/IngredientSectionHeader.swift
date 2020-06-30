@@ -14,7 +14,7 @@ struct IngredientSectionHeader: View {
     
     var body: some View {
         HStack {
-            Text(title.uppercased())
+            Text((title.first?.uppercased() ?? "") + title.dropFirst())
                 .font(.system(size: 25, weight: .bold, design: .default))
                 .foregroundColor(Color("Teal"))
                 .padding(.leading, 35)
