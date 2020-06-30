@@ -68,7 +68,7 @@ extension AddIngredientView {
     }
 }
 
-struct IngredientSearchCell:View {
+struct IngredientSearchCell: View {
     
     // Properties
     var ingredient: Ingredient

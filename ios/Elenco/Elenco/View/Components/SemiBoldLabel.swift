@@ -17,11 +17,7 @@ import SwiftUI
 
 struct SemiBoldLabel: View {
     
-    private(set) var text: String {
-        didSet {
-            print(text)
-        }
-    }
+    private(set) var text: String
     private(set) var query: String
     private(set) var font: Font
     
