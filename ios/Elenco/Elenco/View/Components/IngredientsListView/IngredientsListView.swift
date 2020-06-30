@@ -63,10 +63,11 @@ struct IngredientsListView: View {
         let ingredients = myListModel.ingredients
         var sections = [IngredientSection]()
                 
-        let sectionHeaders = Set(ingredients.map({ $0.name.first! }))
+        let sectionHeaders = Set(ingredients.map({ $0.name.first?.lowercased() ?? ""}))
         
+        // Go through each section
         for header in sectionHeaders {
-            let ingredientsInSection = ingredients.filter({ $0.name.first! == header })
+            let ingredientsInSection = ingredients.filter({ $0.name.first?.lowercased() ?? "" == header })
             let section = IngredientSection(title: String(header), ingredients: ingredientsInSection)
             sections.append(section)
         }
