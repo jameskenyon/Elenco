@@ -21,30 +21,11 @@ struct IngredientsListView: View {
         UITableView.appearance().separatorStyle = .none
         UITableView.appearance().backgroundColor = .clear
     }
-    
-    
-    
-//    let ingredientSections: [IngredientSection] = [
-//        IngredientSection.init(title: "A", ingredients: [
-//            Ingredient.init(name: "Apple", id: 69, aisle: ""),
-//            Ingredient.init(name: "Avocado", id: 420, aisle: ""),
-//        ]),
-//
-//        IngredientSection.init(title: "D", ingredients: [
-//            Ingredient.init(name: "Dragon Fruit", id: 69420, aisle: ""),
-//        ]),
-//
-//        IngredientSection.init(title: "G", ingredients: [
-//            Ingredient.init(name: "Grapes", id: 42069, aisle: ""),
-//            Ingredient.init(name: "Ginger", id: 6969, aisle: ""),
-//        ]),
-//
-//    ]
-    
+
     var body: some View {
         
         List {
-            ForEach(getIngredientSections(), id: \.title) { section in
+            ForEach(myListModel.getIngredientSections(), id: \.title) { section in
                 Section(header:
                     IngredientSectionHeader(title: section.title)
                         .padding(.top, -18)
@@ -57,25 +38,6 @@ struct IngredientsListView: View {
             }
         }.listStyle(GroupedListStyle())
     }
-    
-    // Get list of ingredients in alphabetical sections
-    func getIngredientSections() -> [IngredientSection] {
-        let ingredients = myListModel.ingredients
-        var sections = [IngredientSection]()
-                
-        let sectionHeaders = Set(ingredients.map({ $0.name.first?.lowercased() ?? ""}))
-        
-        // Go through each section
-        for header in sectionHeaders {
-            let ingredientsInSection = ingredients.filter({ $0.name.first?.lowercased() ?? "" == header })
-            let section = IngredientSection(title: String(header), ingredients: ingredientsInSection)
-            sections.append(section)
-        }
-        
-        sections = sections.sorted(by: { $0.title < $1.title })
-        return sections
-    }
-    
 }
 
 struct IngredientsListView_Previews: PreviewProvider {
