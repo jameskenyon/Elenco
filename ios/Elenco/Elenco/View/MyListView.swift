@@ -9,15 +9,20 @@
 import SwiftUI
 
 struct MyListView: View {
+        
     var body: some View {
         VStack {
-            AddIngredientView()
-        }
+            MyListHeaderView()
+            Spacer()
+        }.edgesIgnoringSafeArea(.top)
     }
 }
 
+#if DEBUG
 struct MyListView_Previews: PreviewProvider {
     static var previews: some View {
         MyListView()
     }
 }
+#endif
+

@@ -10,23 +10,31 @@ import SwiftUI
 
 struct AddIngredientView: View {
 
-    @ObservedObject var viewModel = ViewModel()
+    // global observed model
+    @EnvironmentObject var myListModel: MyListData
+    // local observed model
+    @ObservedObject var searchViewModel = SearchViewModel()
     
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
-                TextField("Add Ingredient...", text: $viewModel.query)
+                TextField("Add Ingredient...", text: $searchViewModel.query, onCommit: {
+                    self.myListModel.addIngredient(ingredient:
+                        Ingredient(name: self.searchViewModel.query, id: 0, aisle: "", quantity: "")
+                    )
+                })
                     .textFieldStyle(PlainTextFieldStyle())
                     .font(Font.custom("HelveticaNeue-Medium", size: 22))
                     .padding(15).padding(.leading)
-                    .padding(.top, viewModel.ingredients.count == 0 ? 0:10)
+                    .padding(.top, searchViewModel.searchIngredients.count == 0 ? 0:10)
                     .accentColor(Color("Teal"))
-                ForEach(viewModel.ingredients.indices, id: \.self) { index in
-                    IngredientSearchCell(ingredient: self.viewModel.ingredients[index], index: index, query: self.viewModel.query)
+                ForEach(searchViewModel.searchIngredients.indices, id: \.self) { index in
+                    IngredientSearchCell(ingredient: self.searchViewModel.searchIngredients[index],
+                                         index: index, query: self.searchViewModel.query)
                         .padding(.top).padding(.bottom)
                         .background(index == 0 ? Color("Opaque-Teal"):Color.white)
                         .onTapGesture {
-                            self.viewModel.query = self.viewModel.ingredients[index].name
+                            self.searchViewModel.query = self.searchViewModel.searchIngredients[index].name
                         }
                 }
             }
@@ -40,9 +48,9 @@ struct AddIngredientView: View {
 
 extension AddIngredientView {
     
-    class ViewModel: ObservableObject {
+    class SearchViewModel: ObservableObject {
         
-        @Published private(set) var ingredients: Ingredients = []
+        @Published private(set) var searchIngredients: Ingredients = []
         
         @Published var query:String = "" {
             didSet {
@@ -51,24 +59,26 @@ extension AddIngredientView {
         }
         
         private func loadIngredientsFor(query: String) {
+            // user must type at least 3 letters before beginning auto-complete
             if query.count >= 3 {
-                IngredientAPIService.getPossibleIngredientsFor(query: query) { (ingredients) in
+                IngredientAPIService.getPossibleIngredientsFor(query: query) {
+                    (ingredients) in
                     DispatchQueue.main.async {
                         withAnimation { () -> () in
-                            self.ingredients = ingredients
+                            self.searchIngredients = ingredients
                         }
                     }
                 }
             } else {
                 withAnimation { () -> () in
-                    self.ingredients = []
+                    self.searchIngredients = []
                 }
             }
         }
     }
 }
 
-struct IngredientSearchCell:View {
+struct IngredientSearchCell: View {
     
     // Properties
     var ingredient: Ingredient
@@ -82,7 +92,8 @@ struct IngredientSearchCell:View {
                 .font(.custom("HelveticaNeue-Regular", size: 18))
                 .foregroundColor(index == 0 ?
                     Color("Dark-Gray") : Color("Light-Gray"))
-            SemiBoldLabel(text: ingredient.name.lowercased(), query: query.lowercased(), font: .custom("HelveticaNeue-Regular", size: 20))
+            SemiBoldLabel(text: ingredient.name.lowercased(), query: query.lowercased(),
+                          font: .custom("HelveticaNeue-Regular", size: 20))
             Spacer()
         }
     }

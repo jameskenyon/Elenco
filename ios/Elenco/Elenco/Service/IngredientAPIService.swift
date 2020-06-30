@@ -17,6 +17,8 @@ internal class IngredientAPIService {
     private static var ingredientListCache: [String: Ingredients] = [:]
     private static var mostRecentAPIQuery: String = ""
     
+    // MARK: Public Interface
+    
     /*
         Return all the possible ingredients for a given search
         Param:
@@ -31,7 +33,6 @@ internal class IngredientAPIService {
             if query.count >= 5 {
                 completion(getPossibleIngredientsForQueryFromCache(shortQuery: mostRecentAPIQuery, fullQuery: query))
             } else {
-                print("api request")
                 let formattedQuery = query.replacingOccurrences(of: " ", with: "%20")
                 let url = "\(autocompleteAddress)?apiKey=\(apiKey)&query=\(formattedQuery)&number=\(numResults)&metaInformation=true"
                 guard let nsUrl = NSURL(string: url) else {
@@ -58,6 +59,8 @@ internal class IngredientAPIService {
             }
         }
     }
+    
+    // MARK: Private Interface
     
     /*
      Limit the requests being sent to the api by searching through the cache.
