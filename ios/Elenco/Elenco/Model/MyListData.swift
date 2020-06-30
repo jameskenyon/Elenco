@@ -19,6 +19,7 @@ import Foundation
 class MyListData: ObservableObject {
     
     @Published private(set) var ingredients: Ingredients
+    @Published public var sortType: SortType = .name
     
     init() {
         self.ingredients = []

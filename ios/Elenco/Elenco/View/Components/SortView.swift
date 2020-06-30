@@ -11,12 +11,9 @@ import SwiftUI
 
 
 struct SortView: View {
+    @EnvironmentObject var myListModel: MyListData
     
-    let sortItems: [SortItem] = [
-        SortItem(type: .name, isSelected: true),
-        SortItem(type: .quantity, isSelected: false),
-        SortItem(type: .aisle, isSelected: false),
-    ]
+    let sortTypes: [SortType] = [.name, .quantity, .aisle]
     
     var body: some View {
         ShadowView(width: 380, height: 140)
@@ -41,20 +38,14 @@ struct SortView: View {
                     .padding(.bottom, 10)
 
                 HStack {
-                    ForEach(sortItems, id: \.self) { item in
-                        SortViewButtonItem(sortItem: item)
+                    ForEach(sortTypes, id: \.self) { type in
+                        SortViewButtonItem(type: type)
                     }
 
                 }
             }.padding(.horizontal, 20)
         )
     }
-    
-    // Return the selected option or nil if nothing is selected
-    func getSelectedSortType() -> SortType? {
-        return sortItems.filter({ $0.isSelected }).first?.type
-    }
-    
 }
 
 
