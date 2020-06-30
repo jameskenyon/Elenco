@@ -17,7 +17,7 @@ struct IngredientSectionHeader: View {
             Text(title.uppercased())
                 .font(.system(size: 25, weight: .bold, design: .default))
                 .foregroundColor(Color("Teal"))
-                .padding(.leading, 40)
+                .padding(.leading, 35)
                 .padding(.vertical, 25)
 
                 Spacer()
@@ -28,7 +28,6 @@ struct IngredientSectionHeader: View {
             leading: 0,
             bottom: 0,
             trailing: 0))
-        
     }
 }
 
