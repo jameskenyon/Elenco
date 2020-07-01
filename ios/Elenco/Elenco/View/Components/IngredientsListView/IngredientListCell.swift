@@ -55,7 +55,7 @@ struct IngredientListCell: View {
     private func toggleSelection() {
         self.selected.toggle()
         if self.selected {
-            self.myListModel.removeIngredient(ingredient: self.ingredient)
+            self.myListModel.removeFromCoreDataModel(ingredient: self.ingredient)
         } else {
             self.myListModel.saveIngredient(ingredient: self.ingredient)
         }
