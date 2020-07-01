@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /*
     
@@ -19,9 +20,11 @@ import Foundation
 class MyListData: ObservableObject {
     
     @Published private(set) var ingredients: Ingredients
+    @Published private(set) var window: UIWindow
     @Published public var sortType: SortType = .name
     
-    init() {
+    init(window: UIWindow) {
+        self.window = window
         self.ingredients = []
         self.ingredients = loadLocalIngredientList()
     }
@@ -31,6 +34,19 @@ class MyListData: ObservableObject {
     public func addIngredient(ingredient: Ingredient) {
         self.ingredients.append(ingredient)
         self.saveIngredient(ingredinet: ingredient)
+    }
+    
+    // Returns:
+    //      True if the user has this ingredient in their
+    //      list already.
+    public func userHasIngredient(name: String) -> Bool {
+        let ingredientAndQuantity = Ingredient.getIngredientNameAndQuantity(searchText: name)
+        for ingredient in ingredients {
+            if ingredient.name.lowercased() == ingredientAndQuantity.0.lowercased() {
+                return true
+            }
+        }
+        return false
     }
     
     // MARK: Private Interface
