@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 /*
     
@@ -20,10 +21,12 @@ import SwiftUI
 class MyListData: ObservableObject {
     
     @Published private(set) var ingredients: Ingredients
+    @Published private(set) var window: UIWindow
     @Published public var sortType: SortType = .name
     private let ingredientsDataModel = IngredientDataModel()
     
-    init() {
+    init(window: UIWindow) {
+        self.window = window
         self.ingredients = []
         loadLocalIngredientList()
     }
@@ -40,6 +43,19 @@ class MyListData: ObservableObject {
         ingredientsDataModel.save(ingredient: ingredient) { (error) in
             if let error = error { print(error.localizedDescription) }
         }
+    }
+    
+    // Returns:
+    //      True if the user has this ingredient in their
+    //      list already.
+    public func userHasIngredient(name: String) -> Bool {
+        let ingredientAndQuantity = Ingredient.getIngredientNameAndQuantity(searchText: name)
+        for ingredient in ingredients {
+            if ingredient.name.lowercased() == ingredientAndQuantity.0.lowercased() {
+                return true
+            }
+        }
+        return false
     }
     
     // remove the ingredient from the core data model
@@ -62,12 +78,12 @@ class MyListData: ObservableObject {
 
 // MARK: - Sort Ingredient Data
 extension MyListData {
-    
+
     // Return ingredients sorted into alphabetical sections
     public func ingredientsSortedByName() -> [IngredientSection] {
         var sections = [IngredientSection]()
         let sectionHeaders = Set(ingredients.map({ $0.name.first?.lowercased() ?? ""}))
-        
+
         // Filter ingredients in each section
         for header in sectionHeaders {
             let ingredientsInSection = ingredients.filter({ $0.name.first?.lowercased() ?? "" == header })
@@ -77,11 +93,11 @@ extension MyListData {
         sections = sections.sorted(by: { $0.title < $1.title })
         return sections
     }
-    
+
     // Return ingredients sorted into sections based on their ailse(type) e.g. Veg, Meat
     public func ingredientsSortedByAisle() -> [IngredientSection] {
         var sections = [IngredientSection]()
-                
+
         let sectionHeaders = Set(ingredients.map({ $0.aisle}))
 
         // Go through each section
@@ -94,7 +110,7 @@ extension MyListData {
         sections = sections.sorted(by: { $0.title < $1.title })
         return sections
     }
-    
+
     // Return ingredients sorted by quantity
     public func ingredientsSortedByQuantity() -> [IngredientSection] {
         let sortedIngredients = ingredients.sorted(by: { $0.quantity ?? "" > $1.quantity ?? ""})
