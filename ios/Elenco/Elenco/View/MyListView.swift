@@ -14,6 +14,8 @@ struct MyListView: View {
         VStack {
             MyListHeaderView()
             Spacer()
+            SortView()
+                .padding(.top, 15)
             IngredientsListView()
                 .padding(.top, 15)
         }.edgesIgnoringSafeArea(.top)

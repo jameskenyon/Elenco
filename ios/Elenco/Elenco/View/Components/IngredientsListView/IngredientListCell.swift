@@ -18,7 +18,7 @@ struct IngredientListCell: View {
                .stroke(Color("Orange"), lineWidth: 2)
                .foregroundColor(.clear)
                .frame(width: 30, height: 30)
-               .padding(.leading, 15)
+               .padding(.leading, 10)
            
             Text((ingredient.name.first?.uppercased() ?? "") + ingredient.name.dropFirst())
                .font(.system(size: 23, weight: .medium, design: .default))

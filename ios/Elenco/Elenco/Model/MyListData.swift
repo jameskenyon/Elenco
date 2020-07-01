@@ -21,6 +21,7 @@ class MyListData: ObservableObject {
     
     @Published private(set) var ingredients: Ingredients
     @Published private(set) var window: UIWindow
+    @Published public var sortType: SortType = .name
     
     init(window: UIWindow) {
         self.window = window
@@ -67,4 +68,46 @@ class MyListData: ObservableObject {
         
     }
     
+}
+
+// MARK: - Sort Ingredient Data
+extension MyListData {
+    
+    // Return ingredients sorted into alphabetical sections
+    public func ingredientsSortedByName() -> [IngredientSection] {
+        var sections = [IngredientSection]()
+        let sectionHeaders = Set(ingredients.map({ $0.name.first?.lowercased() ?? ""}))
+        
+        // Filter ingredients in each section
+        for header in sectionHeaders {
+            let ingredientsInSection = ingredients.filter({ $0.name.first?.lowercased() ?? "" == header })
+            let section = IngredientSection(title: String(header), ingredients: ingredientsInSection)
+            sections.append(section)
+        }
+        sections = sections.sorted(by: { $0.title < $1.title })
+        return sections
+    }
+    
+    // Return ingredients sorted into sections based on their ailse(type) e.g. Veg, Meat
+    public func ingredientsSortedByAisle() -> [IngredientSection] {
+        var sections = [IngredientSection]()
+                
+        let sectionHeaders = Set(ingredients.map({ $0.aisle}))
+
+        // Go through each section
+        for header in sectionHeaders {
+            let ingredientsInSection = ingredients.filter({ $0.aisle == header })
+            let section = IngredientSection(title: String(header), ingredients: ingredientsInSection)
+            sections.append(section)
+        }
+
+        sections = sections.sorted(by: { $0.title < $1.title })
+        return sections
+    }
+    
+    // Return ingredients sorted by quantity
+    public func ingredientsSortedByQuantity() -> [IngredientSection] {
+        let sortedIngredients = ingredients.sorted(by: { $0.quantity ?? "" > $1.quantity ?? ""})
+        return [IngredientSection(title: "", ingredients: sortedIngredients)]
+    }
 }
