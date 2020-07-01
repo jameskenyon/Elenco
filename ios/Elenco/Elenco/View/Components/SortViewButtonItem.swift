@@ -21,11 +21,13 @@ struct SortViewButtonItem: View {
             Text(self.type.rawValue)
                 .padding(.vertical, 10)
                 .padding(.horizontal, 20)
-                .border(borderColor(), width: 3)
-                .font(.system(size: 20))
+                .font(.custom("HelveticaNeue-Medium", size: 22))
                 .foregroundColor(viewTitleColor())
                 .background(viewBackgroundColor())
-                .cornerRadius(5)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(borderColor(), lineWidth: 2)
+                )
         }
     }
     
@@ -36,7 +38,7 @@ struct SortViewButtonItem: View {
     
     // Return border colour
     private func borderColor() -> Color {
-        return isSelected() ? Color("Orange") : Color("Dark-Gray")
+        return isSelected() ? Color("Orange") : Color("Light-Gray")
     }
     
     private func viewBackgroundColor() -> Color {
@@ -44,6 +46,14 @@ struct SortViewButtonItem: View {
     }
     
     private func viewTitleColor() -> Color {
-        return isSelected() ? Color(.white) : Color("Dark-Gray")
+        return isSelected() ? Color(.white) : Color("Light-Gray")
     }
 }
+
+#if DEBUG
+struct SortViewButtonItem_Previews: PreviewProvider {
+    static var previews: some View {
+        SortViewButtonItem(type: .aisle).environmentObject(MyListData(window: UIWindow()))
+    }
+}
+#endif
