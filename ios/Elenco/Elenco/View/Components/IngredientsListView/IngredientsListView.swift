@@ -54,6 +54,7 @@ struct IngredientsListView: View {
         case .name:     return myListModel.ingredientsSortedByName()
         case .quantity: return myListModel.ingredientsSortedByQuantity()
         case .aisle:    return myListModel.ingredientsSortedByAisle()
+        case .none:     return myListModel.ingredientsSortedByNone()
         }
     }
     

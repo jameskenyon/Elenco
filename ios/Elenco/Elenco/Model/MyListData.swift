@@ -122,4 +122,9 @@ extension MyListData {
         let sortedIngredients = ingredients.sorted(by: { $0.quantity ?? "" > $1.quantity ?? ""})
         return [IngredientSection(title: "", ingredients: sortedIngredients)]
     }
+    
+    // Return array of unsorted ingredients in a single section
+    public func ingredientsSortedByNone() -> [IngredientSection] {
+        return [IngredientSection(title: "", ingredients: ingredients)]
+    }
 }

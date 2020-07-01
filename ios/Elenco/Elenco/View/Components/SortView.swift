@@ -15,7 +15,7 @@ struct SortView: View {
     @EnvironmentObject var myListModel: MyListData
     @State var sortViewIsVisible: Bool = false
     
-    let sortTypes: [SortType] = [.name, .aisle, .quantity]
+    let sortTypes: [SortType] = [.name, .aisle, .quantity, .none]
     
     var body: some View {
         VStack {

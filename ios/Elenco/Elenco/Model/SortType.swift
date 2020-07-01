@@ -12,4 +12,5 @@ public enum SortType: String {
     case name     = "Name"
     case aisle    = "Aisle"
     case quantity = "Quantity"
+    case none     = "None"
 }
