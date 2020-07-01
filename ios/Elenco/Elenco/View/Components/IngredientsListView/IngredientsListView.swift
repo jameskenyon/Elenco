@@ -23,20 +23,25 @@ struct IngredientsListView: View {
     }
 
     var body: some View {
-        
-        List {
-            ForEach(getSortedIngredientSections(), id: \.title) { section in
-                Section(header:
-                    IngredientSectionHeader(title: section.title)
-                        .padding(.top, -18)
-                ) {
-                    ForEach(section.ingredients, id: \.name) { ingredient in
-                        IngredientListCell(ingredient: ingredient)
+        ZStack {
+            List {
+                ForEach(getSortedIngredientSections(), id: \.title) { section in
+                    Section(header:
+                        IngredientSectionHeader(title: section.title)
+                            .padding(.top, -18)
+                    ) {
+                        ForEach(section.ingredients, id: \.name) { ingredient in
+                            IngredientListCell(ingredient: ingredient)
+                        }
                     }
-                }
 
-            }
-        }.listStyle(GroupedListStyle())
+                }
+            }.listStyle(GroupedListStyle())
+            
+            Text("Sorry you have no items")
+                .foregroundColor(myListModel.ingredients.isEmpty ? Color("Dark-Gray") : .clear)
+        }
+        
     }
     
     // Return ingredients sorted according to the sort view options
