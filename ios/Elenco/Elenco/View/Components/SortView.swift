@@ -13,7 +13,7 @@ import SwiftUI
 struct SortView: View {
     
     @EnvironmentObject var myListModel: MyListData
-    @State var sortViewIsVisible: Bool = true
+    @State var sortViewIsVisible: Bool = false
     
     let sortTypes: [SortType] = [.name, .aisle, .quantity]
     
