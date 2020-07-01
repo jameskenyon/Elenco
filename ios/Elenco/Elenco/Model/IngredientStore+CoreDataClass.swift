@@ -1,5 +1,5 @@
 //
-//  IngredientData+CoreDataClass.swift
+//  IngredientStore+CoreDataClass.swift
 //  Elenco
 //
 //  Created by James Bernhardt on 01/07/2020.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(IngredientData)
-public class IngredientData: NSManagedObject {
+@objc(IngredientStore)
+public class IngredientStore: NSManagedObject {
 
 }

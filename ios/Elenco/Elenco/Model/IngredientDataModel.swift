@@ -12,12 +12,15 @@ import UIKit
 
 class IngredientDataModel: ObservableObject {
     
+    // MARK: - Properties
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     @Published var ingredients = Ingredients()
     
+    // MARK: - Fetch Methods
+    
     // Fetch Ingredients
     public func fetchIngredients(completion: (Error?)->()) {
-        let request: NSFetchRequest<IngredientData> = IngredientData.fetchRequest()
+        let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
         do {
             let ingredientsEntities = try context.fetch(request)
             self.ingredients = ingredientsEntities.map({ $0.ingredientFromSelf() })
@@ -27,9 +30,11 @@ class IngredientDataModel: ObservableObject {
         }
     }
     
+    // MARK: - Update Methods
+    
     // Save Ingredient to core data model
     public func save(ingredient: Ingredient, completion: (Error?) -> ()) {
-        let ingredientData = IngredientData(context: context)
+        let ingredientData = IngredientStore(context: context)
         ingredientData.name     = ingredient.name
         ingredientData.aisle    = ingredient.aisle
         ingredientData.quantity = ingredient.quantity
@@ -44,7 +49,7 @@ class IngredientDataModel: ObservableObject {
     
     // Delete ingredient from data model
     public func delete(ingredient: Ingredient, completion: (Error?)->()) {
-        let request: NSFetchRequest<IngredientData> = IngredientData.fetchRequest()
+        let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
         request.predicate = NSPredicate(format: "name == %@", ingredient.name)
         do {
             guard let ingredientsEntity = try context.fetch(request).first else { return }

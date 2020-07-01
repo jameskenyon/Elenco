@@ -60,7 +60,6 @@ struct IngredientListCell: View {
             self.myListModel.saveIngredient(ingredient: self.ingredient)
         }
     }
-    
 }
 
 struct IngredientListCell_Previews: PreviewProvider {

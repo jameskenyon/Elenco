@@ -35,34 +35,29 @@ class MyListData: ObservableObject {
         self.saveIngredient(ingredient: ingredient)
     }
     
-    public func removeIngredient(ingredient: Ingredient) {
-        self.deleteIngredient(ingredient: ingredient)
-    }
-    
-    // MARK: Private Interface
-    
-    // ⚠️ update this to get the proper list of ingredients from CoreData
-    private func loadLocalIngredientList() {
-        ingredientsDataModel.fetchIngredients { (error) in
-            if let error = error { print(error.localizedDescription) }
-            self.ingredients = ingredientsDataModel.ingredients
-        }
-    }
-    
-    // ⚠️ save the ingredient to the core data model
+    // save the ingredient to the core data model
     public func saveIngredient(ingredient: Ingredient) {
         ingredientsDataModel.save(ingredient: ingredient) { (error) in
             if let error = error { print(error.localizedDescription) }
         }
     }
     
-    // ⚠️ remove the ingredient from the core data model
-    private func deleteIngredient(ingredient: Ingredient) {
+    // remove the ingredient from the core data model
+    public func removeIngredient(ingredient: Ingredient) {
         ingredientsDataModel.delete(ingredient: ingredient) { (error) in
             if let error = error { print(error.localizedDescription) }
         }
     }
     
+    // MARK: Private Interface
+    
+    // update this to get the proper list of ingredients from CoreData
+    private func loadLocalIngredientList() {
+        ingredientsDataModel.fetchIngredients { (error) in
+            if let error = error { print(error.localizedDescription) }
+            self.ingredients = ingredientsDataModel.ingredients
+        }
+    }
 }
 
 // MARK: - Sort Ingredient Data
