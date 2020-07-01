@@ -33,9 +33,13 @@ struct IngredientsListView: View {
                         ForEach(section.ingredients, id: \.name) { ingredient in
                             IngredientListCell(ingredient: ingredient)
                         }
+                        .onDelete { (indexSet) in
+                            guard let index = indexSet.first else { return }
+                            self.removeIngredient(atSection: section, index: index)
+                        }
                     }
-
                 }
+                
             }.listStyle(GroupedListStyle())
             
             Text("Sorry you have no items")
@@ -50,6 +54,14 @@ struct IngredientsListView: View {
         case .name:     return myListModel.ingredientsSortedByName()
         case .quantity: return myListModel.ingredientsSortedByQuantity()
         case .aisle:    return myListModel.ingredientsSortedByAisle()
+        }
+    }
+    
+    // Work out which section and row ingredient is in and remove from list
+    func removeIngredient(atSection section: IngredientSection, index: Int) {
+        let sections = self.getSortedIngredientSections().filter({ $0.title == section.title}).first
+        if let ingredient = sections?.ingredients[index] {
+            self.myListModel.deleteIngredient(ingredient: ingredient)
         }
     }
 }

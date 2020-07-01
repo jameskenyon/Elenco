@@ -59,10 +59,16 @@ class MyListData: ObservableObject {
     }
     
     // remove the ingredient from the core data model
-    public func removeIngredient(ingredient: Ingredient) {
+    public func removeFromCoreDataModel(ingredient: Ingredient) {
         ingredientsDataModel.delete(ingredient: ingredient) { (error) in
             if let error = error { print(error.localizedDescription) }
         }
+    }
+    
+    // remove the ingredient from ingredients array and remove from coredata
+    public func deleteIngredient(ingredient: Ingredient) {
+        ingredients.removeAll(where: { $0.name == ingredient.name })
+        removeFromCoreDataModel(ingredient: ingredient)
     }
     
     // MARK: Private Interface
