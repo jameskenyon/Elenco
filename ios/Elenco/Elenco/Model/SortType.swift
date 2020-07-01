@@ -8,13 +8,7 @@
 
 import Foundation
 
-struct SortItem: Hashable {
-    var type: SortType
-    var isSelected: Bool
-    
-}
-
-enum SortType: String {
+public enum SortType: String {
     case name     = "Name"
     case aisle    = "Aisle"
     case quantity = "Quantity"
