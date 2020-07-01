@@ -10,15 +10,23 @@ import SwiftUI
 
 struct IngredientListCell: View {
     
+    @EnvironmentObject var myListModel: MyListData
     var ingredient: Ingredient
+    @State private var selected = false
     
     var body: some View {
         HStack {
-           Circle()
-               .stroke(Color("Orange"), lineWidth: 2)
-               .foregroundColor(.clear)
-               .frame(width: 30, height: 30)
-               .padding(.leading, 10)
+           
+            Circle()
+                .stroke(Color("Orange"), lineWidth: 2)
+                .frame(width: 30, height: 30)
+                .padding(.leading, 10)
+                .overlay(
+                    Circle()
+                    .fill(cellColor())
+                    .frame(width: 30, height: 30)
+                    .padding(.leading, 10)
+            )
            
             Text((ingredient.name.first?.uppercased() ?? "") + ingredient.name.dropFirst())
                .font(.system(size: 23, weight: .medium, design: .default))
@@ -30,8 +38,28 @@ struct IngredientListCell: View {
            .foregroundColor(Color("Light-Gray"))
                .padding(.trailing, 15)
        }
+        .onTapGesture {
+            self.toggleSelection()
+        }
     }
     
+    private func cellColor() -> Color {        
+        return selected ? Color("Orange") : .clear
+    }
+    
+    /*
+        When ingredient is checked off it is removed from core data
+        When ingredient is unchecked off save it back to core data
+ 
+     */
+    private func toggleSelection() {
+        self.selected.toggle()
+        if self.selected {
+            self.myListModel.removeIngredient(ingredient: self.ingredient)
+        } else {
+            self.myListModel.saveIngredient(ingredient: self.ingredient)
+        }
+    }
 }
 
 struct IngredientListCell_Previews: PreviewProvider {
