@@ -44,9 +44,7 @@ struct IngredientListCell: View {
         }
     }
     
-    private func cellColor() -> Color {
-        print(selected)
-        
+    private func cellColor() -> Color {        
         return selected ? Color("Orange") : .clear
     }
     

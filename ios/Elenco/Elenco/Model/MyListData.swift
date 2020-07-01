@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 /*
     
@@ -20,10 +21,11 @@ class MyListData: ObservableObject {
     
     @Published private(set) var ingredients: Ingredients
     @Published public var sortType: SortType = .name
+    private let ingredientsDataModel = IngredientDataModel()
     
     init() {
         self.ingredients = []
-        self.ingredients = loadLocalIngredientList()
+        loadLocalIngredientList()
     }
     
     // MARK: Public Interface
@@ -41,20 +43,18 @@ class MyListData: ObservableObject {
     // MARK: Private Interface
     
     // ⚠️ update this to get the proper list of ingredients from CoreData
-    private func loadLocalIngredientList() -> Ingredients {
-        return [
-            Ingredient(name: "carrot", id: 1, aisle: "Veg", quantity: "1kg"),
-            Ingredient(name: "butternut Squash", id: 2, aisle: "Veg", quantity: "2kg"),
-            Ingredient(name: "salad Leaves", id: 3, aisle: "Veg", quantity: "5"),
-            Ingredient(name: "summer Fruits", id: 4, aisle: "Fruit", quantity: "10g"),
-            Ingredient(name: "tangerine", id: 5, aisle: "Fruit", quantity: "1"),
-            Ingredient(name: "toast", id: 10, aisle: "Cooked", quantity: "10"),
-        ]
+    private func loadLocalIngredientList() {
+        ingredientsDataModel.fetchIngredients { (error) in
+            if let error = error { print(error.localizedDescription) }
+            self.ingredients = ingredientsDataModel.ingredients
+        }
     }
     
     // ⚠️ save the ingredient to the core data model
     private func saveIngredient(ingredient: Ingredient) {
-        
+        ingredientsDataModel.save(ingredient: ingredient) { (error) in
+            if let error = error { print(error.localizedDescription) }
+        }
     }
     
     // ⚠️ remove the ingredient from the core data model
