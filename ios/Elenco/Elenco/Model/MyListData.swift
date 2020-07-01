@@ -36,7 +36,6 @@ class MyListData: ObservableObject {
     }
     
     public func removeIngredient(ingredient: Ingredient) {
-//        self.ingredients.removeAll(where: { $0.name == ingredient.name })
         self.deleteIngredient(ingredient: ingredient)
     }
     
@@ -51,7 +50,7 @@ class MyListData: ObservableObject {
     }
     
     // ⚠️ save the ingredient to the core data model
-    private func saveIngredient(ingredient: Ingredient) {
+    public func saveIngredient(ingredient: Ingredient) {
         ingredientsDataModel.save(ingredient: ingredient) { (error) in
             if let error = error { print(error.localizedDescription) }
         }

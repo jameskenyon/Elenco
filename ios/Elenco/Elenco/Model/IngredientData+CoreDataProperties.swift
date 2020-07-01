@@ -26,6 +26,6 @@ extension IngredientData {
 // MARK: - Get Ingredient from ingredient core data object
 extension IngredientData {
     func ingredientFromSelf() -> Ingredient {
-        return Ingredient(name: self.name ?? "", id: 69, aisle: self.aisle ?? "", quantity: self.quantity)
+        return Ingredient(name: self.name ?? "", id: 0, aisle: self.aisle ?? "", quantity: self.quantity)
     }
 }

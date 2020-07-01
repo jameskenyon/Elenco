@@ -39,8 +39,7 @@ struct IngredientListCell: View {
                .padding(.trailing, 15)
        }
         .onTapGesture {
-            self.myListModel.removeIngredient(ingredient: self.ingredient)
-            self.selected.toggle()
+            self.toggleSelection()
         }
     }
     
@@ -48,21 +47,19 @@ struct IngredientListCell: View {
         return selected ? Color("Orange") : .clear
     }
     
-//    private func setCircle() -> Circle {
-//        if selected {
-//            let circle = Circle()
-//                .frame(width: 30, height: 30)
-//                .padding(.leading, 10)
-//                .fill(cellColor())
-//            return circle
-//        } else {
-//            let circle = Circle()
-//                .frame(width: 30, height: 30)
-//                .padding(.leading, 10)
-//                .stroke(Color("Orange"), lineWidth: 2)
-//            return circle
-//        }
-//    }
+    /*
+        When ingredient is checked off it is removed from core data
+        When ingredient is unchecked off save it back to core data
+ 
+     */
+    private func toggleSelection() {
+        self.selected.toggle()
+        if self.selected {
+            self.myListModel.removeIngredient(ingredient: self.ingredient)
+        } else {
+            self.myListModel.saveIngredient(ingredient: self.ingredient)
+        }
+    }
     
 }
 
