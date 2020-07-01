@@ -59,7 +59,9 @@ class MyListData: ObservableObject {
     
     // ⚠️ remove the ingredient from the core data model
     private func deleteIngredient(ingredient: Ingredient) {
-        
+        ingredientsDataModel.delete(ingredient: ingredient) { (error) in
+            if let error = error { print(error.localizedDescription) }
+        }
     }
     
 }

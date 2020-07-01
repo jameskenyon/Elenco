@@ -39,7 +39,7 @@ struct IngredientListCell: View {
                .padding(.trailing, 15)
        }
         .onTapGesture {
-//            self.myListModel.removeIngredient(ingredient: self.ingredient)
+            self.myListModel.removeIngredient(ingredient: self.ingredient)
             self.selected.toggle()
         }
     }

@@ -13,12 +13,11 @@ import UIKit
 class IngredientDataModel: ObservableObject {
     
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var ingredients = Ingredients()
+    @Published var ingredients = Ingredients()
     
     // Fetch Ingredients
     public func fetchIngredients(completion: (Error?)->()) {
         let request: NSFetchRequest<IngredientData> = IngredientData.fetchRequest()
-        
         do {
             let ingredientsEntities = try context.fetch(request)
             self.ingredients = ingredientsEntities.map({ $0.ingredientFromSelf() })
@@ -36,6 +35,20 @@ class IngredientDataModel: ObservableObject {
         ingredientData.quantity = ingredient.quantity
 
         do {
+            try context.save()
+            completion(nil)
+        } catch (let error) {
+            completion(error)
+        }
+    }
+    
+    // Delete ingredient from data model
+    public func delete(ingredient: Ingredient, completion: (Error?)->()) {
+        let request: NSFetchRequest<IngredientData> = IngredientData.fetchRequest()
+        request.predicate = NSPredicate(format: "name == %@", ingredient.name)
+        do {
+            guard let ingredientsEntity = try context.fetch(request).first else { return }
+            context.delete(ingredientsEntity)
             try context.save()
             completion(nil)
         } catch (let error) {
