@@ -16,27 +16,29 @@ struct IngredientListCell: View {
     
     var body: some View {
         HStack {
-           
             Circle()
                 .stroke(Color("Orange"), lineWidth: 2)
                 .frame(width: 30, height: 30)
                 .padding(.leading, 10)
                 .overlay(
                     Circle()
-                    .fill(cellColor())
-                    .frame(width: 30, height: 30)
-                    .padding(.leading, 10)
+                        .fill(cellColor())
+                        .frame(width: 30, height: 30)
+                        .padding(.leading, 10)
             )
            
             Text((ingredient.name.first?.uppercased() ?? "") + ingredient.name.dropFirst())
-               .font(.system(size: 23, weight: .medium, design: .default))
-               .padding(.horizontal, 15)
+                .strikethrough(selected, color: Color("Dark-Gray"))
+                .font(.system(size: 23, weight: .medium, design: .default))
+                .padding(.horizontal, 15)
+                .foregroundColor(selected ? Color("Light-Gray") : Color.black)
            
            Spacer()
            
            Text("\(ingredient.quantity ?? "Other")")
-           .foregroundColor(Color("Light-Gray"))
-               .padding(.trailing, 15)
+                .foregroundColor(Color("Light-Gray"))
+                .strikethrough(selected, color: Color("Dark-Gray"))
+                .padding(.trailing, 15)
        }
         .onTapGesture {
             self.toggleSelection()
@@ -50,7 +52,6 @@ struct IngredientListCell: View {
     /*
         When ingredient is checked off it is removed from core data
         When ingredient is unchecked off save it back to core data
- 
      */
     private func toggleSelection() {
         self.selected.toggle()
@@ -64,6 +65,6 @@ struct IngredientListCell: View {
 
 struct IngredientListCell_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientListCell(ingredient: Ingredient(name: "James", id: 69, aisle: ""))
+        IngredientListCell(ingredient: Ingredient(name: "James", id: 0, aisle: ""))
     }
 }
