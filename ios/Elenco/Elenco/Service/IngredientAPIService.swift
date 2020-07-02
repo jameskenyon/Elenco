@@ -80,8 +80,17 @@ internal class IngredientAPIService {
                          ingredient belongs to.
      */
     public static func getAisleForIngredient(ingredientName: String) -> String {
-        if let aisle = ingredientCache[ingredientName.lowercased()]?.aisle {
+        var name = ingredientName.lowercased()
+        if let aisle = ingredientCache[name]?.aisle {
             return aisle
+        } else {
+            if ingredientName.count >= 2 {
+                // remove last letter and check as might be 's'
+                name.removeLast()
+                if let aisle = ingredientCache[name]?.aisle {
+                    return aisle
+                }
+            }
         }
         return "Other"
     }
