@@ -119,12 +119,28 @@ extension MyListData {
 
     // Return ingredients sorted by quantity
     public func ingredientsSortedByQuantity() -> [IngredientSection] {
-        let sortedIngredients = ingredients.sorted(by: { $0.quantity ?? "" > $1.quantity ?? ""})
+        let sortedIngredients = ingredients.sorted { (ingredientOne, ingredientTwo) -> Bool in
+            let ingredientOneDigits = getDigits(fromString: ingredientOne.quantity ?? "")
+            let ingredientTwoDigits = getDigits(fromString: ingredientTwo.quantity ?? "")
+            if Int(ingredientOne.quantity ?? "") != nil && Int(ingredientTwo.quantity ?? "") == nil {
+                return true
+            }
+            if Int(ingredientOne.quantity ?? "") == nil && Int(ingredientTwo.quantity ?? "") != nil {
+                return false
+            }
+            return ingredientOneDigits > ingredientTwoDigits
+        }
         return [IngredientSection(title: "", ingredients: sortedIngredients)]
     }
     
     // Return array of unsorted ingredients in a single section
     public func ingredientsSortedByNone() -> [IngredientSection] {
         return [IngredientSection(title: "", ingredients: ingredients)]
+    }
+    
+    // Return int from inside a string - when theres no int return 0
+    private func getDigits(fromString string: String) -> Int {
+        let stringDigit = string.components(separatedBy: CharacterSet.decimalDigits.inverted).first ?? ""
+        return Int(stringDigit) ?? 0
     }
 }
