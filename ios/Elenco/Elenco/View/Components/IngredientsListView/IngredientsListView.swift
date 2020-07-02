@@ -41,11 +41,7 @@ struct IngredientsListView: View {
                 }
                 
             }.listStyle(GroupedListStyle())
-            
-            Text("Sorry you have no items")
-                .foregroundColor(myListModel.ingredients.isEmpty ? Color("Dark-Gray") : .clear)
         }
-        
     }
     
     // Return ingredients sorted according to the sort view options
