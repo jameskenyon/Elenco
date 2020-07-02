@@ -35,6 +35,7 @@
 		8AD4BBF924A796EF00F81AAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AD4BBF724A796EF00F81AAF /* LaunchScreen.storyboard */; };
 		8AD4BC0424A796F000F81AAF /* ElencoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4BC0324A796F000F81AAF /* ElencoTests.swift */; };
 		8AD4BC0F24A7978000F81AAF /* MyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4BC0E24A7978000F81AAF /* MyListView.swift */; };
+		8AE34E0824AD1AE2004651B5 /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE34E0724AD1AE2004651B5 /* EmptyListView.swift */; };
 		8AEF2EEE24A7E5FB0071C69A /* AddIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2EED24A7E5FB0071C69A /* AddIngredientView.swift */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		8AD4BC0324A796F000F81AAF /* ElencoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElencoTests.swift; sourceTree = "<group>"; };
 		8AD4BC0524A796F000F81AAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AD4BC0E24A7978000F81AAF /* MyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListView.swift; sourceTree = "<group>"; };
+		8AE34E0724AD1AE2004651B5 /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		8AEF2EED24A7E5FB0071C69A /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,6 +201,7 @@
 				8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */,
 				1A49CE0324AB8B6900153D12 /* SortViewButtonItem.swift */,
 				1A49CE0524AB8B8900153D12 /* SortView.swift */,
+				8AE34E0724AD1AE2004651B5 /* EmptyListView.swift */,
 				1A20D3E024AA478D00C6633F /* IngredientsListView */,
 			);
 			path = Components;
@@ -358,6 +361,7 @@
 				8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */,
 				8AEF2EEE24A7E5FB0071C69A /* AddIngredientView.swift in Sources */,
 				1A20D3DF24AA401700C6633F /* IngredientsListView.swift in Sources */,
+				8AE34E0824AD1AE2004651B5 /* EmptyListView.swift in Sources */,
 				1A17AA7424ACB17B00893676 /* IngredientStore+CoreDataProperties.swift in Sources */,
 				8AC3729924AB9E05002699F2 /* UIWindow.swift in Sources */,
 				1A49CE0624AB8B8900153D12 /* SortView.swift in Sources */,
