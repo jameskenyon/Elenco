@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MyListView: View {
         
-    @EnvironmentObject var myListModel: MyListData
+    @EnvironmentObject var myListModel: MyListDataModel
     
     var body: some View {
         VStack {
@@ -45,7 +45,7 @@ struct MyListView: View {
 #if DEBUG
 struct MyListView_Previews: PreviewProvider {
     static var previews: some View {
-        MyListView().environmentObject(MyListData(window: UIWindow()))
+        MyListView().environmentObject(MyListDataModel(window: UIWindow()))
     }
 }
 #endif

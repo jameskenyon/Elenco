@@ -10,20 +10,24 @@ import SwiftUI
 
 struct MyListHeaderView: View {
     
-    @EnvironmentObject var myListModel: MyListData
+    @EnvironmentObject var myListModel: MyListDataModel
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
+                
                 Text("My List")
                     .padding(.leading, 20).padding(.bottom, -25).padding(.top, 60)
                     .font(.custom("HelveticaNeue-Bold", size: 36))
                     .foregroundColor(Color.white)
+                
                 Spacer()
+                
                 Text("\(self.myListModel.ingredients.count)")
                     .padding(.trailing, -5).padding(.bottom, -25).padding(.top, 60)
                     .font(.custom("HelveticaNeue-Bold", size: 36))
                     .foregroundColor(Color.white)
+                
                 Text(self.myListModel.ingredients.count == 1 ? "Item":"Items")
                 .padding(.trailing, 20).padding(.bottom, -25).padding(.top, 75)
                     .font(.custom("HelveticaNeue-Bold", size: 16))

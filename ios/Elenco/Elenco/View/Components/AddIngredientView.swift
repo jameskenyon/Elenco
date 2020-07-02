@@ -11,7 +11,7 @@ import SwiftUI
 struct AddIngredientView: View {
 
     // global observed model
-    @EnvironmentObject var myListModel: MyListData
+    @EnvironmentObject var myListModel: MyListDataModel
     // local observed model
     @ObservedObject var searchViewModel = SearchViewModel()
     
@@ -40,6 +40,7 @@ struct AddIngredientView: View {
                         .padding(.trailing, 20).padding(.bottom, 4)
                     }
                 }
+                
                 ForEach(searchViewModel.searchIngredients.indices, id: \.self) { index in
                     IngredientSearchCell(ingredient: self.searchViewModel.searchIngredients[index],
                                          index: index, query: self.searchViewModel.query)

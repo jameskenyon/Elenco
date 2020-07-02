@@ -12,7 +12,7 @@ import SwiftUI
 
 struct SortView: View {
     
-    @EnvironmentObject var myListModel: MyListData
+    @EnvironmentObject var myListModel: MyListDataModel
     @State var sortViewIsVisible: Bool = false
     
     let sortTypes: [SortType] = [.name, .aisle, .quantity, .none]
@@ -21,10 +21,13 @@ struct SortView: View {
         VStack {
             VStack(alignment: .leading) {
                 HStack() {
+                    
                     Text("Sort By")
                         .padding()
                         .font(.custom("HelveticaNeue-Medium", size: 20))
+                    
                     Spacer()
+                    
                     Button(action: {
                         withAnimation {
                             self.sortViewIsVisible.toggle()
@@ -36,6 +39,7 @@ struct SortView: View {
                     }.padding()
                 }
                 .padding(.horizontal, 5).padding(.top, 5)
+                
                 if sortViewIsVisible {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
@@ -60,7 +64,7 @@ struct SortView: View {
 #if DEBUG
 struct SortView_Previews: PreviewProvider {
     static var previews: some View {
-        SortView().environmentObject(MyListData(window: UIWindow()))
+        SortView().environmentObject(MyListDataModel(window: UIWindow()))
     }
 }
 #endif

@@ -82,13 +82,13 @@ internal class IngredientAPIService {
     public static func getAisleForIngredient(ingredientName: String) -> String {
         var name = ingredientName.lowercased()
         if let aisle = ingredientCache[name]?.aisle {
-            return aisle
+            return formattedAisle(aisle: aisle)
         } else {
             if ingredientName.count >= 2 {
                 // remove last letter and check as might be 's'
                 name.removeLast()
                 if let aisle = ingredientCache[name]?.aisle {
-                    return aisle
+                    return formattedAisle(aisle: aisle)
                 }
             }
         }
@@ -105,16 +105,17 @@ internal class IngredientAPIService {
             self.ingredientCache[ingredient.name] = ingredient
         }
     }
+    
+    /*
+     Format the aisle name as this sometimes contains ; which separates aisle types
+     if an ingredient falls into different categories
+     */
+    private static func formattedAisle(aisle: String) -> String {
+        let segments = aisle.split(separator: ";")
+        if let seg = segments.first {
+            return String(seg)
+        }
+        return aisle
+    }
 
 }
-
-// MARK: Example Calls
-
-// GET POSSIBLE INGREDIENTS FOR QUERY
-/*
-IngredientAPIService.getPossibleIngredientsFor(query: "Carr", completion: { (ingredients) in
-    for ingredient in ingredients{
-        print(ingredient.name)
-    }
-})
-*/
