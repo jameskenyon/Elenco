@@ -44,7 +44,6 @@ struct EmptyListView: View {
 
                 Image("orange_arrow")
                     
-                
                 IngredientListCell(ingredient: Ingredient(name: "Carrot", id: 0, aisle: "Produce", quantity: "1kg"))
                     .padding().padding(.horizontal).padding(.bottom)
                 
@@ -52,8 +51,6 @@ struct EmptyListView: View {
                     .padding().padding(.horizontal, 25)
                     .font(.custom("HelveticaNeue-Regular", size: 22))
                 .fixedSize(horizontal: false, vertical: true)
-            
-
             }
             .foregroundColor(Color("Tungsten"))
         }
