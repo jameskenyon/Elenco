@@ -37,7 +37,6 @@ struct IngredientListCell: View {
            
            Text("\(ingredient.quantity ?? "Other")")
                 .foregroundColor(Color("Light-Gray"))
-                .strikethrough(selected, color: Color("Dark-Gray"))
                 .padding(.trailing, 15)
        }
         .onTapGesture {
