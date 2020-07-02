@@ -51,7 +51,7 @@ struct SortView: View {
             }
             .background(Color.white)
             .cornerRadius(15)
-            .shadow(color: Color.black.opacity(0.14), radius: 4)
+            .shadow(color: Color.black.opacity(0.14), radius: 4, y: 2)
         }
         .padding(.horizontal)
     }

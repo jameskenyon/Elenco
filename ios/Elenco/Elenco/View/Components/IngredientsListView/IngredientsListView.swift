@@ -24,23 +24,35 @@ struct IngredientsListView: View {
 
     var body: some View {
         ZStack {
-            List {
-                ForEach(getSortedIngredientSections(), id: \.title) { section in
-                    Section(header:
-                        IngredientSectionHeader(title: section.title)
-                            .padding(.top, -18)
-                    ) {
-                        ForEach(section.ingredients, id: \.name) { ingredient in
-                            IngredientListCell(ingredient: ingredient)
-                        }
-                        .onDelete { (indexSet) in
-                            guard let index = indexSet.first else { return }
-                            self.removeIngredient(atSection: section, index: index)
+            if myListModel.sortType == .name || myListModel.sortType == .aisle {
+                List {
+                    ForEach(getSortedIngredientSections(), id: \.title) { section in
+                        Section(header:
+                            IngredientSectionHeader(title: section.title)
+                                .padding(.top, -18)
+                        ) {
+                            ForEach(section.ingredients, id: \.name) { ingredient in
+                                IngredientListCell(ingredient: ingredient)
+                            }
+                            .onDelete { (indexSet) in
+                                guard let index = indexSet.first else { return }
+                                self.removeIngredient(atSection: section, index: index)
+                            }
                         }
                     }
+                }.listStyle(GroupedListStyle())
+            } else {
+                List {
+                    // just display the
+                    ForEach(myListModel.ingredients, id: \.name) { ingredient in
+                        IngredientListCell(ingredient: ingredient)
+                    }
+                    .onDelete { (indexSet) in
+                        guard let index = indexSet.first else { return }
+                        self.removeIngredient(index: index)
+                    }
                 }
-                
-            }.listStyle(GroupedListStyle())
+            }
         }
     }
     
@@ -61,6 +73,14 @@ struct IngredientsListView: View {
             self.myListModel.deleteIngredient(ingredient: ingredient)
         }
     }
+    
+    // remove ingredient from the list
+    func removeIngredient(index: Int) {
+        if myListModel.ingredients.count > index {
+            self.myListModel.deleteIngredient(ingredient: myListModel.ingredients[index])
+        }
+    }
+    
 }
 
 struct IngredientsListView_Previews: PreviewProvider {
