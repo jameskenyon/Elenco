@@ -26,6 +26,7 @@ struct IngredientsListView: View {
         ZStack {
             if myListModel.sortType == .name || myListModel.sortType == .aisle {
                 List {
+                    // display list with the headers
                     ForEach(getSortedIngredientSections(), id: \.title) { section in
                         Section(header:
                             IngredientSectionHeader(title: section.title)
@@ -43,7 +44,7 @@ struct IngredientsListView: View {
                 }.listStyle(GroupedListStyle())
             } else {
                 List {
-                    // just display the
+                    // display list without the headers
                     ForEach(myListModel.ingredients, id: \.name) { ingredient in
                         IngredientListCell(ingredient: ingredient)
                     }
