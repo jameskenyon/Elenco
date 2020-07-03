@@ -37,7 +37,7 @@ struct MyListHeaderView: View {
             AddIngredientView()
                 .padding(.bottom, 10)
         }
-        .background(Color("Lead"))
+        .background(Color("TealBackground"))
         .cornerRadius(20)
         .shadow(color: colorScheme == .dark ? .clear : Color("Dark-Gray") , radius: 4)
     }
@@ -46,7 +46,7 @@ struct MyListHeaderView: View {
 #if DEBUG
 struct MyListHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        MyListHeaderView()
+        MyListHeaderView().environment(\.colorScheme, .light)
     }
 }
 #endif
