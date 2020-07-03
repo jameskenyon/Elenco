@@ -20,16 +20,15 @@ import UIKit
 
 class MyListDataModel: ObservableObject {
     
-    @Published private(set) var ingredients: Ingredients
-    @Published private(set) var completedIngredients: Ingredients
+    @Published private(set) var ingredients: Ingredients = []
+    @Published private(set) var completedIngredients: Ingredients = []
+    
     @Published private(set) var window: UIWindow
     @Published public var sortType: SortType = .name
     private let ingredientsDataModel = IngredientDataModel()
     
     init(window: UIWindow) {
         self.window = window
-        self.ingredients = []
-        self.completedIngredients = []
         loadLocalIngredientList()
     }
     

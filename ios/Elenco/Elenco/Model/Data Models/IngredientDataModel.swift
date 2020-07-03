@@ -10,6 +10,11 @@ import CoreData
 import SwiftUI
 import UIKit
 
+/*
+ This class is responsible for fetching and saving all of the user's
+ ingredients with CoreData.
+ */
+
 class IngredientDataModel: ObservableObject {
     
     // MARK: - Properties
