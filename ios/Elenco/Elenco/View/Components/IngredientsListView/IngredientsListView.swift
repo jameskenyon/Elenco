@@ -24,28 +24,37 @@ struct IngredientsListView: View {
 
     var body: some View {
         ZStack {
-            List {
-                ForEach(getSortedIngredientSections(), id: \.title) { section in
-                    Section(header:
-                        IngredientSectionHeader(title: section.title)
-                            .padding(.top, -18)
-                    ) {
-                        ForEach(section.ingredients, id: \.name) { ingredient in
-                            IngredientListCell(ingredient: ingredient)
-                        }
-                        .onDelete { (indexSet) in
-                            guard let index = indexSet.first else { return }
-                            self.removeIngredient(atSection: section, index: index)
+            if myListModel.sortType == .name || myListModel.sortType == .aisle {
+                List {
+                    // display list with the headers
+                    ForEach(getSortedIngredientSections(), id: \.title) { section in
+                        Section(header:
+                            IngredientSectionHeader(title: section.title)
+                                .padding(.top, -18)
+                        ) {
+                            ForEach(section.ingredients, id: \.name) { ingredient in
+                                IngredientListCell(ingredient: ingredient)
+                            }
+                            .onDelete { (indexSet) in
+                                guard let index = indexSet.first else { return }
+                                self.removeIngredient(atSection: section, index: index)
+                            }
                         }
                     }
+                }.listStyle(GroupedListStyle())
+            } else {
+                List {
+                    // display list without the headers
+                    ForEach(myListModel.ingredients, id: \.name) { ingredient in
+                        IngredientListCell(ingredient: ingredient)
+                    }
+                    .onDelete { (indexSet) in
+                        guard let index = indexSet.first else { return }
+                        self.removeIngredient(index: index)
+                    }
                 }
-                
-            }.listStyle(GroupedListStyle())
-            
-            Text("Sorry you have no items")
-                .foregroundColor(myListModel.ingredients.isEmpty ? Color("Dark-Gray") : .clear)
+            }
         }
-        
     }
     
     // Return ingredients sorted according to the sort view options
@@ -65,6 +74,14 @@ struct IngredientsListView: View {
             self.myListModel.deleteIngredient(ingredient: ingredient)
         }
     }
+    
+    // remove ingredient from the list
+    func removeIngredient(index: Int) {
+        if myListModel.ingredients.count > index {
+            self.myListModel.deleteIngredient(ingredient: myListModel.ingredients[index])
+        }
+    }
+    
 }
 
 struct IngredientsListView_Previews: PreviewProvider {
