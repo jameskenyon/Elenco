@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct EmptyListView: View {
+    
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -30,19 +33,24 @@ struct EmptyListView: View {
                 HStack {
                     Text("1kg Carrots")
                         .font(.custom("HelveticaNeue-Medium", size: 22))
-                        .foregroundColor(Color("Tungsten"))
                         .padding(25)
-                        .background(Color.white)
+                        .background(Color("Background"))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .overlay(
                             RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.clear, lineWidth: 2)
+                                .stroke(colorScheme == .dark ? Color.white : Color.clear, lineWidth: 2)
                                 .shadow(color: Color.black.opacity(0.14), radius: 4)
                         )
                 }
                 .padding().padding(.horizontal)
 
-                Image("orange_arrow")
+                if colorScheme == .dark {
+                    Text("Becomes")
+                        .font(.custom("HelveticaNeue-Bold", size: 22))
+                        .padding(.top)
+                } else {
+                    Image("orange_arrow")
+                }
                     
                 IngredientListCell(ingredient: Ingredient(name: "Carrot", id: 0, aisle: "Produce", quantity: "1kg"))
                     .padding().padding(.horizontal).padding(.bottom)
@@ -50,17 +58,18 @@ struct EmptyListView: View {
                 Text("Tap the circle to complete or swipe to delete an ingredient from your list.")
                     .padding().padding(.horizontal, 25)
                     .font(.custom("HelveticaNeue-Regular", size: 22))
-                .fixedSize(horizontal: false, vertical: true)
+                    .fixedSize(horizontal: false, vertical: true)
             }
-            .foregroundColor(Color("Tungsten"))
+            .foregroundColor(Color("BodyText"))
         }
+        .background(Color("Background"))
     }
 }
 
 #if DEBUG
 struct EmptyListView_Previews: PreviewProvider {
     static var previews: some View {
-        EmptyListView()
+        EmptyListView().environment(\.colorScheme, .dark)
     }
 }
 #endif

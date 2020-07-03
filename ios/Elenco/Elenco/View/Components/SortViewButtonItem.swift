@@ -42,7 +42,7 @@ struct SortViewButtonItem: View {
     }
     
     private func viewBackgroundColor() -> Color {
-        return isSelected() ? Color("Orange") : Color(.white)
+        return isSelected() ? Color("Orange") : Color("Background")
     }
     
     private func viewTitleColor() -> Color {

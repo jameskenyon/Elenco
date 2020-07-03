@@ -18,6 +18,7 @@ public enum SortType: String {
 
 struct SortView: View {
     
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var myListModel: MyListDataModel
     @State var sortViewIsVisible: Bool = false
     
@@ -31,6 +32,7 @@ struct SortView: View {
                     Text("Sort By")
                         .padding()
                         .font(.custom("HelveticaNeue-Medium", size: 20))
+                        .foregroundColor(Color("BodyText"))
                     
                     Spacer()
                     
@@ -59,7 +61,7 @@ struct SortView: View {
                     .padding(.top, -10).padding(.bottom, 5)
                 }
             }
-            .background(Color.white)
+            .background(colorScheme == .dark ? Color("Lead") : Color("Background"))
             .cornerRadius(15)
             .shadow(color: Color.black.opacity(0.14), radius: 4, y: 2)
         }

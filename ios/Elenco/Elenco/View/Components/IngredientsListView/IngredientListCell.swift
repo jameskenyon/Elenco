@@ -31,7 +31,7 @@ struct IngredientListCell: View {
                 .strikethrough(selected, color: Color("Dark-Gray"))
                 .font(.system(size: 23, weight: .medium, design: .default))
                 .padding(.horizontal, 15)
-                .foregroundColor(selected ? Color("Light-Gray") : Color.black)
+                .foregroundColor(selected ? Color("Light-Gray") : Color("BodyText"))
            
            Spacer()
            
@@ -42,6 +42,8 @@ struct IngredientListCell: View {
         .onTapGesture {
             self.toggleSelection()
         }
+        
+        .listRowBackground(Color("Background"))
     }
     
     private func cellColor() -> Color {        
