@@ -15,6 +15,7 @@ struct MyListView: View {
     var body: some View {
         VStack {
             MyListHeaderView()
+                .padding(.top, UIDevice.deviceHasCurvedScreen() ? 0:-25)
             
             Spacer()
             
@@ -45,7 +46,16 @@ struct MyListView: View {
 #if DEBUG
 struct MyListView_Previews: PreviewProvider {
     static var previews: some View {
-        MyListView().environmentObject(MyListDataModel(window: UIWindow()))
+        Group {
+            MyListView().environmentObject(MyListDataModel(window: UIWindow()))
+            .previewDevice(PreviewDevice(rawValue: "iPhone SE (2nd generation)"))
+            .previewDisplayName("iPhone SE")
+            
+            MyListView().environmentObject(MyListDataModel(window: UIWindow()))
+            .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
+            .previewDisplayName("iPhone 11")
+            
+        }
     }
 }
 #endif

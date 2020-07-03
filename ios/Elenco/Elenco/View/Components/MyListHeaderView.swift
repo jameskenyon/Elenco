@@ -11,6 +11,7 @@ import SwiftUI
 struct MyListHeaderView: View {
     
     @EnvironmentObject var myListModel: MyListDataModel
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -36,16 +37,16 @@ struct MyListHeaderView: View {
             AddIngredientView()
                 .padding(.bottom, 10)
         }
-        .background(Color("Teal"))
+        .background(Color("TealBackground"))
         .cornerRadius(20)
-        .shadow(color: Color("Dark-Gray"), radius: 4)
+        .shadow(color: colorScheme == .dark ? .clear : Color("Dark-Gray") , radius: 4)
     }
 }
 
 #if DEBUG
 struct MyListHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        MyListHeaderView()
+        MyListHeaderView().environment(\.colorScheme, .light)
     }
 }
 #endif

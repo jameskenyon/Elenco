@@ -24,11 +24,8 @@ struct SortViewButtonItem: View {
                 .font(.custom("HelveticaNeue-Medium", size: 22))
                 .foregroundColor(viewTitleColor())
                 .background(viewBackgroundColor())
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(borderColor(), lineWidth: 2)
-                )
         }
+        .cornerRadius(10)
     }
     
     // Return true if this button has been selected
@@ -36,17 +33,12 @@ struct SortViewButtonItem: View {
         return myListModel.sortType == type
     }
     
-    // Return border colour
-    private func borderColor() -> Color {
-        return isSelected() ? Color("Orange") : Color("Light-Gray")
-    }
-    
     private func viewBackgroundColor() -> Color {
-        return isSelected() ? Color("Orange") : Color(.white)
+        return isSelected() ? Color("Orange") : Color("Orange").opacity(0.1)
     }
     
     private func viewTitleColor() -> Color {
-        return isSelected() ? Color(.white) : Color("Light-Gray")
+        return isSelected() ? Color(.white) : Color("Orange")
     }
 }
 
