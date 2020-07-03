@@ -14,8 +14,8 @@
 		1A20D3E624AA4D6800C6633F /* IngredientSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A20D3E524AA4D6800C6633F /* IngredientSectionHeader.swift */; };
 		1A49CE0424AB8B6900153D12 /* SortViewButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49CE0324AB8B6900153D12 /* SortViewButtonItem.swift */; };
 		1A49CE0624AB8B8900153D12 /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49CE0524AB8B8900153D12 /* SortView.swift */; };
-		1A83D68624AF30FB003FB277 /* IngredientStore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A83D68424AF30FB003FB277 /* IngredientStore+CoreDataClass.swift */; };
-		1A83D68724AF30FB003FB277 /* IngredientStore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A83D68524AF30FB003FB277 /* IngredientStore+CoreDataProperties.swift */; };
+		1A83D68A24AF9386003FB277 /* IngredientStore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A83D68824AF9386003FB277 /* IngredientStore+CoreDataClass.swift */; };
+		1A83D68B24AF9386003FB277 /* IngredientStore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A83D68924AF9386003FB277 /* IngredientStore+CoreDataProperties.swift */; };
 		8A381C3724AA1FD90023A5CD /* HelveticaNeue.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */; };
 		8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */; };
 		8A381C3D24AA86120023A5CD /* HostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A381C3C24AA86120023A5CD /* HostingView.swift */; };
@@ -54,8 +54,8 @@
 		1A20D3E524AA4D6800C6633F /* IngredientSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientSectionHeader.swift; sourceTree = "<group>"; };
 		1A49CE0324AB8B6900153D12 /* SortViewButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewButtonItem.swift; sourceTree = "<group>"; };
 		1A49CE0524AB8B8900153D12 /* SortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortView.swift; sourceTree = "<group>"; };
-		1A83D68424AF30FB003FB277 /* IngredientStore+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IngredientStore+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1A83D68524AF30FB003FB277 /* IngredientStore+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IngredientStore+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1A83D68824AF9386003FB277 /* IngredientStore+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "IngredientStore+CoreDataClass.swift"; path = "../../../IngredientStore+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1A83D68924AF9386003FB277 /* IngredientStore+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "IngredientStore+CoreDataProperties.swift"; path = "../../../IngredientStore+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeue.ttc; sourceTree = "<group>"; };
 		8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiBoldLabel.swift; sourceTree = "<group>"; };
 		8A381C3C24AA86120023A5CD /* HostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingView.swift; sourceTree = "<group>"; };
@@ -121,6 +121,8 @@
 		8A57BC3D24AF407B00FB138B /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				1A83D68824AF9386003FB277 /* IngredientStore+CoreDataClass.swift */,
+				1A83D68924AF9386003FB277 /* IngredientStore+CoreDataProperties.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -232,8 +234,6 @@
 		8AD4BC1324A7996000F81AAF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1A83D68424AF30FB003FB277 /* IngredientStore+CoreDataClass.swift */,
-				1A83D68524AF30FB003FB277 /* IngredientStore+CoreDataProperties.swift */,
 				8A57BC3C24AE836700FB138B /* Data Models */,
 				8AAEE48324A7A3BC0025D15D /* Ingredient.swift */,
 			);
@@ -353,10 +353,8 @@
 			files = (
 				1A17AA6824ABDDB700893676 /* IngredientDataModel.swift in Sources */,
 				8AD4BBEF24A796E900F81AAF /* Elenco.xcdatamodeld in Sources */,
-				1A83D68724AF30FB003FB277 /* IngredientStore+CoreDataProperties.swift in Sources */,
 				1A20D3E624AA4D6800C6633F /* IngredientSectionHeader.swift in Sources */,
 				8AD4BBEA24A796E900F81AAF /* AppDelegate.swift in Sources */,
-				1A83D68624AF30FB003FB277 /* IngredientStore+CoreDataClass.swift in Sources */,
 				8AAEE48424A7A3BC0025D15D /* Ingredient.swift in Sources */,
 				8A381C4124AB44580023A5CD /* MyListDataModel.swift in Sources */,
 				8A381C3D24AA86120023A5CD /* HostingView.swift in Sources */,
@@ -366,12 +364,14 @@
 				1A20D3E424AA490600C6633F /* IngredientListCell.swift in Sources */,
 				8AD4BC0F24A7978000F81AAF /* MyListView.swift in Sources */,
 				1A20D3D924AA20D000C6633F /* (null) in Sources */,
+				1A83D68A24AF9386003FB277 /* IngredientStore+CoreDataClass.swift in Sources */,
 				8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */,
 				8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */,
 				8AEF2EEE24A7E5FB0071C69A /* AddIngredientView.swift in Sources */,
 				1A20D3DF24AA401700C6633F /* IngredientsListView.swift in Sources */,
 				8AE34E0824AD1AE2004651B5 /* EmptyListView.swift in Sources */,
 				8AC3729924AB9E05002699F2 /* UIWindow.swift in Sources */,
+				1A83D68B24AF9386003FB277 /* IngredientStore+CoreDataProperties.swift in Sources */,
 				1A49CE0624AB8B8900153D12 /* SortView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
