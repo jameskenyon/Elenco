@@ -21,6 +21,7 @@ import UIKit
 class MyListData: ObservableObject {
     
     @Published private(set) var ingredients: Ingredients
+    @Published private(set) var completedIngredients: Ingredients
     @Published private(set) var window: UIWindow
     @Published public var sortType: SortType = .name
     private let ingredientsDataModel = IngredientDataModel()
@@ -28,6 +29,7 @@ class MyListData: ObservableObject {
     init(window: UIWindow) {
         self.window = window
         self.ingredients = []
+        self.completedIngredients = []
         loadLocalIngredientList()
     }
     
@@ -71,13 +73,37 @@ class MyListData: ObservableObject {
         removeFromCoreDataModel(ingredient: ingredient)
     }
     
+    // Mark ingredient as completed
+    public func markCompletedIngredient(ingredient: Ingredient) {
+        ingredients.removeAll(where: { $0.name == ingredient.name })
+        var completedIngredient = ingredient
+        completedIngredient.completed = true
+        completedIngredients.append(completedIngredient)
+        ingredientsDataModel.update(ingredient: completedIngredient) { (error) in
+            if let error = error { print(error.localizedDescription) }
+        }
+    }
+    
+    // Mark ingredient as not complete
+    public func markUncompleteIngredient(ingredient: Ingredient) {
+        completedIngredients.removeAll(where: { $0.name == ingredient.name })
+        var unCompletedIngredient = ingredient
+        unCompletedIngredient.completed = false
+        ingredients.append(unCompletedIngredient)
+        ingredientsDataModel.update(ingredient: unCompletedIngredient) { (error) in
+            if let error = error { print(error.localizedDescription) }
+        }
+    }
+    
     // MARK: Private Interface
     
     // update this to get the proper list of ingredients from CoreData
     private func loadLocalIngredientList() {
         ingredientsDataModel.fetchIngredients { (error) in
             if let error = error { print(error.localizedDescription) }
-            self.ingredients = ingredientsDataModel.ingredients
+            // Filter ingredients list to get list of non completed and completed ingredients
+            self.ingredients = ingredientsDataModel.ingredients.filter({ !$0.completed })
+            self.completedIngredients = ingredientsDataModel.ingredients.filter({ $0.completed })
         }
     }
 }
@@ -97,7 +123,7 @@ extension MyListData {
             sections.append(section)
         }
         sections = sections.sorted(by: { $0.title < $1.title })
-        return sections
+        return addCompletedSection(sections: sections)
     }
 
     // Return ingredients sorted into sections based on their ailse(type) e.g. Veg, Meat
@@ -114,7 +140,7 @@ extension MyListData {
         }
 
         sections = sections.sorted(by: { $0.title < $1.title })
-        return sections
+        return addCompletedSection(sections: sections)
     }
 
     // Return ingredients sorted by quantity
@@ -130,17 +156,25 @@ extension MyListData {
             }
             return ingredientOneDigits > ingredientTwoDigits
         }
-        return [IngredientSection(title: "", ingredients: sortedIngredients)]
+        let sections = [IngredientSection(title: "", ingredients: sortedIngredients)]
+        return addCompletedSection(sections: sections)
     }
     
     // Return array of unsorted ingredients in a single section
     public func ingredientsSortedByNone() -> [IngredientSection] {
-        return [IngredientSection(title: "", ingredients: ingredients)]
+        let sections = [IngredientSection(title: "", ingredients: ingredients)]
+        return addCompletedSection(sections: sections)
     }
     
     // Return int from inside a string - when theres no int return 0
     private func getDigits(fromString string: String) -> Int {
         let stringDigit = string.components(separatedBy: CharacterSet.decimalDigits.inverted).first ?? ""
         return Int(stringDigit) ?? 0
+    }
+    
+    // Add section for checked off ingredients
+    private func addCompletedSection(sections: [IngredientSection]) -> [IngredientSection] {
+        let completedSection = IngredientSection(title: "Complete", ingredients: completedIngredients)
+        return sections + [completedSection]
     }
 }

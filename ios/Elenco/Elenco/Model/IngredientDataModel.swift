@@ -48,6 +48,21 @@ class IngredientDataModel: ObservableObject {
         }
     }
     
+    // Update the completion of a ingredient
+    public func update(ingredient: Ingredient, completion: (Error?)->()) {
+        let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
+        request.predicate = NSPredicate(format: "name == %@", ingredient.name)
+        
+        do {
+            guard let ingredientsEntity = try context.fetch(request).first else { return }
+            ingredientsEntity.setValue(ingredient.completed, forKey: "completed")
+            try context.save()
+            completion(nil)
+        } catch (let error) {
+            completion(error)
+        }
+    }
+    
     // Delete ingredient from data model
     public func delete(ingredient: Ingredient, completion: (Error?)->()) {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()

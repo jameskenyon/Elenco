@@ -12,7 +12,6 @@ struct IngredientListCell: View {
     
     @EnvironmentObject var myListModel: MyListData
     var ingredient: Ingredient
-    @State private var selected = false
     
     var body: some View {
         HStack {
@@ -28,10 +27,10 @@ struct IngredientListCell: View {
             )
            
             Text((ingredient.name.first?.uppercased() ?? "") + ingredient.name.dropFirst())
-                .strikethrough(selected, color: Color("Dark-Gray"))
+                .strikethrough(self.ingredient.completed, color: Color("Dark-Gray"))
                 .font(.system(size: 23, weight: .medium, design: .default))
                 .padding(.horizontal, 15)
-                .foregroundColor(selected ? Color("Light-Gray") : Color.black)
+                .foregroundColor(self.ingredient.completed ? Color("Light-Gray") : Color.black)
            
            Spacer()
            
@@ -45,7 +44,7 @@ struct IngredientListCell: View {
     }
     
     private func cellColor() -> Color {        
-        return selected ? Color("Orange") : .clear
+        return ingredient.completed ? Color("Orange") : .clear
     }
     
     /*
@@ -53,11 +52,10 @@ struct IngredientListCell: View {
         When ingredient is unchecked off save it back to core data
      */
     private func toggleSelection() {
-        self.selected.toggle()
-        if self.selected {
-            self.myListModel.removeFromCoreDataModel(ingredient: self.ingredient)
+        if ingredient.completed {
+            self.myListModel.markUncompleteIngredient(ingredient: ingredient)
         } else {
-            self.myListModel.saveIngredient(ingredient: self.ingredient)
+            self.myListModel.markCompletedIngredient(ingredient: ingredient)
         }
     }
 }
