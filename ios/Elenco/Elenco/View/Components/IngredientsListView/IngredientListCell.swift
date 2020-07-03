@@ -12,7 +12,6 @@ struct IngredientListCell: View {
     
     @EnvironmentObject var myListModel: MyListDataModel
     var ingredient: Ingredient
-    @State private var selected = false
     
     var body: some View {
         HStack {
@@ -28,10 +27,10 @@ struct IngredientListCell: View {
             )
            
             Text((ingredient.name.first?.uppercased() ?? "") + ingredient.name.dropFirst())
-                .strikethrough(selected, color: Color("Dark-Gray"))
+                .strikethrough(self.ingredient.completed, color: Color("Dark-Gray"))
                 .font(.system(size: 23, weight: .medium, design: .default))
                 .padding(.horizontal, 15)
-                .foregroundColor(selected ? Color("Light-Gray") : Color("BodyText"))
+                .foregroundColor(self.ingredient.completed ? Color("Light-Gray") : Color("BodyText")
            
            Spacer()
            
@@ -40,32 +39,31 @@ struct IngredientListCell: View {
                 .padding(.trailing, 15)
        }
         .onTapGesture {
-            self.toggleSelection()
+            self.cellTapped()
         }
         
         .listRowBackground(Color("Background"))
     }
     
     private func cellColor() -> Color {        
-        return selected ? Color("Orange") : .clear
+        return ingredient.completed ? Color("Orange") : .clear
     }
     
     /*
         When ingredient is checked off it is removed from core data
         When ingredient is unchecked off save it back to core data
      */
-    private func toggleSelection() {
-        self.selected.toggle()
-        if self.selected {
-            self.myListModel.removeFromCoreDataModel(ingredient: self.ingredient)
+    private func cellTapped() {
+        if ingredient.completed {
+            self.myListModel.markUncompleteIngredient(ingredient: ingredient)
         } else {
-            self.myListModel.saveIngredient(ingredient: self.ingredient)
+            self.myListModel.markCompletedIngredient(ingredient: ingredient)
         }
     }
 }
 
 struct IngredientListCell_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientListCell(ingredient: Ingredient(name: "James", id: 0, aisle: ""))
+        IngredientListCell(ingredient: Ingredient(name: "James", aisle: ""))
     }
 }

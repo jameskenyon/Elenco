@@ -20,11 +20,41 @@ import Foundation
 struct Ingredient: Codable, Identifiable, Hashable {
     // properties for the json decoder
     let name: String
-    let id: Int
+    let id = UUID()
     let aisle: String
     
     // other properties that might be added 
     var quantity: String?
+    var completed: Bool = false
+    
+    init(name: String, aisle: String) {
+        self.name     = name
+        self.aisle    = aisle
+    }
+    
+    init(name: String, aisle: String, quantity: String?) {
+        self.name     = name
+        self.aisle    = aisle
+        self.quantity = quantity
+    }
+    
+    init(name: String, aisle: String, quantity: String?, completed: Bool) {
+        self.name     = name
+        self.aisle    = aisle
+        self.quantity = quantity
+        self.completed = completed
+    }
+    
+    init(ingredientStore: IngredientStore) {
+        self.name      = ingredientStore.name ?? ""
+        self.aisle     = ingredientStore.aisle ?? ""
+        self.quantity  = ingredientStore.quantity
+        self.completed = ingredientStore.completed
+    }
+    
+    public func copy() -> Ingredient {
+        return Ingredient(name: self.name, aisle: self.aisle, quantity: self.quantity, completed: self.completed)
+    }
 }
 
 extension Ingredient {

@@ -2,10 +2,11 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="IngredientStore" representedClassName="IngredientStore" syncable="YES">
         <attribute name="aisle" attributeType="String"/>
+        <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="quantity" optional="YES" attributeType="String" defaultValueString=""/>
     </entity>
     <elements>
-        <element name="IngredientStore" positionX="-45" positionY="0" width="128" height="88"/>
+        <element name="IngredientStore" positionX="-45" positionY="0" width="128" height="103"/>
     </elements>
 </model>

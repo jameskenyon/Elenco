@@ -18,8 +18,8 @@ extension IngredientStore {
     }
 
     @NSManaged public var aisle: String?
+    @NSManaged public var completed: Bool
     @NSManaged public var name: String?
     @NSManaged public var quantity: String?
-    @NSManaged public var completed: Bool
 
 }
