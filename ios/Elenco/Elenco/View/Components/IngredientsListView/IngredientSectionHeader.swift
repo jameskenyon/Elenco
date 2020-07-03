@@ -18,11 +18,11 @@ struct IngredientSectionHeader: View {
                 .font(.system(size: 25, weight: .bold, design: .default))
                 .foregroundColor(Color("Teal"))
                 .padding(.leading, 35)
-                .padding(.vertical, 25)
+                .padding(.vertical, 20)
 
                 Spacer()
         }
-        .background(Color.white)
+        .background(Color("Background"))
         .listRowInsets(EdgeInsets(
             top: 0,
             leading: 0,

@@ -30,7 +30,7 @@ struct SemiBoldLabel: View {
                 returnText = returnText +
                     Text(query)
                         .font(font)
-                        .foregroundColor(Color.black)
+                        .foregroundColor(Color("BodyText"))
             }
         }
         return returnText

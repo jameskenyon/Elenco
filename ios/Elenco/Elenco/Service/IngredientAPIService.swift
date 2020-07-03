@@ -31,7 +31,6 @@ internal class IngredientAPIService {
                     if let jsonResult = jsonResult as? [[String: AnyObject]] {
                         for ingredient in jsonResult {
                             if let name = ingredient["name"] as? String,
-                                let id = ingredient["id"] as? Int,
                                 let aisle = ingredient["aisle"] as? String {
                                 ingredientCache[name] = Ingredient(name: name, aisle: aisle)
                             }

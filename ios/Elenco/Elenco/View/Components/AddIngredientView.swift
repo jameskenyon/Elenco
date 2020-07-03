@@ -15,6 +15,8 @@ struct AddIngredientView: View {
     // local observed model
     @ObservedObject var searchViewModel = SearchViewModel()
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
@@ -27,7 +29,8 @@ struct AddIngredientView: View {
                         .padding(15).padding(.leading)
                         .padding(.top, searchViewModel.searchIngredients.count == 0 ? 0:10)
                         .accentColor(Color("Teal"))
-                    
+                        .foregroundColor(Color("BodyText"))
+                        .background(Color("Background"))
                     if searchViewModel.query.count != 0 {
                         Button(action: {
                             self.addIngredient()
@@ -38,22 +41,25 @@ struct AddIngredientView: View {
                                 .foregroundColor(Color("Orange"))
                         }
                         .padding(.trailing, 20).padding(.bottom, 4)
+                        .background(Color("Background"))
                     }
                 }
+                .background(Color("Background"))
                 
                 ForEach(searchViewModel.searchIngredients.indices, id: \.self) { index in
                     IngredientSearchCell(ingredient: self.searchViewModel.searchIngredients[index],
                                          index: index, query: self.searchViewModel.query)
                         .padding(.top).padding(.bottom)
-                        .background(index == 0 ? Color("Opaque-Teal"):Color.white)
+                        .background(index == 0 ? Color("Opaque-Teal"):Color("Background"))
                         .onTapGesture {
                             self.searchViewModel.query = self.searchViewModel.searchIngredients[index].name
                         }
                 }
+                .background(Color("Background"))
             }
-            .background(Color.white)
+            .background(Color("Background"))
             .cornerRadius(10)
-            .shadow(color: Color("Dark-Gray"), radius: 4)
+            .shadow(color: colorScheme == .dark ? .clear : Color("Dark-Gray") , radius: 4)
         }
         .padding()
     }

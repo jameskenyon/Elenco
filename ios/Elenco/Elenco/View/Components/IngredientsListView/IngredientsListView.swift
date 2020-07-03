@@ -41,7 +41,8 @@ struct IngredientsListView: View {
                             }
                         }
                     }
-                }.listStyle(GroupedListStyle())
+                }
+                .listStyle(GroupedListStyle())
             } else {
                 List {
                     // display list without the headers
@@ -55,6 +56,7 @@ struct IngredientsListView: View {
                 }
             }
         }
+    
     }
     
     // Return ingredients sorted according to the sort view options
