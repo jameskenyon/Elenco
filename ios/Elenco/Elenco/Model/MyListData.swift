@@ -76,7 +76,7 @@ class MyListData: ObservableObject {
     // Mark ingredient as completed
     public func markCompletedIngredient(ingredient: Ingredient) {
         ingredients.removeAll(where: { $0.name == ingredient.name })
-        var completedIngredient = ingredient
+        var completedIngredient = ingredient.copy()
         completedIngredient.completed = true
         completedIngredients.append(completedIngredient)
         ingredientsDataModel.update(ingredient: completedIngredient) { (error) in
@@ -87,7 +87,7 @@ class MyListData: ObservableObject {
     // Mark ingredient as not complete
     public func markUncompleteIngredient(ingredient: Ingredient) {
         completedIngredients.removeAll(where: { $0.name == ingredient.name })
-        var unCompletedIngredient = ingredient
+        var unCompletedIngredient = ingredient.copy()
         unCompletedIngredient.completed = false
         ingredients.append(unCompletedIngredient)
         ingredientsDataModel.update(ingredient: unCompletedIngredient) { (error) in
@@ -129,7 +129,6 @@ extension MyListData {
     // Return ingredients sorted into sections based on their ailse(type) e.g. Veg, Meat
     public func ingredientsSortedByAisle() -> [IngredientSection] {
         var sections = [IngredientSection]()
-
         let sectionHeaders = Set(ingredients.map({ $0.aisle}))
 
         // Go through each section

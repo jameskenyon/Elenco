@@ -32,7 +32,7 @@ struct IngredientsListView: View {
                             IngredientSectionHeader(title: section.title)
                                 .padding(.top, -18)
                         ) {
-                            ForEach(section.ingredients, id: \.name) { ingredient in
+                            ForEach(section.ingredients, id: \.id) { ingredient in
                                 IngredientListCell(ingredient: ingredient)
                             }
                             .onDelete { (indexSet) in

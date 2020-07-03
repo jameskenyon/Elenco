@@ -39,7 +39,7 @@ struct IngredientListCell: View {
                 .padding(.trailing, 15)
        }
         .onTapGesture {
-            self.toggleSelection()
+            self.cellTapped()
         }
     }
     
@@ -51,7 +51,7 @@ struct IngredientListCell: View {
         When ingredient is checked off it is removed from core data
         When ingredient is unchecked off save it back to core data
      */
-    private func toggleSelection() {
+    private func cellTapped() {
         if ingredient.completed {
             self.myListModel.markUncompleteIngredient(ingredient: ingredient)
         } else {
@@ -62,6 +62,6 @@ struct IngredientListCell: View {
 
 struct IngredientListCell_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientListCell(ingredient: Ingredient(name: "James", id: 69, aisle: ""))
+        IngredientListCell(ingredient: Ingredient(name: "James", aisle: ""))
     }
 }
