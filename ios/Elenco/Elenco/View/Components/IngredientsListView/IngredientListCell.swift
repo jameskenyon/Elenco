@@ -11,7 +11,7 @@ import SwiftUI
 struct IngredientListCell: View {
     
     @EnvironmentObject var myListModel: MyListDataModel
-    
+
     @State var ingredient: Ingredient
     
     var body: some View {

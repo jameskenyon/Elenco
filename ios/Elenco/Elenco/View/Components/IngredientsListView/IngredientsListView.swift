@@ -74,13 +74,6 @@ struct IngredientsListView: View {
         }
     }
     
-    // remove ingredient from the list
-    func removeIngredient(index: Int) {
-        if myListModel.ingredients.count > index {
-            self.myListModel.deleteIngredient(ingredient: myListModel.ingredients[index])
-        }
-    }
-    
 }
 
 struct IngredientsListView_Previews: PreviewProvider {

@@ -109,13 +109,15 @@ extension MyListDataModel {
         ingredientInSection - a closeure that determines if the ingredient is in the section
                             FOR NAME SORT: $0.name.first?.lowercased() ?? "" == header && !$0.completed
      */
-    public func sortIngredients(getSectionHeaders: (Ingredients)->[String],
-                                ingredientInSection: (Ingredient, String)->Bool) -> [IngredientSection] {
+    public func sortIngredients(
+            getSectionHeaders: (Ingredients)->[String],
+            ingredientInSection: (Ingredient, String)->Bool)
+            -> [IngredientSection] {
         var sections: [IngredientSection] = []
         var completedIngredients: Ingredients = []
         let sectionHeaders = Set(getSectionHeaders(ingredients))
         for header in sectionHeaders {
-            if header == "" { continue } // to stop header displaying if there is no ingredient in it (completed)
+            if header == "" { continue }
             let ingredientsInSection = ingredients.filter({
                 if $0.completed { if !completedIngredients.contains($0) { completedIngredients.append($0)} }
                 return ingredientInSection($0, header)
@@ -124,9 +126,21 @@ extension MyListDataModel {
             sections.append(section)
         }
         sections = sections.sorted(by: { $0.title < $1.title })
+        if sections.isEmpty { completedIngredients = getCompletedIngredients() }
         // add completed only if it exists
         return completedIngredients.count == 0 ?
             sections : sections + [IngredientSection(title: "Completed", ingredients: completedIngredients)]
+    }
+    
+    // get completed ingredients
+    private func getCompletedIngredients() -> Ingredients {
+        var returnIngredients = Ingredients()
+        ingredients.forEach { (ingredient) in
+            if ingredient.completed {
+                returnIngredients.append(ingredient)
+            }
+        }
+        return returnIngredients
     }
 
 
