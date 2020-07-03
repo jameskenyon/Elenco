@@ -45,7 +45,7 @@ struct IngredientsListView: View {
             } else {
                 List {
                     // display list without the headers
-                    ForEach(myListModel.ingredients, id: \.name) { ingredient in
+                    ForEach(myListModel.ingredients + myListModel.completedIngredients, id: \.name) { ingredient in
                         IngredientListCell(ingredient: ingredient)
                     }
                     .onDelete { (indexSet) in
