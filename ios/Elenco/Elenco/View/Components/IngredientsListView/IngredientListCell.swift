@@ -10,7 +10,7 @@ import SwiftUI
 
 struct IngredientListCell: View {
     
-    @EnvironmentObject var myListModel: MyListData
+    @EnvironmentObject var myListModel: MyListDataModel
     var ingredient: Ingredient
     
     var body: some View {

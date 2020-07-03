@@ -18,7 +18,7 @@ import UIKit
 
  */
 
-class MyListData: ObservableObject {
+class MyListDataModel: ObservableObject {
     
     @Published private(set) var ingredients: Ingredients
     @Published private(set) var completedIngredients: Ingredients
@@ -109,7 +109,7 @@ class MyListData: ObservableObject {
 }
 
 // MARK: - Sort Ingredient Data
-extension MyListData {
+extension MyListDataModel {
 
     // Return ingredients sorted into alphabetical sections
     public func ingredientsSortedByName() -> [IngredientSection] {

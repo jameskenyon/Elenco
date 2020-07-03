@@ -11,21 +11,36 @@ import SwiftUI
 struct AddIngredientView: View {
 
     // global observed model
-    @EnvironmentObject var myListModel: MyListData
+    @EnvironmentObject var myListModel: MyListDataModel
     // local observed model
     @ObservedObject var searchViewModel = SearchViewModel()
     
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
-                TextField("Add Ingredient...", text: $searchViewModel.query, onCommit: {
-                    self.userDidAddReturnOnTextField()
-                })
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .font(Font.custom("HelveticaNeue-Medium", size: 22))
-                    .padding(15).padding(.leading)
-                    .padding(.top, searchViewModel.searchIngredients.count == 0 ? 0:10)
-                    .accentColor(Color("Teal"))
+                HStack {
+                    TextField("Add Ingredient...", text: $searchViewModel.query, onCommit: {
+                        self.userDidAddReturnOnTextField()
+                    })
+                        .textFieldStyle(PlainTextFieldStyle())
+                        .font(Font.custom("HelveticaNeue-Medium", size: 22))
+                        .padding(15).padding(.leading)
+                        .padding(.top, searchViewModel.searchIngredients.count == 0 ? 0:10)
+                        .accentColor(Color("Teal"))
+                    
+                    if searchViewModel.query.count != 0 {
+                        Button(action: {
+                            self.addIngredient()
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        }) {
+                            Text("+")
+                                .font(.custom("HelveticaNeue-Bold", size: 34))
+                                .foregroundColor(Color("Orange"))
+                        }
+                        .padding(.trailing, 20).padding(.bottom, 4)
+                    }
+                }
+                
                 ForEach(searchViewModel.searchIngredients.indices, id: \.self) { index in
                     IngredientSearchCell(ingredient: self.searchViewModel.searchIngredients[index],
                                          index: index, query: self.searchViewModel.query)

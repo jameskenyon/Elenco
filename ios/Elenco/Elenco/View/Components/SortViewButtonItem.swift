@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SortViewButtonItem: View {
     
-    @EnvironmentObject var myListModel: MyListData
+    @EnvironmentObject var myListModel: MyListDataModel
 
     @State var type: SortType
     
@@ -53,7 +53,7 @@ struct SortViewButtonItem: View {
 #if DEBUG
 struct SortViewButtonItem_Previews: PreviewProvider {
     static var previews: some View {
-        SortViewButtonItem(type: .aisle).environmentObject(MyListData(window: UIWindow()))
+        SortViewButtonItem(type: .aisle).environmentObject(MyListDataModel(window: UIWindow()))
     }
 }
 #endif
