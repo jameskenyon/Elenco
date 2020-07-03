@@ -64,6 +64,6 @@ struct IngredientListCell: View {
 
 struct IngredientListCell_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientListCell(ingredient: Ingredient(name: "James", id: 0, aisle: ""))
+        IngredientListCell(ingredient: Ingredient(name: "James", id: 69, aisle: ""))
     }
 }

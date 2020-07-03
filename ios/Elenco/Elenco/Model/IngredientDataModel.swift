@@ -23,7 +23,7 @@ class IngredientDataModel: ObservableObject {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
         do {
             let ingredientsEntities = try context.fetch(request)
-            self.ingredients = ingredientsEntities.map({ $0.ingredientFromSelf() })
+            self.ingredients = ingredientsEntities.map({ Ingredient(ingredientStore: $0) })
             completion(nil)
         } catch (let error) {
             completion(error)
@@ -34,10 +34,11 @@ class IngredientDataModel: ObservableObject {
     
     // Save Ingredient to core data model
     public func save(ingredient: Ingredient, completion: (Error?) -> ()) {
-        let ingredientData = IngredientStore(context: context)
-        ingredientData.name     = ingredient.name
-        ingredientData.aisle    = ingredient.aisle
-        ingredientData.quantity = ingredient.quantity
+        let ingredientStore = IngredientStore(context: context)
+        ingredientStore.name      = ingredient.name
+        ingredientStore.aisle     = ingredient.aisle
+        ingredientStore.quantity  = ingredient.quantity
+        ingredientStore.completed = ingredient.completed
 
         do {
             try context.save()

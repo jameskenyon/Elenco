@@ -25,6 +25,28 @@ struct Ingredient: Codable, Identifiable, Hashable {
     
     // other properties that might be added 
     var quantity: String?
+    var completed: Bool = false
+    
+    init(name: String, id: Int, aisle: String) {
+        self.name     = name
+        self.id       = id
+        self.aisle    = aisle
+    }
+    
+    init(name: String, id: Int, aisle: String, quantity: String?) {
+        self.name     = name
+        self.id       = id
+        self.aisle    = aisle
+        self.quantity = quantity
+    }
+    
+    init(ingredientStore: IngredientStore) {
+        self.name      = ingredientStore.name ?? ""
+        self.id        = 0
+        self.aisle     = ingredientStore.aisle ?? ""
+        self.quantity  = ingredientStore.quantity
+        self.completed = ingredientStore.completed
+    }
 }
 
 extension Ingredient {
