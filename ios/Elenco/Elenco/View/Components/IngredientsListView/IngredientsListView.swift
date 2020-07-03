@@ -24,37 +24,24 @@ struct IngredientsListView: View {
 
     var body: some View {
         ZStack {
-            if myListModel.sortType == .name || myListModel.sortType == .aisle {
-                List {
-                    // display list with the headers
-                    ForEach(getSortedIngredientSections(), id: \.title) { section in
-                        Section(header:
-                            IngredientSectionHeader(title: section.title)
-                                .padding(.top, -18)
-                        ) {
-                            ForEach(section.ingredients, id: \.id) { ingredient in
-                                IngredientListCell(ingredient: ingredient)
-                            }
-                            .onDelete { (indexSet) in
-                                guard let index = indexSet.first else { return }
-                                self.removeIngredient(atSection: section, index: index)
-                            }
+            List {
+                // display list with the headers
+                ForEach(getSortedIngredientSections(), id: \.title) { section in
+                    Section(header:
+                        IngredientSectionHeader(title: section.title)
+                            .padding(.top, -18)
+                    ) {
+                        ForEach(section.ingredients, id: \.id) { ingredient in
+                            IngredientListCell(ingredient: ingredient)
+                        }
+                        .onDelete { (indexSet) in
+                            guard let index = indexSet.first else { return }
+                            self.removeIngredient(atSection: section, index: index)
                         }
                     }
                 }
-                .listStyle(GroupedListStyle())
-            } else {
-                List {
-                    // display list without the headers
-                    ForEach(myListModel.ingredients + myListModel.completedIngredients, id: \.name) { ingredient in
-                        IngredientListCell(ingredient: ingredient)
-                    }
-                    .onDelete { (indexSet) in
-                        guard let index = indexSet.first else { return }
-                        self.removeIngredient(index: index)
-                    }
-                }
             }
+            .listStyle(GroupedListStyle())
         }
     
     }
@@ -62,10 +49,20 @@ struct IngredientsListView: View {
     // Return ingredients sorted according to the sort view options
     func getSortedIngredientSections() -> [IngredientSection] {
         switch myListModel.sortType {
-        case .name:     return myListModel.ingredientsSortedByName()
-        case .quantity: return myListModel.ingredientsSortedByQuantity()
-        case .aisle:    return myListModel.ingredientsSortedByAisle()
-        case .none:     return myListModel.ingredientsSortedByNone()
+        case .name:
+            return myListModel.sortIngredients(
+                getSectionHeaders: { $0.map({ $0.completed ? "" : $0.name.first?.lowercased() ?? ""}) },
+                ingredientInSection: { $0.name.first?.lowercased() ?? "" == $1 && !$0.completed }
+            )
+        case .aisle:
+            return myListModel.sortIngredients(
+                getSectionHeaders: { $0.map({ $0.completed ? "" : $0.aisle }) },
+                ingredientInSection: { $0.aisle == $1 && !$0.completed }
+            )
+        case .none:
+            return myListModel.sortIngredients(
+                getSectionHeaders: { _ in return ["None"] },
+                ingredientInSection: { !$0.completed && $1 == "None" })
         }
     }
     

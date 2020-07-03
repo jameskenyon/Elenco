@@ -12,7 +12,6 @@ import Foundation
 public enum SortType: String {
     case name     = "Name"
     case aisle    = "Aisle"
-    case quantity = "Quantity"
     case none     = "None"
 }
 
@@ -22,7 +21,7 @@ struct SortView: View {
     @EnvironmentObject var myListModel: MyListDataModel
     @State var sortViewIsVisible: Bool = false
     
-    let sortTypes: [SortType] = [.name, .aisle, .quantity, .none]
+    let sortTypes: [SortType] = [.name, .aisle, .none]
     
     var body: some View {
         VStack {

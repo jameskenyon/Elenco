@@ -21,10 +21,11 @@ import UIKit
 class MyListDataModel: ObservableObject {
     
     @Published private(set) var ingredients: Ingredients = []
-    @Published private(set) var completedIngredients: Ingredients = []
     
     @Published private(set) var window: UIWindow
-    @Published public var sortType: SortType = .name
+    
+    @Published public var sortType: SortType = .name 
+    
     private let ingredientsDataModel = IngredientDataModel()
     
     init(window: UIWindow) {
@@ -72,25 +73,15 @@ class MyListDataModel: ObservableObject {
         removeFromCoreDataModel(ingredient: ingredient)
     }
     
-    // Mark ingredient as completed
-    public func markCompletedIngredient(ingredient: Ingredient) {
-        ingredients.removeAll(where: { $0.name == ingredient.name })
-        var completedIngredient = ingredient.copy()
-        completedIngredient.completed = true
-        completedIngredients.append(completedIngredient)
-        ingredientsDataModel.update(ingredient: completedIngredient) { (error) in
-            if let error = error { print(error.localizedDescription) }
-        }
-    }
-    
-    // Mark ingredient as not complete
-    public func markUncompleteIngredient(ingredient: Ingredient) {
-        completedIngredients.removeAll(where: { $0.name == ingredient.name })
-        var unCompletedIngredient = ingredient.copy()
-        unCompletedIngredient.completed = false
-        ingredients.append(unCompletedIngredient)
-        ingredientsDataModel.update(ingredient: unCompletedIngredient) { (error) in
-            if let error = error { print(error.localizedDescription) }
+    // toggle the completed field of an ingredient
+    public func toggleCompletedIngredient(ingredient: Ingredient) {
+        for i in 0..<ingredients.count {
+            if ingredient.name == ingredients[i].name {
+                ingredients[i].completed.toggle()
+                self.ingredientsDataModel.update(ingredient: ingredients[i]) { (error) in
+                    if let error = error { print(error.localizedDescription) }
+                }
+            }
         }
     }
     
@@ -98,50 +89,48 @@ class MyListDataModel: ObservableObject {
     
     // update this to get the proper list of ingredients from CoreData
     private func loadLocalIngredientList() {
-        ingredientsDataModel.fetchIngredients { (error) in
+        self.ingredientsDataModel.fetchIngredients { (error) in
             if let error = error { print(error.localizedDescription) }
             // Filter ingredients list to get list of non completed and completed ingredients
-            self.ingredients = ingredientsDataModel.ingredients.filter({ !$0.completed })
-            self.completedIngredients = ingredientsDataModel.ingredients.filter({ $0.completed })
+            self.ingredients = self.ingredientsDataModel.ingredients
         }
     }
+    
 }
 
 // MARK: - Sort Ingredient Data
 extension MyListDataModel {
 
-    // Return ingredients sorted into alphabetical sections
-    public func ingredientsSortedByName() -> [IngredientSection] {
-        var sections = [IngredientSection]()
-        let sectionHeaders = Set(ingredients.map({ $0.name.first?.lowercased() ?? ""}))
-
-        // Filter ingredients in each section
+    /*
+     Sort ingredients and return
+     Param:
+        getSectionHeaders - a closure that determines the section header
+                            FOR NAME SORT: $0.map({ $0.name.first?.lowercased() ?? ""})
+        ingredientInSection - a closeure that determines if the ingredient is in the section
+                            FOR NAME SORT: $0.name.first?.lowercased() ?? "" == header && !$0.completed
+     */
+    public func sortIngredients(getSectionHeaders: (Ingredients)->[String],
+                                ingredientInSection: (Ingredient, String)->Bool) -> [IngredientSection] {
+        var sections: [IngredientSection] = []
+        var completedIngredients: Ingredients = []
+        let sectionHeaders = Set(getSectionHeaders(ingredients))
         for header in sectionHeaders {
-            let ingredientsInSection = ingredients.filter({ $0.name.first?.lowercased() ?? "" == header })
+            if header == "" { continue } // to stop header displaying if there is no ingredient in it (completed)
+            let ingredientsInSection = ingredients.filter({
+                if $0.completed { if !completedIngredients.contains($0) { completedIngredients.append($0)} }
+                return ingredientInSection($0, header)
+            })
             let section = IngredientSection(title: String(header), ingredients: ingredientsInSection)
             sections.append(section)
         }
         sections = sections.sorted(by: { $0.title < $1.title })
-        return addCompletedSection(sections: sections)
+        // add completed only if it exists
+        return completedIngredients.count == 0 ?
+            sections : sections + [IngredientSection(title: "Completed", ingredients: completedIngredients)]
     }
 
-    // Return ingredients sorted into sections based on their ailse(type) e.g. Veg, Meat
-    public func ingredientsSortedByAisle() -> [IngredientSection] {
-        var sections = [IngredientSection]()
-        let sectionHeaders = Set(ingredients.map({ $0.aisle}))
 
-        // Go through each section
-        for header in sectionHeaders {
-            let ingredientsInSection = ingredients.filter({ $0.aisle == header })
-            let section = IngredientSection(title: String(header), ingredients: ingredientsInSection)
-            sections.append(section)
-        }
-
-        sections = sections.sorted(by: { $0.title < $1.title })
-        return addCompletedSection(sections: sections)
-    }
-
-    // Return ingredients sorted by quantity
+    /* Return ingredients sorted by quantity
     public func ingredientsSortedByQuantity() -> [IngredientSection] {
         let sortedIngredients = ingredients.sorted { (ingredientOne, ingredientTwo) -> Bool in
             let ingredientOneDigits = getDigits(fromString: ingredientOne.quantity ?? "")
@@ -157,26 +146,12 @@ extension MyListDataModel {
         let sections = [IngredientSection(title: "", ingredients: sortedIngredients)]
         return addCompletedSection(sections: sections)
     }
-    
-    // Return array of unsorted ingredients in a single section
-    public func ingredientsSortedByNone() -> [IngredientSection] {
-        let sections = [IngredientSection(title: "", ingredients: ingredients)]
-        return addCompletedSection(sections: sections)
-    }
+    */
     
     // Return int from inside a string - when theres no int return 0
     private func getDigits(fromString string: String) -> Int {
         let stringDigit = string.components(separatedBy: CharacterSet.decimalDigits.inverted).first ?? ""
         return Int(stringDigit) ?? 0
     }
-    
-    // Add section for checked off ingredients
-    private func addCompletedSection(sections: [IngredientSection]) -> [IngredientSection] {
-        if !completedIngredients.isEmpty {
-            let completedSection = IngredientSection(title: "Completed", ingredients: completedIngredients)
-            return sections + [completedSection]
-        }
-        return sections
-        
-    }
+
 }
