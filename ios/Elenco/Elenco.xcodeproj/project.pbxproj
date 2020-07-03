@@ -118,9 +118,19 @@
 			path = "Data Models";
 			sourceTree = "<group>";
 		};
+		8A57BC3D24AF407B00FB138B /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				1A17AA7124ACB17B00893676 /* IngredientStore+CoreDataClass.swift */,
+				1A17AA7224ACB17B00893676 /* IngredientStore+CoreDataProperties.swift */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
 		8AC3729224AB82A8002699F2 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				8A57BC3D24AF407B00FB138B /* Core Data */,
 				8AC3729324AB82BB002699F2 /* IngredientData.json */,
 				8AD4BBED24A796E900F81AAF /* Elenco.xcdatamodeld */,
 			);
@@ -225,8 +235,6 @@
 			isa = PBXGroup;
 			children = (
 				8A57BC3C24AE836700FB138B /* Data Models */,
-				1A17AA7124ACB17B00893676 /* IngredientStore+CoreDataClass.swift */,
-				1A17AA7224ACB17B00893676 /* IngredientStore+CoreDataProperties.swift */,
 				8AAEE48324A7A3BC0025D15D /* Ingredient.swift */,
 			);
 			path = Model;
