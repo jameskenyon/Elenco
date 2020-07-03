@@ -54,16 +54,15 @@ struct SortView: View {
                             ForEach(sortTypes, id: \.self) { type in
                                 SortViewButtonItem(type: type)
                             }
-                            .padding(.trailing, 5)
+                            
                         }
-                        .padding(.leading, 20).padding(.bottom).padding(.top,3)
+                        .padding(.leading, 18).padding(.bottom).padding(.top,3)
                     }
-                    .padding(.top, -10).padding(.bottom, 5)
+                    .padding(.top, -20).padding(.bottom, 5)
                 }
             }
-            .background(colorScheme == .dark ? Color("Lead") : Color("Background"))
-            .cornerRadius(15)
-            .shadow(color: Color.black.opacity(0.14), radius: 4, y: 2)
+            .background(colorScheme == .dark ? Color("Lead") : Color("Light-Gray").opacity(0.15))
+            .cornerRadius(10)
         }
         .padding(.horizontal)
     }
