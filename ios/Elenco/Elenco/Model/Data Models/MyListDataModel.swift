@@ -20,7 +20,13 @@ import UIKit
 
 class MyListDataModel: ObservableObject {
     
-    @Published private(set) var ingredients: Ingredients = []
+    private(set) var ingredients: Ingredients = [] {
+        didSet {
+            configureDataSourceFor(sortType: sortType)
+        }
+    }
+    
+    @Published private(set) var listDataSource: [IngredientSection] = []
     
     @Published private(set) var window: UIWindow
     
@@ -82,6 +88,27 @@ class MyListDataModel: ObservableObject {
                     if let error = error { print(error.localizedDescription) }
                 }
             }
+        }
+    }
+    
+    // configure the current data source
+    public func configureDataSourceFor(sortType: SortType) {
+        switch sortType {
+        case .name:
+            listDataSource = sortIngredients(
+                getSectionHeaders: { $0.map({ $0.completed ? "" : $0.name.first?.lowercased() ?? ""}) },
+                ingredientInSection: { $0.name.first?.lowercased() ?? "" == $1 && !$0.completed }
+            )
+        case .aisle:
+            listDataSource = sortIngredients(
+                getSectionHeaders: { $0.map({ $0.completed ? "" : $0.aisle }) },
+                ingredientInSection: { $0.aisle == $1 && !$0.completed }
+            )
+        case .none:
+            listDataSource = sortIngredients(
+                getSectionHeaders: { _ in return ["None"] },
+                ingredientInSection: { !$0.completed && $1 == "" }
+            )
         }
     }
     

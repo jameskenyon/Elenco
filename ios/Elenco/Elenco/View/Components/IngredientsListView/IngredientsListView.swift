@@ -26,7 +26,7 @@ struct IngredientsListView: View {
         ZStack {
             List {
                 // display list with the headers
-                ForEach(getSortedIngredientSections(), id: \.title) { section in
+                ForEach(myListModel.listDataSource, id: \.title) { section in
                     Section(header:
                         IngredientSectionHeader(title: section.title)
                             .padding(.top, -18)
@@ -46,29 +46,9 @@ struct IngredientsListView: View {
     
     }
     
-    // Return ingredients sorted according to the sort view options
-    func getSortedIngredientSections() -> [IngredientSection] {
-        switch myListModel.sortType {
-        case .name:
-            return myListModel.sortIngredients(
-                getSectionHeaders: { $0.map({ $0.completed ? "" : $0.name.first?.lowercased() ?? ""}) },
-                ingredientInSection: { $0.name.first?.lowercased() ?? "" == $1 && !$0.completed }
-            )
-        case .aisle:
-            return myListModel.sortIngredients(
-                getSectionHeaders: { $0.map({ $0.completed ? "" : $0.aisle }) },
-                ingredientInSection: { $0.aisle == $1 && !$0.completed }
-            )
-        case .none:
-            return myListModel.sortIngredients(
-                getSectionHeaders: { _ in return ["None"] },
-                ingredientInSection: { !$0.completed && $1 == "None" })
-        }
-    }
-    
     // Work out which section and row ingredient is in and remove from list
     func removeIngredient(atSection section: IngredientSection, index: Int) {
-        let sections = self.getSortedIngredientSections().filter({ $0.title == section.title}).first
+        let sections = self.myListModel.listDataSource.filter({ $0.title == section.title}).first
         if let ingredient = sections?.ingredients[index] {
             self.myListModel.deleteIngredient(ingredient: ingredient)
         }
