@@ -174,7 +174,7 @@ extension MyListDataModel {
     // Add section for checked off ingredients
     private func addCompletedSection(sections: [IngredientSection]) -> [IngredientSection] {
         if !completedIngredients.isEmpty {
-            let completedSection = IngredientSection(title: "Complete", ingredients: completedIngredients)
+            let completedSection = IngredientSection(title: "Completed", ingredients: completedIngredients)
             return sections + [completedSection]
         }
         return sections
