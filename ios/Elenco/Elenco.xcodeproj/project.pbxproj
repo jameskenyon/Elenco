@@ -21,6 +21,7 @@
 		8A381C3D24AA86120023A5CD /* HostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A381C3C24AA86120023A5CD /* HostingView.swift */; };
 		8A381C3F24AB42EF0023A5CD /* MyListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A381C3E24AB42EF0023A5CD /* MyListHeaderView.swift */; };
 		8A381C4124AB44580023A5CD /* MyListDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A381C4024AB44580023A5CD /* MyListDataModel.swift */; };
+		8A9C611F24AFA149000E337F /* IngredientListTick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9C611E24AFA149000E337F /* IngredientListTick.swift */; };
 		8AAEE48424A7A3BC0025D15D /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE48324A7A3BC0025D15D /* Ingredient.swift */; };
 		8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */; };
 		8AC3729424AB82BB002699F2 /* IngredientData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AC3729324AB82BB002699F2 /* IngredientData.json */; };
@@ -62,6 +63,7 @@
 		8A381C3C24AA86120023A5CD /* HostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingView.swift; sourceTree = "<group>"; };
 		8A381C3E24AB42EF0023A5CD /* MyListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListHeaderView.swift; sourceTree = "<group>"; };
 		8A381C4024AB44580023A5CD /* MyListDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListDataModel.swift; sourceTree = "<group>"; };
+		8A9C611E24AFA149000E337F /* IngredientListTick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListTick.swift; sourceTree = "<group>"; };
 		8AAEE48324A7A3BC0025D15D /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAPIService.swift; sourceTree = "<group>"; };
 		8AC3729324AB82BB002699F2 /* IngredientData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = IngredientData.json; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				1A20D3DE24AA401700C6633F /* IngredientsListView.swift */,
 				1A20D3E524AA4D6800C6633F /* IngredientSectionHeader.swift */,
 				1A20D3E324AA490600C6633F /* IngredientListCell.swift */,
+				8A9C611E24AFA149000E337F /* IngredientListTick.swift */,
 			);
 			path = IngredientsListView;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				8AED6C8024AF56380056F901 /* UIDevice.swift in Sources */,
 				1A49CE0424AB8B6900153D12 /* SortViewButtonItem.swift in Sources */,
 				8AD4BBEC24A796E900F81AAF /* SceneDelegate.swift in Sources */,
+				8A9C611F24AFA149000E337F /* IngredientListTick.swift in Sources */,
 				1A20D3E424AA490600C6633F /* IngredientListCell.swift in Sources */,
 				8AD4BC0F24A7978000F81AAF /* MyListView.swift in Sources */,
 				1A20D3D924AA20D000C6633F /* (null) in Sources */,

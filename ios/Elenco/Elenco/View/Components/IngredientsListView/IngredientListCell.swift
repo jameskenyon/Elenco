@@ -11,20 +11,11 @@ import SwiftUI
 struct IngredientListCell: View {
     
     @EnvironmentObject var myListModel: MyListDataModel
-    var ingredient: Ingredient
+    @State var ingredient: Ingredient
     
     var body: some View {
         HStack {
-            Circle()
-                .stroke(Color("Orange"), lineWidth: 2)
-                .frame(width: 30, height: 30)
-                .padding(.leading, 10)
-                .overlay(
-                    Circle()
-                        .fill(cellColor())
-                        .frame(width: 30, height: 30)
-                        .padding(.leading, 10)
-            )
+            IngredientListTick(completed: ingredient.completed)
            
             Text((ingredient.name.first?.uppercased() ?? "") + ingredient.name.dropFirst())
                 .strikethrough(self.ingredient.completed, color: Color("Dark-Gray"))
@@ -43,10 +34,6 @@ struct IngredientListCell: View {
         }
         
         .listRowBackground(Color("Background"))
-    }
-    
-    private func cellColor() -> Color {        
-        return ingredient.completed ? Color("Orange") : .clear
     }
     
     /*
