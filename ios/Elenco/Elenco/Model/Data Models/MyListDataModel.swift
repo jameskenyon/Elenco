@@ -107,9 +107,10 @@ class MyListDataModel: ObservableObject {
         case .none:
             listDataSource = sortIngredients(
                 getSectionHeaders: { _ in return ["None"] },
-                ingredientInSection: { !$0.completed && $1 == "" }
+                ingredientInSection: { !$0.completed && $1 == "None" }
             )
         }
+        self.sortType = sortType
     }
     
     // MARK: Private Interface

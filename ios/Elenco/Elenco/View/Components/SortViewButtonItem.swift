@@ -16,7 +16,7 @@ struct SortViewButtonItem: View {
     
     var body: some View {
         Button(action: {
-            self.myListModel.sortType = self.type
+            self.myListModel.configureDataSourceFor(sortType: self.type)
         }) {
             Text(self.type.rawValue)
                 .padding(.vertical, 10)
