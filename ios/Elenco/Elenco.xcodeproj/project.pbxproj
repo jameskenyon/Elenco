@@ -34,6 +34,7 @@
 		8AD4BC0424A796F000F81AAF /* ElencoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4BC0324A796F000F81AAF /* ElencoTests.swift */; };
 		8AD4BC0F24A7978000F81AAF /* MyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4BC0E24A7978000F81AAF /* MyListView.swift */; };
 		8AE34E0824AD1AE2004651B5 /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE34E0724AD1AE2004651B5 /* EmptyListView.swift */; };
+		8AED6C8024AF56380056F901 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED6C7F24AF56380056F901 /* UIDevice.swift */; };
 		8AEF2EEE24A7E5FB0071C69A /* AddIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2EED24A7E5FB0071C69A /* AddIngredientView.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		8AD4BC0524A796F000F81AAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AD4BC0E24A7978000F81AAF /* MyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListView.swift; sourceTree = "<group>"; };
 		8AE34E0724AD1AE2004651B5 /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
+		8AED6C7F24AF56380056F901 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		8AEF2EED24A7E5FB0071C69A /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				8AC3729824AB9E05002699F2 /* UIWindow.swift */,
+				8AED6C7F24AF56380056F901 /* UIDevice.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				8A381C4124AB44580023A5CD /* MyListDataModel.swift in Sources */,
 				8A381C3D24AA86120023A5CD /* HostingView.swift in Sources */,
 				8A381C3F24AB42EF0023A5CD /* MyListHeaderView.swift in Sources */,
+				8AED6C8024AF56380056F901 /* UIDevice.swift in Sources */,
 				1A49CE0424AB8B6900153D12 /* SortViewButtonItem.swift in Sources */,
 				8AD4BBEC24A796E900F81AAF /* SceneDelegate.swift in Sources */,
 				1A20D3E424AA490600C6633F /* IngredientListCell.swift in Sources */,
