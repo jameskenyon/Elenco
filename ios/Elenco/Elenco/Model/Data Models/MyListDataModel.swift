@@ -83,7 +83,9 @@ class MyListDataModel: ObservableObject {
     public func toggleCompletedIngredient(ingredient: Ingredient) {
         for i in 0..<ingredients.count {
             if ingredient.name == ingredients[i].name {
-                ingredients[i].completed.toggle()
+                var updateIngredient = ingredients.remove(at: i).copy()
+                updateIngredient.completed.toggle()
+                ingredients.insert(updateIngredient, at: i)
                 self.ingredientsDataModel.update(ingredient: ingredients[i]) { (error) in
                     if let error = error { print(error.localizedDescription) }
                 }
