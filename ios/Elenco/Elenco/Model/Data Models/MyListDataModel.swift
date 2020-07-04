@@ -30,7 +30,7 @@ class MyListDataModel: ObservableObject {
     
     @Published private(set) var window: UIWindow
     
-    @Published public var sortType: SortType = .name 
+    @Published public var sortType: SortType = .name
     
     private let ingredientsDataModel = IngredientDataModel()
     
@@ -188,12 +188,12 @@ extension MyListDataModel {
         let sections = [IngredientSection(title: "", ingredients: sortedIngredients)]
         return addCompletedSection(sections: sections)
     }
-    */
     
     // Return int from inside a string - when theres no int return 0
     private func getDigits(fromString string: String) -> Int {
         let stringDigit = string.components(separatedBy: CharacterSet.decimalDigits.inverted).first ?? ""
         return Int(stringDigit) ?? 0
     }
+     */
 
 }
