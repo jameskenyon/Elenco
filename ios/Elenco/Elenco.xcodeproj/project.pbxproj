@@ -174,10 +174,10 @@
 			children = (
 				8AC3729724AB9DF8002699F2 /* Extensions */,
 				8AC3729224AB82A8002699F2 /* Data */,
-				8AD4BC1424A7996700F81AAF /* Service */,
-				8AD4BC1324A7996000F81AAF /* Model */,
+				8AD4BC1424A7996700F81AAF /* Services */,
+				8AD4BC1324A7996000F81AAF /* Models */,
 				8AD4BC1224A7980B00F81AAF /* Delegates */,
-				8AD4BC1024A797D400F81AAF /* View */,
+				8AD4BC1024A797D400F81AAF /* Views */,
 				8AD4BBF224A796EF00F81AAF /* Assets.xcassets */,
 				8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */,
 				8AD4BBF724A796EF00F81AAF /* LaunchScreen.storyboard */,
@@ -204,13 +204,13 @@
 			path = ElencoTests;
 			sourceTree = "<group>";
 		};
-		8AD4BC1024A797D400F81AAF /* View */ = {
+		8AD4BC1024A797D400F81AAF /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				8AD4BC1124A797EC00F81AAF /* Components */,
 				8AD4BC0E24A7978000F81AAF /* MyListView.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		8AD4BC1124A797EC00F81AAF /* Components */ = {
@@ -237,21 +237,21 @@
 			path = Delegates;
 			sourceTree = "<group>";
 		};
-		8AD4BC1324A7996000F81AAF /* Model */ = {
+		8AD4BC1324A7996000F81AAF /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				8A57BC3C24AE836700FB138B /* Data Models */,
 				8AAEE48324A7A3BC0025D15D /* Ingredient.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		8AD4BC1424A7996700F81AAF /* Service */ = {
+		8AD4BC1424A7996700F81AAF /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */,
 			);
-			path = Service;
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
