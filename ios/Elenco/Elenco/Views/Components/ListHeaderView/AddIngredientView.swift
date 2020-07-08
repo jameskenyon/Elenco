@@ -12,7 +12,7 @@ struct AddIngredientView: View {
 
     // global observed model
     @EnvironmentObject var myListModel: MyListDataModel
-    // local observed model
+    // local observed model for getting ingredient data
     @ObservedObject var searchViewModel = SearchViewModel()
     
     @Environment(\.colorScheme) var colorScheme

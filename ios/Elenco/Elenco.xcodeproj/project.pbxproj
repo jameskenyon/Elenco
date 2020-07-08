@@ -106,6 +106,7 @@
 		1A20D3E024AA478D00C6633F /* IngredientsListView */ = {
 			isa = PBXGroup;
 			children = (
+				8AE34E0724AD1AE2004651B5 /* EmptyListView.swift */,
 				1A20D3DE24AA401700C6633F /* IngredientsListView.swift */,
 				1A20D3E524AA4D6800C6633F /* IngredientSectionHeader.swift */,
 				1A20D3E324AA490600C6633F /* IngredientListCell.swift */,
@@ -130,6 +131,24 @@
 				1A83D68924AF9386003FB277 /* IngredientStore+CoreDataProperties.swift */,
 			);
 			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		8A9C612224B65C81000E337F /* ListSortView */ = {
+			isa = PBXGroup;
+			children = (
+				1A49CE0324AB8B6900153D12 /* SortViewButtonItem.swift */,
+				1A49CE0524AB8B8900153D12 /* SortView.swift */,
+			);
+			path = ListSortView;
+			sourceTree = "<group>";
+		};
+		8A9C612324B65D0B000E337F /* ListHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				8AEF2EED24A7E5FB0071C69A /* AddIngredientView.swift */,
+				8A381C3E24AB42EF0023A5CD /* MyListHeaderView.swift */,
+			);
+			path = ListHeaderView;
 			sourceTree = "<group>";
 		};
 		8AC3729224AB82A8002699F2 /* Data */ = {
@@ -216,12 +235,9 @@
 		8AD4BC1124A797EC00F81AAF /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				8AEF2EED24A7E5FB0071C69A /* AddIngredientView.swift */,
-				8A381C3E24AB42EF0023A5CD /* MyListHeaderView.swift */,
 				8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */,
-				1A49CE0324AB8B6900153D12 /* SortViewButtonItem.swift */,
-				1A49CE0524AB8B8900153D12 /* SortView.swift */,
-				8AE34E0724AD1AE2004651B5 /* EmptyListView.swift */,
+				8A9C612324B65D0B000E337F /* ListHeaderView */,
+				8A9C612224B65C81000E337F /* ListSortView */,
 				1A20D3E024AA478D00C6633F /* IngredientsListView */,
 			);
 			path = Components;
