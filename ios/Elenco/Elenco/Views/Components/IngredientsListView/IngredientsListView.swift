@@ -15,7 +15,7 @@ struct IngredientSection {
 
 struct IngredientsListView: View {
     
-    @EnvironmentObject var myListModel: MyListDataModel
+    @EnvironmentObject var myListModel: ListHolderDataModel
     
     init() {
         UITableView.appearance().separatorStyle = .none

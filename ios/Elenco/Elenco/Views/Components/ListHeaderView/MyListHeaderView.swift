@@ -18,7 +18,7 @@ import SwiftUI
 
 struct MyListHeaderView: View {
     
-    @EnvironmentObject var myListModel: MyListDataModel
+    @EnvironmentObject var myListModel: ListHolderDataModel
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {

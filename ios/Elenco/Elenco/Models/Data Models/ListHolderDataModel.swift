@@ -18,7 +18,7 @@ import UIKit
 
  */
 
-class MyListDataModel: ObservableObject {
+class ListHolderDataModel: ObservableObject {
     
     private(set) var ingredients: Ingredients = [] {
         didSet {
@@ -129,7 +129,7 @@ class MyListDataModel: ObservableObject {
 }
 
 // MARK: - Sort Ingredient Data
-extension MyListDataModel {
+extension ListHolderDataModel {
 
     /*
      Sort ingredients and return

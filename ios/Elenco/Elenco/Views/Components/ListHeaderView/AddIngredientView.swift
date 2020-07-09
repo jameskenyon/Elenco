@@ -11,7 +11,7 @@ import SwiftUI
 struct AddIngredientView: View {
 
     // global observed model
-    @EnvironmentObject var myListModel: MyListDataModel
+    @EnvironmentObject var myListModel: ListHolderDataModel
     // local observed model for getting ingredient data
     @ObservedObject var searchViewModel = SearchViewModel()
     

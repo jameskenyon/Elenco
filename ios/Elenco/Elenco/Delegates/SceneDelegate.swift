@@ -25,9 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
 
-            let myListModel = MyListDataModel(window: window)
+            let myListModel = ListHolderDataModel(window: window)
             
-            let contentView = MyListView()
+            let contentView = ListHolderView()
                 .environment(\.managedObjectContext, context)
                 .environmentObject(myListModel)
             
