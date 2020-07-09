@@ -52,7 +52,8 @@ struct AddIngredientView: View {
                         .padding(.top).padding(.bottom)
                         .background(index == 0 ? Color("Opaque-Teal"):Color("Background"))
                         .onTapGesture {
-                            self.searchViewModel.query = self.searchViewModel.searchIngredients[index].name
+                            self.searchViewModel.query = self.searchViewModel.searchIngredients[index].name.capitalise()
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         }
                 }
                 .background(Color("Background"))

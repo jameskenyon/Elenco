@@ -11,6 +11,7 @@ import SwiftUI
 struct IngredientListCell: View {
     
     @EnvironmentObject var myListModel: MyListDataModel
+    @Environment(\.colorScheme) var colorScheme
 
     @State var ingredient: Ingredient
     
@@ -18,7 +19,7 @@ struct IngredientListCell: View {
         HStack {
             IngredientListTick(completed: ingredient.completed)
            
-            Text((ingredient.name.first?.uppercased() ?? "") + ingredient.name.dropFirst())
+            Text("\(ingredient.name.capitalise())")
                 .strikethrough(self.ingredient.completed, color: Color("Dark-Gray"))
                 .font(.system(size: 23, weight: .medium, design: .default))
                 .padding(.horizontal, 15)
@@ -27,7 +28,7 @@ struct IngredientListCell: View {
            Spacer()
            
            Text("\(ingredient.quantity ?? "Other")")
-                .foregroundColor(Color("Light-Gray"))
+                .foregroundColor(colorScheme == .dark ? Color("Light-Gray") : Color("Dark-Gray"))
                 .padding(.trailing, 15)
        }
         .onTapGesture {

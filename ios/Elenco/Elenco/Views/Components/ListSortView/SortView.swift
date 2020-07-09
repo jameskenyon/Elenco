@@ -43,6 +43,8 @@ struct SortView: View {
                         Text(sortViewIsVisible ? "Hide":"Show")
                             .foregroundColor(Color("Orange"))
                             .font(.custom("HelveticaNeue-Bold", size: 16))
+                            .frame(width: 60, alignment: .trailing)
+                            .animation(nil)
                     }.padding()
                 }
                 .padding(.horizontal, 5).padding(.top, 5)
