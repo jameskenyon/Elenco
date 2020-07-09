@@ -12,7 +12,7 @@ struct AddIngredientView: View {
 
     // global observed model
     @EnvironmentObject var myListModel: MyListDataModel
-    // local observed model
+    // local observed model for getting ingredient data
     @ObservedObject var searchViewModel = SearchViewModel()
     
     @Environment(\.colorScheme) var colorScheme
@@ -52,7 +52,8 @@ struct AddIngredientView: View {
                         .padding(.top).padding(.bottom)
                         .background(index == 0 ? Color("Opaque-Teal"):Color("Background"))
                         .onTapGesture {
-                            self.searchViewModel.query = self.searchViewModel.searchIngredients[index].name
+                            self.searchViewModel.query = self.searchViewModel.searchIngredients[index].name.capitalise()
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         }
                 }
                 .background(Color("Background"))

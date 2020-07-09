@@ -8,6 +8,12 @@
 
 import SwiftUI
 
+/*
+ 
+ A view that will display when the user has no items in their list.
+ 
+ */
+
 struct EmptyListView: View {
     
     @Environment(\.colorScheme) var colorScheme

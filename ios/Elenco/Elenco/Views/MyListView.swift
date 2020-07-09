@@ -8,6 +8,13 @@
 
 import SwiftUI
 
+/*
+ 
+ The my list view holds the view for the app in version 1.0.
+ This is where all the views come together.
+ 
+ */
+
 struct MyListView: View {
         
     @EnvironmentObject var myListModel: MyListDataModel

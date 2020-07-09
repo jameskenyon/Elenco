@@ -11,13 +11,15 @@ import SwiftUI
 struct IngredientListCell: View {
     
     @EnvironmentObject var myListModel: MyListDataModel
+    @Environment(\.colorScheme) var colorScheme
+
     @State var ingredient: Ingredient
     
     var body: some View {
         HStack {
             IngredientListTick(completed: ingredient.completed)
            
-            Text((ingredient.name.first?.uppercased() ?? "") + ingredient.name.dropFirst())
+            Text("\(ingredient.name.capitalise())")
                 .strikethrough(self.ingredient.completed, color: Color("Dark-Gray"))
                 .font(.system(size: 23, weight: .medium, design: .default))
                 .padding(.horizontal, 15)
@@ -26,7 +28,7 @@ struct IngredientListCell: View {
            Spacer()
            
            Text("\(ingredient.quantity ?? "Other")")
-                .foregroundColor(Color("Light-Gray"))
+                .foregroundColor(colorScheme == .dark ? Color("Light-Gray") : Color("Dark-Gray"))
                 .padding(.trailing, 15)
        }
         .onTapGesture {
@@ -41,11 +43,7 @@ struct IngredientListCell: View {
         When ingredient is unchecked off save it back to core data
      */
     private func cellTapped() {
-        if ingredient.completed {
-            self.myListModel.markUncompleteIngredient(ingredient: ingredient)
-        } else {
-            self.myListModel.markCompletedIngredient(ingredient: ingredient)
-        }
+        self.myListModel.toggleCompletedIngredient(ingredient: ingredient)
     }
 }
 

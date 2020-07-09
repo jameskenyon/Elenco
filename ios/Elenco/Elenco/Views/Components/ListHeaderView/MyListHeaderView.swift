@@ -8,6 +8,14 @@
 
 import SwiftUI
 
+/*
+ 
+ The header view for a my list view component.
+ This header will contain the title, number of ingredients present and the
+ add ingredient search view.
+ 
+ */
+
 struct MyListHeaderView: View {
     
     @EnvironmentObject var myListModel: MyListDataModel
