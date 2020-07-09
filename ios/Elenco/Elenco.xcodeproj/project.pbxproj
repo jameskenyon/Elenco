@@ -26,6 +26,7 @@
 		8A9C611F24AFA149000E337F /* IngredientListTick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9C611E24AFA149000E337F /* IngredientListTick.swift */; };
 		8AAEE48424A7A3BC0025D15D /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE48324A7A3BC0025D15D /* Ingredient.swift */; };
 		8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */; };
+		8AB2FEF724B7B46C002918AA /* ElencoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB2FEF624B7B46C002918AA /* ElencoList.swift */; };
 		8AC3729424AB82BB002699F2 /* IngredientData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AC3729324AB82BB002699F2 /* IngredientData.json */; };
 		8AC3729924AB9E05002699F2 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC3729824AB9E05002699F2 /* UIWindow.swift */; };
 		8AD4BBEA24A796E900F81AAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4BBE924A796E900F81AAF /* AppDelegate.swift */; };
@@ -70,6 +71,7 @@
 		8A9C611E24AFA149000E337F /* IngredientListTick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListTick.swift; sourceTree = "<group>"; };
 		8AAEE48324A7A3BC0025D15D /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAPIService.swift; sourceTree = "<group>"; };
+		8AB2FEF624B7B46C002918AA /* ElencoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElencoList.swift; sourceTree = "<group>"; };
 		8AC3729324AB82BB002699F2 /* IngredientData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = IngredientData.json; sourceTree = "<group>"; };
 		8AC3729824AB9E05002699F2 /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		8AD4BBE624A796E900F81AAF /* Elenco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Elenco.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -272,6 +274,7 @@
 			children = (
 				8A57BC3C24AE836700FB138B /* Data Models */,
 				8AAEE48324A7A3BC0025D15D /* Ingredient.swift */,
+				8AB2FEF624B7B46C002918AA /* ElencoList.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				1A20D3D924AA20D000C6633F /* (null) in Sources */,
 				1A83D68A24AF9386003FB277 /* IngredientStore+CoreDataClass.swift in Sources */,
 				8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */,
+				8AB2FEF724B7B46C002918AA /* ElencoList.swift in Sources */,
 				8A057C1F24B7286000BDC888 /* String.swift in Sources */,
 				8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */,
 				8AEF2EEE24A7E5FB0071C69A /* AddIngredientView.swift in Sources */,
@@ -565,7 +569,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Elenco/Preview Content\"";
 				DEVELOPMENT_TEAM = PYU3ATJWUG;
 				ENABLE_PREVIEWS = YES;
@@ -574,6 +578,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Kenyon.James.Elenco;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -586,7 +591,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Elenco/Preview Content\"";
 				DEVELOPMENT_TEAM = PYU3ATJWUG;
 				ENABLE_PREVIEWS = YES;
@@ -595,6 +600,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Kenyon.James.Elenco;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
