@@ -18,7 +18,6 @@ public enum SortType: String {
 struct SortView: View {
     
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var myListModel: ListHolderDataModel
     @State var sortViewIsVisible: Bool = false
     
     let sortTypes: [SortType] = [.name, .aisle, .none]

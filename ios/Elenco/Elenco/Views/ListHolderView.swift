@@ -26,7 +26,7 @@ struct ListHolderView: View {
             
             Spacer()
             
-            if listHolderModel.ingredients.count != 0 {
+            if listHolderModel.list.ingredients.count != 0 {
                 SortView()
                     .padding(.top, 15)
                 

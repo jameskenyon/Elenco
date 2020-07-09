@@ -10,7 +10,7 @@ import SwiftUI
 
 struct IngredientListCell: View {
     
-    @EnvironmentObject var myListModel: ListHolderDataModel
+    @EnvironmentObject var listHolderModel: ListHolderDataModel
     @Environment(\.colorScheme) var colorScheme
 
     @State var ingredient: Ingredient
@@ -43,7 +43,7 @@ struct IngredientListCell: View {
         When ingredient is unchecked off save it back to core data
      */
     private func cellTapped() {
-        self.myListModel.toggleCompletedIngredient(ingredient: ingredient)
+        self.listHolderModel.toggleCompletedIngredient(ingredient: ingredient)
     }
 }
 

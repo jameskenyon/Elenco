@@ -10,13 +10,13 @@ import SwiftUI
 
 struct SortViewButtonItem: View {
     
-    @EnvironmentObject var myListModel: ListHolderDataModel
+    @EnvironmentObject var listHolderModel: ListHolderDataModel
 
     @State var type: SortType
     
     var body: some View {
         Button(action: {
-            self.myListModel.configureDataSourceFor(sortType: self.type)
+            self.listHolderModel.configureDataSourceFor(sortType: self.type)
         }) {
             Text(self.type.rawValue)
                 .padding(.vertical, 10)
@@ -30,7 +30,7 @@ struct SortViewButtonItem: View {
     
     // Return true if this button has been selected
     private func isSelected() -> Bool {
-        return myListModel.sortType == type
+        return listHolderModel.sortType == type
     }
     
     private func viewBackgroundColor() -> Color {

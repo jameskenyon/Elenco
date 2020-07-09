@@ -11,10 +11,10 @@ import SwiftUI
 struct AddIngredientView: View {
 
     // global observed model
-    @EnvironmentObject var myListModel: ListHolderDataModel
+    @EnvironmentObject var listHolderModel: ListHolderDataModel
     // local observed model for getting ingredient data
     @ObservedObject var searchViewModel = SearchViewModel()
-    
+    // hold the colour scheme for dark mode
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -69,8 +69,8 @@ struct AddIngredientView: View {
     private func userDidAddReturnOnTextField() {
         let query = self.searchViewModel.query
         if query.trimmingCharacters(in: [" "]) != "" {
-            if myListModel.userHasIngredient(name: query) {
-                myListModel.window.displayAlert(title: "You already have this ingredient.",
+            if listHolderModel.userHasIngredient(name: query) {
+                listHolderModel.window.displayAlert(title: "You already have this ingredient.",
                                                 okTitle: "Add anyway") { (alert) -> (Void) in
                                                     self.addIngredient()
                 }
@@ -86,7 +86,7 @@ struct AddIngredientView: View {
         let name  = nameAndQuantity.0
         let quantity = nameAndQuantity.1
         let aisle = IngredientAPIService.getAisleForIngredient(ingredientName: name)
-        self.myListModel.addIngredient(ingredient:
+        self.listHolderModel.addIngredient(ingredient:
             Ingredient(name: name, aisle: aisle, quantity: quantity)
         )
     }

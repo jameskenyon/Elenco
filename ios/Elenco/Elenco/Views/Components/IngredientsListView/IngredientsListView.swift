@@ -15,7 +15,7 @@ struct IngredientSection {
 
 struct IngredientsListView: View {
     
-    @EnvironmentObject var myListModel: ListHolderDataModel
+    @EnvironmentObject var listHolderModel: ListHolderDataModel
     
     init() {
         UITableView.appearance().separatorStyle = .none
@@ -26,7 +26,7 @@ struct IngredientsListView: View {
         ZStack {
             List {
                 // display list with the headers
-                ForEach(myListModel.listDataSource, id: \.title) { section in
+                ForEach(listHolderModel.listDataSource, id: \.title) { section in
                     Section(header:
                         IngredientSectionHeader(title: section.title)
                             .padding(.top, -18)
@@ -49,9 +49,9 @@ struct IngredientsListView: View {
     
     // Work out which section and row ingredient is in and remove from list
     func removeIngredient(atSection section: IngredientSection, index: Int) {
-        let sections = self.myListModel.listDataSource.filter({ $0.title == section.title}).first
+        let sections = self.listHolderModel.listDataSource.filter({ $0.title == section.title}).first
         if let ingredient = sections?.ingredients[index] {
-            self.myListModel.deleteIngredient(ingredient: ingredient)
+            self.listHolderModel.deleteIngredient(ingredient: ingredient)
         }
     }
     

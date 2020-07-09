@@ -20,7 +20,7 @@ struct ElencoList: Codable, Identifiable, Hashable  {
     
     let name: String
     let id: UUID
-    private(set) var ingredients: Ingredients
+    var ingredients: Ingredients
     
     let isSharedList: Bool = false
     
