@@ -36,7 +36,7 @@ class ListHolderDataModel: ObservableObject {
     
     init(window: UIWindow) {
         self.window = window
-        self.list = ElencoList(name: "All", ingredients: [])
+        self.list = ElencoList(name: "All")
         loadLocalIngredientList()
     }
     

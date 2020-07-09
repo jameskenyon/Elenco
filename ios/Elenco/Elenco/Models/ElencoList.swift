@@ -20,13 +20,14 @@ struct ElencoList: Codable, Identifiable, Hashable  {
     
     let name: String
     let id: UUID
-    private(set) var ingredients: Ingredients = []
+    var ingredients: Ingredients
     
     let isSharedList: Bool = false
     
-    init(name: String, id: UUID = UUID()) {
+    init(name: String, id: UUID = UUID(), ingredients: Ingredients = []) {
         self.name = name
         self.id = id
+        self.ingredients = ingredients
     }
     
     // ⚠️ go to the data store and get the ingredients for
