@@ -22,9 +22,10 @@ struct Ingredient: Codable, Identifiable, Hashable {
     let name: String
     let id = UUID()
     let aisle: String
-    
-    // other properties that might be added 
+
     var quantity: String?
+    var parentListID: UUID?
+    
     var completed: Bool = false
     
     init(name: String, aisle: String) {
@@ -36,6 +37,13 @@ struct Ingredient: Codable, Identifiable, Hashable {
         self.name     = name
         self.aisle    = aisle
         self.quantity = quantity
+    }
+    
+    init(name: String, aisle: String, quantity: String?, parentListID: UUID) {
+        self.name     = name
+        self.aisle    = aisle
+        self.quantity = quantity
+        self.parentListID = parentListID
     }
     
     init(name: String, aisle: String, quantity: String?, completed: Bool) {

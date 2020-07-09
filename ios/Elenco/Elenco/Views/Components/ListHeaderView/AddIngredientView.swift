@@ -87,7 +87,7 @@ struct AddIngredientView: View {
         let quantity = nameAndQuantity.1
         let aisle = IngredientAPIService.getAisleForIngredient(ingredientName: name)
         self.listHolderModel.addIngredient(ingredient:
-            Ingredient(name: name, aisle: aisle, quantity: quantity)
+            Ingredient(name: name, aisle: aisle, quantity: quantity, parentListID: self.listHolderModel.list.id)
         )
     }
     
