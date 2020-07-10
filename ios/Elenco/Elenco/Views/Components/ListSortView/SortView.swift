@@ -18,7 +18,6 @@ public enum SortType: String {
 struct SortView: View {
     
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var myListModel: MyListDataModel
     @State var sortViewIsVisible: Bool = false
     
     let sortTypes: [SortType] = [.name, .aisle, .none]
@@ -72,7 +71,7 @@ struct SortView: View {
 #if DEBUG
 struct SortView_Previews: PreviewProvider {
     static var previews: some View {
-        SortView().environmentObject(MyListDataModel(window: UIWindow()))
+        SortView().environmentObject(ListHolderDataModel(window: UIWindow()))
     }
 }
 #endif

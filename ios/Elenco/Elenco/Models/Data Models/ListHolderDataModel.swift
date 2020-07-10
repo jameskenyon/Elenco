@@ -18,9 +18,9 @@ import UIKit
 
  */
 
-class MyListDataModel: ObservableObject {
+class ListHolderDataModel: ObservableObject {
     
-    private(set) var ingredients: Ingredients = [] {
+    @Published private(set) var list: ElencoList {
         didSet {
             configureDataSourceFor(sortType: sortType)
         }
@@ -35,16 +35,24 @@ class MyListDataModel: ObservableObject {
     @Published public var menuIsShown = false
     
     private let ingredientsDataModel = IngredientDataModel()
+    private let elencoListDataModel  = ElencoListDataModel()
     
     init(window: UIWindow) {
         self.window = window
-        loadLocalIngredientList()
+        self.list = ElencoList(name: ElencoDefaults.mainListName)
+        loadDefaultList()
     }
     
     // MARK: Public Interface
     
+    // configure view for list
+    public func configureViewForList(newList: ElencoList?) {
+        guard let newList = newList else { return }
+        self.list = newList
+    }
+    
     public func addIngredient(ingredient: Ingredient) {
-        self.ingredients.append(ingredient)
+        self.list.ingredients.append(ingredient)
         self.saveIngredient(ingredient: ingredient)
     }
     
@@ -60,7 +68,7 @@ class MyListDataModel: ObservableObject {
     //      list already.
     public func userHasIngredient(name: String) -> Bool {
         let ingredientAndQuantity = Ingredient.getIngredientNameAndQuantity(searchText: name)
-        for ingredient in ingredients {
+        for ingredient in list.ingredients {
             if ingredient.name.lowercased() == ingredientAndQuantity.0.lowercased() {
                 return true
             }
@@ -77,18 +85,18 @@ class MyListDataModel: ObservableObject {
     
     // remove the ingredient from ingredients array and remove from coredata
     public func deleteIngredient(ingredient: Ingredient) {
-        ingredients.removeAll(where: { $0.name == ingredient.name })
+        list.ingredients.removeAll(where: { $0.name == ingredient.name })
         removeFromCoreDataModel(ingredient: ingredient)
     }
     
     // toggle the completed field of an ingredient
     public func toggleCompletedIngredient(ingredient: Ingredient) {
-        for i in 0..<ingredients.count {
-            if ingredient.name == ingredients[i].name {
-                var updateIngredient = ingredients.remove(at: i).copy()
+        for i in 0..<list.ingredients.count {
+            if ingredient.name == list.ingredients[i].name {
+                var updateIngredient = list.ingredients.remove(at: i).copy()
                 updateIngredient.completed.toggle()
-                ingredients.insert(updateIngredient, at: i)
-                self.ingredientsDataModel.update(ingredient: ingredients[i]) { (error) in
+                list.ingredients.insert(updateIngredient, at: i)
+                self.ingredientsDataModel.update(ingredient: list.ingredients[i]) { (error) in
                     if let error = error { print(error.localizedDescription) }
                 }
             }
@@ -119,19 +127,18 @@ class MyListDataModel: ObservableObject {
     
     // MARK: Private Interface
     
-    // update this to get the proper list of ingredients from CoreData
-    private func loadLocalIngredientList() {
+    // load the default list when the view loads
+    private func loadDefaultList() {
         self.ingredientsDataModel.fetchIngredients { (error) in
-            if let error = error { print(error.localizedDescription) }
-            // Filter ingredients list to get list of non completed and completed ingredients
-            self.ingredients = self.ingredientsDataModel.ingredients
+            let list = self.elencoListDataModel.getList(listName: ElencoDefaults.mainListName)
+            self.configureViewForList(newList: list)
         }
     }
     
 }
 
 // MARK: - Sort Ingredient Data
-extension MyListDataModel {
+extension ListHolderDataModel {
 
     /*
      Sort ingredients and return
@@ -147,10 +154,10 @@ extension MyListDataModel {
             -> [IngredientSection] {
         var sections: [IngredientSection] = []
         var completedIngredients: Ingredients = []
-        let sectionHeaders = Set(getSectionHeaders(ingredients))
+        let sectionHeaders = Set(getSectionHeaders(list.ingredients))
         for header in sectionHeaders {
             if header == "" { continue }
-            let ingredientsInSection = ingredients.filter({
+            let ingredientsInSection = list.ingredients.filter({
                 if $0.completed { if !completedIngredients.contains($0) { completedIngredients.append($0)} }
                 return ingredientInSection($0, header)
             })
@@ -167,7 +174,7 @@ extension MyListDataModel {
     // get completed ingredients
     private func getCompletedIngredients() -> Ingredients {
         var returnIngredients = Ingredients()
-        ingredients.forEach { (ingredient) in
+        list.ingredients.forEach { (ingredient) in
             if ingredient.completed {
                 returnIngredients.append(ingredient)
             }

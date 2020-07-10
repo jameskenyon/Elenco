@@ -20,18 +20,15 @@ struct ElencoList: Codable, Identifiable, Hashable  {
     
     let name: String
     let id: UUID
-    private(set) var ingredients: Ingredients
+    var ingredients: Ingredients
     
-    let isSharedList: Bool = false
+    let isSharedList: Bool
     
-    init(name: String, id: UUID = UUID(), ingredients: Ingredients) {
+    init(name: String, id: UUID = UUID(), ingredients: Ingredients = []) {
         self.name = name
         self.id = id
         self.ingredients = ingredients
-    }
-    
-    public mutating func updateIngredients(newIngredients: Ingredients) {
-        self.ingredients = newIngredients
+        isSharedList = false
     }
     
 }

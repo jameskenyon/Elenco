@@ -24,10 +24,10 @@ struct ListHolderView: View {
             VStack {
                 MyListHeaderView()
                     .padding(.top, UIDevice.deviceHasCurvedScreen() ? 0:-25)
-        
+                
                 Spacer()
                 
-                if myListModel.ingredients.count != 0 {
+                if listHolderModel.list.ingredients.count != 0 {
                     SortView()
                         .padding(.top, 15)
                     
@@ -48,9 +48,8 @@ struct ListHolderView: View {
                 }
             }
             .edgesIgnoringSafeArea(.top)
-            .blur(radius: myListModel.menuIsShown ? 5 : 0)
             
-            if myListModel.menuIsShown {
+            if listHolderModel.menuIsShown {
                 MenuView()
             }
         }

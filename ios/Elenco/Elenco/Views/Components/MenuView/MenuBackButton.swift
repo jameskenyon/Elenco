@@ -10,14 +10,14 @@ import SwiftUI
 
 struct MenuBackButton: View {
     
-    @EnvironmentObject var myListModel: MyListDataModel
+    @EnvironmentObject var listHolderModel: ListHolderDataModel
     
     var body: some View {
         HStack {
             Spacer()
             
             Button(action: {
-                self.myListModel.menuIsShown = false
+                self.listHolderModel.menuIsShown = false
             }, label: {
                 Text("Back")
                 .font(.system(size: 25, weight: .medium))

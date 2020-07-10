@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MenuViewListCell: View {
     
-    @EnvironmentObject var myListModel: MyListDataModel
+    @EnvironmentObject var myListModel: ListHolderDataModel
     var list: ElencoList
     
     var body: some View {
