@@ -87,4 +87,24 @@ class IngredientDataModel: ObservableObject {
             }
         }
     }
+    
+    // update the ingredients in the list so that if they have
+    // a parent list type of null, they will be assigned to the 'All' list.
+    public func updateIngredientListIfRequired() {
+        let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
+        do {
+            let ingredientsStores = try self.context.fetch(request)
+            if let allList = ElencoListDataModel().getListStore(forName: "All") {
+                for store in ingredientsStores {
+                    if store.list == nil {
+                        store.setValue(allList, forKey: "list")
+                    }
+                }
+            }
+            try self.context.save()
+        } catch {
+            print("Error updating ingredient list.")
+        }
+    }
+
 }

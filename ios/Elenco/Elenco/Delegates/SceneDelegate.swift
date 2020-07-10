@@ -73,8 +73,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Create the all list that will hold all the ingredients
     // if one doesn't already exist.
     private func createAllListIfRequired() {
-        if let allListStore = ElencoListDataModel().getListStore(forName: "All") {
-            let list = ElencoListDataModel().getListFromStore(listStore: allListStore)
+        if let list = ElencoListDataModel().getList(listName: "All") {
             list.ingredients.forEach { (ingredient) in
                 print(ingredient.name)
             }
@@ -85,6 +84,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 print("Error saving all list.")
             }
         }
+        updateIngredientListsIfRequired()
+    }
+    
+    // update the ingredients in the list so that if they have
+    // a parent list type of null, they will be assigned to the 'All' list.
+    private func updateIngredientListsIfRequired() {
+        IngredientDataModel().updateIngredientListIfRequired()
     }
 
 }

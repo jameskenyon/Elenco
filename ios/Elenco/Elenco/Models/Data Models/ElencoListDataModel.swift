@@ -15,33 +15,7 @@ class ElencoListDataModel: ObservableObject {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     @Published var lists: [ElencoList] = []
 
-    // get a list store object for when the user needs to save
-    public func getListStore(forName name: String) -> ListStore? {
-        let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
-        request.predicate = NSPredicate(format: "name == %@", name)
-        do {
-            guard let listEntity = try self.context.fetch(request).first else { return nil }
-            return listEntity
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
-    }
-
-    /*
-    // ⚠️ get list object by using an id and update the other methods as required
-    public func getListStore(forID id: String) -> ListStore? {
-        let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
-        request.predicate = NSPredicate(format: "name == %@", id)
-        do {
-            guard let listEntity = try self.context.fetch(request).first else { return nil }
-            return listEntity
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
-    }
-    */
+    // MARK: Fetch Methods available to public
     
     // create a new list from scratch
     public func createList(list: ElencoList, completion: @escaping (Error?) -> ()) {
@@ -56,6 +30,15 @@ class ElencoListDataModel: ObservableObject {
         } catch {
             completion(error)
         }
+    }
+    
+    // get individual list - nil if list not found
+    public func getList(listName: String) -> ElencoList? {
+        let listStore = getListStore(forName: listName)
+        if let listStore = listStore {
+            return getListFromStore(listStore: listStore)
+        }
+        return nil
     }
     
     // get all of the lists and their ingredients
@@ -76,8 +59,39 @@ class ElencoListDataModel: ObservableObject {
         }
     }
     
+    // get a list store object for when the user needs to save
+    // the list to memory
+    public func getListStore(forName name: String) -> ListStore? {
+        let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
+        request.predicate = NSPredicate(format: "name == %@", name)
+        do {
+            guard let listEntity = try self.context.fetch(request).first else { return nil }
+            return listEntity
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    // MARK: Private helper methods
+    
+    /*
+    // ⚠️ get list object by using an id and update the other methods as required
+    public func getListStore(forID id: String) -> ListStore? {
+        let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
+        request.predicate = NSPredicate(format: "name == %@", id)
+        do {
+            guard let listEntity = try self.context.fetch(request).first else { return nil }
+            return listEntity
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    */
+    
     // get list from store
-    public func getListFromStore(listStore: ListStore) -> ElencoList {
+    private func getListFromStore(listStore: ListStore) -> ElencoList {
         let ingredientStores = listStore.ingredients?.allObjects ?? []
         var ingredients: Ingredients = []
         for store in ingredientStores {
