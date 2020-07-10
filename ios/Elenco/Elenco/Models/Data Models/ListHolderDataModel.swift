@@ -20,7 +20,7 @@ import UIKit
 
 class ListHolderDataModel: ObservableObject {
     
-    @Published var list: ElencoList {
+    @Published private(set) var list: ElencoList {
         didSet {
             configureDataSourceFor(sortType: sortType)
         }
