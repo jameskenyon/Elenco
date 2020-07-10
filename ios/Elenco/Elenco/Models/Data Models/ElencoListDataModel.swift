@@ -32,6 +32,19 @@ class ElencoListDataModel: ObservableObject {
         }
     }
     
+    // delete a list
+    public func deleteList(listName: String) {
+        DispatchQueue.global().async {
+            let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
+            request.predicate = NSPredicate(format: "name == %@", listName)
+            do {
+                guard let listEntity = try self.context.fetch(request).first else { return }
+                self.context.delete(listEntity)
+                try self.context.save()
+            } catch {}
+        }
+    }
+    
     // get individual list - nil if list not found
     public func getList(listName: String) -> ElencoList? {
         let listStore = getListStore(forName: listName)

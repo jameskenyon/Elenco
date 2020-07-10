@@ -94,7 +94,7 @@ class IngredientDataModel: ObservableObject {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
         do {
             let ingredientsStores = try self.context.fetch(request)
-            if let allList = ElencoListDataModel().getListStore(forName: "All") {
+            if let allList = ElencoListDataModel().getListStore(forName: ElencoDefaults.mainListName) {
                 for store in ingredientsStores {
                     if store.list == nil {
                         store.setValue(allList, forKey: "list")
