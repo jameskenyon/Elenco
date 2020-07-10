@@ -21,24 +21,5 @@ extension IngredientStore {
     @NSManaged public var completed: Bool
     @NSManaged public var name: String?
     @NSManaged public var quantity: String?
-    @NSManaged public var parentListID: UUID?
-    @NSManaged public var lists: NSSet?
-
-}
-
-// MARK: Generated accessors for lists
-extension IngredientStore {
-
-    @objc(addListsObject:)
-    @NSManaged public func addToLists(_ value: ListStore)
-
-    @objc(removeListsObject:)
-    @NSManaged public func removeFromLists(_ value: ListStore)
-
-    @objc(addLists:)
-    @NSManaged public func addToLists(_ values: NSSet)
-
-    @objc(removeLists:)
-    @NSManaged public func removeFromLists(_ values: NSSet)
 
 }
