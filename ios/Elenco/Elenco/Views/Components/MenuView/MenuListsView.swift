@@ -14,7 +14,7 @@ struct MenuListsView: View {
     
     var body: some View {
         List {
-            ForEach(self.lists, id: \.name) { list in
+            ForEach(self.lists, id: \.id) { list in
                 MenuViewListCell(list: list)
             }
             Button(action: {
@@ -25,7 +25,6 @@ struct MenuListsView: View {
                 .foregroundColor(Color("Orange"))
                     .padding(.leading, -15)
                     .padding(.vertical, 7)
-
             })
         }
     }

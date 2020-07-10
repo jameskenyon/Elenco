@@ -10,17 +10,12 @@ import SwiftUI
 
 struct MenuView: View {
     
+    private var listHolderModel = ElencoListDataModel()
+    
     init() {
         UITableView.appearance().separatorStyle = .none
         UITableView.appearance().backgroundColor = .clear
     }
-    
-    let lists: [ElencoList] = [
-        ElencoList.init(name: "Dinner", ingredients: []),
-        ElencoList.init(name: "Shopping", ingredients: []),
-        ElencoList.init(name: "James", ingredients: []),
-        ElencoList.init(name: "Christmas", ingredients: []),
-    ]
     
     var body: some View {
             
@@ -38,7 +33,7 @@ struct MenuView: View {
                         MenuHeaderView(title: "My Lists", width: self.getWidth(geometry: geometry))
 
                         // Lists
-                        MenuListsView(lists: self.lists)
+                        MenuListsView(lists: self.listHolderModel.getLists())
 
                         // Back Button
                         MenuBackButton()
