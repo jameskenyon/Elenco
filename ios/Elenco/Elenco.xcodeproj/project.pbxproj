@@ -29,6 +29,7 @@
 		8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */; };
 		8AB2FEF724B7B46C002918AA /* ElencoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB2FEF624B7B46C002918AA /* ElencoList.swift */; };
 		8AB2FEF924B7C202002918AA /* ElencoListDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB2FEF824B7C202002918AA /* ElencoListDataModel.swift */; };
+		8AB2FEFB24B88D22002918AA /* ElencoDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB2FEFA24B88D22002918AA /* ElencoDefaults.swift */; };
 		8AC3729424AB82BB002699F2 /* IngredientData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AC3729324AB82BB002699F2 /* IngredientData.json */; };
 		8AC3729924AB9E05002699F2 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC3729824AB9E05002699F2 /* UIWindow.swift */; };
 		8AD4BBEA24A796E900F81AAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4BBE924A796E900F81AAF /* AppDelegate.swift */; };
@@ -76,6 +77,7 @@
 		8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAPIService.swift; sourceTree = "<group>"; };
 		8AB2FEF624B7B46C002918AA /* ElencoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElencoList.swift; sourceTree = "<group>"; };
 		8AB2FEF824B7C202002918AA /* ElencoListDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElencoListDataModel.swift; sourceTree = "<group>"; };
+		8AB2FEFA24B88D22002918AA /* ElencoDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElencoDefaults.swift; sourceTree = "<group>"; };
 		8AC3729324AB82BB002699F2 /* IngredientData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = IngredientData.json; sourceTree = "<group>"; };
 		8AC3729824AB9E05002699F2 /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		8AD4BBE624A796E900F81AAF /* Elenco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Elenco.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -273,6 +275,7 @@
 				8A57BC3C24AE836700FB138B /* Data Models */,
 				8AAEE48324A7A3BC0025D15D /* Ingredient.swift */,
 				8AB2FEF624B7B46C002918AA /* ElencoList.swift */,
+				8AB2FEFA24B88D22002918AA /* ElencoDefaults.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				8AD4BBEF24A796E900F81AAF /* Elenco.xcdatamodeld in Sources */,
 				1A20D3E624AA4D6800C6633F /* IngredientSectionHeader.swift in Sources */,
 				8AD4BBEA24A796E900F81AAF /* AppDelegate.swift in Sources */,
+				8AB2FEFB24B88D22002918AA /* ElencoDefaults.swift in Sources */,
 				8AAEE48424A7A3BC0025D15D /* Ingredient.swift in Sources */,
 				8A381C4124AB44580023A5CD /* ListHolderDataModel.swift in Sources */,
 				8A381C3D24AA86120023A5CD /* HostingView.swift in Sources */,

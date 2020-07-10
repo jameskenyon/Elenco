@@ -24,33 +24,29 @@ struct Ingredient: Codable, Identifiable, Hashable {
     let aisle: String
 
     var quantity: String?
-    var parentListID: UUID?
+    var parentList: ElencoList?
     
     var completed: Bool = false
     
-    init(name: String, aisle: String) {
-        self.name     = name
-        self.aisle    = aisle
+    init(name: String, aisle: String, parentList: ElencoList?) {
+        self.name       = name
+        self.aisle      = aisle
+        self.parentList = parentList
     }
     
-    init(name: String, aisle: String, quantity: String?) {
-        self.name     = name
-        self.aisle    = aisle
-        self.quantity = quantity
+    init(name: String, aisle: String, quantity: String?, parentList: ElencoList?) {
+        self.name       = name
+        self.aisle      = aisle
+        self.quantity   = quantity
+        self.parentList = parentList
     }
     
-    init(name: String, aisle: String, quantity: String?, parentListID: UUID) {
-        self.name     = name
-        self.aisle    = aisle
-        self.quantity = quantity
-        self.parentListID = parentListID
-    }
-    
-    init(name: String, aisle: String, quantity: String?, completed: Bool) {
-        self.name     = name
-        self.aisle    = aisle
-        self.quantity = quantity
-        self.completed = completed
+    init(name: String, aisle: String, quantity: String?, parentList: ElencoList?, completed: Bool) {
+        self.name       = name
+        self.aisle      = aisle
+        self.quantity   = quantity
+        self.parentList = parentList
+        self.completed  = completed
     }
     
     init(ingredientStore: IngredientStore) {
@@ -61,7 +57,7 @@ struct Ingredient: Codable, Identifiable, Hashable {
     }
     
     public func copy() -> Ingredient {
-        return Ingredient(name: self.name, aisle: self.aisle, quantity: self.quantity, completed: self.completed)
+        return Ingredient(name: self.name, aisle: self.aisle, quantity: self.quantity, parentList: self.parentList, completed: self.completed)
     }
 }
 

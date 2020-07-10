@@ -20,7 +20,7 @@ import UIKit
 
 class ListHolderDataModel: ObservableObject {
     
-    @Published var list: ElencoList {
+    @Published private(set) var list: ElencoList {
         didSet {
             configureDataSourceFor(sortType: sortType)
         }
@@ -33,14 +33,21 @@ class ListHolderDataModel: ObservableObject {
     @Published public var sortType: SortType = .name
     
     private let ingredientsDataModel = IngredientDataModel()
+    private let elencoListDataModel  = ElencoListDataModel()
     
     init(window: UIWindow) {
         self.window = window
-        self.list = ElencoList(name: "All")
-        loadLocalIngredientList()
+        self.list = ElencoList(name: ElencoDefaults.mainListName)
+        loadDefaultList()
     }
     
     // MARK: Public Interface
+    
+    // configure view for list
+    public func configureViewForList(newList: ElencoList?) {
+        guard let newList = newList else { return }
+        self.list = newList
+    }
     
     public func addIngredient(ingredient: Ingredient) {
         self.list.ingredients.append(ingredient)
@@ -118,12 +125,11 @@ class ListHolderDataModel: ObservableObject {
     
     // MARK: Private Interface
     
-    // update this to get the proper list of ingredients from CoreData
-    private func loadLocalIngredientList() {
+    // load the default list when the view loads
+    private func loadDefaultList() {
         self.ingredientsDataModel.fetchIngredients { (error) in
-            if let error = error { print(error.localizedDescription) }
-            // Filter ingredients list to get list of non completed and completed ingredients
-            self.list.ingredients = self.ingredientsDataModel.ingredients
+            let list = self.elencoListDataModel.getList(listName: ElencoDefaults.mainListName)
+            self.configureViewForList(newList: list)
         }
     }
     

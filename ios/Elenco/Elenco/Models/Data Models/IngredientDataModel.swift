@@ -37,23 +37,33 @@ class IngredientDataModel: ObservableObject {
         }
     }
     
+    public func fetchIngredients() -> Ingredients {
+        let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
+        do {
+            let ingredientsEntities = try self.context.fetch(request)
+            return ingredientsEntities.map({ Ingredient(ingredientStore: $0) })
+        }
+        catch {
+            return []
+        }
+    }
+    
     // MARK: - Update Methods
     
     // Save Ingredient to core data model
     public func save(ingredient: Ingredient, completion: @escaping (Error?) -> ()) {
-        DispatchQueue.global().async {
-            let ingredientStore = IngredientStore(context: self.context)
-            ingredientStore.name      = ingredient.name
-            ingredientStore.aisle     = ingredient.aisle
-            ingredientStore.quantity  = ingredient.quantity
-            ingredientStore.completed = ingredient.completed
-
-            do {
-                try self.context.save()
-                completion(nil)
-            } catch (let error) {
-                completion(error)
-            }
+        let ingredientStore = IngredientStore(context: self.context)
+        ingredientStore.name      = ingredient.name
+        ingredientStore.aisle     = ingredient.aisle
+        ingredientStore.quantity  = ingredient.quantity
+        ingredientStore.completed = ingredient.completed
+        ingredientStore.list = ElencoListDataModel().getListStore(forName: ingredient.parentList?.name ?? "")
+        
+        do {
+            try self.context.save()
+            completion(nil)
+        } catch (let error) {
+            completion(error)
         }
     }
     
@@ -88,4 +98,24 @@ class IngredientDataModel: ObservableObject {
             }
         }
     }
+    
+    // update the ingredients in the list so that if they have
+    // a parent list type of null, they will be assigned to the 'All' list.
+    public func updateIngredientListIfRequired() {
+        let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
+        do {
+            let ingredientsStores = try self.context.fetch(request)
+            if let allList = ElencoListDataModel().getListStore(forName: ElencoDefaults.mainListName) {
+                for store in ingredientsStores {
+                    if store.list == nil {
+                        store.setValue(allList, forKey: "list")
+                    }
+                }
+            }
+            try self.context.save()
+        } catch {
+            print("Error updating ingredient list.")
+        }
+    }
+
 }
