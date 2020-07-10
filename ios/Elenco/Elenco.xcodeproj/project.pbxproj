@@ -20,6 +20,7 @@
 		1A8E31F624B886BA008D6624 /* MenuListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E31F524B886BA008D6624 /* MenuListsView.swift */; };
 		1A8E31F824B88748008D6624 /* MenuBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E31F724B88748008D6624 /* MenuBackButton.swift */; };
 		1A8E31FA24B88787008D6624 /* MenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E31F924B88787008D6624 /* MenuHeaderView.swift */; };
+		1A8E31FC24B88B91008D6624 /* MenuIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E31FB24B88B91008D6624 /* MenuIcon.swift */; };
 		8A057C1F24B7286000BDC888 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A057C1E24B7285F00BDC888 /* String.swift */; };
 		8A381C3724AA1FD90023A5CD /* HelveticaNeue.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */; };
 		8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */; };
@@ -68,6 +69,7 @@
 		1A8E31F524B886BA008D6624 /* MenuListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListsView.swift; sourceTree = "<group>"; };
 		1A8E31F724B88748008D6624 /* MenuBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBackButton.swift; sourceTree = "<group>"; };
 		1A8E31F924B88787008D6624 /* MenuHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderView.swift; sourceTree = "<group>"; };
+		1A8E31FB24B88B91008D6624 /* MenuIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuIcon.swift; sourceTree = "<group>"; };
 		8A057C1E24B7285F00BDC888 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeue.ttc; sourceTree = "<group>"; };
 		8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiBoldLabel.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			children = (
 				8AEF2EED24A7E5FB0071C69A /* AddIngredientView.swift */,
 				8A381C3E24AB42EF0023A5CD /* MyListHeaderView.swift */,
+				1A8E31FB24B88B91008D6624 /* MenuIcon.swift */,
 			);
 			path = ListHeaderView;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				1A8E31F824B88748008D6624 /* MenuBackButton.swift in Sources */,
 				8A057C1F24B7286000BDC888 /* String.swift in Sources */,
 				8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */,
+				1A8E31FC24B88B91008D6624 /* MenuIcon.swift in Sources */,
 				8AEF2EEE24A7E5FB0071C69A /* AddIngredientView.swift in Sources */,
 				1A20D3DF24AA401700C6633F /* IngredientsListView.swift in Sources */,
 				8AE34E0824AD1AE2004651B5 /* EmptyListView.swift in Sources */,

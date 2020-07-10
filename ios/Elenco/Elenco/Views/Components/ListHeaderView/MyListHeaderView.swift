@@ -25,6 +25,9 @@ struct MyListHeaderView: View {
         VStack(alignment: .leading) {
             HStack {
                 
+                MenuIcon()
+                .padding(.leading, 20).padding(.bottom, -25).padding(.top, 60)
+                
                 Text("My List")
                     .padding(.leading, 20).padding(.bottom, -25).padding(.top, 60)
                     .font(.custom("HelveticaNeue-Bold", size: 36))
@@ -51,10 +54,8 @@ struct MyListHeaderView: View {
     }
 }
 
-#if DEBUG
 struct MyListHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         MyListHeaderView().environment(\.colorScheme, .light)
     }
 }
-#endif
