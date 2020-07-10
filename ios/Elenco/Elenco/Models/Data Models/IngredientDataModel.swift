@@ -70,7 +70,7 @@ class IngredientDataModel: ObservableObject {
     // Update the completion of a ingredient
     public func update(ingredient: Ingredient, completion: @escaping (Error?)->()) {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
-        request.predicate = NSPredicate(format: "name == %@", ingredient.name)
+        request.predicate = NSPredicate(format: "ingredientID == %@", ingredient.ingredientID as CVarArg)
         do {
             guard let ingredientsEntity = try self.context.fetch(request).first else { return }
             ingredientsEntity.setValue(ingredient.completed, forKey: "completed")
@@ -84,7 +84,7 @@ class IngredientDataModel: ObservableObject {
     // Delete ingredient from data model
     public func delete(ingredient: Ingredient, completion: @escaping (Error?)->()) {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
-        request.predicate = NSPredicate(format: "name == %@", ingredient.name)
+        request.predicate = NSPredicate(format: "ingredientID == %@", ingredient.ingredientID as CVarArg)
         do {
             guard let ingredientsEntity = try self.context.fetch(request).first else { return }
             self.context.delete(ingredientsEntity)
@@ -105,6 +105,9 @@ class IngredientDataModel: ObservableObject {
                 for store in ingredientsStores {
                     if store.list == nil {
                         store.setValue(allList, forKey: "list")
+                    }
+                    if store.ingredientID == nil {
+                        store.setValue(UUID(), forKey: "ingredientID")
                     }
                 }
             }

@@ -75,7 +75,7 @@ class ListHolderDataModel: ObservableObject {
     
     // remove the ingredient from ingredients array and remove from coredata
     public func deleteIngredient(ingredient: Ingredient) {
-        list.ingredients.removeAll(where: { $0.name == ingredient.name })
+        list.ingredients.removeAll(where: { $0.ingredientID == ingredient.ingredientID })
         removeFromCoreDataModel(ingredient: ingredient)
     }
     
@@ -89,7 +89,7 @@ class ListHolderDataModel: ObservableObject {
     // toggle the completed field of an ingredient
     public func toggleCompletedIngredient(ingredient: Ingredient) {
         for i in 0..<list.ingredients.count {
-            if ingredient.name == list.ingredients[i].name {
+            if ingredient.ingredientID == list.ingredients[i].ingredientID {
                 var updateIngredient = list.ingredients.remove(at: i).copy()
                 updateIngredient.completed.toggle()
                 list.ingredients.insert(updateIngredient, at: i)

@@ -32,7 +32,7 @@ internal class IngredientAPIService {
                         for ingredient in jsonResult {
                             if let name = ingredient["name"] as? String,
                                 let aisle = ingredient["aisle"] as? String {
-                                ingredientCache[name] = Ingredient(name: name, aisle: aisle, parentList: nil)
+                                ingredientCache[name] = Ingredient(ingredientID: UUID(), name: name, aisle: aisle, parentList: nil)
                             }
                         }
                     }

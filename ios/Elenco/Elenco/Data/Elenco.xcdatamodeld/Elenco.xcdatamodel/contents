@@ -3,6 +3,7 @@
     <entity name="IngredientStore" representedClassName="IngredientStore" syncable="YES">
         <attribute name="aisle" attributeType="String"/>
         <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="ingredientID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="quantity" optional="YES" attributeType="String" defaultValueString=""/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ListStore" inverseName="ingredients" inverseEntity="ListStore"/>
@@ -14,7 +15,7 @@
         <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="IngredientStore" inverseName="list" inverseEntity="IngredientStore"/>
     </entity>
     <elements>
-        <element name="IngredientStore" positionX="-45" positionY="0" width="128" height="118"/>
+        <element name="IngredientStore" positionX="-45" positionY="0" width="128" height="133"/>
         <element name="ListStore" positionX="-45" positionY="27" width="128" height="103"/>
     </elements>
 </model>
