@@ -58,6 +58,24 @@ class ElencoListDataModel: ObservableObject {
         }
     }
     
+    // get all of the lists and their ingredients
+    public func getLists() -> [ElencoList] {
+        let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
+        do {
+            let listStores = try self.context.fetch(request)
+            var returnLists:[ElencoList] = []
+            for store in listStores {
+                returnLists.append(
+                    getListFromStore(listStore: store)
+                )
+            }
+            return returnLists
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+    
     // get list from store
     public func getListFromStore(listStore: ListStore) -> ElencoList {
         let ingredientStores = listStore.ingredients?.allObjects ?? []

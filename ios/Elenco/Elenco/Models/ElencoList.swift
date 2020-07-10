@@ -31,11 +31,4 @@ struct ElencoList: Codable, Identifiable, Hashable  {
         isSharedList = false
     }
     
-    init(listStore: ListStore) {
-        self.name = listStore.name ?? ""
-        self.id = listStore.id ?? UUID()
-        self.ingredients = []
-        self.isSharedList = listStore.isShared
-    }
-    
 }
