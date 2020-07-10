@@ -42,6 +42,12 @@ class ListHolderDataModel: ObservableObject {
     
     // MARK: Public Interface
     
+    // configure view for list
+    public func configureViewForList(newList: ElencoList) {
+        self.list = newList
+        // ⚠️ load the ingredients for this list
+    }
+    
     public func addIngredient(ingredient: Ingredient) {
         self.list.ingredients.append(ingredient)
         self.saveIngredient(ingredient: ingredient)
@@ -118,6 +124,7 @@ class ListHolderDataModel: ObservableObject {
     
     // MARK: Private Interface
     
+    // ⚠️ move this method to the holder class which will configure the lists
     // update this to get the proper list of ingredients from CoreData
     private func loadLocalIngredientList() {
         self.ingredientsDataModel.fetchIngredients { (error) in
