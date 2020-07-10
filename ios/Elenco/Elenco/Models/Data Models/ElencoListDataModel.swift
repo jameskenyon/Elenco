@@ -28,7 +28,8 @@ class ElencoListDataModel: ObservableObject {
         }
     }
 
-    // ⚠️ get list object by using an id
+    /*
+    // ⚠️ get list object by using an id and update the other methods as required
     public func getListStore(forID id: String) -> ListStore? {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         request.predicate = NSPredicate(format: "name == %@", id)
@@ -40,6 +41,7 @@ class ElencoListDataModel: ObservableObject {
             return nil
         }
     }
+    */
     
     // create a new list from scratch
     public func createList(list: ElencoList, completion: @escaping (Error?) -> ()) {
@@ -54,6 +56,20 @@ class ElencoListDataModel: ObservableObject {
         } catch {
             completion(error)
         }
+    }
+    
+    // get list from store
+    public func getListFromStore(listStore: ListStore) -> ElencoList {
+        let ingredientStores = listStore.ingredients?.allObjects ?? []
+        var ingredients: Ingredients = []
+        for store in ingredientStores {
+            if let store = store as? IngredientStore {
+                ingredients.append(
+                    Ingredient(ingredientStore: store)
+                )
+            }
+        }
+        return ElencoList(name: listStore.name ?? "", id: listStore.id ?? UUID(), ingredients: ingredients)
     }
     
 }

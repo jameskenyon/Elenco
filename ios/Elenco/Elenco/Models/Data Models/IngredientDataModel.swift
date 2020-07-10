@@ -41,21 +41,18 @@ class IngredientDataModel: ObservableObject {
     
     // Save Ingredient to core data model
     public func save(ingredient: Ingredient, completion: @escaping (Error?) -> ()) {
-        DispatchQueue.global().async {
-            let ingredientStore = IngredientStore(context: self.context)
-            ingredientStore.name      = ingredient.name
-            ingredientStore.aisle     = ingredient.aisle
-            ingredientStore.quantity  = ingredient.quantity
-            ingredientStore.completed = ingredient.completed
-            
-            // ⚠️ save ingredient list
-            
-            do {
-                try self.context.save()
-                completion(nil)
-            } catch (let error) {
-                completion(error)
-            }
+        let ingredientStore = IngredientStore(context: self.context)
+        ingredientStore.name      = ingredient.name
+        ingredientStore.aisle     = ingredient.aisle
+        ingredientStore.quantity  = ingredient.quantity
+        ingredientStore.completed = ingredient.completed
+        ingredientStore.list = ElencoListDataModel().getListStore(forName: ingredient.parentList?.name ?? "")
+        
+        do {
+            try self.context.save()
+            completion(nil)
+        } catch (let error) {
+            completion(error)
         }
     }
     

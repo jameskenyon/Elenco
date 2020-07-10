@@ -73,7 +73,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Create the all list that will hold all the ingredients
     // if one doesn't already exist.
     private func createAllListIfRequired() {
-        if ElencoListDataModel().getListStore(forName: "All") == nil {
+        if let allListStore = ElencoListDataModel().getListStore(forName: "All") {
+            let list = ElencoListDataModel().getListFromStore(listStore: allListStore)
+            list.ingredients.forEach { (ingredient) in
+                print(ingredient.name)
+            }
+        } else {
+            // ⚠️ pass list to list holder
             let list = ElencoList(name: "All")
             ElencoListDataModel().createList(list: list) { (error) in
                 print("Error saving all list.")

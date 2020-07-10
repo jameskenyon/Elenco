@@ -22,12 +22,20 @@ struct ElencoList: Codable, Identifiable, Hashable  {
     let id: UUID
     var ingredients: Ingredients
     
-    let isSharedList: Bool = false
+    let isSharedList: Bool
     
     init(name: String, id: UUID = UUID(), ingredients: Ingredients = []) {
         self.name = name
         self.id = id
         self.ingredients = ingredients
+        isSharedList = false
+    }
+    
+    init(listStore: ListStore) {
+        self.name = listStore.name ?? ""
+        self.id = listStore.id ?? UUID()
+        self.ingredients = []
+        self.isSharedList = listStore.isShared
     }
     
 }
