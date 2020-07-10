@@ -33,17 +33,19 @@ class ListHolderDataModel: ObservableObject {
     @Published public var sortType: SortType = .name
     
     private let ingredientsDataModel = IngredientDataModel()
+    private let elencoListDataModel  = ElencoListDataModel()
     
     init(window: UIWindow) {
         self.window = window
         self.list = ElencoList(name: ElencoDefaults.mainListName)
-        loadLocalIngredientList()
+        loadDefaultList()
     }
     
     // MARK: Public Interface
     
     // configure view for list
-    public func configureViewForList(newList: ElencoList) {
+    public func configureViewForList(newList: ElencoList?) {
+        guard let newList = newList else { return }
         self.list = newList
     }
     
@@ -123,13 +125,11 @@ class ListHolderDataModel: ObservableObject {
     
     // MARK: Private Interface
     
-    // ⚠️ move this method to the holder class which will configure the lists
-    // update this to get the proper list of ingredients from CoreData
-    private func loadLocalIngredientList() {
+    // load the default list when the view loads
+    private func loadDefaultList() {
         self.ingredientsDataModel.fetchIngredients { (error) in
-            if let error = error { print(error.localizedDescription) }
-            // Filter ingredients list to get list of non completed and completed ingredients
-            self.list.ingredients = self.ingredientsDataModel.ingredients
+            let list = self.elencoListDataModel.getList(listName: ElencoDefaults.mainListName)
+            self.configureViewForList(newList: list)
         }
     }
     

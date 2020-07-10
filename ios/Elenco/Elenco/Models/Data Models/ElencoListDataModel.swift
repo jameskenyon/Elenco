@@ -53,7 +53,7 @@ class ElencoListDataModel: ObservableObject {
         }
         return nil
     }
-    
+
     // get all of the lists and their ingredients
     public func getLists() -> [ElencoList] {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()

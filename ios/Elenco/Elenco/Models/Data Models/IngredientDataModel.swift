@@ -37,6 +37,17 @@ class IngredientDataModel: ObservableObject {
         }
     }
     
+    public func fetchIngredients() -> Ingredients {
+        let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
+        do {
+            let ingredientsEntities = try self.context.fetch(request)
+            return ingredientsEntities.map({ Ingredient(ingredientStore: $0) })
+        }
+        catch {
+            return []
+        }
+    }
+    
     // MARK: - Update Methods
     
     // Save Ingredient to core data model
