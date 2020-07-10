@@ -47,7 +47,9 @@ class IngredientDataModel: ObservableObject {
             ingredientStore.aisle     = ingredient.aisle
             ingredientStore.quantity  = ingredient.quantity
             ingredientStore.completed = ingredient.completed
-
+            
+            // ⚠️ save ingredient list
+            
             do {
                 try self.context.save()
                 completion(nil)

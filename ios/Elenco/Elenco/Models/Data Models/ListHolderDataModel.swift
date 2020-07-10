@@ -45,7 +45,6 @@ class ListHolderDataModel: ObservableObject {
     // configure view for list
     public func configureViewForList(newList: ElencoList) {
         self.list = newList
-        // ⚠️ load the ingredients for this list
     }
     
     public func addIngredient(ingredient: Ingredient) {

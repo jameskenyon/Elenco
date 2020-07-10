@@ -30,10 +30,4 @@ struct ElencoList: Codable, Identifiable, Hashable  {
         self.ingredients = ingredients
     }
     
-    // ⚠️ go to the data store and get the ingredients for
-    // a given list.
-    public mutating func updateIngredients(newIngredients: Ingredients) {
-        self.ingredients = newIngredients
-    }
-    
 }
