@@ -43,7 +43,6 @@ struct MenuView: View {
                             
                             // Back Button
                             MenuBackButton()
-                            
                         }
                         .padding(.leading, 30)
                         , alignment: .topLeading)

@@ -20,33 +20,40 @@ struct MyListView: View {
     @EnvironmentObject var myListModel: MyListDataModel
     
     var body: some View {
-        VStack {
-            MyListHeaderView()
-                .padding(.top, UIDevice.deviceHasCurvedScreen() ? 0:-25)
-            
-            Spacer()
-            
-            if myListModel.ingredients.count != 0 {
-                SortView()
-                    .padding(.top, 15)
+        ZStack {
+            VStack {
+                MyListHeaderView()
+                    .padding(.top, UIDevice.deviceHasCurvedScreen() ? 0:-25)
                 
-                HStack {
-                    Text("NAME").padding(.leading)
-                    Spacer()
-                    Text("QTY").padding(.trailing)
+                Spacer()
+                
+                if myListModel.ingredients.count != 0 {
+                    SortView()
+                        .padding(.top, 15)
+                    
+                    HStack {
+                        Text("NAME").padding(.leading)
+                        Spacer()
+                        Text("QTY").padding(.trailing)
+                    }
+                    .font(.custom("HelveticaNeue-Bold", size: 16))
+                    .foregroundColor(Color("Dark-Gray"))
+                    .padding(.horizontal).padding(.top, 20)
+                    
+                    IngredientsListView()
+                        .padding(.top, 10)
+                } else {
+                    EmptyListView()
+                        .padding(.top)
                 }
-                .font(.custom("HelveticaNeue-Bold", size: 16))
-                .foregroundColor(Color("Dark-Gray"))
-                .padding(.horizontal).padding(.top, 20)
-                
-                IngredientsListView()
-                    .padding(.top, 10)
-            } else {
-                EmptyListView()
-                    .padding(.top)
+            }
+            .edgesIgnoringSafeArea(.top)
+            
+            if myListModel.menuIsShown {
+                MenuView()
             }
         }
-        .edgesIgnoringSafeArea(.top)
+        
     }
 }
 

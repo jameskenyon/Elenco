@@ -32,6 +32,8 @@ class MyListDataModel: ObservableObject {
     
     @Published public var sortType: SortType = .name
     
+    @Published public var menuIsShown = false
+    
     private let ingredientsDataModel = IngredientDataModel()
     
     init(window: UIWindow) {

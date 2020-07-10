@@ -26,7 +26,10 @@ struct MyListHeaderView: View {
             HStack {
                 
                 MenuIcon()
-                .padding(.leading, 20).padding(.bottom, -25).padding(.top, 60)
+                    .padding(.leading, 20).padding(.bottom, -25).padding(.top, 60)
+                    .onTapGesture {
+                        self.myListModel.menuIsShown = true
+                    }
                 
                 Text("My List")
                     .padding(.leading, 20).padding(.bottom, -25).padding(.top, 60)
