@@ -48,6 +48,7 @@ struct MyListView: View {
                 }
             }
             .edgesIgnoringSafeArea(.top)
+            .blur(radius: myListModel.menuIsShown ? 5 : 0)
             
             if myListModel.menuIsShown {
                 MenuView()

@@ -23,31 +23,35 @@ struct MenuView: View {
     ]
     
     var body: some View {
-        ZStack(alignment: .leading) {
-            Rectangle()
-                .edgesIgnoringSafeArea(.all)
-        
-            GeometryReader { geometry in
+            
+        GeometryReader { geometry in
+            HStack {
                 Rectangle()
-                    .edgesIgnoringSafeArea(.all)
-                    .frame(width: self.getWidth(geometry: geometry), height: geometry.size.height)
-                    .foregroundColor(Color.white)
+                .edgesIgnoringSafeArea(.all)
+                .frame(width: self.getWidth(geometry: geometry))
+                .foregroundColor(Color.white)
+                    .shadow(color: Color("Light-Gray"), radius: 8, x: 5, y: 5)
 
-                    .overlay(
-                        VStack(alignment: .leading) {
-                            // Title
-                            MenuHeaderView(title: "My Lists", width: self.getWidth(geometry: geometry))
+                .overlay(
+                    VStack(alignment: .leading) {
+                        // Title
+                        MenuHeaderView(title: "My Lists", width: self.getWidth(geometry: geometry))
 
-                            // Lists
-                            MenuListsView(lists: self.lists)
-                            
-                            // Back Button
-                            MenuBackButton()
-                        }
-                        .padding(.leading, 30)
-                        , alignment: .topLeading)
+                        // Lists
+                        MenuListsView(lists: self.lists)
+
+                        // Back Button
+                        MenuBackButton()
+                    }
+                    .padding(.leading, 30)
+                    , alignment: .topLeading)
+                Spacer()
             }
+            
+
+            
         }
+    
     }
     
     private func getWidth(geometry: GeometryProxy) -> CGFloat {
