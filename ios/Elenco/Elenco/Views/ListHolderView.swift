@@ -27,7 +27,7 @@ struct ListHolderView: View {
             Spacer()
             
             if listHolderModel.list.ingredients.count != 0 {
-                SortView()
+                ActionView()
                     .padding(.top, 15)
                 
                 HStack {

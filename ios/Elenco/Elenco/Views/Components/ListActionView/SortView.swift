@@ -15,12 +15,14 @@ public enum SortType: String {
     case none     = "None"
 }
 
-struct SortView: View {
+struct ActionView: View {
     
     @Environment(\.colorScheme) var colorScheme
     @State var sortViewIsVisible: Bool = false
     
+    let actionTypes: [ActionType] = [.clearList, .completeAll]
     let sortTypes: [SortType] = [.name, .aisle, .none]
+    
     
     var body: some View {
         VStack {
@@ -71,7 +73,7 @@ struct SortView: View {
 #if DEBUG
 struct SortView_Previews: PreviewProvider {
     static var previews: some View {
-        SortView().environmentObject(ListHolderDataModel(window: UIWindow()))
+        ActionView().environmentObject(ListHolderDataModel(window: UIWindow()))
     }
 }
 #endif
