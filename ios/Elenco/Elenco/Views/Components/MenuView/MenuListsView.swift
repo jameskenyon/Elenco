@@ -15,11 +15,7 @@ struct MenuListsView: View {
     var body: some View {
         List {
             ForEach(self.lists, id: \.name) { list in
-                Text(list.name)
-                    .font(.system(size: 25, weight: .medium))
-                    .foregroundColor(Color("Tungsten"))
-                    .padding(.leading, -15)
-                    .padding(.vertical, 7)
+                MenuViewListCell(list: list)
             }
             Button(action: {
                 print("Add item")
