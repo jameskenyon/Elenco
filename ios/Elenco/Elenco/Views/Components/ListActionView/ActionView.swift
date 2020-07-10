@@ -20,7 +20,7 @@ struct ActionView: View {
     @Environment(\.colorScheme) var colorScheme
     @State var actionViewIsVisible: Bool = false
     
-    let actionTypes: [ActionType] = [.clearList, .completeAll]
+    let actionTypes: [ActionType] = [.clearList, .completeAll, .uncompleteAll]
     let sortTypes: [SortType] = [.name, .aisle, .none]
     
     
@@ -62,7 +62,7 @@ struct ActionView: View {
                     .padding(.top, -20)
                     
                     Text("Sort by")
-                        .padding().padding(.leading, 5)
+                        .padding(.bottom).padding(.leading).padding(.leading, 5).padding(.top,5)
                           .font(.custom("HelveticaNeue-Medium", size: 20))
                           .foregroundColor(Color("BodyText"))
                     

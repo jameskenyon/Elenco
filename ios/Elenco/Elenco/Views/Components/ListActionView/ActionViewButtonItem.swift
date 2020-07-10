@@ -11,6 +11,7 @@ import SwiftUI
 public enum ActionType: String {
     case clearList     = "Clear List"
     case completeAll   = "Complete All"
+    case uncompleteAll = "Uncomplete All"
 }
 
 struct ActionViewButtonItem: View {
@@ -20,7 +21,7 @@ struct ActionViewButtonItem: View {
     
     var body: some View {
         Button(action: {
-            print("Button pressed")
+            self.listHolderModel.completeListAction(actionType: self.actionType)
         }) {
             Text("\(actionType.rawValue)")
                 .padding(.vertical, 10)
