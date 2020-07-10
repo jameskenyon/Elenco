@@ -67,7 +67,6 @@ class ElencoListDataModel: ObservableObject {
             }
             return returnLists
         } catch {
-            print(error.localizedDescription)
             return []
         }
     }
@@ -81,27 +80,11 @@ class ElencoListDataModel: ObservableObject {
             guard let listEntity = try self.context.fetch(request).first else { return nil }
             return listEntity
         } catch {
-            print(error.localizedDescription)
             return nil
         }
     }
     
     // MARK: Private helper methods
-    
-    /*
-    // ⚠️ get list object by using an id and update the other methods as required
-    public func getListStore(forID id: String) -> ListStore? {
-        let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
-        request.predicate = NSPredicate(format: "name == %@", id)
-        do {
-            guard let listEntity = try self.context.fetch(request).first else { return nil }
-            return listEntity
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
-    }
-    */
     
     // get list from store
     private func getListFromStore(listStore: ListStore) -> ElencoList {

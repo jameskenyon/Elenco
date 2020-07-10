@@ -113,9 +113,7 @@ class IngredientDataModel: ObservableObject {
                 }
             }
             try self.context.save()
-        } catch {
-            print("Error updating ingredient list.")
-        }
+        } catch {}
     }
 
 }
