@@ -15,19 +15,21 @@ public enum SortType: String {
     case none     = "None"
 }
 
-struct SortView: View {
+struct ActionView: View {
     
     @Environment(\.colorScheme) var colorScheme
-    @State var sortViewIsVisible: Bool = false
+    @State var actionViewIsVisible: Bool = false
     
+    let actionTypes: [ActionType] = [.clearList, .completeAll, .uncompleteAll]
     let sortTypes: [SortType] = [.name, .aisle, .none]
+    
     
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
                 HStack() {
                     
-                    Text("Sort By")
+                    Text("Actions")
                         .padding()
                         .font(.custom("HelveticaNeue-Medium", size: 20))
                         .foregroundColor(Color("BodyText"))
@@ -36,10 +38,10 @@ struct SortView: View {
                     
                     Button(action: {
                         withAnimation {
-                            self.sortViewIsVisible.toggle()
+                            self.actionViewIsVisible.toggle()
                         }
                     }) {
-                        Text(sortViewIsVisible ? "Hide":"Show")
+                        Text(actionViewIsVisible ? "Hide":"Show")
                             .foregroundColor(Color("Orange"))
                             .font(.custom("HelveticaNeue-Bold", size: 16))
                             .frame(width: 60, alignment: .trailing)
@@ -48,7 +50,22 @@ struct SortView: View {
                 }
                 .padding(.horizontal, 5).padding(.top, 5)
                 
-                if sortViewIsVisible {
+                if actionViewIsVisible {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(actionTypes, id: \.self) { type in
+                                ActionViewButtonItem(actionType: type)
+                            }
+                        }
+                        .padding(.leading, 18).padding(.top,3)
+                    }
+                    .padding(.top, -20)
+                    
+                    Text("Sort by")
+                        .padding(.bottom).padding(.leading).padding(.leading, 5).padding(.top,5)
+                          .font(.custom("HelveticaNeue-Medium", size: 20))
+                          .foregroundColor(Color("BodyText"))
+                    
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(sortTypes, id: \.self) { type in
@@ -56,10 +73,11 @@ struct SortView: View {
                             }
                             
                         }
-                        .padding(.leading, 18).padding(.bottom).padding(.top,3)
+                        .padding(.leading, 18).padding(.bottom)
                     }
                     .padding(.top, -20).padding(.bottom, 5)
                 }
+
             }
             .background(colorScheme == .dark ? Color("Lead") : Color("Light-Gray").opacity(0.15))
             .cornerRadius(10)
@@ -71,7 +89,7 @@ struct SortView: View {
 #if DEBUG
 struct SortView_Previews: PreviewProvider {
     static var previews: some View {
-        SortView().environmentObject(ListHolderDataModel(window: UIWindow()))
+        ActionView().environmentObject(ListHolderDataModel(window: UIWindow()))
     }
 }
 #endif

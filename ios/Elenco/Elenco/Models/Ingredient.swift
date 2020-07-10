@@ -22,42 +22,48 @@ struct Ingredient: Codable, Identifiable, Hashable {
     let name: String
     let id = UUID()
     let aisle: String
+    let ingredientID: UUID
 
     var quantity: String?
     var parentList: ElencoList?
     
     var completed: Bool = false
     
-    init(name: String, aisle: String, parentList: ElencoList?) {
+    init(ingredientID: UUID, name: String, aisle: String, parentList: ElencoList?) {
+        self.ingredientID = ingredientID
         self.name       = name
         self.aisle      = aisle
         self.parentList = parentList
     }
     
-    init(name: String, aisle: String, quantity: String?, parentList: ElencoList?) {
-        self.name       = name
-        self.aisle      = aisle
-        self.quantity   = quantity
-        self.parentList = parentList
+    init(ingredientID: UUID, name: String, aisle: String, quantity: String?, parentList: ElencoList?) {
+        self.ingredientID = ingredientID
+        self.name         = name
+        self.aisle        = aisle
+        self.quantity     = quantity
+        self.parentList   = parentList
     }
     
-    init(name: String, aisle: String, quantity: String?, parentList: ElencoList?, completed: Bool) {
-        self.name       = name
-        self.aisle      = aisle
-        self.quantity   = quantity
-        self.parentList = parentList
-        self.completed  = completed
+    init(ingredientID: UUID, name: String, aisle: String, quantity: String?, parentList: ElencoList?, completed: Bool) {
+        self.ingredientID = ingredientID
+        self.name         = name
+        self.aisle        = aisle
+        self.quantity     = quantity
+        self.parentList   = parentList
+        self.completed    = completed
     }
     
     init(ingredientStore: IngredientStore) {
-        self.name      = ingredientStore.name ?? ""
-        self.aisle     = ingredientStore.aisle ?? ""
-        self.quantity  = ingredientStore.quantity
-        self.completed = ingredientStore.completed
+        self.ingredientID = ingredientStore.ingredientID ?? UUID()
+        self.name         = ingredientStore.name ?? ""
+        self.aisle        = ingredientStore.aisle ?? ""
+        self.quantity     = ingredientStore.quantity
+        self.completed    = ingredientStore.completed
     }
     
     public func copy() -> Ingredient {
-        return Ingredient(name: self.name, aisle: self.aisle, quantity: self.quantity, parentList: self.parentList, completed: self.completed)
+        // ⚠️ try using id here
+        return Ingredient(ingredientID: self.ingredientID, name: self.name, aisle: self.aisle, quantity: self.quantity, parentList: self.parentList, completed: self.completed)
     }
 }
 

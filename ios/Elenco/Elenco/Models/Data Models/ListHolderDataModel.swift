@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftUI
 import UIKit
 
 /*
@@ -76,23 +75,23 @@ class ListHolderDataModel: ObservableObject {
         return false
     }
     
+    // remove the ingredient from ingredients array and remove from coredata
+    public func deleteIngredient(ingredient: Ingredient) {
+        list.ingredients.removeAll(where: { $0.ingredientID == ingredient.ingredientID })
+        removeFromCoreDataModel(ingredient: ingredient)
+    }
+    
     // remove the ingredient from the core data model
-    public func removeFromCoreDataModel(ingredient: Ingredient) {
+    private func removeFromCoreDataModel(ingredient: Ingredient) {
         ingredientsDataModel.delete(ingredient: ingredient) { (error) in
             if let error = error { print(error.localizedDescription) }
         }
     }
     
-    // remove the ingredient from ingredients array and remove from coredata
-    public func deleteIngredient(ingredient: Ingredient) {
-        list.ingredients.removeAll(where: { $0.name == ingredient.name })
-        removeFromCoreDataModel(ingredient: ingredient)
-    }
-    
     // toggle the completed field of an ingredient
     public func toggleCompletedIngredient(ingredient: Ingredient) {
         for i in 0..<list.ingredients.count {
-            if ingredient.name == list.ingredients[i].name {
+            if ingredient.ingredientID == list.ingredients[i].ingredientID {
                 var updateIngredient = list.ingredients.remove(at: i).copy()
                 updateIngredient.completed.toggle()
                 list.ingredients.insert(updateIngredient, at: i)
@@ -207,4 +206,50 @@ extension ListHolderDataModel {
     }
      */
 
+}
+
+// MARK: - List Holder Actions
+extension ListHolderDataModel {
+    
+    public func completeListAction(actionType: ActionType) {
+        switch actionType {
+        case .clearList     : handleClearList()
+        case .completeAll   : handleAllCompletion(shouldComplete: true)
+        case .uncompleteAll : handleAllCompletion(shouldComplete: false)
+        }
+    }
+    
+    private func handleClearList() {
+        self.window.displayAlert(title: "Are you sure you want to delete all ingredients in this list?", message: nil, okTitle: "Ok") { (action) -> (Void) in
+            self.clearList()
+        }
+    }
+    
+    private func handleAllCompletion(shouldComplete: Bool) {
+        changeCompletion(shouldComplete: shouldComplete)
+    }
+    
+    // ------------------------------------
+    // Background tasks
+    
+    // clear the list of all ingredients
+    private func clearList() {
+        let ingredientsCopy = self.list.ingredients
+        for ingredient in ingredientsCopy {
+            deleteIngredient(ingredient: ingredient)
+        }
+    }
+    
+    // change the value of the completion
+    private func changeCompletion(shouldComplete: Bool) {
+        for i in 0..<list.ingredients.count {
+            var updateIngredient = list.ingredients.remove(at: i).copy()
+            updateIngredient.completed = shouldComplete
+            list.ingredients.insert(updateIngredient, at: i)
+            self.ingredientsDataModel.update(ingredient: list.ingredients[i]) { (error) in
+                if let error = error { print(error.localizedDescription) }
+            }
+        }
+    }
+    
 }

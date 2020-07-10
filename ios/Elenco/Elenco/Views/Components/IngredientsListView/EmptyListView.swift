@@ -58,7 +58,7 @@ struct EmptyListView: View {
                     Image("orange_arrow")
                 }
                     
-                IngredientListCell(ingredient: Ingredient(name: "Carrot", aisle: "Produce", quantity: "1kg", parentList: nil))
+                IngredientListCell(ingredient: Ingredient(ingredientID: UUID(), name: "Carrot", aisle: "Produce", quantity: "1kg", parentList: nil))
                     .padding().padding(.horizontal).padding(.bottom)
                 
                 Text("Tap the circle to complete or swipe to delete an ingredient from your list.")

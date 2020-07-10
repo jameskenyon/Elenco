@@ -23,14 +23,14 @@ struct ListHolderView: View {
         ZStack {
             VStack {
                 MyListHeaderView()
-                    .padding(.top, UIDevice.deviceHasCurvedScreen() ? 0:-25)
-                
-                Spacer()
-                
+                .padding(.top, UIDevice.deviceHasCurvedScreen() ? 0:-25)
+            
                 if listHolderModel.list.ingredients.count != 0 {
-                    SortView()
+                    ActionView()
                         .padding(.top, 15)
                     
+                    Spacer()
+                        
                     HStack {
                         Text("NAME").padding(.leading)
                         Spacer()
@@ -39,13 +39,13 @@ struct ListHolderView: View {
                     .font(.custom("HelveticaNeue-Bold", size: 16))
                     .foregroundColor(Color("Dark-Gray"))
                     .padding(.horizontal).padding(.top, 20)
-                    
+                        
                     IngredientsListView()
                         .padding(.top, 10)
-                } else {
-                    EmptyListView()
-                        .padding(.top)
-                }
+                    } else {
+                        EmptyListView()
+                            .padding(.top)
+                    }
             }
             .edgesIgnoringSafeArea(.top)
             
@@ -53,9 +53,9 @@ struct ListHolderView: View {
                 MenuView()
             }
         }
-        
     }
 }
+
 
 #if DEBUG
 struct MyListView_Previews: PreviewProvider {
@@ -73,4 +73,3 @@ struct MyListView_Previews: PreviewProvider {
     }
 }
 #endif
-
