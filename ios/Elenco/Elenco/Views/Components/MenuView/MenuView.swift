@@ -34,55 +34,16 @@ struct MenuView: View {
                     .foregroundColor(Color.white)
 
                     .overlay(
-
                         VStack(alignment: .leading) {
                             // Title
-                            Text("My Lists")
-                                .font(.system(size: 35, weight: .bold, design: .default))
-                                .foregroundColor(Color("Tungsten"))
-
-                            // Underline
-                            Rectangle()
-                                .frame(width: self.getWidth(geometry: geometry) - 80, height: 1)
-                                .foregroundColor(Color("Teal"))
-                                .padding(.top, -5)
+                            MenuHeaderView(title: "My Lists", width: self.getWidth(geometry: geometry))
 
                             // Lists
-                            List {
-                                ForEach(self.lists, id: \.name) { list in
-                                    Text(list.name)
-                                        .font(.system(size: 25, weight: .medium))
-                                        .foregroundColor(Color("Tungsten"))
-                                        .padding(.leading, -15)
-                                        .padding(.vertical, 7)
-                                }
-                                Button(action: {
-                                    print("Add item")
-                                }, label: {
-                                    Text("+ New List")
-                                    .font(.system(size: 25, weight: .medium))
-                                    .foregroundColor(Color("Orange"))
-                                        .padding(.leading, -15)
-                                        .padding(.vertical, 7)
-
-                                })
-                            }
+                            MenuListsView(lists: self.lists)
                             
                             // Back Button
-                            HStack {
-                                Spacer()
-                                
-                                Button(action: {
-                                    print("Back")
-                                }, label: {
-                                    Text("Back")
-                                    .font(.system(size: 25, weight: .medium))
-                                    .foregroundColor(Color("Tungsten"))
-                                })
-                                    .padding(.trailing, 30)
-                            }
+                            MenuBackButton()
                             
-
                         }
                         .padding(.leading, 30)
                         , alignment: .topLeading)

@@ -17,6 +17,9 @@
 		1A49CE0624AB8B8900153D12 /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49CE0524AB8B8900153D12 /* SortView.swift */; };
 		1A83D68A24AF9386003FB277 /* IngredientStore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A83D68824AF9386003FB277 /* IngredientStore+CoreDataClass.swift */; };
 		1A83D68B24AF9386003FB277 /* IngredientStore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A83D68924AF9386003FB277 /* IngredientStore+CoreDataProperties.swift */; };
+		1A8E31F624B886BA008D6624 /* MenuListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E31F524B886BA008D6624 /* MenuListsView.swift */; };
+		1A8E31F824B88748008D6624 /* MenuBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E31F724B88748008D6624 /* MenuBackButton.swift */; };
+		1A8E31FA24B88787008D6624 /* MenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E31F924B88787008D6624 /* MenuHeaderView.swift */; };
 		8A057C1F24B7286000BDC888 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A057C1E24B7285F00BDC888 /* String.swift */; };
 		8A381C3724AA1FD90023A5CD /* HelveticaNeue.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */; };
 		8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */; };
@@ -62,6 +65,9 @@
 		1A49CE0524AB8B8900153D12 /* SortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortView.swift; sourceTree = "<group>"; };
 		1A83D68824AF9386003FB277 /* IngredientStore+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "IngredientStore+CoreDataClass.swift"; path = "../../../IngredientStore+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1A83D68924AF9386003FB277 /* IngredientStore+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "IngredientStore+CoreDataProperties.swift"; path = "../../../IngredientStore+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1A8E31F524B886BA008D6624 /* MenuListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListsView.swift; sourceTree = "<group>"; };
+		1A8E31F724B88748008D6624 /* MenuBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBackButton.swift; sourceTree = "<group>"; };
+		1A8E31F924B88787008D6624 /* MenuHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderView.swift; sourceTree = "<group>"; };
 		8A057C1E24B7285F00BDC888 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeue.ttc; sourceTree = "<group>"; };
 		8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiBoldLabel.swift; sourceTree = "<group>"; };
@@ -113,6 +119,9 @@
 			isa = PBXGroup;
 			children = (
 				1A1B402424B7B60000847E4C /* MenuView.swift */,
+				1A8E31F924B88787008D6624 /* MenuHeaderView.swift */,
+				1A8E31F524B886BA008D6624 /* MenuListsView.swift */,
+				1A8E31F724B88748008D6624 /* MenuBackButton.swift */,
 			);
 			path = MenuView;
 			sourceTree = "<group>";
@@ -392,6 +401,7 @@
 			files = (
 				1A17AA6824ABDDB700893676 /* IngredientDataModel.swift in Sources */,
 				8AD4BBEF24A796E900F81AAF /* Elenco.xcdatamodeld in Sources */,
+				1A8E31FA24B88787008D6624 /* MenuHeaderView.swift in Sources */,
 				1A20D3E624AA4D6800C6633F /* IngredientSectionHeader.swift in Sources */,
 				8AD4BBEA24A796E900F81AAF /* AppDelegate.swift in Sources */,
 				8AAEE48424A7A3BC0025D15D /* Ingredient.swift in Sources */,
@@ -399,6 +409,7 @@
 				8A381C3D24AA86120023A5CD /* HostingView.swift in Sources */,
 				1A1B402524B7B60000847E4C /* MenuView.swift in Sources */,
 				8A381C3F24AB42EF0023A5CD /* MyListHeaderView.swift in Sources */,
+				1A8E31F624B886BA008D6624 /* MenuListsView.swift in Sources */,
 				8AED6C8024AF56380056F901 /* UIDevice.swift in Sources */,
 				1A49CE0424AB8B6900153D12 /* SortViewButtonItem.swift in Sources */,
 				8AD4BBEC24A796E900F81AAF /* SceneDelegate.swift in Sources */,
@@ -409,6 +420,7 @@
 				1A83D68A24AF9386003FB277 /* IngredientStore+CoreDataClass.swift in Sources */,
 				8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */,
 				8AB2FEF724B7B46C002918AA /* ElencoList.swift in Sources */,
+				1A8E31F824B88748008D6624 /* MenuBackButton.swift in Sources */,
 				8A057C1F24B7286000BDC888 /* String.swift in Sources */,
 				8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */,
 				8AEF2EEE24A7E5FB0071C69A /* AddIngredientView.swift in Sources */,
