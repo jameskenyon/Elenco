@@ -13,7 +13,7 @@ struct MenuView: View {
     private var listHolderModel = ElencoListDataModel()
     
     init() {
-        UITableView.appearance().separatorStyle = .none
+        UITableView.appearance().separatorStyle  = .none
         UITableView.appearance().backgroundColor = .clear
     }
     
@@ -42,9 +42,6 @@ struct MenuView: View {
                     , alignment: .topLeading)
                 Spacer()
             }
-            
-
-            
         }
     
     }

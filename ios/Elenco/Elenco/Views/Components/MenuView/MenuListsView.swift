@@ -10,15 +10,18 @@ import SwiftUI
 
 struct MenuListsView: View {
     
-    let lists: [ElencoList]
+    @State var lists: [ElencoList]
+    @State var newList: ElencoList?
     
     var body: some View {
         List {
             ForEach(self.lists, id: \.id) { list in
-                MenuViewListCell(list: list)
+                MenuViewListCell(list: list, isEditing: list.id == self.newList?.id)
             }
             Button(action: {
                 print("Add item")
+                self.newList = ElencoList(name: "")
+                self.lists.append(self.newList!)
             }, label: {
                 Text("+ New List")
                 .font(.system(size: 25, weight: .medium))

@@ -12,6 +12,7 @@ struct MenuViewListCell: View {
     
     @EnvironmentObject var myListModel: ListHolderDataModel
     var list: ElencoList
+    @State var isEditing: Bool
     
     var body: some View {
         
