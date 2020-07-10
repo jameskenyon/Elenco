@@ -4,9 +4,18 @@
         <attribute name="aisle" attributeType="String"/>
         <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
+        <attribute name="parentListID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="quantity" optional="YES" attributeType="String" defaultValueString=""/>
+        <relationship name="lists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ListStore" inverseName="ingredients" inverseEntity="ListStore"/>
+    </entity>
+    <entity name="ListStore" representedClassName="ListStore" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isShared" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="IngredientStore" inverseName="lists" inverseEntity="IngredientStore"/>
     </entity>
     <elements>
-        <element name="IngredientStore" positionX="-45" positionY="0" width="128" height="103"/>
+        <element name="IngredientStore" positionX="-45" positionY="0" width="128" height="133"/>
+        <element name="ListStore" positionX="-45" positionY="36" width="128" height="103"/>
     </elements>
 </model>

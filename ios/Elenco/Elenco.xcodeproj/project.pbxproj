@@ -8,14 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		1A17AA6824ABDDB700893676 /* IngredientDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A17AA6724ABDDB700893676 /* IngredientDataModel.swift */; };
+		1A1B403524B865D700847E4C /* ListStore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B403124B865D700847E4C /* ListStore+CoreDataClass.swift */; };
+		1A1B403624B865D700847E4C /* ListStore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B403224B865D700847E4C /* ListStore+CoreDataProperties.swift */; };
+		1A1B403724B865D700847E4C /* IngredientStore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B403324B865D700847E4C /* IngredientStore+CoreDataClass.swift */; };
+		1A1B403824B865D700847E4C /* IngredientStore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B403424B865D700847E4C /* IngredientStore+CoreDataProperties.swift */; };
 		1A20D3D924AA20D000C6633F /* (null) in Sources */ = {isa = PBXBuildFile; };
 		1A20D3DF24AA401700C6633F /* IngredientsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A20D3DE24AA401700C6633F /* IngredientsListView.swift */; };
 		1A20D3E424AA490600C6633F /* IngredientListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A20D3E324AA490600C6633F /* IngredientListCell.swift */; };
 		1A20D3E624AA4D6800C6633F /* IngredientSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A20D3E524AA4D6800C6633F /* IngredientSectionHeader.swift */; };
 		1A49CE0424AB8B6900153D12 /* SortViewButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49CE0324AB8B6900153D12 /* SortViewButtonItem.swift */; };
 		1A49CE0624AB8B8900153D12 /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49CE0524AB8B8900153D12 /* SortView.swift */; };
-		1A83D68A24AF9386003FB277 /* IngredientStore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A83D68824AF9386003FB277 /* IngredientStore+CoreDataClass.swift */; };
-		1A83D68B24AF9386003FB277 /* IngredientStore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A83D68924AF9386003FB277 /* IngredientStore+CoreDataProperties.swift */; };
 		8A057C1F24B7286000BDC888 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A057C1E24B7285F00BDC888 /* String.swift */; };
 		8A381C3724AA1FD90023A5CD /* HelveticaNeue.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */; };
 		8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */; };
@@ -54,13 +56,15 @@
 
 /* Begin PBXFileReference section */
 		1A17AA6724ABDDB700893676 /* IngredientDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDataModel.swift; sourceTree = "<group>"; };
+		1A1B403124B865D700847E4C /* ListStore+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListStore+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1A1B403224B865D700847E4C /* ListStore+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListStore+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1A1B403324B865D700847E4C /* IngredientStore+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "IngredientStore+CoreDataClass.swift"; path = "../../../IngredientStore+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1A1B403424B865D700847E4C /* IngredientStore+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IngredientStore+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1A20D3DE24AA401700C6633F /* IngredientsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsListView.swift; sourceTree = "<group>"; };
 		1A20D3E324AA490600C6633F /* IngredientListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListCell.swift; sourceTree = "<group>"; };
 		1A20D3E524AA4D6800C6633F /* IngredientSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientSectionHeader.swift; sourceTree = "<group>"; };
 		1A49CE0324AB8B6900153D12 /* SortViewButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewButtonItem.swift; sourceTree = "<group>"; };
 		1A49CE0524AB8B8900153D12 /* SortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortView.swift; sourceTree = "<group>"; };
-		1A83D68824AF9386003FB277 /* IngredientStore+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "IngredientStore+CoreDataClass.swift"; path = "../../../IngredientStore+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1A83D68924AF9386003FB277 /* IngredientStore+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "IngredientStore+CoreDataProperties.swift"; path = "../../../IngredientStore+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8A057C1E24B7285F00BDC888 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeue.ttc; sourceTree = "<group>"; };
 		8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiBoldLabel.swift; sourceTree = "<group>"; };
@@ -134,8 +138,10 @@
 		8A57BC3D24AF407B00FB138B /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				1A83D68824AF9386003FB277 /* IngredientStore+CoreDataClass.swift */,
-				1A83D68924AF9386003FB277 /* IngredientStore+CoreDataProperties.swift */,
+				1A1B403124B865D700847E4C /* ListStore+CoreDataClass.swift */,
+				1A1B403224B865D700847E4C /* ListStore+CoreDataProperties.swift */,
+				1A1B403324B865D700847E4C /* IngredientStore+CoreDataClass.swift */,
+				1A1B403424B865D700847E4C /* IngredientStore+CoreDataProperties.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -390,6 +396,7 @@
 				8A381C4124AB44580023A5CD /* ListHolderDataModel.swift in Sources */,
 				8A381C3D24AA86120023A5CD /* HostingView.swift in Sources */,
 				8A381C3F24AB42EF0023A5CD /* MyListHeaderView.swift in Sources */,
+				1A1B403624B865D700847E4C /* ListStore+CoreDataProperties.swift in Sources */,
 				8AED6C8024AF56380056F901 /* UIDevice.swift in Sources */,
 				1A49CE0424AB8B6900153D12 /* SortViewButtonItem.swift in Sources */,
 				8AD4BBEC24A796E900F81AAF /* SceneDelegate.swift in Sources */,
@@ -397,18 +404,19 @@
 				1A20D3E424AA490600C6633F /* IngredientListCell.swift in Sources */,
 				8AD4BC0F24A7978000F81AAF /* ListHolderView.swift in Sources */,
 				1A20D3D924AA20D000C6633F /* (null) in Sources */,
-				1A83D68A24AF9386003FB277 /* IngredientStore+CoreDataClass.swift in Sources */,
+				1A1B403824B865D700847E4C /* IngredientStore+CoreDataProperties.swift in Sources */,
 				8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */,
 				8AB2FEF924B7C202002918AA /* ElencoListDataModel.swift in Sources */,
 				8AB2FEF724B7B46C002918AA /* ElencoList.swift in Sources */,
 				8A057C1F24B7286000BDC888 /* String.swift in Sources */,
+				1A1B403724B865D700847E4C /* IngredientStore+CoreDataClass.swift in Sources */,
 				8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */,
 				8AEF2EEE24A7E5FB0071C69A /* AddIngredientView.swift in Sources */,
 				1A20D3DF24AA401700C6633F /* IngredientsListView.swift in Sources */,
 				8AE34E0824AD1AE2004651B5 /* EmptyListView.swift in Sources */,
 				8AC3729924AB9E05002699F2 /* UIWindow.swift in Sources */,
-				1A83D68B24AF9386003FB277 /* IngredientStore+CoreDataProperties.swift in Sources */,
 				1A49CE0624AB8B8900153D12 /* SortView.swift in Sources */,
+				1A1B403524B865D700847E4C /* ListStore+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
