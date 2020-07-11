@@ -88,6 +88,16 @@ extension Ingredient {
         return (name, quantity == "" ? "1": quantity)
     }
     
+    // checks that new quantity is value
+    public static func quantityIsValid(quantity: String) -> Bool {
+        return stringContainsNumber(str: quantity) && quantity.count <= 6
+    }
+    
+    // format a quantity
+    public static func formatQuantity(quantity: String) -> String {
+        return quantity.replacingOccurrences(of: " ", with: "")
+    }
+    
     private static func stringContainsNumber(str: String) -> Bool {
         let numberRegEx = ".*[0-9]+.*"
         let testCase = NSPredicate(format: "SELF MATCHES %@", numberRegEx)

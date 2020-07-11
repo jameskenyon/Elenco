@@ -102,6 +102,20 @@ class ListHolderDataModel: ObservableObject {
         }
     }
     
+    // update the quantity of the current ingredient
+    public func updateIngredientQuantity(ingredient: Ingredient, newQuantity: String) {
+        for i in 0..<list.ingredients.count {
+            if ingredient.ingredientID == list.ingredients[i].ingredientID {
+                var updateIngredient = list.ingredients.remove(at: i).copy()
+                updateIngredient.quantity = newQuantity
+                list.ingredients.insert(updateIngredient, at: i)
+                self.ingredientsDataModel.update(ingredient: list.ingredients[i]) { (error) in
+                    if let error = error { print(error.localizedDescription) }
+                }
+            }
+        }
+    }
+    
     // configure the current data source
     public func configureDataSourceFor(sortType: SortType) {
         switch sortType {
