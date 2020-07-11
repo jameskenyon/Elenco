@@ -51,8 +51,10 @@ class ListHolderDataModel: ObservableObject {
     }
     
     public func addIngredient(ingredient: Ingredient) {
-        self.list.ingredients.append(ingredient)
-        self.saveIngredient(ingredient: ingredient)
+        var ingredientCopy = ingredient.copy()
+        ingredientCopy.parentList = self.list
+        self.list.ingredients.append(ingredientCopy)
+        self.saveIngredient(ingredient: ingredientCopy)
     }
     
     // save the ingredient to the core data model
@@ -118,6 +120,15 @@ class ListHolderDataModel: ObservableObject {
             listDataSource = sortIngredients(
                 getSectionHeaders: { $0.map({ $0.completed ? "" : $0.aisle }) },
                 ingredientInSection: { $0.aisle == $1 && !$0.completed }
+            )
+        case .list:
+            listDataSource = sortIngredients(
+                getSectionHeaders: {
+                    $0.map({$0.parentList?.name ?? ElencoDefaults.mainListName})
+                    },
+                ingredientInSection: { (ingredient, header) in
+                    return header == ingredient.parentList?.name
+                }
             )
         case .none:
             listDataSource = sortIngredients(
