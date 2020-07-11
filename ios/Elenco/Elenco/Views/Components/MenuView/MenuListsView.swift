@@ -10,15 +10,14 @@ import SwiftUI
 
 struct MenuListsView: View {
     
-    @EnvironmentObject var listHolderModel: ListHolderDataModel
 //    @EnvironmentObject var listHolderModel: ElencoListDataModel
     var lists: [ElencoList]
 
-    
     var body: some View {
         List {
             ForEach(self.lists, id: \.id) { list in
                 MenuViewListCell(list: list)
+                
             }
            
             

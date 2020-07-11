@@ -18,7 +18,7 @@ class ElencoListDataModel: ObservableObject {
     @Published var selectedList: ElencoList?
     
     init() {
-        getLists()
+        updateLists()
         self.selectedList = lists.first
     }
 
@@ -48,6 +48,9 @@ class ElencoListDataModel: ObservableObject {
             do {
                 guard let listEntity = try self.context.fetch(request).first else { return }
                 self.context.delete(listEntity)
+                DispatchQueue.main.async {
+                    self.lists.removeAll(where: { $0.name == listName })
+                }
                 try self.context.save()
             } catch {}
         }
@@ -63,21 +66,13 @@ class ElencoListDataModel: ObservableObject {
     }
 
     // get all of the lists and their ingredients
-    public func getLists() {
+    public func updateLists() {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         do {
             let listStores = try self.context.fetch(request)
             self.lists = listStores.map({ getListFromStore(listStore: $0) })
-//            var returnLists:[ElencoList] = []
-//            for store in listStores {
-//                returnLists.append(
-//                    getListFromStore(listStore: store)
-//                )
-//            }
-//            return returnLists
         } catch {
             print("error")
-//            return []
         }
     }
     

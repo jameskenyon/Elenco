@@ -14,6 +14,7 @@ struct MenuViewListCell: View {
 //    @EnvironmentObject var listHolderModel: ListHolderDataModel
     @State var editedName = "New List"
     @State var list: ElencoList
+    @State var isEditing: Bool = false
     
     var isSelected: Bool {
         return listModel.selectedList?.id == list.id
@@ -27,7 +28,7 @@ struct MenuViewListCell: View {
                 Rectangle()
                 .foregroundColor(Color("Light-Teal"))
                 HStack {
-                    TextField("New List", text: $editedName, onCommit: {
+                    TextField(list.name, text: $editedName, onCommit: {
                         self.saveList()
                     })
                         .textFieldStyle(PlainTextFieldStyle())
@@ -36,28 +37,53 @@ struct MenuViewListCell: View {
                         .foregroundColor(Color.white)
                         .padding(.vertical, 7)
 
-                    
-                    Button(action: {
-                        self.saveList()
-                    }, label: {
-                        Image(uiImage: #imageLiteral(resourceName: "saveList"))
-                            .resizable()
-                            .foregroundColor(Color.white)
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 30, height: 30)
-                    })
+                    // Edit button
+                    ZStack {
+                        Rectangle()
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(Color("Light-Teal"))
+                        Image(uiImage: isEditing ? #imageLiteral(resourceName: "saveList") : #imageLiteral(resourceName: "editList"))
+                        .resizable()
+                        .foregroundColor(Color.white)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                    }
+                    .onTapGesture {
+                        print("Edit")
+                        self.updateButtonTapped()
+                    }
+
+                    // Bin button
+                    ZStack {
+                        Rectangle()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(Color("Light-Teal"))
+                        Image(uiImage: #imageLiteral(resourceName: "deleteList"))
+                        .resizable()
+                        .foregroundColor(Color.white)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                    }
+                    .onTapGesture {
+                        print("bin")
+                    }
                 }
             } else {
                 Text(list.name)
                 .font(.system(size: 25, weight: .medium))
                 .foregroundColor(Color("Tungsten"))
                 .padding(.vertical, 7)
+                .onTapGesture {
+                    self.listModel.selectedList = self.list
+                }
             }
         }
         .padding(.leading, -15)
-        .onTapGesture {
-            self.listModel.selectedList = self.list
-        }
+
+    }
+    
+    private func updateButtonTapped() {
+        isEditing.toggle()
     }
     
     // Save new list to coredata
@@ -66,6 +92,11 @@ struct MenuViewListCell: View {
         listModel.createList(list: newList) { (error) in
             if let error = error { print(error) }
         }
+    }
+    
+    // Delete list
+    private func deleteList() {
+        listModel.deleteList(listName: list.name)
     }
     
 }
