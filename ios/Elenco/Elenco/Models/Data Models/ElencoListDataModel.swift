@@ -14,6 +14,13 @@ class ElencoListDataModel: ObservableObject {
 
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     @Published var lists: [ElencoList] = []
+    
+    @Published var selectedList: ElencoList?
+    
+    init() {
+        getLists()
+        self.selectedList = lists.first
+    }
 
     // MARK: Fetch Methods available to public
     
@@ -26,6 +33,7 @@ class ElencoListDataModel: ObservableObject {
         listStore.ingredients = []
         do {
             try self.context.save()
+            self.lists.append(list)
             completion(nil)
         } catch {
             completion(error)
@@ -55,19 +63,21 @@ class ElencoListDataModel: ObservableObject {
     }
 
     // get all of the lists and their ingredients
-    public func getLists() -> [ElencoList] {
+    public func getLists() {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         do {
             let listStores = try self.context.fetch(request)
-            var returnLists:[ElencoList] = []
-            for store in listStores {
-                returnLists.append(
-                    getListFromStore(listStore: store)
-                )
-            }
-            return returnLists
+            self.lists = listStores.map({ getListFromStore(listStore: $0) })
+//            var returnLists:[ElencoList] = []
+//            for store in listStores {
+//                returnLists.append(
+//                    getListFromStore(listStore: store)
+//                )
+//            }
+//            return returnLists
         } catch {
-            return []
+            print("error")
+//            return []
         }
     }
     

@@ -50,7 +50,7 @@ struct ListHolderView: View {
             .edgesIgnoringSafeArea(.top)
             
             if listHolderModel.menuIsShown {
-                MenuView()
+                MenuView().environmentObject(ElencoListDataModel())
             }
         }
     }

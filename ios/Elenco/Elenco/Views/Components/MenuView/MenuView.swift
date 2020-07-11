@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MenuView: View {
     
-    private var listHolderModel = ElencoListDataModel()
+    @EnvironmentObject var listHolderModel: ElencoListDataModel
     
     init() {
         UITableView.appearance().separatorStyle  = .none
@@ -25,7 +25,7 @@ struct MenuView: View {
                 .edgesIgnoringSafeArea(.all)
                 .frame(width: self.getWidth(geometry: geometry))
                 .foregroundColor(Color.white)
-                    .shadow(color: Color("Light-Gray"), radius: 8, x: 5, y: 5)
+                    .shadow(color: Color("Dark-Gray"), radius: 8, x: 5, y: 5)
 
                 .overlay(
                     VStack(alignment: .leading) {
@@ -33,7 +33,7 @@ struct MenuView: View {
                         MenuHeaderView(title: "My Lists", width: self.getWidth(geometry: geometry))
 
                         // Lists
-                        MenuListsView(lists: self.listHolderModel.getLists())
+                        MenuListsView(lists: self.listHolderModel.lists)
 
                         // Back Button
                         MenuBackButton()

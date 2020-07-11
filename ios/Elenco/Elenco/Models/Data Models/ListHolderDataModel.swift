@@ -33,6 +33,8 @@ class ListHolderDataModel: ObservableObject {
     
     @Published public var menuIsShown = false
     
+    @Published public var isMenuEditing = false
+        
     private let ingredientsDataModel = IngredientDataModel()
     private let elencoListDataModel  = ElencoListDataModel()
     
