@@ -19,7 +19,7 @@ import Foundation
 
 struct Ingredient: Codable, Identifiable, Hashable {
     // properties for the json decoder
-    let name: String
+    var name: String
     let id = UUID()
     let aisle: String
     let ingredientID: UUID
@@ -88,6 +88,11 @@ extension Ingredient {
         return (name, quantity == "" ? "1": quantity)
     }
     
+    // check that the name is valid
+    public static func nameIsValid(name: String) -> Bool {
+        return !stringContainsNumber(str: name)
+    }
+    
     // checks that new quantity is value
     public static func quantityIsValid(quantity: String) -> Bool {
         return stringContainsNumber(str: quantity) && quantity.count <= 6
@@ -96,6 +101,10 @@ extension Ingredient {
     // format a quantity
     public static func formatQuantity(quantity: String) -> String {
         return quantity.replacingOccurrences(of: " ", with: "")
+    }
+    
+    public static func formatName(name: String) -> String {
+        return name.capitalise()
     }
     
     private static func stringContainsNumber(str: String) -> Bool {

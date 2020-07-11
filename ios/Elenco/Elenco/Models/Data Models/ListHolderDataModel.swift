@@ -87,27 +87,17 @@ class ListHolderDataModel: ObservableObject {
             if let error = error { print(error.localizedDescription) }
         }
     }
-    
-    // toggle the completed field of an ingredient
-    public func toggleCompletedIngredient(ingredient: Ingredient) {
+        
+    // update the properties of an ingredient
+    public func updateIngredient(ingredient: Ingredient, newName: String? = nil,
+                                 newQuantity: String? = nil, newCompleted: Bool? = nil) {
         for i in 0..<list.ingredients.count {
             if ingredient.ingredientID == list.ingredients[i].ingredientID {
                 var updateIngredient = list.ingredients.remove(at: i).copy()
-                updateIngredient.completed.toggle()
-                list.ingredients.insert(updateIngredient, at: i)
-                self.ingredientsDataModel.update(ingredient: list.ingredients[i]) { (error) in
-                    if let error = error { print(error.localizedDescription) }
-                }
-            }
-        }
-    }
-    
-    // update the quantity of the current ingredient
-    public func updateIngredientQuantity(ingredient: Ingredient, newQuantity: String) {
-        for i in 0..<list.ingredients.count {
-            if ingredient.ingredientID == list.ingredients[i].ingredientID {
-                var updateIngredient = list.ingredients.remove(at: i).copy()
-                updateIngredient.quantity = newQuantity
+                // if nil don't update the ingredient
+                updateIngredient.name = newName ?? ingredient.name
+                updateIngredient.quantity = newQuantity ?? ingredient.quantity
+                updateIngredient.completed = newCompleted ?? ingredient.completed
                 list.ingredients.insert(updateIngredient, at: i)
                 self.ingredientsDataModel.update(ingredient: list.ingredients[i]) { (error) in
                     if let error = error { print(error.localizedDescription) }
