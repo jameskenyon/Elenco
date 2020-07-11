@@ -14,12 +14,11 @@ struct MenuViewListCell: View {
 //    @EnvironmentObject var listHolderModel: ListHolderDataModel
     @State var editedName = "New List"
     @State var list: ElencoList
-    @State var isEditing: Bool = false
+    @State var isEditing: Bool
     
     var isSelected: Bool {
         return listModel.selectedList?.id == list.id
     }
-
     
     var body: some View {
         ZStack {
