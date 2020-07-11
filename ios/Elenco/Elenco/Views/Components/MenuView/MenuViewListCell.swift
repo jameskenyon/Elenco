@@ -83,6 +83,13 @@ struct MenuViewListCell: View {
     }
     
     private func updateButtonTapped() {
+        if isEditing {
+            let newList = ElencoList(name: editedName)
+            listModel.deleteList(listName: list.name)
+            listModel.createList(list: newList) { (error) in
+                if let error = error { print(error) }
+            }
+        }
         isEditing.toggle()
     }
     
