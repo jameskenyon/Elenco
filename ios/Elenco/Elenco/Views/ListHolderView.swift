@@ -26,7 +26,7 @@ struct ListHolderView: View {
             VStack {
                 MyListHeaderView()
                 .padding(.top, UIDevice.deviceHasCurvedScreen() ? 0:-25)
-            
+
                 if listHolderModel.list.ingredients.count != 0 {
                     ActionView()
                         .padding(.top, 15)
@@ -43,15 +43,17 @@ struct ListHolderView: View {
                     .padding(.horizontal).padding(.top, 20)
                         
                     IngredientsListView()
-                        .padding(.top, 10)
-                    } else {
-                        EmptyListView()
-                            .padding(.top)
-                    }
+                    .padding(.top, 10)
+                }
+                else {
+                    EmptyListView()
+                    .padding(.top)
+                }
             }
             .edgesIgnoringSafeArea(.top)
 
             GeometryReader { geometry in
+
                 MenuView()
 //                    .offset(x: self.listHolderModel.menuIsShown ? 0 : -geometry.size.width, y: 0)
                     .offset(x: self.menuDragAmount, y: 0)

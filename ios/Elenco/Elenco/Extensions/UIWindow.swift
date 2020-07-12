@@ -26,4 +26,26 @@ extension UIWindow {
         self.rootViewController?.present(alertController, animated: true, completion: nil)
     }
     
+    func displayAlertWithTextField(title: String, message: String = "", placeholder: String,
+                                   saveAction: @escaping (String?)->()) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = placeholder
+        }
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { (action) in
+            if let textField = alertController.textFields?[0] {
+                saveAction(textField.text)
+            } else {
+                saveAction(nil)
+            }
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            alertController.removeFromParent()
+        }
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        alertController.view.tintColor = UIColor(named: "Teal")
+        self.rootViewController?.present(alertController, animated: true, completion: nil)
+    }
+    
 }
