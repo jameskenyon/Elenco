@@ -33,7 +33,8 @@ class ListHolderDataModel: ObservableObject {
     
     @Published public var menuIsShown = false
     
-    @Published public var isMenuEditing = false
+    @Published var lists: [ElencoList]
+    
         
     private let ingredientsDataModel = IngredientDataModel()
     private let elencoListDataModel  = ElencoListDataModel()
@@ -41,7 +42,9 @@ class ListHolderDataModel: ObservableObject {
     init(window: UIWindow) {
         self.window = window
         self.list = ElencoList(name: ElencoDefaults.mainListName)
+        self.lists = elencoListDataModel.lists
         loadDefaultList()
+        
     }
     
     // MARK: Public Interface

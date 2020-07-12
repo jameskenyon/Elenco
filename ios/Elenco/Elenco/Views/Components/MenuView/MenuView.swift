@@ -10,7 +10,8 @@ import SwiftUI
 
 struct MenuView: View {
     
-    @EnvironmentObject var listHolderModel: ElencoListDataModel
+    @EnvironmentObject var listDataModel: ElencoListDataModel
+    @EnvironmentObject var listHolderDataModel: ListHolderDataModel
     
     init() {
         UITableView.appearance().separatorStyle  = .none
@@ -35,7 +36,7 @@ struct MenuView: View {
                         .padding(.leading, 30)
 
                         // Lists
-                        MenuListsView(lists: self.listHolderModel.lists)
+                        MenuListsView(lists: self.listDataModel.lists)
 
                         // Back Button
                         MenuBackButton()

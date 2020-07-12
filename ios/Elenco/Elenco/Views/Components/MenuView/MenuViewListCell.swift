@@ -30,12 +30,13 @@ struct MenuListCellButton: View {
 struct MenuViewListCell: View {
     
     @EnvironmentObject var listModel: ElencoListDataModel
+    @EnvironmentObject var listHolderModel: ListHolderDataModel
     @State var editedName = ""
     @State var list: ElencoList
     @State var isEditing: Bool
     
     var isSelected: Bool {
-        return listModel.selectedList?.id == list.id
+        return listHolderModel.list.id == list.id
     }
     
     var body: some View {
@@ -86,7 +87,7 @@ struct MenuViewListCell: View {
                 .padding(.vertical, 10)
                 .onTapGesture {
                     print("Tap")
-                    self.listModel.selectedList = self.list
+                    self.listHolderModel.configureViewForList(newList: self.list)
                 }
             }
         }

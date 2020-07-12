@@ -10,7 +10,9 @@ import SwiftUI
 
 struct MenuListsView: View {
     
-    @EnvironmentObject var listHolderModel: ElencoListDataModel
+    @EnvironmentObject var listHolderModel: ListHolderDataModel
+    @EnvironmentObject var listDataModel: ElencoListDataModel
+    
     var lists: [ElencoList]
     @State var newList: ElencoList?
 
@@ -23,10 +25,10 @@ struct MenuListsView: View {
             
             Button(action: {
                 self.newList = ElencoList(name: "New List")
-                self.listHolderModel.createList(list: self.newList!) { (error) in
+                self.listDataModel.createList(list: self.newList!) { (error) in
                     if let error = error { print(error.localizedDescription) }
                 }
-                self.listHolderModel.selectedList = self.newList
+                self.listHolderModel.configureViewForList(newList: self.newList)
             }, label: {
                 Text("+ New List")
                 .font(.system(size: 25, weight: .medium))

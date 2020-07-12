@@ -51,6 +51,9 @@ struct ListHolderView: View {
                 }
             }
             .edgesIgnoringSafeArea(.top)
+            .onTapGesture {
+                self.listHolderModel.menuIsShown = false
+            }
 
             GeometryReader { geometry in
 
