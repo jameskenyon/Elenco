@@ -27,7 +27,7 @@ struct ListHolderView: View {
 
                 if listHolderModel.list.ingredients.count != 0 {
                     ActionView()
-                        .padding(.top, 15)
+                        .padding(.top, 20)
                         .onTapGesture {
                             self.listHolderModel.userFinishedAddingIngredients()
                         }
@@ -41,7 +41,7 @@ struct ListHolderView: View {
                     }
                     .font(.custom("HelveticaNeue-Bold", size: 16))
                     .foregroundColor(Color("Dark-Gray"))
-                    .padding(.horizontal).padding(.top, 20)
+                    .padding(.horizontal).padding(.top, 15)
                     .onTapGesture {
                         self.listHolderModel.userFinishedAddingIngredients()
                     }
@@ -59,8 +59,12 @@ struct ListHolderView: View {
                     }
                 }
                 else {
-                    EmptyListView()
-                    .padding(.top)
+                    VStack {
+                        EmptyListView()
+                            .padding(.top)
+                        Spacer()
+                        AddIngredientButton()
+                    }
                 }
             }
             .edgesIgnoringSafeArea(.top)
