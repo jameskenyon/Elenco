@@ -23,7 +23,7 @@ struct MenuHeaderView: View {
             // Underline
             Rectangle()
                 .frame(width: width - 80, height: 1)
-                .foregroundColor(Color("Teal"))
+                .foregroundColor(Color("Light-Teal"))
                 .padding(.top, -5)
         }
     }

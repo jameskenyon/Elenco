@@ -14,10 +14,10 @@ struct MenuListsView: View {
     var lists: [ElencoList]
     @State var newList: ElencoList?
 
-    var body: some View {
+    var body: some View {  
         List {
             ForEach(self.lists, id: \.id) { list in
-                MenuViewListCell(list: list, isEditing: self.newList?.id == list.id)
+                MenuViewListCell(list: list, isEditing: self.newList?.name == list.name)
             }
             
             Button(action: {
@@ -30,7 +30,7 @@ struct MenuListsView: View {
                 Text("+ New List")
                 .font(.system(size: 25, weight: .medium))
                 .foregroundColor(Color("Orange"))
-                    .padding(.leading, -15)
+                    .padding(.leading, 25)
                     .padding(.vertical, 7)
             })
         }

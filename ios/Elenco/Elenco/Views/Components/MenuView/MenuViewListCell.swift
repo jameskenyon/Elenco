@@ -8,11 +8,29 @@
 
 import SwiftUI
 
+struct MenuListCellButton: View {
+    
+    let image: UIImage
+    
+    var body: some View {
+        ZStack {
+            Rectangle()
+                .frame(width: 30, height: 30)
+                .foregroundColor(Color.clear)
+            Image(uiImage: image)
+            .resizable()
+            .foregroundColor(Color.white)
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 25, height: 25)
+        }
+    }
+    
+}
+
 struct MenuViewListCell: View {
     
     @EnvironmentObject var listModel: ElencoListDataModel
-//    @EnvironmentObject var listHolderModel: ListHolderDataModel
-    @State var editedName = "New List"
+    @State var editedName = ""
     @State var list: ElencoList
     @State var isEditing: Bool
     
@@ -22,67 +40,60 @@ struct MenuViewListCell: View {
     
     var body: some View {
         ZStack {
-            
             if isSelected {
-                Rectangle()
-                .foregroundColor(Color("Light-Teal"))
+                GeometryReader { geometry in
+                    Capsule()
+                        .foregroundColor(Color(#colorLiteral(red: 0.368627451, green: 0.7883469462, blue: 0.6629261374, alpha: 1)))
+                        .frame(width: geometry.size.width * 2, height: geometry.size.height)
+                        .padding(.trailing, geometry.size.width)
+                }
                 HStack {
                     TextField(list.name, text: $editedName, onCommit: {
                         self.saveList()
                     })
                         .textFieldStyle(PlainTextFieldStyle())
-                        .font(Font.custom("HelveticaNeue-Medium", size: 22))
+                        .font(.system(size: 25, weight: .bold))
                         .accentColor(Color.white)
                         .foregroundColor(Color.white)
-                        .padding(.vertical, 7)
+                        .padding(.leading, 25)
+                        .padding(.vertical, 10)
+                        .disabled(!isEditing)
+               
 
                     // Edit button
-                    ZStack {
-                        Rectangle()
-                            .frame(width: 50, height: 50)
-                            .foregroundColor(Color("Light-Teal"))
-                        Image(uiImage: isEditing ? #imageLiteral(resourceName: "saveList") : #imageLiteral(resourceName: "editList"))
-                        .resizable()
-                        .foregroundColor(Color.white)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                    }
+                    MenuListCellButton(image: isEditing ? #imageLiteral(resourceName: "saveList") : #imageLiteral(resourceName: "editList"))
                     .onTapGesture {
                         print("Edit")
                         self.updateButtonTapped()
                     }
 
                     // Bin button
-                    ZStack {
-                        Rectangle()
-                        .frame(width: 50, height: 50)
-                        .foregroundColor(Color("Light-Teal"))
-                        Image(uiImage: #imageLiteral(resourceName: "deleteList"))
-                        .resizable()
-                        .foregroundColor(Color.white)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                    }
+                    MenuListCellButton(image: #imageLiteral(resourceName: "deleteList"))
+                        .padding(.trailing, 10)
                     .onTapGesture {
-                        print("bin")
+                        print("Delete")
+                        self.deleteList()
                     }
+                }
+                .onAppear {
+                    self.editedName = self.list.name
                 }
             } else {
                 Text(list.name)
                 .font(.system(size: 25, weight: .medium))
                 .foregroundColor(Color("Tungsten"))
-                .padding(.vertical, 7)
+                .padding(.leading, 25)
+                .padding(.vertical, 10)
                 .onTapGesture {
                     self.listModel.selectedList = self.list
                 }
             }
         }
-        .padding(.leading, -15)
-
     }
     
     private func updateButtonTapped() {
         if isEditing {
+            print("Update list")
             let newList = ElencoList(name: editedName)
             listModel.deleteList(listName: list.name)
             listModel.createList(list: newList) { (error) in
