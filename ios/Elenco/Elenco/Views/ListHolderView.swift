@@ -28,6 +28,9 @@ struct ListHolderView: View {
                 if listHolderModel.list.ingredients.count != 0 {
                     ActionView()
                         .padding(.top, 15)
+                        .onTapGesture {
+                            self.listHolderModel.userFinishedAddingIngredients()
+                        }
                     
                     Spacer()
                         
@@ -39,9 +42,21 @@ struct ListHolderView: View {
                     .font(.custom("HelveticaNeue-Bold", size: 16))
                     .foregroundColor(Color("Dark-Gray"))
                     .padding(.horizontal).padding(.top, 20)
-                        
-                    IngredientsListView()
-                    .padding(.top, 10)
+                    .onTapGesture {
+                        self.listHolderModel.userFinishedAddingIngredients()
+                    }
+
+                    ZStack {
+                        IngredientsListView()
+                        .padding(.top, 10)
+                        .onTapGesture {
+                            self.listHolderModel.userFinishedAddingIngredients()
+                        }
+                        VStack {
+                            Spacer()
+                            AddIngredientButton()
+                        }
+                    }
                 }
                 else {
                     EmptyListView()
@@ -49,9 +64,6 @@ struct ListHolderView: View {
                 }
             }
             .edgesIgnoringSafeArea(.top)
-            .onTapGesture {
-                UIApplication.resignResponder()
-            }
             
             if listHolderModel.menuIsShown {
                 MenuView()
@@ -60,6 +72,24 @@ struct ListHolderView: View {
     }
 }
 
+struct AddIngredientButton: View {
+    
+    @EnvironmentObject var listHolderModel: ListHolderDataModel
+
+    var body: some View {
+        Button(action: {
+            withAnimation {
+                self.listHolderModel.userIsAddingIngredient = true
+            }
+         }, label: {
+            Text("+")
+                .font(.custom("HelveticaNeue-Bold", size: 50))
+                .foregroundColor(Color.white)
+                .padding(.bottom, 10)
+        })
+        .buttonStyle(OrangeCircleButtonStyle())
+    }
+}
 
 #if DEBUG
 struct MyListView_Previews: PreviewProvider {
