@@ -74,6 +74,9 @@ class IngredientDataModel: ObservableObject {
         do {
             guard let ingredientsEntity = try self.context.fetch(request).first else { return }
             ingredientsEntity.setValue(ingredient.completed, forKey: "completed")
+            ingredientsEntity.setValue(ingredient.quantity, forKey: "quantity")
+            ingredientsEntity.setValue(ingredient.name, forKey: "name")
+            ingredientsEntity.setValue(ingredient.aisle, forKey: "aisle")
             try self.context.save()
             completion(nil)
         } catch (let error) {

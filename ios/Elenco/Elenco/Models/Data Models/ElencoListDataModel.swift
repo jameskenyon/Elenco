@@ -45,6 +45,19 @@ class ElencoListDataModel: ObservableObject {
         }
     }
     
+    // update the name of a list
+    public func updateListName(list: ElencoList, newName: String) {
+        let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
+        request.predicate = NSPredicate(format: "name == %@", list.name)
+        do {
+            guard let listEntity = try self.context.fetch(request).first else {
+                return
+            }
+            listEntity.setValue(newName, forKey: "name")
+            try self.context.save()
+        } catch {} // ignore for now
+    }
+    
     // get individual list - nil if list not found
     public func getList(listName: String) -> ElencoList? {
         let listStore = getListStore(forName: listName)
@@ -88,16 +101,7 @@ class ElencoListDataModel: ObservableObject {
     
     // get list from store
     private func getListFromStore(listStore: ListStore) -> ElencoList {
-        let ingredientStores = listStore.ingredients?.allObjects ?? []
-        var ingredients: Ingredients = []
-        for store in ingredientStores {
-            if let store = store as? IngredientStore {
-                ingredients.append(
-                    Ingredient(ingredientStore: store)
-                )
-            }
-        }
-        return ElencoList(name: listStore.name ?? "", id: listStore.id ?? UUID(), ingredients: ingredients)
+        return ElencoList(listStore: listStore)
     }
     
 }

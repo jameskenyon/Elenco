@@ -34,7 +34,7 @@ struct AddIngredientView: View {
                     if searchViewModel.query.count != 0 {
                         Button(action: {
                             self.addIngredient()
-                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                            UIApplication.resignResponder()
                         }) {
                             Text("+")
                                 .font(.custom("HelveticaNeue-Bold", size: 34))
@@ -53,7 +53,7 @@ struct AddIngredientView: View {
                         .background(index == 0 ? Color("Opaque-Teal"):Color("Background"))
                         .onTapGesture {
                             self.searchViewModel.query = self.searchViewModel.searchIngredients[index].name.capitalise()
-                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                            UIApplication.resignResponder()
                         }
                 }
                 .background(Color("Background"))

@@ -31,4 +31,29 @@ struct ElencoList: Codable, Identifiable, Hashable  {
         isSharedList = false
     }
     
+    init(listStore: ListStore) {
+        self.name = listStore.name ?? ""
+        self.id = listStore.id ?? UUID()
+        self.isSharedList = listStore.isShared
+        
+        self.ingredients = []
+        self.ingredients = getIngredientsFrom(listStore: listStore)
+    }
+    
+    // get list from store
+    public func getIngredientsFrom(listStore: ListStore) -> Ingredients {
+        if let ingredientStores = listStore.ingredients?.allObjects {
+            var ingredients: Ingredients = []
+            for store in ingredientStores {
+                if let store = store as? IngredientStore {
+                    ingredients.append(
+                        Ingredient(ingredientStore: store, parentList: self)
+                    )
+                }
+            }
+            return ingredients
+        }
+        return []
+    }
+
 }

@@ -12,16 +12,26 @@ import Foundation
 public enum SortType: String {
     case name     = "Name"
     case aisle    = "Aisle"
+    case list     = "List"
     case none     = "None"
 }
 
 struct ActionView: View {
     
+    @EnvironmentObject var listHolderModel: ListHolderDataModel
     @Environment(\.colorScheme) var colorScheme
     @State var actionViewIsVisible: Bool = false
     
     let actionTypes: [ActionType] = [.clearList, .completeAll, .uncompleteAll]
-    let sortTypes: [SortType] = [.name, .aisle, .none]
+    
+    var sortTypes: [SortType] {
+        get {
+            if listHolderModel.list.name == ElencoDefaults.mainListName {
+                return [.name, .aisle, .list, .none]
+            }
+            return  [.name, .aisle, .none]
+        }
+    }
     
     
     var body: some View {

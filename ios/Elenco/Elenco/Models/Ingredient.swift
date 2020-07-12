@@ -19,7 +19,7 @@ import Foundation
 
 struct Ingredient: Codable, Identifiable, Hashable {
     // properties for the json decoder
-    let name: String
+    var name: String
     let id = UUID()
     let aisle: String
     let ingredientID: UUID
@@ -53,6 +53,15 @@ struct Ingredient: Codable, Identifiable, Hashable {
         self.completed    = completed
     }
     
+    init(ingredientStore: IngredientStore, parentList: ElencoList) {
+        self.ingredientID = ingredientStore.ingredientID ?? UUID()
+        self.name         = ingredientStore.name ?? ""
+        self.aisle        = ingredientStore.aisle ?? ""
+        self.quantity     = ingredientStore.quantity
+        self.completed    = ingredientStore.completed
+        self.parentList   = parentList
+    }
+    
     init(ingredientStore: IngredientStore) {
         self.ingredientID = ingredientStore.ingredientID ?? UUID()
         self.name         = ingredientStore.name ?? ""
@@ -62,7 +71,6 @@ struct Ingredient: Codable, Identifiable, Hashable {
     }
     
     public func copy() -> Ingredient {
-        // ⚠️ try using id here
         return Ingredient(ingredientID: self.ingredientID, name: self.name, aisle: self.aisle, quantity: self.quantity, parentList: self.parentList, completed: self.completed)
     }
 }
@@ -86,6 +94,25 @@ extension Ingredient {
         }
         name.removeLast()
         return (name, quantity == "" ? "1": quantity)
+    }
+    
+    // check that the name is valid
+    public static func nameIsValid(name: String) -> Bool {
+        return !stringContainsNumber(str: name)
+    }
+    
+    // checks that new quantity is value
+    public static func quantityIsValid(quantity: String) -> Bool {
+        return stringContainsNumber(str: quantity) && quantity.count <= 6
+    }
+    
+    // format a quantity
+    public static func formatQuantity(quantity: String) -> String {
+        return quantity.replacingOccurrences(of: " ", with: "")
+    }
+    
+    public static func formatName(name: String) -> String {
+        return name.capitalise()
     }
     
     private static func stringContainsNumber(str: String) -> Bool {
