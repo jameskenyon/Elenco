@@ -64,7 +64,7 @@ struct MenuViewListCell: View {
                     MenuListCellButton(image: isEditing ? #imageLiteral(resourceName: "saveList") : #imageLiteral(resourceName: "editList"))
                     .onTapGesture {
                         print("Edit")
-//                        self.updateButtonTapped()
+                        self.updateButtonTapped()
                     }
 
                     // Bin button
@@ -95,11 +95,7 @@ struct MenuViewListCell: View {
     private func updateButtonTapped() {
         if isEditing {
             print("Update list")
-            let newList = ElencoList(name: editedName)
-            listModel.deleteList(listName: list.name)
-            listModel.createList(list: newList) { (error) in
-                if let error = error { print(error) }
-            }
+            listModel.updateListName(list: list, newName: editedName)
         }
         isEditing.toggle()
     }

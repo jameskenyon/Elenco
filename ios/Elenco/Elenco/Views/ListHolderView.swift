@@ -55,23 +55,23 @@ struct ListHolderView: View {
             GeometryReader { geometry in
 
                 MenuView()
-//                    .offset(x: self.listHolderModel.menuIsShown ? 0 : -geometry.size.width, y: 0)
-                    .offset(x: self.menuDragAmount, y: 0)
-//                    .animation(
-//                        Animation.spring()
-//                        .speed(1)
-//                    )
-                .gesture(
-                    DragGesture()
-                        .onChanged{ gesutre in
-                            print("Changed")
-                            print(gesutre.translation.width)
-                            self.menuDragAmount = gesutre.translation.width
-                        }
-                    .onEnded { _ in
-                        self.menuDragAmount = self.listHolderModel.menuIsShown ? 0 : -geometry.size.width
-                    }
-                )
+                    .offset(x: self.listHolderModel.menuIsShown ? 0 : -geometry.size.width, y: 0)
+//                    .offset(x: self.menuDragAmount, y: 0)
+                    .animation(
+                        Animation.spring()
+                        .speed(1)
+                    )
+//                .gesture(
+//                    DragGesture()
+//                        .onChanged{ gesutre in
+//                            print("Changed")
+//                            print(gesutre.translation.width)
+//                            self.menuDragAmount = gesutre.translation.width
+//                        }
+//                    .onEnded { _ in
+//                        self.menuDragAmount = self.listHolderModel.menuIsShown ? 0 : -geometry.size.width
+//                    }
+//                )
             }
         }
     }

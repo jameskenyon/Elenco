@@ -65,6 +65,12 @@ class ElencoListDataModel: ObservableObject {
                 return
             }
             listEntity.setValue(newName, forKey: "name")
+            DispatchQueue.main.async {
+                let newList = ElencoList(name: newName)
+                self.lists.removeAll(where: { $0.name == list.name })
+                self.lists.append(newList)
+                self.selectedList = newList
+            }
             try self.context.save()
         } catch {} // ignore for now
     }

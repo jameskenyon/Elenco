@@ -16,8 +16,9 @@ struct MenuListsView: View {
 
     var body: some View {  
         List {
-            ForEach(self.lists, id: \.id) { list in
+            ForEach(self.lists, id: \.name) { list in
                 MenuViewListCell(list: list, isEditing: self.newList?.name == list.name)
+                .animation(nil)
             }
             
             Button(action: {
