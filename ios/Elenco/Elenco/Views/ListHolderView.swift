@@ -75,6 +75,7 @@ struct ListHolderView: View {
 struct AddIngredientButton: View {
     
     @EnvironmentObject var listHolderModel: ListHolderDataModel
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         Button(action: {
@@ -88,6 +89,7 @@ struct AddIngredientButton: View {
                 .padding(.bottom, 10)
         })
         .buttonStyle(OrangeCircleButtonStyle())
+        .shadow(color: colorScheme == .dark ? .clear : Color("Light-Gray").opacity(0.4) , radius: 4)
     }
 }
 
