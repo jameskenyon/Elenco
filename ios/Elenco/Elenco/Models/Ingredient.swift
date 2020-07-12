@@ -53,6 +53,15 @@ struct Ingredient: Codable, Identifiable, Hashable {
         self.completed    = completed
     }
     
+    init(ingredientStore: IngredientStore, parentList: ElencoList) {
+        self.ingredientID = ingredientStore.ingredientID ?? UUID()
+        self.name         = ingredientStore.name ?? ""
+        self.aisle        = ingredientStore.aisle ?? ""
+        self.quantity     = ingredientStore.quantity
+        self.completed    = ingredientStore.completed
+        self.parentList   = parentList
+    }
+    
     init(ingredientStore: IngredientStore) {
         self.ingredientID = ingredientStore.ingredientID ?? UUID()
         self.name         = ingredientStore.name ?? ""
@@ -62,7 +71,6 @@ struct Ingredient: Codable, Identifiable, Hashable {
     }
     
     public func copy() -> Ingredient {
-        // ⚠️ try using id here
         return Ingredient(ingredientID: self.ingredientID, name: self.name, aisle: self.aisle, quantity: self.quantity, parentList: self.parentList, completed: self.completed)
     }
 }

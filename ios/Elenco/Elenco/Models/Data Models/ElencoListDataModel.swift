@@ -88,16 +88,7 @@ class ElencoListDataModel: ObservableObject {
     
     // get list from store
     private func getListFromStore(listStore: ListStore) -> ElencoList {
-        let ingredientStores = listStore.ingredients?.allObjects ?? []
-        var ingredients: Ingredients = []
-        for store in ingredientStores {
-            if let store = store as? IngredientStore {
-                ingredients.append(
-                    Ingredient(ingredientStore: store)
-                )
-            }
-        }
-        return ElencoList(name: listStore.name ?? "", id: listStore.id ?? UUID(), ingredients: ingredients)
+        return ElencoList(listStore: listStore)
     }
     
 }
