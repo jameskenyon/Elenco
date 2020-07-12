@@ -64,7 +64,7 @@ struct MenuViewListCell: View {
                     MenuListCellButton(image: isEditing ? #imageLiteral(resourceName: "saveList") : #imageLiteral(resourceName: "editList"))
                     .onTapGesture {
                         print("Edit")
-                        self.updateButtonTapped()
+//                        self.updateButtonTapped()
                     }
 
                     // Bin button
@@ -85,6 +85,7 @@ struct MenuViewListCell: View {
                 .padding(.leading, 25)
                 .padding(.vertical, 10)
                 .onTapGesture {
+                    print("Tap")
                     self.listModel.selectedList = self.list
                 }
             }

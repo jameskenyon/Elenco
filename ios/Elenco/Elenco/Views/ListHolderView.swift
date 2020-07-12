@@ -18,6 +18,8 @@ import SwiftUI
 struct ListHolderView: View {
         
     @EnvironmentObject var listHolderModel: ListHolderDataModel
+    @State var menuDragAmount: CGFloat = 0
+    @State var minOffset: CGFloat = 0
     
     var body: some View {
         ZStack {
@@ -48,9 +50,14 @@ struct ListHolderView: View {
                     }
             }
             .edgesIgnoringSafeArea(.top)
-            
-            if listHolderModel.menuIsShown {
-                MenuView().environmentObject(ElencoListDataModel())
+
+            GeometryReader { geometry in
+                MenuView()
+                    .offset(x: self.listHolderModel.menuIsShown ? 0 : -geometry.size.width, y: 0)
+                    .animation(
+                        Animation.spring()
+                        .speed(1)
+                    )
             }
         }
     }
