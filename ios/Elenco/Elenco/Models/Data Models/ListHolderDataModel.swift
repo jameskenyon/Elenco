@@ -33,8 +33,7 @@ class ListHolderDataModel: ObservableObject {
     
     @Published public var menuIsShown = false
     
-    @Published var lists: [ElencoList]
-    
+    @Published public var lists: [ElencoList]
         
     private let ingredientsDataModel = IngredientDataModel()
     private let elencoListDataModel  = ElencoListDataModel()
@@ -42,6 +41,7 @@ class ListHolderDataModel: ObservableObject {
     init(window: UIWindow) {
         self.window = window
         self.list = ElencoList(name: ElencoDefaults.mainListName)
+        elencoListDataModel.updateLists()
         self.lists = elencoListDataModel.lists
         loadDefaultList()
         
@@ -111,6 +111,33 @@ class ListHolderDataModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    // create New List
+    public func createList(list: ElencoList) {
+        elencoListDataModel.createList(list: list) { (error) in
+            if let error = error { print(error.localizedDescription )}
+            self.lists.append(list)
+            self.configureViewForList(newList: list)
+        }
+    }
+    
+    // update a list
+    public func updateList(list: ElencoList, newName: String) {
+        for i in 0..<lists.count {
+            if list.name == lists[i].name {
+                lists[i].name = newName
+                elencoListDataModel.updateListName(list: list, newName: newName)
+                self.configureViewForList(newList: lists[i])
+            }
+        }
+    }
+    
+    // delete a list
+    public func deleteList(list: ElencoList) {
+        lists.removeAll(where: { $0.name == list.name })
+        elencoListDataModel.deleteList(listName: list.name)
+        configureViewForList(newList: lists.first)
     }
     
     // configure the current data source

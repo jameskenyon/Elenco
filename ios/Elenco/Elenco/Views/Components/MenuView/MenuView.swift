@@ -36,7 +36,7 @@ struct MenuView: View {
                         .padding(.leading, 30)
 
                         // Lists
-                        MenuListsView(lists: self.listDataModel.lists)
+                        MenuListsView(lists: self.listHolderDataModel.lists)
 
                         // Back Button
                         MenuBackButton()

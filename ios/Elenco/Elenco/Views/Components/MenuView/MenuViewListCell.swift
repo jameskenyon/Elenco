@@ -50,7 +50,7 @@ struct MenuViewListCell: View {
                 }
                 HStack {
                     TextField(list.name, text: $editedName, onCommit: {
-                        self.saveList()
+                        self.updateList()
                     })
                         .textFieldStyle(PlainTextFieldStyle())
                         .font(.system(size: 25, weight: .bold))
@@ -96,22 +96,19 @@ struct MenuViewListCell: View {
     private func updateButtonTapped() {
         if isEditing {
             print("Update list")
-            listModel.updateListName(list: list, newName: editedName)
+            updateList()
         }
         isEditing.toggle()
     }
     
     // Save new list to coredata
-    private func saveList() {
-        let newList = ElencoList(name: editedName)
-        listModel.createList(list: newList) { (error) in
-            if let error = error { print(error) }
-        }
+    private func updateList() {
+        listHolderModel.updateList(list: list, newName: editedName)
     }
     
     // Delete list
     private func deleteList() {
-        listModel.deleteList(listName: list.name)
+        listHolderModel.deleteList(list: list)
     }
     
 }

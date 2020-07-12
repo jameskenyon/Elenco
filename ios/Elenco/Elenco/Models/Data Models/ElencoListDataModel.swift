@@ -13,14 +13,7 @@ import CoreData
 class ElencoListDataModel: ObservableObject {
 
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    @Published var lists: [ElencoList] = []
-    
-//    @Published var selectedList: ElencoList?
-    
-    init() {
-        updateLists()
-//        self.selectedList = lists.first
-    }
+    @Published var lists = [ElencoList]()
 
     // MARK: Fetch Methods available to public
     
@@ -33,8 +26,6 @@ class ElencoListDataModel: ObservableObject {
         listStore.ingredients = []
         do {
             try self.context.save()
-//            self.lists.append(list)
-            self.updateLists()
             completion(nil)
         } catch {
             completion(error)
@@ -49,9 +40,6 @@ class ElencoListDataModel: ObservableObject {
             do {
                 guard let listEntity = try self.context.fetch(request).first else { return }
                 self.context.delete(listEntity)
-                DispatchQueue.main.async {
-                    self.lists.removeAll(where: { $0.name == listName })
-                }
                 try self.context.save()
             } catch {}
         }
@@ -66,12 +54,6 @@ class ElencoListDataModel: ObservableObject {
                 return
             }
             listEntity.setValue(newName, forKey: "name")
-//            DispatchQueue.main.async {
-//                let newList = ElencoList(name: newName)
-//                self.lists.removeAll(where: { $0.name == list.name })
-//                self.lists.append(newList)
-//                self.selectedList = newList
-//            }
             try self.context.save()
         } catch {} // ignore for now
     }

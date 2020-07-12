@@ -18,7 +18,7 @@ import Foundation
 
 struct ElencoList: Codable, Identifiable, Hashable  {
     
-    let name: String
+    var name: String
     let id: UUID
     var ingredients: Ingredients
     
