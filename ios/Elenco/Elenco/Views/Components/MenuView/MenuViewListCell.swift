@@ -102,10 +102,10 @@ struct MenuViewListCell: View {
     
     // Return true if the edited name is unique
     private func isValidListName() -> Bool {
-        if listModel.getList(listName: editedName) != nil {
-            return listHolderModel.lists.filter({ $0.name == list.name }).count <= 1
+        if editedName == list.name {
+            return true
         }
-        return true
+        return listModel.getList(listName: editedName) == nil
     }
     
     // Save new list to coredata
