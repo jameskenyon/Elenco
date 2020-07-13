@@ -18,8 +18,7 @@ import SwiftUI
 struct ListHolderView: View {
         
     @EnvironmentObject var listHolderModel: ListHolderDataModel
-    @State var menuDragAmount: CGFloat = 0
-    @State var minOffset: CGFloat = 0
+    @State var menuDragAmount: CGFloat = -UIScreen.main.bounds.width
     
     var body: some View {
         ZStack {
@@ -56,27 +55,33 @@ struct ListHolderView: View {
             }
 
             GeometryReader { geometry in
-
                 MenuView()
-                    .offset(x: self.listHolderModel.menuIsShown ? 0 : -geometry.size.width, y: 0)
-//                    .offset(x: self.menuDragAmount, y: 0)
+                    .offset(x: self.menuViewOffset(geometry: geometry), y: 0)
                     .animation(
                         Animation.spring()
                         .speed(1)
                     )
-//                .gesture(
-//                    DragGesture()
-//                        .onChanged{ gesutre in
-//                            print("Changed")
-//                            print(gesutre.translation.width)
-//                            self.menuDragAmount = gesutre.translation.width
-//                        }
-//                    .onEnded { _ in
-//                        self.menuDragAmount = self.listHolderModel.menuIsShown ? 0 : -geometry.size.width
-//                    }
-//                )
+                .gesture(
+                    DragGesture()
+                        .onChanged{ gesutre in
+                            self.listHolderModel.menuIsShown = false
+                            if gesutre.translation.width <= 0 {
+                                self.menuDragAmount = gesutre.translation.width
+                            }
+                        }
+                    .onEnded { _ in
+                        self.menuDragAmount = -geometry.size.width
+                    }
+                )
             }
         }
+    }
+    
+    private func menuViewOffset(geometry: GeometryProxy) -> CGFloat {
+        if !listHolderModel.menuIsShown {
+            return self.menuDragAmount
+        }
+        return self.listHolderModel.menuIsShown ? 0 : -geometry.size.width
     }
 }
 
