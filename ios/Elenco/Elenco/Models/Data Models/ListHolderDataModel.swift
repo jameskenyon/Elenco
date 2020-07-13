@@ -118,7 +118,7 @@ class ListHolderDataModel: ObservableObject {
         elencoListDataModel.createList(list: list) { (error) in
             if let error = error { print(error.localizedDescription )}
             self.lists.append(list)
-            self.configureViewForList(newList: list)
+            self.configureViewForList(newList: self.lists.last)
         }
     }
     

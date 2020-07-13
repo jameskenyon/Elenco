@@ -36,7 +36,7 @@ struct MenuViewListCell: View {
     @State var isEditing: Bool
     
     var isSelected: Bool {
-        return listHolderModel.list.id == list.id
+        return listHolderModel.list.name == list.name
     }
     
     var body: some View {
@@ -64,7 +64,6 @@ struct MenuViewListCell: View {
                     // Edit button
                     MenuListCellButton(image: isEditing ? #imageLiteral(resourceName: "saveList") : #imageLiteral(resourceName: "editList"))
                     .onTapGesture {
-                        print("Edit")
                         self.updateButtonTapped()
                     }
 
@@ -72,7 +71,6 @@ struct MenuViewListCell: View {
                     MenuListCellButton(image: #imageLiteral(resourceName: "deleteList"))
                         .padding(.trailing, 10)
                     .onTapGesture {
-                        print("Delete")
                         self.deleteList()
                     }
                 }
@@ -86,7 +84,6 @@ struct MenuViewListCell: View {
                 .padding(.leading, 25)
                 .padding(.vertical, 10)
                 .onTapGesture {
-                    print("Tap")
                     self.listHolderModel.configureViewForList(newList: self.list)
                 }
             }
@@ -95,7 +92,6 @@ struct MenuViewListCell: View {
     
     private func updateButtonTapped() {
         if isEditing {
-            print("Update list")
             updateList()
         }
         isEditing.toggle()
