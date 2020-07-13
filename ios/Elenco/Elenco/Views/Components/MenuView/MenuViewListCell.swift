@@ -8,24 +8,6 @@
 
 import SwiftUI
 
-struct MenuListCellButton: View {
-    
-    let image: UIImage
-    
-    var body: some View {
-        ZStack {
-            Rectangle()
-                .frame(width: 30, height: 30)
-                .foregroundColor(Color.clear)
-            Image(uiImage: image)
-            .resizable()
-            .foregroundColor(Color.white)
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 25, height: 25)
-        }
-    }
-}
-
 struct MenuViewListCell: View {
     
     @EnvironmentObject var listModel: ElencoListDataModel
@@ -59,26 +41,36 @@ struct MenuViewListCell: View {
                         .padding(.vertical, 10)
                         .disabled(!isEditing)
                         .onAppear {
+                            // Add Observer to detect when keyboard will be shown
                             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
                                 let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+                                // Only set keybaord height when cell will not be moved off screen
                                 if self.listHolderModel.lists.lastIndex(of: self.list) ?? 0 > 5 {
                                     self.listHolderModel.keyboardHeight = keyboardSize?.height ?? 0
                                 }
                             }
+                            // Add observer to detect when keyboard will hide
                             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (notification) in
                                 self.listHolderModel.keyboardHeight = 0
                             }
                         }
-               
 
                     // Edit button
-                    MenuListCellButton(image: isEditing ? #imageLiteral(resourceName: "saveList") : #imageLiteral(resourceName: "editList"))
-                    .onTapGesture {
-                        self.updateButtonTapped()
-                    }
+                    Image(uiImage: isEditing ? #imageLiteral(resourceName: "saveList") : #imageLiteral(resourceName: "editList"))
+                        .resizable()
+                        .foregroundColor(Color.white)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25)
+                        .onTapGesture {
+                            self.updateButtonTapped()
+                        }
 
                     // Bin button
-                    MenuListCellButton(image: #imageLiteral(resourceName: "deleteList"))
+                    Image(uiImage: #imageLiteral(resourceName: "deleteList"))
+                        .resizable()
+                        .foregroundColor(Color.white)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25)
                         .padding(.trailing, 10)
                     .onTapGesture {
                         self.deleteList()

@@ -15,7 +15,7 @@ struct MenuListsView: View {
     
     var lists: [ElencoList]
     var newListName: String {
-        return "New List \(lists.count)"
+        return "\(lists.last?.name ?? "")\(lists.count)"
     }
 
     var body: some View {  
@@ -26,10 +26,8 @@ struct MenuListsView: View {
             }
             
             Button(action: {
-//                if self.canCreateNewList() {
                 let newList = ElencoList(name: self.newListName)
                 self.listHolderModel.createList(list: newList)
-//                }
             }, label: {
                 Text("+ New List")
                     .font(.system(size: 25, weight: .medium))
