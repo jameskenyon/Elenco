@@ -33,15 +33,18 @@ struct MenuView: View {
                     VStack(alignment: .leading) {
                         // Title
                         MenuHeaderView(title: "My Lists", width: self.getWidth(geometry: geometry))
-                        .padding(.leading, 30)
+                            .padding(.leading, 30)
 
                         // Lists
                         MenuListsView(lists: self.listHolderDataModel.lists)
+                            
 
                         // Back Button
                         MenuBackButton()
                         .padding(.leading, 30)
                     }
+                    .offset(x: 0, y: -self.listHolderDataModel.keyboardHeight)
+                    .animation(.spring())
                     
                     , alignment: .topLeading)
                 Spacer()

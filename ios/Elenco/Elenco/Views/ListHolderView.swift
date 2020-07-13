@@ -56,7 +56,7 @@ struct ListHolderView: View {
 
             GeometryReader { geometry in
                 MenuView()
-                    .offset(x: self.menuViewOffset(geometry: geometry), y: 0)
+                    .offset(x: self.menuViewOffsetX(geometry: geometry), y: 0)
                     .animation(
                         Animation.spring()
                         .speed(1)
@@ -77,7 +77,7 @@ struct ListHolderView: View {
         }
     }
     
-    private func menuViewOffset(geometry: GeometryProxy) -> CGFloat {
+    private func menuViewOffsetX(geometry: GeometryProxy) -> CGFloat {
         if !listHolderModel.menuIsShown {
             return self.menuDragAmount
         }

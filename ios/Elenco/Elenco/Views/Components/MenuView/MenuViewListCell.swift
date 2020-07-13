@@ -58,6 +58,17 @@ struct MenuViewListCell: View {
                         .padding(.leading, 25)
                         .padding(.vertical, 10)
                         .disabled(!isEditing)
+                        .onAppear {
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
+                                let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+                                if self.listHolderModel.lists.lastIndex(of: self.list) ?? 0 > 5 {
+                                    self.listHolderModel.keyboardHeight = keyboardSize?.height ?? 0
+                                }
+                            }
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (notification) in
+                                self.listHolderModel.keyboardHeight = 0
+                            }
+                        }
                
 
                     // Edit button

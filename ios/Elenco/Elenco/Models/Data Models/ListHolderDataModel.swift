@@ -34,6 +34,8 @@ class ListHolderDataModel: ObservableObject {
     @Published public var menuIsShown = false
     
     @Published public var lists: [ElencoList]
+    
+    @Published public var keyboardHeight: CGFloat = 0
         
     private let ingredientsDataModel = IngredientDataModel()
     private let elencoListDataModel  = ElencoListDataModel()
