@@ -24,7 +24,6 @@ struct MenuListCellButton: View {
             .frame(width: 25, height: 25)
         }
     }
-    
 }
 
 struct MenuViewListCell: View {
@@ -92,9 +91,18 @@ struct MenuViewListCell: View {
     
     private func updateButtonTapped() {
         if isEditing {
-            updateList()
+            if isValidListName() {
+                updateList()
+            } else {
+                isEditing.toggle()
+            }
         }
         isEditing.toggle()
+    }
+    
+    // Return true if the edited name is unique
+    private func isValidListName() -> Bool {
+        return listModel.getList(listName: editedName) == nil
     }
     
     // Save new list to coredata
@@ -108,9 +116,3 @@ struct MenuViewListCell: View {
     }
     
 }
-//
-//struct MenuViewListCell_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MenuViewListCell()
-//    }
-//}

@@ -11,27 +11,37 @@ import SwiftUI
 struct MenuListsView: View {
     
     @EnvironmentObject var listHolderModel: ListHolderDataModel
+    @EnvironmentObject var listDataModel: ElencoListDataModel
     
     var lists: [ElencoList]
-    @State var newList: ElencoList?
+    var newListName: String {
+        return "New List \(lists.count)"
+    }
 
     var body: some View {  
         List {
             ForEach(self.lists, id: \.name) { list in
-                MenuViewListCell(list: list, isEditing: self.newList?.name == list.name)
+                MenuViewListCell(list: list, isEditing: self.newListName == list.name)
                 .animation(nil)
             }
             
             Button(action: {
-                self.newList = ElencoList(name: "New List")
-                self.listHolderModel.createList(list: self.newList!)
+                if self.canCreateNewList() {
+                    let newList = ElencoList(name: self.newListName)
+                    self.listHolderModel.createList(list: newList)
+                }
             }, label: {
                 Text("+ New List")
-                .font(.system(size: 25, weight: .medium))
-                .foregroundColor(Color("Orange"))
+                    .font(.system(size: 25, weight: .medium))
+                    .foregroundColor(Color("Orange"))
                     .padding(.leading, 25)
                     .padding(.vertical, 7)
             })
         }
+//    .id(UUID())
+    }
+    
+    private func canCreateNewList() -> Bool {
+        return listDataModel.getList(listName: newListName) == nil
     }
 }
