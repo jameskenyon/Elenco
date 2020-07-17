@@ -38,6 +38,8 @@
 		8AB2FEFB24B88D22002918AA /* ElencoDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB2FEFA24B88D22002918AA /* ElencoDefaults.swift */; };
 		8AB2FEFD24B89580002918AA /* ActionViewButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB2FEFC24B89580002918AA /* ActionViewButtonItem.swift */; };
 		8AB367BD24B9ABCB00E795D5 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB367BC24B9ABCB00E795D5 /* UIApplication.swift */; };
+		8AB367C124BB318100E795D5 /* AddIngredientTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB367C024BB318100E795D5 /* AddIngredientTextField.swift */; };
+		8AB367C324BB3EEB00E795D5 /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB367C224BB3EEB00E795D5 /* CircularButton.swift */; };
 		8AC3729424AB82BB002699F2 /* IngredientData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AC3729324AB82BB002699F2 /* IngredientData.json */; };
 		8AC3729924AB9E05002699F2 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC3729824AB9E05002699F2 /* UIWindow.swift */; };
 		8AD4BBEA24A796E900F81AAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4BBE924A796E900F81AAF /* AppDelegate.swift */; };
@@ -94,6 +96,8 @@
 		8AB2FEFA24B88D22002918AA /* ElencoDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElencoDefaults.swift; sourceTree = "<group>"; };
 		8AB2FEFC24B89580002918AA /* ActionViewButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewButtonItem.swift; sourceTree = "<group>"; };
 		8AB367BC24B9ABCB00E795D5 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		8AB367C024BB318100E795D5 /* AddIngredientTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientTextField.swift; sourceTree = "<group>"; };
+		8AB367C224BB3EEB00E795D5 /* CircularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		8AC3729324AB82BB002699F2 /* IngredientData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = IngredientData.json; sourceTree = "<group>"; };
 		8AC3729824AB9E05002699F2 /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		8AD4BBE624A796E900F81AAF /* Elenco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Elenco.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				8AEF2EED24A7E5FB0071C69A /* AddIngredientView.swift */,
+				8AB367C024BB318100E795D5 /* AddIngredientTextField.swift */,
 				8A381C3E24AB42EF0023A5CD /* MyListHeaderView.swift */,
 				1A8E31FB24B88B91008D6624 /* MenuIcon.swift */,
 			);
@@ -283,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */,
+				8AB367C224BB3EEB00E795D5 /* CircularButton.swift */,
 				1A1B402624B7B60700847E4C /* MenuView */,
 				8A9C612324B65D0B000E337F /* ListHeaderView */,
 				8A9C612224B65C81000E337F /* ListActionView */,
@@ -447,12 +453,14 @@
 				1A20D3D924AA20D000C6633F /* (null) in Sources */,
 				1A8E31F024B86B5F008D6624 /* IngredientStore+CoreDataProperties.swift in Sources */,
 				8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */,
+				8AB367C324BB3EEB00E795D5 /* CircularButton.swift in Sources */,
 				8AB2FEF924B7C202002918AA /* ElencoListDataModel.swift in Sources */,
 				8AB2FEF724B7B46C002918AA /* ElencoList.swift in Sources */,
 				1A8E31F824B88748008D6624 /* MenuBackButton.swift in Sources */,
 				8A057C1F24B7286000BDC888 /* String.swift in Sources */,
 				1A8E31EF24B86B5F008D6624 /* IngredientStore+CoreDataClass.swift in Sources */,
 				8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */,
+				8AB367C124BB318100E795D5 /* AddIngredientTextField.swift in Sources */,
 				1A8E31FC24B88B91008D6624 /* MenuIcon.swift in Sources */,
 				8AEF2EEE24A7E5FB0071C69A /* AddIngredientView.swift in Sources */,
 				1A20D3DF24AA401700C6633F /* IngredientsListView.swift in Sources */,
