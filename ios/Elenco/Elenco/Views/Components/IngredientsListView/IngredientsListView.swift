@@ -40,6 +40,7 @@ struct IngredientsListView: View {
                         }
                     }
                 }
+                Spacer()
             }
             .listStyle(GroupedListStyle())
 //            .id(UUID())

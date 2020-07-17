@@ -49,6 +49,7 @@ struct ActionView: View {
                     Button(action: {
                         withAnimation {
                             self.actionViewIsVisible.toggle()
+                            self.listHolderModel.userFinishedAddingIngredients()
                         }
                     }) {
                         Text(actionViewIsVisible ? "Hide":"Show")

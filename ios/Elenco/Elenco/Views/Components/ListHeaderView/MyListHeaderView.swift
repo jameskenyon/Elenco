@@ -48,6 +48,10 @@ struct MyListHeaderView: View {
                     .font(.custom("HelveticaNeue-Bold", size: 16))
                     .foregroundColor(Color.white)
             }
+            .onTapGesture {
+                self.listHolderModel.userFinishedAddingIngredients()
+            }
+            
             AddIngredientView()
                 .padding(.bottom, 10)
         }

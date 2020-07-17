@@ -28,7 +28,10 @@ struct ListHolderView: View {
 
                 if listHolderModel.list.ingredients.count != 0 {
                     ActionView()
-                        .padding(.top, 15)
+                        .padding(.top, 20)
+                        .onTapGesture {
+                            self.listHolderModel.userFinishedAddingIngredients()
+                        }
                     
                     Spacer()
                         
@@ -39,14 +42,30 @@ struct ListHolderView: View {
                     }
                     .font(.custom("HelveticaNeue-Bold", size: 16))
                     .foregroundColor(Color("Dark-Gray"))
-                    .padding(.horizontal).padding(.top, 20)
-                        
-                    IngredientsListView()
-                    .padding(.top, 10)
+                    .padding(.horizontal).padding(.top, 15)
+                    .onTapGesture {
+                        self.listHolderModel.userFinishedAddingIngredients()
+                    }
+
+                    ZStack {
+                        IngredientsListView()
+                        .padding(.top, 10)
+                        .onTapGesture {
+                            self.listHolderModel.userFinishedAddingIngredients()
+                        }
+                        VStack {
+                            Spacer()
+                            AddIngredientButton()
+                        }
+                    }
                 }
                 else {
-                    EmptyListView()
-                    .padding(.top)
+                    VStack {
+                        EmptyListView()
+                            .padding(.top)
+                        Spacer()
+                        AddIngredientButton()
+                    }
                 }
             }
             .edgesIgnoringSafeArea(.top)
@@ -55,6 +74,7 @@ struct ListHolderView: View {
             }
 
             GeometryReader { geometry in
+
                 MenuView()
                     .offset(x: self.menuViewOffsetX(geometry: geometry), y: 0)
                     .animation(
@@ -85,6 +105,26 @@ struct ListHolderView: View {
     }
 }
 
+struct AddIngredientButton: View {
+    
+    @EnvironmentObject var listHolderModel: ListHolderDataModel
+    @Environment(\.colorScheme) var colorScheme
+
+    var body: some View {
+        Button(action: {
+            withAnimation {
+                self.listHolderModel.userIsAddingIngredient = true
+            }
+         }, label: {
+            Text("+")
+                .font(.custom("HelveticaNeue-Bold", size: 50))
+                .foregroundColor(Color.white)
+                .padding(.bottom, 10)
+        })
+        .buttonStyle(OrangeCircleButtonStyle())
+        .shadow(color: colorScheme == .dark ? .clear : Color("Light-Gray").opacity(0.4) , radius: 4)
+    }
+}
 
 #if DEBUG
 struct MyListView_Previews: PreviewProvider {

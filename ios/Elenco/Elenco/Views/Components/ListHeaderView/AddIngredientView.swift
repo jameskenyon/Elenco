@@ -19,54 +19,53 @@ struct AddIngredientView: View {
     
     var body: some View {
         VStack {
-            VStack(alignment: .leading) {
-                HStack {
-                    TextField("Add Ingredient...", text: $searchViewModel.query, onCommit: {
-                        self.userDidAddReturnOnTextField()
-                    })
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .font(Font.custom("HelveticaNeue-Medium", size: 22))
-                        .padding(15).padding(.leading)
-                        .padding(.top, searchViewModel.searchIngredients.count == 0 ? 0:10)
-                        .accentColor(Color("Teal"))
-                        .foregroundColor(Color("BodyText"))
-                        .background(Color("Background"))
-                    if searchViewModel.query.count != 0 {
-                        Button(action: {
-                            self.addIngredient()
-                            UIApplication.resignResponder()
-                        }) {
-                            Text("+")
-                                .font(.custom("HelveticaNeue-Bold", size: 34))
-                                .foregroundColor(Color("Orange"))
+            if listHolderModel.userIsAddingIngredient {
+                VStack(alignment: .leading) {
+                    HStack {
+                        AddIngredientTextField(text: $searchViewModel.query, isFirstResponder: listHolderModel.userIsAddingIngredient, addIngredientView: self)
+                            .frame(height: 30)
+                            .font(Font.custom("HelveticaNeue-Medium", size: 22))
+                            .padding(15).padding(.leading)
+                            .padding(.top, searchViewModel.searchIngredients.count == 0 ? 0:10)
+                            .accentColor(Color("Teal"))
+                            .foregroundColor(Color("BodyText"))
+                            .background(Color("Background"))
+                        if searchViewModel.query.count != 0 {
+                            Button(action: {
+                                self.addIngredient()
+                                self.listHolderModel.userFinishedAddingIngredients()
+                            }) {
+                                Text("+")
+                                    .font(.custom("HelveticaNeue-Bold", size: 34))
+                                    .foregroundColor(Color("Orange"))
+                            }
+                            .padding(.trailing, 20).padding(.bottom, 4)
+                            .background(Color("Background"))
                         }
-                        .padding(.trailing, 20).padding(.bottom, 4)
-                        .background(Color("Background"))
                     }
+                    .background(Color("Background"))
+                    
+                    ForEach(searchViewModel.searchIngredients.indices, id: \.self) { index in
+                        IngredientSearchCell(ingredient: self.searchViewModel.searchIngredients[index],
+                                             index: index, query: self.searchViewModel.query)
+                            .padding(.top).padding(.bottom)
+                            .background(index == 0 ? Color("Opaque-Teal"):Color("Background"))
+                            .onTapGesture {
+                                self.searchViewModel.query = self.searchViewModel.searchIngredients[index].name.capitalise()
+                            }
+                    }
+                    .background(Color("Background"))
                 }
                 .background(Color("Background"))
-                
-                ForEach(searchViewModel.searchIngredients.indices, id: \.self) { index in
-                    IngredientSearchCell(ingredient: self.searchViewModel.searchIngredients[index],
-                                         index: index, query: self.searchViewModel.query)
-                        .padding(.top).padding(.bottom)
-                        .background(index == 0 ? Color("Opaque-Teal"):Color("Background"))
-                        .onTapGesture {
-                            self.searchViewModel.query = self.searchViewModel.searchIngredients[index].name.capitalise()
-                            UIApplication.resignResponder()
-                        }
-                }
-                .background(Color("Background"))
+                .cornerRadius(10)
+                .shadow(color: colorScheme == .dark ? .clear : Color("Dark-Gray") , radius: 4)
             }
-            .background(Color("Background"))
-            .cornerRadius(10)
-            .shadow(color: colorScheme == .dark ? .clear : Color("Dark-Gray") , radius: 4)
         }
         .padding()
     }
     
     // Called when the user adds an ingredient by returning on the text field
-    private func userDidAddReturnOnTextField() {
+    public func userDidAddReturnOnTextField() {
         let query = self.searchViewModel.query
         if query.trimmingCharacters(in: [" "]) != "" {
             if listHolderModel.userHasIngredient(name: query) {
@@ -78,6 +77,7 @@ struct AddIngredientView: View {
                 addIngredient()
             }
         }
+        hideTextField()
     }
     
     private func addIngredient() {
@@ -89,6 +89,14 @@ struct AddIngredientView: View {
         self.listHolderModel.addIngredient(ingredient:
             Ingredient(ingredientID: UUID(), name: name, aisle: aisle, quantity: quantity, parentList: self.listHolderModel.list)
         )
+        hideTextField()
+    }
+    
+    // hide the text field from the user
+    private func hideTextField() {
+        withAnimation {
+            listHolderModel.userIsAddingIngredient = false
+        }
     }
     
 }

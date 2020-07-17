@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 /*
     
@@ -37,6 +38,8 @@ class ListHolderDataModel: ObservableObject {
     
     @Published public var keyboardHeight: CGFloat = 0
         
+    @Published public var userIsAddingIngredient = false
+    
     private let ingredientsDataModel = IngredientDataModel()
     private let elencoListDataModel  = ElencoListDataModel()
     
@@ -298,6 +301,20 @@ extension ListHolderDataModel {
             self.ingredientsDataModel.update(ingredient: list.ingredients[i]) { (error) in
                 if let error = error { print(error.localizedDescription) }
             }
+        }
+    }
+    
+}
+
+// UIMethods
+extension ListHolderDataModel {
+    
+    // called when the user is done adding ingredients.
+    // first responder should be cancelled and the state is set.
+    public func userFinishedAddingIngredients() {
+        withAnimation {
+            self.userIsAddingIngredient = false
+            UIApplication.resignResponder()
         }
     }
     
