@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A0CA12124C20887003EDD47 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0CA12024C20887003EDD47 /* TutorialView.swift */; };
 		1A17AA6824ABDDB700893676 /* IngredientDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A17AA6724ABDDB700893676 /* IngredientDataModel.swift */; };
 		1A1B402524B7B60000847E4C /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B402424B7B60000847E4C /* MenuView.swift */; };
 		1A20D3D924AA20D000C6633F /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -66,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A0CA12024C20887003EDD47 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		1A17AA6724ABDDB700893676 /* IngredientDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDataModel.swift; sourceTree = "<group>"; };
 		1A1B402424B7B60000847E4C /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		1A20D3DE24AA401700C6633F /* IngredientsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsListView.swift; sourceTree = "<group>"; };
@@ -135,6 +137,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A0CA11F24C20821003EDD47 /* TutorialView */ = {
+			isa = PBXGroup;
+			children = (
+				8AE34E0724AD1AE2004651B5 /* EmptyListView.swift */,
+				1A0CA12024C20887003EDD47 /* TutorialView.swift */,
+			);
+			path = TutorialView;
+			sourceTree = "<group>";
+		};
 		1A1B402624B7B60700847E4C /* MenuView */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,11 +161,11 @@
 		1A20D3E024AA478D00C6633F /* IngredientsListView */ = {
 			isa = PBXGroup;
 			children = (
-				8AE34E0724AD1AE2004651B5 /* EmptyListView.swift */,
 				1A20D3DE24AA401700C6633F /* IngredientsListView.swift */,
 				1A20D3E524AA4D6800C6633F /* IngredientSectionHeader.swift */,
 				1A20D3E324AA490600C6633F /* IngredientListCell.swift */,
 				8A9C611E24AFA149000E337F /* IngredientListTick.swift */,
+				1A0CA11F24C20821003EDD47 /* TutorialView */,
 			);
 			path = IngredientsListView;
 			sourceTree = "<group>";
@@ -438,6 +449,7 @@
 				8AB2FEFB24B88D22002918AA /* ElencoDefaults.swift in Sources */,
 				8AAEE48424A7A3BC0025D15D /* Ingredient.swift in Sources */,
 				8AB367BD24B9ABCB00E795D5 /* UIApplication.swift in Sources */,
+				1A0CA12124C20887003EDD47 /* TutorialView.swift in Sources */,
 				8A381C4124AB44580023A5CD /* ListHolderDataModel.swift in Sources */,
 				8AB2FEFD24B89580002918AA /* ActionViewButtonItem.swift in Sources */,
 				8A381C3D24AA86120023A5CD /* HostingView.swift in Sources */,
