@@ -11,16 +11,20 @@ import SwiftUI
 struct TutorialView: View {
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                Rectangle()
-                    .frame(width: 300, height: 300)
-                    .foregroundColor(.red)
-                Rectangle()
-                .frame(width: 300, height: 500)
-                .foregroundColor(.blue)
-            }
-        }
+        RoundedRectangle(cornerRadius: 10)
+            .overlay(
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        EmptyListView()
+                            .frame(width: 300, height: 600)
+                        EmptyListView()
+                            .frame(width: 300, height: 600)
+                    }
+                }
+            
+            )
+        .shadow(color: Color("Light-Gray"), radius: 5, x: 5, y: 5)
+        .foregroundColor(Color(.white))
     }
 }
 
