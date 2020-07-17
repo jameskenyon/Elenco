@@ -19,7 +19,7 @@ struct EmptyListView: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical) {
             VStack {
                 Text("Your list is empty.")
                     .font(.custom("HelveticaNeue-Medium", size: 30))

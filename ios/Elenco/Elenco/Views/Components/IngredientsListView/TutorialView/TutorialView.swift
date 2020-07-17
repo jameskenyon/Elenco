@@ -16,9 +16,7 @@ struct TutorialView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         EmptyListView()
-                            .frame(width: 300, height: 600)
                         EmptyListView()
-                            .frame(width: 300, height: 600)
                     }
                 }
             
