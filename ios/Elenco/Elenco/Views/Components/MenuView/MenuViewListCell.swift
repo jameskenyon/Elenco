@@ -17,6 +17,12 @@ struct MenuViewListCell: View {
     @State var isEditing: Bool
     
     var isSelected: Bool {
+        if list.name == ElencoDefaults.newListName {
+            return true
+        }
+        if userDidNotProvideValidName() {
+            return false
+        }
         return listHolderModel.list.name == list.name
     }
     
@@ -86,7 +92,9 @@ struct MenuViewListCell: View {
                 .padding(.leading, 25)
                 .padding(.vertical, 10)
                 .onTapGesture {
-                    self.listHolderModel.configureViewForList(newList: self.list)
+                    if !self.userDidNotProvideValidName() {
+                        self.listHolderModel.configureViewForList(newList: self.list)
+                    }
                 }
             }
         }
@@ -105,12 +113,6 @@ struct MenuViewListCell: View {
     
     // Return true if the edited name is unique
     private func isValidListName() -> Bool {
-        if editedName == ElencoDefaults.newListName {
-            return false
-        }
-        if editedName == list.name {
-            return true
-        }
         return listModel.getList(listName: editedName) == nil
     }
     
@@ -122,6 +124,11 @@ struct MenuViewListCell: View {
     // Delete list
     private func deleteList() {
         listHolderModel.deleteList(list: list)
+    }
+    
+    // Return if user has not named a new list with valid name
+    private func userDidNotProvideValidName() -> Bool {
+        return listHolderModel.lists.filter({ $0.name == ElencoDefaults.newListName }).count != 0
     }
     
 }

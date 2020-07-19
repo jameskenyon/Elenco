@@ -23,8 +23,12 @@ struct MenuListsView: View {
             }
             
             Button(action: {
-                let newList = ElencoList(name: ElencoDefaults.newListName)
-                self.listHolderModel.createList(list: newList)
+                if self.canCreateNewList() {
+                    let newList = ElencoList(name: ElencoDefaults.newListName)
+                    self.listHolderModel.createList(list: newList)
+                } else {
+                    print("Alert")
+                }
             }, label: {
                 Text("+ New List")
                     .font(.system(size: 25, weight: .medium))
@@ -33,5 +37,10 @@ struct MenuListsView: View {
                     .padding(.vertical, 7)
             })
         }
+    }
+    
+    // Return true if user has finished renaming previously created list
+    private func canCreateNewList() -> Bool {
+        return lists.filter({ $0.name == ElencoDefaults.newListName }).count == 0
     }
 }
