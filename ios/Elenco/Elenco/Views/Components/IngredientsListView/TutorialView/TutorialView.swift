@@ -58,22 +58,49 @@ struct PagerView<Content: View>: View {
     
     var body: some View {
         GeometryReader { geometry in
-            HStack(spacing: 0) {
-                self.content.frame(width: geometry.size.width)
+            VStack {
+                HStack(spacing: 0) {
+                    self.content.frame(width: geometry.size.width)
+                }
+                .frame(width: geometry.size.width, alignment: .leading)
+                .offset(x: -CGFloat(self.currentIndex) * geometry.size.width)
+                .offset(x: self.translation)
+                .animation(.interactiveSpring())
+                .gesture(
+                    DragGesture().updating(self.$translation) { value, state, _ in
+                        state = value.translation.width
+                    }.onEnded { value in
+                        let offset = value.translation.width / geometry.size.width
+                        let newIndex = (CGFloat(self.currentIndex) - offset).rounded()
+                        self.currentIndex = min(max(Int(newIndex), 0), self.pageCount - 1)
+                    }
+                )
+                HStack {
+                    ForEach(0 ..< self.pageCount) { number in
+                        PagerIndicator(isActive: number == self.currentIndex)
+                    }
+                }
+                .padding(.bottom, 10)
             }
-            .frame(width: geometry.size.width, alignment: .leading)
-        .offset(x: -CGFloat(self.currentIndex) * geometry.size.width)
-        .offset(x: self.translation)
-        .animation(.interactiveSpring())
-        .gesture(
-            DragGesture().updating(self.$translation) { value, state, _ in
-                state = value.translation.width
-            }.onEnded { value in
-                let offset = value.translation.width / geometry.size.width
-                let newIndex = (CGFloat(self.currentIndex) - offset).rounded()
-                self.currentIndex = min(max(Int(newIndex), 0), self.pageCount - 1)
+        }
+    }
+}
+
+struct PagerIndicator: View {
+    var isActive: Bool
+    var size: CGFloat = 20
+    
+    var body: some View {
+        ZStack {
+            if isActive {
+                Circle()
+                    .frame(width: size, height: size)
+                    .foregroundColor(Color("Light-Teal"))
+            } else {
+                Circle()
+                    .stroke(Color("Light-Teal"), lineWidth: 2)
+                    .frame(width: size, height: size)
             }
-        )
         }
     }
 }
