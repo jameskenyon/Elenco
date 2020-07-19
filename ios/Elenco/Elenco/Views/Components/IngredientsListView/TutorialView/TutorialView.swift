@@ -10,6 +10,8 @@ import SwiftUI
 
 struct TutorialView: View {
     
+    @State var currentPage: Int = 0
+    
     var body: some View {
         GeometryReader { geometry in
             RoundedRectangle(cornerRadius: 10)
@@ -27,19 +29,10 @@ struct TutorialView: View {
                             .foregroundColor(Color("Lead"))
                             .frame(width: geometry.size.width * 0.2, height: 1)
                         
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                Rectangle()
-                                    .frame(width: 300, height: 400)
-                                    .foregroundColor(.red)
-                                Rectangle()
-                                    .frame(width: 300, height: 400)
-                                    .foregroundColor(.red)
-    //                            EmptyListView()
-    //                            EmptyListView()
-                            }
+                        PagerView(pageCount: 2, currentIndex: self.$currentPage) {
+                            EmptyListView()
+                            EmptyListView()
                         }
-                        .padding(.top, 50)
                     }
                 , alignment: .top)
         }
@@ -48,6 +41,40 @@ struct TutorialView: View {
     // Return size based on percentage of screen size
     private func size(percent: CGFloat, size: CGFloat) -> CGFloat {
         return size * percent
+    }
+}
+
+struct PagerView<Content: View>: View {
+    let pageCount: Int
+    @Binding var currentIndex: Int
+    let content: Content
+    @GestureState private var translation: CGFloat = 0
+
+    init(pageCount: Int, currentIndex: Binding<Int>, @ViewBuilder content: () -> Content) {
+        self.pageCount = pageCount
+        self._currentIndex = currentIndex
+        self.content = content()
+    }
+    
+    var body: some View {
+        GeometryReader { geometry in
+            HStack(spacing: 0) {
+                self.content.frame(width: geometry.size.width)
+            }
+            .frame(width: geometry.size.width, alignment: .leading)
+        .offset(x: -CGFloat(self.currentIndex) * geometry.size.width)
+        .offset(x: self.translation)
+        .animation(.interactiveSpring())
+        .gesture(
+            DragGesture().updating(self.$translation) { value, state, _ in
+                state = value.translation.width
+            }.onEnded { value in
+                let offset = value.translation.width / geometry.size.width
+                let newIndex = (CGFloat(self.currentIndex) - offset).rounded()
+                self.currentIndex = min(max(Int(newIndex), 0), self.pageCount - 1)
+            }
+        )
+        }
     }
 }
 
