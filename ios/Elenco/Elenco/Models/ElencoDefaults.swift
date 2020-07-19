@@ -11,5 +11,6 @@ import Foundation
 struct ElencoDefaults {
     
     static let mainListName = "All"
+    static let newListName = " "
     
 }

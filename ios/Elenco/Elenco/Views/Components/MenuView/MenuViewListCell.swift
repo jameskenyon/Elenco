@@ -105,6 +105,9 @@ struct MenuViewListCell: View {
     
     // Return true if the edited name is unique
     private func isValidListName() -> Bool {
+        if editedName == ElencoDefaults.newListName {
+            return false
+        }
         if editedName == list.name {
             return true
         }
