@@ -55,5 +55,10 @@ struct ElencoList: Codable, Identifiable, Hashable  {
         }
         return []
     }
+    
+    // Return copy of list
+    public func copy() -> ElencoList {
+        return ElencoList(name: self.name, id: UUID(), ingredients: self.ingredients)
+    }
 
 }

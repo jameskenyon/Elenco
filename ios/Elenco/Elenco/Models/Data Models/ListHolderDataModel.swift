@@ -130,8 +130,13 @@ class ListHolderDataModel: ObservableObject {
     // update a list
     public func updateList(list: ElencoList, newName: String) {
         for i in 0..<lists.count {
-            if list.name == lists[i].name {
-                lists[i].name = newName
+            if list.id == lists[i].id {
+                var updatedList = lists.remove(at: i).copy()
+                updatedList.name = newName
+                
+                lists.insert(updatedList, at: i)
+//                lists[i].name = newName
+                print(lists[i].name)
                 elencoListDataModel.updateListName(list: list, newName: newName)
                 self.configureViewForList(newList: lists[i])
             }

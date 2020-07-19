@@ -14,20 +14,21 @@ struct MenuListsView: View {
     @EnvironmentObject var listDataModel: ElencoListDataModel
     
     var lists: [ElencoList]
-    var newListName: String {
-        return "\(lists.last?.name ?? "")\(lists.count)"
-    }
+//    var newListName: String {
+//        return " "
+//    }
+    @State var newList: ElencoList?
 
     var body: some View {  
         List {
-            ForEach(self.lists, id: \.name) { list in
-                MenuViewListCell(list: list, isEditing: self.newListName == list.name)
+            ForEach(self.lists, id: \.id) { list in
+                MenuViewListCell(list: list, isEditing: list.name == self.newList?.name)
                 .animation(nil)
             }
             
             Button(action: {
-                let newList = ElencoList(name: self.newListName)
-                self.listHolderModel.createList(list: newList)
+                self.newList = ElencoList(name: " ")
+                self.listHolderModel.createList(list: self.newList!)
             }, label: {
                 Text("+ New List")
                     .font(.system(size: 25, weight: .medium))
@@ -39,7 +40,7 @@ struct MenuListsView: View {
 //    .id(UUID())
     }
     
-    private func canCreateNewList() -> Bool {
-        return listDataModel.getList(listName: newListName) == nil
-    }
+//    private func canCreateNewList() -> Bool {
+//        return listDataModel.getList(listName: newListName) == nil
+//    }
 }
