@@ -8,13 +8,13 @@
 
 import SwiftUI
 
-struct MenuViewListCell: View {
+struct MenuViewListCell: View, ElencoTextFieldDisplayable {
     
     @EnvironmentObject var menuViewDataModel: MenuViewDataModel
     @EnvironmentObject var listHolderDataModel: ListHolderDataModel
     @State var editedName = ""
     @State var list: ElencoList
-    @State var isEditing: Bool
+    @State var isEditing: Bool = false
     
     var isSelected: Bool {
         return list.listID == listHolderDataModel.list.listID
@@ -30,11 +30,9 @@ struct MenuViewListCell: View {
                         .padding(.trailing, geometry.size.width)
                 }
                 HStack {
-                    TextField(list.name, text: $editedName, onCommit: {
-                        self.updateList()
-                    })
+                    ElencoTextField(text: $editedName, isFirstResponder: isEditing, textFieldView: self,
+                                    font: UIFont(name: "HelveticaNeue-Bold", size: 25), color: UIColor.white)
                         .textFieldStyle(PlainTextFieldStyle())
-                        .font(.custom("HelveticaNeue-Bold", size: 25))
                         .accentColor(Color.white)
                         .foregroundColor(Color.white)
                         .padding(.leading, 15)
@@ -106,11 +104,21 @@ struct MenuViewListCell: View {
     // Save new list to coredata
     private func updateList() {
         menuViewDataModel.updateList(list: list, newName: editedName)
+        self.list.name = editedName
     }
     
     // Delete list
     private func deleteList() {
         menuViewDataModel.deleteList(list: list)
     }
+
+    // MARK: ElencoListDisplayable Methods
+    
+    func userDidReturnOnTextField() {
+        updateList()
+    }
+    
+    func userDidEditTextField(newValue: String) {}
+    
     
 }

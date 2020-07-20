@@ -63,9 +63,13 @@ struct ElencoTextField: UIViewRepresentable {
     
     var isFirstResponder: Bool = false
     var textFieldView: ElencoTextFieldDisplayable
+    var font: UIFont?
+    var color: UIColor? = UIColor(named: "Tungsten")
     
     func makeUIView(context: UIViewRepresentableContext<ElencoTextField>) -> UITextField {
         let textField = UITextField()
+        textField.font = font
+        textField.textColor = color
         textField.delegate = context.coordinator
         return textField
     }

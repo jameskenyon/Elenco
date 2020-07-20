@@ -15,15 +15,10 @@ struct MenuListsView: View {
     var body: some View {  
         List {
             ForEach(self.menuViewDataModel.lists, id: \.id) { list in
-                MenuViewListCell(list: list, isEditing: list.name == self.menuViewDataModel.newListName)
-                .animation(nil)
+                MenuViewListCell(list: list)
             }
-            
             Button(action: {
-                if self.canCreateNewList() {
-                    let newList = ElencoList(name: self.menuViewDataModel.newListName)
-                    self.menuViewDataModel.createList(list: newList)
-                }
+                self.menuViewDataModel.createNewList()
             }, label: {
                 Text("+ New List")
                     .font(.custom("HelveticaNeue-Bold", size: 20))
@@ -34,8 +29,4 @@ struct MenuListsView: View {
         }
     }
     
-    // Return true if user has finished renaming previously created list
-    private func canCreateNewList() -> Bool {
-        return menuViewDataModel.lists.filter({ $0.name == menuViewDataModel.newListName }).count == 0
-    }
 }

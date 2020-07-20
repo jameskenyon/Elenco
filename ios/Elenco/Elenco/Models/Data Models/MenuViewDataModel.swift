@@ -11,7 +11,7 @@ import SwiftUI
 
 class MenuViewDataModel: ObservableObject {
     
-    var newListName: String {
+    private var newListName: String {
         get {
             return "List \(lists.count + 1)"
         }
@@ -27,18 +27,19 @@ class MenuViewDataModel: ObservableObject {
     }
     
     // create New List
-    public func createList(list: ElencoList) {
+    public func createNewList() {
+        let list = ElencoList(name: newListName)
+        self.lists.append(list)
+        self.listHolderDataModel.configureViewForList(newList: self.lists.last)
         ElencoListDataModel.shared.createList(list: list) { (error) in
             if let error = error { print(error.localizedDescription )}
-            self.lists.append(list)
-            self.listHolderDataModel.configureViewForList(newList: self.lists.last)
         }
     }
     
     // update a list
     public func updateList(list: ElencoList, newName: String) {
         for i in 0..<lists.count {
-            if list.id == lists[i].id {
+            if list.listID == lists[i].listID {
                 var updatedList = lists.remove(at: i).copy()
                 updatedList.name = newName
                 
