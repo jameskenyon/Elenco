@@ -110,8 +110,12 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
     // Save new list to coredata
     private func updateList() {
         if menuViewDataModel.editedName != "" {
-            menuViewDataModel.updateList(list: list, newName: menuViewDataModel.editedName)
-            self.list.name = menuViewDataModel.editedName
+            if menuViewDataModel.editedName != ElencoDefaults.mainListName {
+                menuViewDataModel.updateList(list: list, newName: menuViewDataModel.editedName)
+                self.list.name = menuViewDataModel.editedName
+            } else {
+                listHolderDataModel.window.displayAlert(title: "Invalid list name.", message: "Can't be empty or \(ElencoDefaults.mainListName). Please try again.", okTitle: "Ok", okHandler: nil)
+            }
         }
     }
     
