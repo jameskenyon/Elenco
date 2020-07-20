@@ -88,7 +88,9 @@ struct MenuViewListCell: View {
                 .padding(.leading, 15)
                 .padding(.vertical, 10)
                 .onTapGesture {
-                    self.listHolderDataModel.configureViewForList(newList: self.list)
+                    if let displayList = ElencoListDataModel.shared.getList(listID: self.list.listID) {
+                        self.listHolderDataModel.configureViewForList(newList: displayList)
+                    }
                 }
             }
         }
