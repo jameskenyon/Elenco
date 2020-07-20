@@ -22,6 +22,10 @@ class ListHolderDataModel: ObservableObject {
     
     @Published private(set) var list: ElencoList {
         didSet {
+            // make sure not sorting by list on other table
+            if list.name != ElencoDefaults.mainListName && sortType == .list {
+                configureDataSourceFor(sortType: .name)
+            }
             configureDataSourceFor(sortType: sortType)
         }
     }
