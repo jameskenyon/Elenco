@@ -11,8 +11,6 @@ import UIKit
 import CoreData
 
 class ElencoListDataModel: ObservableObject {
-
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     public static let shared = ElencoListDataModel()
 
@@ -20,14 +18,14 @@ class ElencoListDataModel: ObservableObject {
     
     // create a new list from scratch
     public func createList(list: ElencoList, completion: @escaping (Error?) -> ()) {
-        let listStore = ListStore(context: self.context)
+        let listStore = ListStore(context: ElencoDefaults.context)
         listStore.id       = list.id
         listStore.listID   = list.listID
         listStore.name     = list.name
         listStore.isShared = list.isSharedList
         listStore.ingredients = []
         do {
-            try self.context.save()
+            try ElencoDefaults.context.save()
             completion(nil)
         } catch {
             completion(error)
@@ -40,9 +38,9 @@ class ElencoListDataModel: ObservableObject {
             let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
             request.predicate = NSPredicate(format: "listID == %@", list.listID as CVarArg)
             do {
-                guard let listEntity = try self.context.fetch(request).first else { return }
-                self.context.delete(listEntity)
-                try self.context.save()
+                guard let listEntity = try ElencoDefaults.context.fetch(request).first else { return }
+                ElencoDefaults.context.delete(listEntity)
+                try ElencoDefaults.context.save()
             } catch {}
         }
     }
@@ -52,11 +50,11 @@ class ElencoListDataModel: ObservableObject {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         request.predicate = NSPredicate(format: "listID == %@", list.listID as CVarArg)
         do {
-            guard let listEntity = try self.context.fetch(request).first else {
+            guard let listEntity = try ElencoDefaults.context.fetch(request).first else {
                 return
             }
             listEntity.setValue(newName, forKey: "name")
-            try self.context.save()
+            try ElencoDefaults.context.save()
         } catch {} // ignore for now
     }
     
@@ -81,7 +79,7 @@ class ElencoListDataModel: ObservableObject {
     public func getLists() -> [ElencoList] {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         do {
-            let listStores = try self.context.fetch(request)
+            let listStores = try ElencoDefaults.context.fetch(request)
             return listStores.map({ getListFromStore(listStore: $0) })
         } catch {
             return []
@@ -94,7 +92,7 @@ class ElencoListDataModel: ObservableObject {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         request.predicate = NSPredicate(format: "listID == %@", listID as CVarArg)
         do {
-            guard let listEntity = try self.context.fetch(request).first else { return nil }
+            guard let listEntity = try ElencoDefaults.context.fetch(request).first else { return nil }
             return listEntity
         } catch {
             return nil
@@ -107,7 +105,7 @@ class ElencoListDataModel: ObservableObject {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         request.predicate = NSPredicate(format: "name == %@", listName)
         do {
-            guard let listEntity = try self.context.fetch(request).first else { return nil }
+            guard let listEntity = try ElencoDefaults.context.fetch(request).first else { return nil }
             return listEntity
         } catch {
             return nil
@@ -125,13 +123,13 @@ class ElencoListDataModel: ObservableObject {
     public func updateListsIfRequired() {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         do {
-            let listStore = try self.context.fetch(request)
+            let listStore = try ElencoDefaults.context.fetch(request)
             for store in listStore {
                 if store.listID == nil {
                     store.setValue(UUID(), forKey: "listID")
                 }
             }
-            try self.context.save()
+            try ElencoDefaults.context.save()
         } catch {}
     }
     

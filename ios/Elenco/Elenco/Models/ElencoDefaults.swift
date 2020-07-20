@@ -7,9 +7,12 @@
 //
 
 import Foundation
+import UIKit
 
 struct ElencoDefaults {
     
-    static let mainListName = "All"
+    public static let mainListName = "All"
+ 
+    public static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
 }

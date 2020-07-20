@@ -28,10 +28,13 @@ class MenuViewDataModel: ObservableObject {
     
     // create New List
     public func createList(list: ElencoList) {
+        self.lists = []
         ElencoListDataModel.shared.createList(list: list) { (error) in
             if let error = error { print(error.localizedDescription )}
-            self.lists.append(list)
-            self.listHolderDataModel.configureViewForList(newList: self.lists.last)
+            DispatchQueue.main.async {
+                self.lists.append(list)
+                self.listHolderDataModel.configureViewForList(newList: self.lists.last)
+            }
         }
     }
     

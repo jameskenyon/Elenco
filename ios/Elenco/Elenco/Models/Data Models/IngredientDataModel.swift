@@ -17,11 +17,10 @@ import UIKit
 
 class IngredientDataModel: ObservableObject {
     
-    // MARK: - Properties
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    @Published var ingredients = Ingredients()
-    
     public static let shared = IngredientDataModel()
+    
+    // MARK: - Properties
+    @Published var ingredients = Ingredients()
     
     // MARK: - Fetch Methods
     
@@ -30,7 +29,7 @@ class IngredientDataModel: ObservableObject {
         DispatchQueue.global().async {
             let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
             do {
-                let ingredientsEntities = try self.context.fetch(request)
+                let ingredientsEntities = try ElencoDefaults.context.fetch(request)
                 self.ingredients = ingredientsEntities.map({ Ingredient(ingredientStore: $0) })
                 completion(nil)
             } catch (let error) {
@@ -42,7 +41,7 @@ class IngredientDataModel: ObservableObject {
     public func fetchIngredients() -> Ingredients {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
         do {
-            let ingredientsEntities = try self.context.fetch(request)
+            let ingredientsEntities = try ElencoDefaults.context.fetch(request)
             return ingredientsEntities.map({ Ingredient(ingredientStore: $0) })
         }
         catch {
@@ -54,7 +53,7 @@ class IngredientDataModel: ObservableObject {
     
     // Save Ingredient to core data model
     public func save(ingredient: Ingredient, completion: @escaping (Error?) -> ()) {
-        let ingredientStore = IngredientStore(context: self.context)
+        let ingredientStore = IngredientStore(context: ElencoDefaults.context)
         ingredientStore.ingredientID = ingredient.ingredientID
         ingredientStore.name         = ingredient.name
         ingredientStore.aisle        = ingredient.aisle
@@ -65,7 +64,7 @@ class IngredientDataModel: ObservableObject {
         }
         
         do {
-            try self.context.save()
+            try ElencoDefaults.context.save()
             completion(nil)
         } catch (let error) {
             completion(error)
@@ -77,12 +76,12 @@ class IngredientDataModel: ObservableObject {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
         request.predicate = NSPredicate(format: "ingredientID == %@", ingredient.ingredientID as CVarArg)
         do {
-            guard let ingredientsEntity = try self.context.fetch(request).first else { return }
+            guard let ingredientsEntity = try ElencoDefaults.context.fetch(request).first else { return }
             ingredientsEntity.setValue(ingredient.completed, forKey: "completed")
             ingredientsEntity.setValue(ingredient.quantity, forKey: "quantity")
             ingredientsEntity.setValue(ingredient.name, forKey: "name")
             ingredientsEntity.setValue(ingredient.aisle, forKey: "aisle")
-            try self.context.save()
+            try ElencoDefaults.context.save()
             completion(nil)
         } catch (let error) {
             completion(error)
@@ -94,9 +93,9 @@ class IngredientDataModel: ObservableObject {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
         request.predicate = NSPredicate(format: "ingredientID == %@", ingredient.ingredientID as CVarArg)
         do {
-            guard let ingredientsEntity = try self.context.fetch(request).first else { return }
-            self.context.delete(ingredientsEntity)
-            try self.context.save()
+            guard let ingredientsEntity = try ElencoDefaults.context.fetch(request).first else { return }
+            ElencoDefaults.context.delete(ingredientsEntity)
+            try ElencoDefaults.context.save()
             completion(nil)
         } catch (let error) {
             completion(error)
@@ -108,7 +107,7 @@ class IngredientDataModel: ObservableObject {
     public func updateIngredientListIfRequired() {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
         do {
-            let ingredientsStores = try self.context.fetch(request)
+            let ingredientsStores = try ElencoDefaults.context.fetch(request)
             if let allList = ElencoListDataModel.shared.getListStore(forName: ElencoDefaults.mainListName) {
                 for store in ingredientsStores {
                     if store.list == nil {
@@ -119,7 +118,7 @@ class IngredientDataModel: ObservableObject {
                     }
                 }
             }
-            try self.context.save()
+            try ElencoDefaults.context.save()
         } catch {}
     }
 
