@@ -31,7 +31,7 @@ struct MenuViewListCell: View {
             if isSelected {
                 GeometryReader { geometry in
                     Capsule()
-                        .foregroundColor(Color(#colorLiteral(red: 0.368627451, green: 0.7883469462, blue: 0.6629261374, alpha: 1)))
+                        .foregroundColor(Color(#colorLiteral(red: 0.1058823529, green: 0.7647058824, blue: 0.662745098, alpha: 1)))
                         .frame(width: geometry.size.width * 2, height: geometry.size.height)
                         .padding(.trailing, geometry.size.width)
                 }
@@ -40,10 +40,10 @@ struct MenuViewListCell: View {
                         self.updateList()
                     })
                         .textFieldStyle(PlainTextFieldStyle())
-                        .font(.system(size: 25, weight: .bold))
+                        .font(.custom("HelveticaNeue-Bold", size: 25))
                         .accentColor(Color.white)
                         .foregroundColor(Color.white)
-                        .padding(.leading, 25)
+                        .padding(.leading, 15)
                         .padding(.vertical, 10)
                         .disabled(!isEditing)
                         .onAppear {
@@ -61,25 +61,27 @@ struct MenuViewListCell: View {
                             }
                         }
 
-                    // Edit button
-                    Image(uiImage: isEditing ? #imageLiteral(resourceName: "saveList") : #imageLiteral(resourceName: "editList"))
-                        .resizable()
-                        .foregroundColor(Color.white)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 25, height: 25)
-                        .onTapGesture {
-                            self.updateButtonTapped()
-                        }
+                    if list.name != ElencoDefaults.mainListName {
+                        // Edit button
+                        Image(uiImage: isEditing ? #imageLiteral(resourceName: "saveList") : #imageLiteral(resourceName: "editList"))
+                            .resizable()
+                            .foregroundColor(Color.white)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 25, height: 25)
+                            .onTapGesture {
+                                self.updateButtonTapped()
+                            }
 
-                    // Bin button
-                    Image(uiImage: #imageLiteral(resourceName: "deleteList"))
-                        .resizable()
-                        .foregroundColor(Color.white)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 25, height: 25)
-                        .padding(.trailing, 10)
-                    .onTapGesture {
-                        self.deleteList()
+                        // Bin button
+                        Image(uiImage: #imageLiteral(resourceName: "deleteList"))
+                            .resizable()
+                            .foregroundColor(Color.white)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 25, height: 25)
+                            .padding(.trailing, 20)
+                        .onTapGesture {
+                            self.deleteList()
+                        }
                     }
                 }
                 .onAppear {
@@ -87,9 +89,9 @@ struct MenuViewListCell: View {
                 }
             } else {
                 Text(list.name)
-                .font(.system(size: 25, weight: .medium))
+                .font(.custom("HelveticaNeue-Medium", size: 25))
                 .foregroundColor(Color("Tungsten"))
-                .padding(.leading, 25)
+                .padding(.leading, 15)
                 .padding(.vertical, 10)
                 .onTapGesture {
                     if !self.userDidNotProvideValidName() {

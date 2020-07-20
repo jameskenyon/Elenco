@@ -20,7 +20,7 @@ struct MenuBackButton: View {
                 self.listHolderModel.menuIsShown = false
             }, label: {
                 Text("Back")
-                .font(.system(size: 25, weight: .medium))
+                .font(.custom("HelveticaNeue-Bold", size: 22))
                 .foregroundColor(Color("Tungsten"))
             })
                 .padding(.trailing, 30)

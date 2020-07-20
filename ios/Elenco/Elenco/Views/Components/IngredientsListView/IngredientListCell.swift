@@ -24,7 +24,7 @@ struct IngredientListCell: View {
            
             Text("\(ingredient.name.capitalise())")
                 .strikethrough(self.ingredient.completed, color: Color("Dark-Gray"))
-                .font(.system(size: 23, weight: .medium, design: .default))
+                .font(.custom("HelveticaNeue-Medium", size: 23))
                 .padding(.horizontal, 15)
                 .foregroundColor(self.ingredient.completed ? Color("Light-Gray") : Color("BodyText"))
                 .onTapGesture {

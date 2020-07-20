@@ -31,10 +31,10 @@ struct MenuListsView: View {
                 }
             }, label: {
                 Text("+ New List")
-                    .font(.system(size: 25, weight: .medium))
+                    .font(.custom("HelveticaNeue-Bold", size: 20))
                     .foregroundColor(Color("Orange"))
-                    .padding(.leading, 25)
-                    .padding(.vertical, 7)
+                    .padding(.leading, 15)
+                    .padding(.vertical, 10)
             })
         }
     }
