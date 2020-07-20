@@ -18,6 +18,7 @@ extension ListStore {
     }
 
     @NSManaged public var id: UUID?
+    @NSManaged public var listID: UUID? 
     @NSManaged public var name: String?
     @NSManaged public var isShared: Bool
     @NSManaged public var ingredients: NSSet?

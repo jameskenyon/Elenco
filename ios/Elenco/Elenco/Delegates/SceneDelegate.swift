@@ -20,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // add 'All' list if required
         let allList = self.getAllList()
         updateIngredientListsIfRequired()
+        updateListsIfRequired()
         
         // Get the managed object context from the shared persistent container.
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -89,7 +90,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // update the ingredients in the list so that if they have
     // a parent list type of null, they will be assigned to the 'All' list.
     private func updateIngredientListsIfRequired() {
-        IngredientDataModel().updateIngredientListIfRequired()
+        IngredientDataModel.shared.updateIngredientListIfRequired()
+    }
+    
+    private func updateListsIfRequired() {
+        ElencoListDataModel.shared.updateListsIfRequired()
     }
 
 }

@@ -21,7 +21,8 @@ class ElencoListDataModel: ObservableObject {
     // create a new list from scratch
     public func createList(list: ElencoList, completion: @escaping (Error?) -> ()) {
         let listStore = ListStore(context: self.context)
-        listStore.id       = UUID()
+        listStore.id       = list.id
+        listStore.listID   = list.listID
         listStore.name     = list.name
         listStore.isShared = list.isSharedList
         listStore.ingredients = []
@@ -97,6 +98,20 @@ class ElencoListDataModel: ObservableObject {
     // get list from store
     private func getListFromStore(listStore: ListStore) -> ElencoList {
         return ElencoList(listStore: listStore)
+    }
+    
+    // update the list so that all lists have an id
+    public func updateListsIfRequired() {
+        let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
+        do {
+            let listStore = try self.context.fetch(request)
+            for store in listStore {
+                if store.listID == nil {
+                    store.setValue(UUID(), forKey: "listID")
+                }
+            }
+            try self.context.save()
+        } catch {}
     }
     
 }

@@ -20,13 +20,15 @@ struct ElencoList: Codable, Identifiable, Hashable  {
     
     var name: String
     let id: UUID
+    var listID: UUID
     var ingredients: Ingredients
     
     let isSharedList: Bool
     
-    init(name: String, id: UUID = UUID(), ingredients: Ingredients = []) {
+    init(name: String, id: UUID = UUID(), listID: UUID = UUID(), ingredients: Ingredients = []) {
         self.name = name
         self.id = id
+        self.listID = listID
         self.ingredients = ingredients
         isSharedList = false
     }
@@ -34,6 +36,7 @@ struct ElencoList: Codable, Identifiable, Hashable  {
     init(listStore: ListStore) {
         self.name = listStore.name ?? ""
         self.id = listStore.id ?? UUID()
+        self.listID = listStore.listID ?? UUID()
         self.isSharedList = listStore.isShared
         
         self.ingredients = []
@@ -58,7 +61,7 @@ struct ElencoList: Codable, Identifiable, Hashable  {
     
     // Return copy of list
     public func copy() -> ElencoList {
-        return ElencoList(name: self.name, id: UUID(), ingredients: self.ingredients)
+        return ElencoList(name: self.name, id: UUID(), listID: self.listID, ingredients: self.ingredients)
     }
 
 }

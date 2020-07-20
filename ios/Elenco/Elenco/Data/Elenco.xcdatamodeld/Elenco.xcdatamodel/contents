@@ -11,11 +11,12 @@
     <entity name="ListStore" representedClassName="ListStore" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isShared" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="listID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="IngredientStore" inverseName="list" inverseEntity="IngredientStore"/>
     </entity>
     <elements>
         <element name="IngredientStore" positionX="-45" positionY="0" width="128" height="133"/>
-        <element name="ListStore" positionX="-45" positionY="27" width="128" height="103"/>
+        <element name="ListStore" positionX="-45" positionY="27" width="128" height="118"/>
     </elements>
 </model>
