@@ -56,6 +56,7 @@ struct ElencoPagerView<Content: View>: View {
 
 // MARK: - Pager Indicator Circle
 struct PagerIndicator: View {
+    @Environment(\.colorScheme) var colorScheme
     var isActive: Bool
     var size: CGFloat = 15
     
@@ -64,11 +65,13 @@ struct PagerIndicator: View {
             if isActive {
                 Circle()
                     .frame(width: size, height: size)
-                    .foregroundColor(Color("Light-Teal"))
+                    .foregroundColor(colorScheme == .dark ? Color.white : Color("Light-Teal"))
+                    .animation(.default)
             } else {
                 Circle()
-                    .stroke(Color("Light-Teal"), lineWidth: 2)
+                    .stroke(colorScheme == .dark ? Color.white : Color("Light-Teal"), lineWidth: 2)
                     .frame(width: size, height: size)
+                    .animation(.default)
             }
         }
     }
