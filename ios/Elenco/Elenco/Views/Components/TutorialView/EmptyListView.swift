@@ -21,32 +21,20 @@ struct EmptyListView: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack {
-                Text("Your list is empty.")
-                    .font(.custom("HelveticaNeue-Medium", size: 30))
-                    .padding().padding(.bottom)
-                    .fixedSize(horizontal: false, vertical: true)
-                
-                Text("To get started, tap on the add ingredient text field above to add something to your list")
-                    .padding().padding(.horizontal, 30)
-                    .font(.custom("HelveticaNeue-Regular", size: 22))
-                    .fixedSize(horizontal: false, vertical: true)
-                
                 Text("Elenco automatically detects the quantity of your ingredient.")
                     .padding().padding(.horizontal, 30).padding(.bottom)
                     .font(.custom("HelveticaNeue-Regular", size: 22))
                     .fixedSize(horizontal: false, vertical: true)
                 
-                HStack {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .foregroundColor(Color.white)
+                        .shadow(color: Color("Light-Gray"), radius: 5, x: 2, y: 2)
                     Text("1kg Carrots")
-                        .font(.custom("HelveticaNeue-Medium", size: 22))
-                        .padding(25)
-                        .background(Color("Background"))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(colorScheme == .dark ? Color.white : Color.clear, lineWidth: 2)
-                                .shadow(color: Color.black.opacity(0.14), radius: 4)
-                        )
+                    .font(.custom("HelveticaNeue-Medium", size: 22))
+                    .padding(25)
+                    .background(Color("Background"))
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .padding().padding(.horizontal)
 

@@ -168,7 +168,6 @@
 				1A20D3E524AA4D6800C6633F /* IngredientSectionHeader.swift */,
 				1A20D3E324AA490600C6633F /* IngredientListCell.swift */,
 				8A9C611E24AFA149000E337F /* IngredientListTick.swift */,
-				1A0CA11F24C20821003EDD47 /* TutorialView */,
 			);
 			path = IngredientsListView;
 			sourceTree = "<group>";
@@ -263,6 +262,7 @@
 				8AD4BC1324A7996000F81AAF /* Models */,
 				8AD4BC1224A7980B00F81AAF /* Delegates */,
 				8AD4BC1024A797D400F81AAF /* Views */,
+				8AD4BC0E24A7978000F81AAF /* ListHolderView.swift */,
 				8AD4BBF224A796EF00F81AAF /* Assets.xcassets */,
 				8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */,
 				8AD4BBF724A796EF00F81AAF /* LaunchScreen.storyboard */,
@@ -293,7 +293,6 @@
 			isa = PBXGroup;
 			children = (
 				8AD4BC1124A797EC00F81AAF /* Components */,
-				8AD4BC0E24A7978000F81AAF /* ListHolderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -307,6 +306,7 @@
 				8A9C612324B65D0B000E337F /* ListHeaderView */,
 				8A9C612224B65C81000E337F /* ListActionView */,
 				1A20D3E024AA478D00C6633F /* IngredientsListView */,
+				1A0CA11F24C20821003EDD47 /* TutorialView */,
 			);
 			path = Components;
 			sourceTree = "<group>";
