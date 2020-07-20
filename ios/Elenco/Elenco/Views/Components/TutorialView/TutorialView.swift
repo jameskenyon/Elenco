@@ -31,9 +31,10 @@ struct TutorialView: View {
                             .foregroundColor(Color("Lead"))
                             .frame(width: geometry.size.width * 0.2, height: 1)
                         
-                        ElencoPagerView(pageCount: 2, currentIndex: self.$currentPage) {
+                        ElencoPagerView(pageCount: 3, currentIndex: self.$currentPage) {
                             EmptyListView()
                             ListMenuTutorialView()
+                            IngredientPredictionTutorialView()
                         }
                     }
                 , alignment: .top)
