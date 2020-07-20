@@ -68,6 +68,7 @@ struct Ingredient: Codable, Identifiable, Hashable {
         self.aisle        = ingredientStore.aisle ?? ""
         self.quantity     = ingredientStore.quantity
         self.completed    = ingredientStore.completed
+        self.parentList   = ElencoList(name: ingredientStore.list?.name ?? "", id: ingredientStore.list?.id ?? UUID(), listID: ingredientStore.list?.listID ?? UUID())
     }
     
     public func copy() -> Ingredient {
