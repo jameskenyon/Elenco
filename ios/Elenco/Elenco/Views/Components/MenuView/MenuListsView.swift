@@ -11,11 +11,18 @@ import SwiftUI
 struct MenuListsView: View {
     
     @EnvironmentObject var menuViewDataModel: MenuViewDataModel
+    @EnvironmentObject var listHolderDataModel: ListHolderDataModel
     
     var body: some View {  
         List {
             ForEach(self.menuViewDataModel.lists, id: \.id) { list in
                 MenuViewListCell(list: list)
+                .onTapGesture {
+                    if let displayList = ElencoListDataModel.shared.getList(listID: list.listID) {
+                        self.listHolderDataModel.configureViewForList(newList: displayList)
+                        self.listHolderDataModel.menuIsShown = false
+                    }
+                }
             }
             Button(action: {
                 self.menuViewDataModel.createNewList()

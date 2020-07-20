@@ -11,6 +11,8 @@ import SwiftUI
 
 class MenuViewDataModel: ObservableObject {
     
+    @Published var editedName: String = ""
+    
     private var newListName: String {
         get {
             return "List \(lists.count + 1)"
@@ -44,7 +46,9 @@ class MenuViewDataModel: ObservableObject {
                 updatedList.name = newName
                 
                 lists.insert(updatedList, at: i)
-                ElencoListDataModel.shared.updateListName(list: list, newName: newName)
+                DispatchQueue.global().async {
+                    ElencoListDataModel.shared.updateListName(list: list, newName: newName)
+                }
                 self.listHolderDataModel.configureViewForList(newList: lists[i])
             }
         }

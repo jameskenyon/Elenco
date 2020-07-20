@@ -12,7 +12,7 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
     
     @EnvironmentObject var menuViewDataModel: MenuViewDataModel
     @EnvironmentObject var listHolderDataModel: ListHolderDataModel
-    @State var editedName = ""
+
     @State var list: ElencoList
     @State var isEditing: Bool = false
     
@@ -30,29 +30,38 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
                         .padding(.trailing, geometry.size.width)
                 }
                 HStack {
-                    ElencoTextField(text: $editedName, isFirstResponder: isEditing, textFieldView: self,
-                                    font: UIFont(name: "HelveticaNeue-Bold", size: 25), color: UIColor.white)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .accentColor(Color.white)
+                    if isEditing {
+                        ElencoTextField(text: $menuViewDataModel.editedName, isFirstResponder: isEditing, textFieldView: self,
+                        font: UIFont(name: "HelveticaNeue-Bold", size: 25), color: UIColor.white)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .accentColor(Color.white)
+                            .foregroundColor(Color.white)
+                            .padding(.leading, 15)
+                            .padding(.vertical, 10)
+                            .disabled(!isEditing)
+                            .onAppear {
+                                // Add Observer to detect when keyboard will be shown
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
+                                    let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+                                    // Only set keybaord height when cell will not be moved off screen
+                                    if self.menuViewDataModel.lists.lastIndex(of: self.list) ?? 0 > 5 {
+                                        self.listHolderDataModel.keyboardHeight = keyboardSize?.height ?? 0
+                                    }
+                                }
+                                // Add observer to detect when keyboard will hide
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (notification) in
+                                    self.listHolderDataModel.keyboardHeight = 0
+                                }
+                            }
+                    } else {
+                        Text(list.name != "" ? list.name : "Unnamed")
+                        .font(.custom("HelveticaNeue-Bold", size: 25))
                         .foregroundColor(Color.white)
                         .padding(.leading, 15)
                         .padding(.vertical, 10)
-                        .disabled(!isEditing)
-                        .onAppear {
-                            // Add Observer to detect when keyboard will be shown
-                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
-                                let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
-                                // Only set keybaord height when cell will not be moved off screen
-                                if self.menuViewDataModel.lists.lastIndex(of: self.list) ?? 0 > 5 {
-                                    self.listHolderDataModel.keyboardHeight = keyboardSize?.height ?? 0
-                                }
-                            }
-                            // Add observer to detect when keyboard will hide
-                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (notification) in
-                                self.listHolderDataModel.keyboardHeight = 0
-                            }
-                        }
-
+                        Spacer()
+                    }
+                    
                     if list.name != ElencoDefaults.mainListName {
                         // Edit button
                         Image(uiImage: isEditing ? #imageLiteral(resourceName: "saveList") : #imageLiteral(resourceName: "editList"))
@@ -77,19 +86,14 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
                     }
                 }
                 .onAppear {
-                    self.editedName = self.list.name
+                    self.menuViewDataModel.editedName = self.list.name
                 }
             } else {
-                Text(list.name)
+                Text(list.name != "" ? list.name : "Unnamed")
                 .font(.custom("HelveticaNeue-Medium", size: 25))
                 .foregroundColor(Color("Tungsten"))
                 .padding(.leading, 15)
                 .padding(.vertical, 10)
-                .onTapGesture {
-                    if let displayList = ElencoListDataModel.shared.getList(listID: self.list.listID) {
-                        self.listHolderDataModel.configureViewForList(newList: displayList)
-                    }
-                }
             }
         }
     }
@@ -97,14 +101,18 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
     private func updateButtonTapped() {
         if isEditing {
             updateList()
+            isEditing = false
+        } else {
+            isEditing = true
         }
-        isEditing.toggle()
     }
     
     // Save new list to coredata
     private func updateList() {
-        menuViewDataModel.updateList(list: list, newName: editedName)
-        self.list.name = editedName
+        if menuViewDataModel.editedName != "" {
+            menuViewDataModel.updateList(list: list, newName: menuViewDataModel.editedName)
+            self.list.name = menuViewDataModel.editedName
+        }
     }
     
     // Delete list
@@ -115,10 +123,9 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
     // MARK: ElencoListDisplayable Methods
     
     func userDidReturnOnTextField() {
-        updateList()
+        updateButtonTapped()
     }
     
     func userDidEditTextField(newValue: String) {}
-    
     
 }
