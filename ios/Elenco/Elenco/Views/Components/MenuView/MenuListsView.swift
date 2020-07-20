@@ -10,24 +10,19 @@ import SwiftUI
 
 struct MenuListsView: View {
     
-    @EnvironmentObject var listHolderModel: ListHolderDataModel
-    @EnvironmentObject var listDataModel: ElencoListDataModel
+    @EnvironmentObject var menuViewDataModel: MenuViewDataModel
     
-    var lists: [ElencoList]
-
     var body: some View {  
         List {
-            ForEach(self.lists, id: \.id) { list in
-                MenuViewListCell(list: list, isEditing: list.name == ElencoDefaults.newListName)
+            ForEach(self.menuViewDataModel.lists, id: \.id) { list in
+                MenuViewListCell(list: list, isEditing: list.name == self.menuViewDataModel.newListName)
                 .animation(nil)
             }
             
             Button(action: {
                 if self.canCreateNewList() {
-                    let newList = ElencoList(name: ElencoDefaults.newListName)
-                    self.listHolderModel.createList(list: newList)
-                } else {
-                    print("Alert")
+                    let newList = ElencoList(name: self.menuViewDataModel.newListName)
+                    self.menuViewDataModel.createList(list: newList)
                 }
             }, label: {
                 Text("+ New List")
@@ -41,6 +36,6 @@ struct MenuListsView: View {
     
     // Return true if user has finished renaming previously created list
     private func canCreateNewList() -> Bool {
-        return lists.filter({ $0.name == ElencoDefaults.newListName }).count == 0
+        return menuViewDataModel.lists.filter({ $0.name == menuViewDataModel.newListName }).count == 0
     }
 }

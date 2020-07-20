@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let contentView = ListHolderView()
                 .environment(\.managedObjectContext, context)
                 .environmentObject(listModel)
-                .environmentObject(ElencoListDataModel())
+                .environmentObject(ElencoListDataModel.shared)
             
             window.rootViewController = DarkHostingController(rootView: contentView)
             self.window = window
@@ -75,11 +75,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Create the all list that will hold all the ingredients
     // if one doesn't already exist.
     private func getAllList() -> ElencoList {
-        if let allList = ElencoListDataModel().getList(listName: ElencoDefaults.mainListName) {
+        if let allList = ElencoListDataModel.shared.getList(listName: ElencoDefaults.mainListName) {
             return allList
         } else {
             let list = ElencoList(name: ElencoDefaults.mainListName)
-            ElencoListDataModel().createList(list: list) { (error) in
+            ElencoListDataModel.shared.createList(list: list) { (error) in
                 print("Error saving all list.")
             }
             return list

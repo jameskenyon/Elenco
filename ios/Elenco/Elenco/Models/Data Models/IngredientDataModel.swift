@@ -21,6 +21,8 @@ class IngredientDataModel: ObservableObject {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     @Published var ingredients = Ingredients()
     
+    public static let shared = IngredientDataModel()
+    
     // MARK: - Fetch Methods
     
     // Fetch Ingredients
@@ -58,7 +60,7 @@ class IngredientDataModel: ObservableObject {
         ingredientStore.aisle        = ingredient.aisle
         ingredientStore.quantity     = ingredient.quantity
         ingredientStore.completed    = ingredient.completed
-        ingredientStore.list = ElencoListDataModel().getListStore(forName: ingredient.parentList?.name ?? "")
+        ingredientStore.list = ElencoListDataModel.shared.getListStore(forName: ingredient.parentList?.name ?? "")
         
         do {
             try self.context.save()
@@ -105,7 +107,7 @@ class IngredientDataModel: ObservableObject {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
         do {
             let ingredientsStores = try self.context.fetch(request)
-            if let allList = ElencoListDataModel().getListStore(forName: ElencoDefaults.mainListName) {
+            if let allList = ElencoListDataModel.shared.getListStore(forName: ElencoDefaults.mainListName) {
                 for store in ingredientsStores {
                     if store.list == nil {
                         store.setValue(allList, forKey: "list")

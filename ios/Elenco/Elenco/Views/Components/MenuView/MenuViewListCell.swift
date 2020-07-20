@@ -10,20 +10,20 @@ import SwiftUI
 
 struct MenuViewListCell: View {
     
-    @EnvironmentObject var listModel: ElencoListDataModel
-    @EnvironmentObject var listHolderModel: ListHolderDataModel
+    @EnvironmentObject var menuViewDataModel: MenuViewDataModel
+    @EnvironmentObject var listHolderDataModel: ListHolderDataModel
     @State var editedName = ""
     @State var list: ElencoList
     @State var isEditing: Bool
     
     var isSelected: Bool {
-        if list.name == ElencoDefaults.newListName {
+        if list.name == menuViewDataModel.newListName {
             return true
         }
         if userDidNotProvideValidName() {
             return false
         }
-        return listHolderModel.list.name == list.name
+        return listHolderDataModel.list.name == list.name
     }
     
     var body: some View {
@@ -51,13 +51,13 @@ struct MenuViewListCell: View {
                             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
                                 let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
                                 // Only set keybaord height when cell will not be moved off screen
-                                if self.listHolderModel.lists.lastIndex(of: self.list) ?? 0 > 5 {
-                                    self.listHolderModel.keyboardHeight = keyboardSize?.height ?? 0
+                                if self.menuViewDataModel.lists.lastIndex(of: self.list) ?? 0 > 5 {
+                                    self.listHolderDataModel.keyboardHeight = keyboardSize?.height ?? 0
                                 }
                             }
                             // Add observer to detect when keyboard will hide
                             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (notification) in
-                                self.listHolderModel.keyboardHeight = 0
+                                self.listHolderDataModel.keyboardHeight = 0
                             }
                         }
 
@@ -94,9 +94,7 @@ struct MenuViewListCell: View {
                 .padding(.leading, 15)
                 .padding(.vertical, 10)
                 .onTapGesture {
-                    if !self.userDidNotProvideValidName() {
-                        self.listHolderModel.configureViewForList(newList: self.list)
-                    }
+                    self.listHolderDataModel.configureViewForList(newList: self.list)
                 }
             }
         }
@@ -115,22 +113,22 @@ struct MenuViewListCell: View {
     
     // Return true if the edited name is unique
     private func isValidListName() -> Bool {
-        return listModel.getList(listName: editedName) == nil
+        return ElencoListDataModel.shared.getList(listName: editedName) == nil
     }
     
     // Save new list to coredata
     private func updateList() {
-        listHolderModel.updateList(list: list, newName: editedName)
+        menuViewDataModel.updateList(list: list, newName: editedName)
     }
     
     // Delete list
     private func deleteList() {
-        listHolderModel.deleteList(list: list)
+        menuViewDataModel.deleteList(list: list)
     }
     
     // Return if user has not named a new list with valid name
     private func userDidNotProvideValidName() -> Bool {
-        return listHolderModel.lists.filter({ $0.name == ElencoDefaults.newListName }).count != 0
+        return menuViewDataModel.lists.filter({ $0.name == menuViewDataModel.newListName }).count != 0
     }
     
 }

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MenuView: View {
     
-    @EnvironmentObject var listDataModel: ElencoListDataModel
+    @EnvironmentObject var menuViewDataModel: MenuViewDataModel
     @EnvironmentObject var listHolderDataModel: ListHolderDataModel
     
     init() {
@@ -36,8 +36,7 @@ struct MenuView: View {
                             .padding(.leading, 30)
 
                         // Lists
-                        MenuListsView(lists: self.listHolderDataModel.lists)
-                            
+                        MenuListsView()
 
                         // Back Button
                         MenuBackButton()

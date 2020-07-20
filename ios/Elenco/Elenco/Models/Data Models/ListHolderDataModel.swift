@@ -34,21 +34,13 @@ class ListHolderDataModel: ObservableObject {
     
     @Published public var menuIsShown = false
     
-    @Published public var lists: [ElencoList]
-    
     @Published public var keyboardHeight: CGFloat = 0
         
     @Published public var userIsAddingIngredient = false
     
-    private let ingredientsDataModel = IngredientDataModel()
-    private let elencoListDataModel  = ElencoListDataModel()
-    
     init(initialList: ElencoList, window: UIWindow) {
         self.window = window
         self.list = initialList
-        
-        elencoListDataModel.updateLists()
-        self.lists = elencoListDataModel.lists
         
         configureViewForList(newList: self.list)
     }
@@ -70,7 +62,7 @@ class ListHolderDataModel: ObservableObject {
     
     // save the ingredient to the core data model
     public func saveIngredient(ingredient: Ingredient) {
-        ingredientsDataModel.save(ingredient: ingredient) { (error) in
+        IngredientDataModel.shared.save(ingredient: ingredient) { (error) in
             if let error = error { print(error.localizedDescription) }
         }
     }
@@ -96,7 +88,7 @@ class ListHolderDataModel: ObservableObject {
     
     // remove the ingredient from the core data model
     private func removeFromCoreDataModel(ingredient: Ingredient) {
-        ingredientsDataModel.delete(ingredient: ingredient) { (error) in
+        IngredientDataModel.shared.delete(ingredient: ingredient) { (error) in
             if let error = error { print(error.localizedDescription) }
         }
     }
@@ -112,43 +104,11 @@ class ListHolderDataModel: ObservableObject {
                 updateIngredient.quantity = newQuantity ?? ingredient.quantity
                 updateIngredient.completed = newCompleted ?? ingredient.completed
                 list.ingredients.insert(updateIngredient, at: i)
-                self.ingredientsDataModel.update(ingredient: list.ingredients[i]) { (error) in
+                IngredientDataModel.shared.update(ingredient: list.ingredients[i]) { (error) in
                     if let error = error { print(error.localizedDescription) }
                 }
             }
         }
-    }
-    
-    // create New List
-    public func createList(list: ElencoList) {
-        elencoListDataModel.createList(list: list) { (error) in
-            if let error = error { print(error.localizedDescription )}
-            self.lists.append(list)
-            self.configureViewForList(newList: self.lists.last)
-        }
-    }
-    
-    // update a list
-    public func updateList(list: ElencoList, newName: String) {
-        for i in 0..<lists.count {
-            if list.id == lists[i].id {
-                var updatedList = lists.remove(at: i).copy()
-                updatedList.name = newName
-                
-                lists.insert(updatedList, at: i)
-//                lists[i].name = newName
-                print(lists[i].name)
-                elencoListDataModel.updateListName(list: list, newName: newName)
-                self.configureViewForList(newList: lists[i])
-            }
-        }
-    }
-    
-    // delete a list
-    public func deleteList(list: ElencoList) {
-        lists.removeAll(where: { $0.name == list.name })
-        elencoListDataModel.deleteList(listName: list.name)
-        configureViewForList(newList: lists.first)
     }
     
     // configure the current data source
@@ -181,17 +141,7 @@ class ListHolderDataModel: ObservableObject {
         }
         self.sortType = sortType
     }
-    
-    // MARK: Private Interface
-    
-    // load the default list when the view loads
-    private func loadDefaultList() {
-        self.ingredientsDataModel.fetchIngredients { (error) in
-            let list = self.elencoListDataModel.getList(listName: ElencoDefaults.mainListName)
-            self.configureViewForList(newList: list)
-        }
-    }
-    
+
 }
 
 // MARK: - Sort Ingredient Data
@@ -304,7 +254,7 @@ extension ListHolderDataModel {
             var updateIngredient = list.ingredients.remove(at: i).copy()
             updateIngredient.completed = shouldComplete
             list.ingredients.insert(updateIngredient, at: i)
-            self.ingredientsDataModel.update(ingredient: list.ingredients[i]) { (error) in
+            IngredientDataModel.shared.update(ingredient: list.ingredients[i]) { (error) in
                 if let error = error { print(error.localizedDescription) }
             }
         }

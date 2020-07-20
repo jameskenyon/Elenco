@@ -75,7 +75,8 @@ struct ListHolderView: View {
 
             GeometryReader { geometry in
 
-                MenuView()
+                MenuView().environmentObject(MenuViewDataModel(listHolderModel: self.listHolderModel))
+                    .environmentObject(self.listHolderModel)
                     .offset(x: self.menuViewOffsetX(geometry: geometry), y: 0)
                     .animation(
                         Animation.spring()

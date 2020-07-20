@@ -13,7 +13,8 @@ import CoreData
 class ElencoListDataModel: ObservableObject {
 
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    @Published var lists = [ElencoList]()
+    
+    public static let shared = ElencoListDataModel()
 
     // MARK: Fetch Methods available to public
     
@@ -66,15 +67,15 @@ class ElencoListDataModel: ObservableObject {
         }
         return nil
     }
-
-    // get all of the lists and their ingredients
-    public func updateLists() {
+    
+    // get all the lists that the user has currently
+    public func getLists() -> [ElencoList] {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         do {
             let listStores = try self.context.fetch(request)
-            self.lists = listStores.map({ getListFromStore(listStore: $0) })
+            return listStores.map({ getListFromStore(listStore: $0) })
         } catch {
-            print("error")
+            return []
         }
     }
     
