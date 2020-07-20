@@ -64,6 +64,7 @@ struct ListHolderView: View {
 //                        EmptyListView()
                         TutorialView()
                             .padding(.top)
+                            .padding(.horizontal, 10)
                         Spacer()
                         AddIngredientButton()
                     }

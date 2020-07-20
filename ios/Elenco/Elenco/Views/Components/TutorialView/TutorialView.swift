@@ -15,7 +15,7 @@ struct TutorialView: View {
     var body: some View {
         GeometryReader { geometry in
             RoundedRectangle(cornerRadius: 10)
-                .shadow(color: Color("Light-Gray"), radius: 5, x: 5, y: 5)
+                .shadow(color: Color("Light-Gray"), radius: 5)
                 .foregroundColor(Color(.white))
                 
                 .overlay(
@@ -31,7 +31,7 @@ struct TutorialView: View {
                         
                         PagerView(pageCount: 2, currentIndex: self.$currentPage) {
                             EmptyListView()
-                            EmptyListView()
+                            ListMenuTutorialView()
                         }
                     }
                 , alignment: .top)
@@ -80,7 +80,7 @@ struct PagerView<Content: View>: View {
                         PagerIndicator(isActive: number == self.currentIndex)
                     }
                 }
-                .padding(.bottom, 10)
+                .padding(.bottom, 20)
             }
         }
     }
@@ -88,7 +88,7 @@ struct PagerView<Content: View>: View {
 
 struct PagerIndicator: View {
     var isActive: Bool
-    var size: CGFloat = 20
+    var size: CGFloat = 15
     
     var body: some View {
         ZStack {

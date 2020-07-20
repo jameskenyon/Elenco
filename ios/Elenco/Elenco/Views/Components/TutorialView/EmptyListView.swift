@@ -56,7 +56,7 @@ struct EmptyListView: View {
             }
             .foregroundColor(Color("BodyText"))
         }
-        .background(Color("Background"))
+        .background(Color.clear)
     }
 }
 
