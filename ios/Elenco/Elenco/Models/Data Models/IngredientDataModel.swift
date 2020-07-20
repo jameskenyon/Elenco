@@ -53,10 +53,11 @@ class IngredientDataModel: ObservableObject {
     // Save Ingredient to core data model
     public func save(ingredient: Ingredient, completion: @escaping (Error?) -> ()) {
         let ingredientStore = IngredientStore(context: self.context)
-        ingredientStore.name      = ingredient.name
-        ingredientStore.aisle     = ingredient.aisle
-        ingredientStore.quantity  = ingredient.quantity
-        ingredientStore.completed = ingredient.completed
+        ingredientStore.ingredientID = ingredient.ingredientID
+        ingredientStore.name         = ingredient.name
+        ingredientStore.aisle        = ingredient.aisle
+        ingredientStore.quantity     = ingredient.quantity
+        ingredientStore.completed    = ingredient.completed
         ingredientStore.list = ElencoListDataModel().getListStore(forName: ingredient.parentList?.name ?? "")
         
         do {
