@@ -11,8 +11,8 @@ import SwiftUI
 struct ListMenuTutorialView: View {
     
     var body: some View {
-        ScrollView(.vertical) {
-            GeometryReader { geometry in
+        GeometryReader { geometry in
+            ScrollView(.vertical) {
                 VStack(alignment: .center, spacing: 0) {
                     
                     Text("Tap menu button to acess your changes")
@@ -41,7 +41,7 @@ struct ListMenuTutorialView: View {
                 }
             }
         }
-    }
+    }  
 }
 
 struct ListMenuTutorialView_Previews: PreviewProvider {

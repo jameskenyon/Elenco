@@ -29,7 +29,7 @@ struct ElencoPagerView<Content: View>: View {
                 .frame(width: geometry.size.width, alignment: .leading)
                 .offset(x: -CGFloat(self.currentIndex) * geometry.size.width)
                 .offset(x: self.translation)
-                .animation(.spring())
+                .animation(.interactiveSpring())
                     
                 .gesture(
                     DragGesture()

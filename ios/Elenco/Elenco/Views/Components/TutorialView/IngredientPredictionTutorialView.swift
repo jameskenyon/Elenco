@@ -11,8 +11,8 @@ import SwiftUI
 struct IngredientPredictionTutorialView: View {
     
     var body: some View {
-        ScrollView(.vertical) {
-            GeometryReader { geometry in
+        GeometryReader { geometry in
+            ScrollView(.vertical) {
                 VStack(alignment: .center, spacing: 0) {
                     
                     Text("When you search for an ingredient, Elenco will predict what you’re looking for.")
