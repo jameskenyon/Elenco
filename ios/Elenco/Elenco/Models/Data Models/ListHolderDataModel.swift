@@ -43,13 +43,14 @@ class ListHolderDataModel: ObservableObject {
     private let ingredientsDataModel = IngredientDataModel()
     private let elencoListDataModel  = ElencoListDataModel()
     
-    init(window: UIWindow) {
+    init(initialList: ElencoList, window: UIWindow) {
         self.window = window
-        self.list = ElencoList(name: ElencoDefaults.mainListName)
+        self.list = initialList
+        
         elencoListDataModel.updateLists()
         self.lists = elencoListDataModel.lists
-        loadDefaultList()
         
+        configureViewForList(newList: self.list)
     }
     
     // MARK: Public Interface

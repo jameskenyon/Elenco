@@ -100,7 +100,7 @@ struct ActionView: View {
 #if DEBUG
 struct SortView_Previews: PreviewProvider {
     static var previews: some View {
-        ActionView().environmentObject(ListHolderDataModel(window: UIWindow()))
+        ActionView().environmentObject(ListHolderDataModel(initialList: ElencoList(name: "All"), window: UIWindow()))
     }
 }
 #endif

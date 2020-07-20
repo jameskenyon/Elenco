@@ -45,7 +45,7 @@ struct ActionViewButtonItem: View {
 #if DEBUG
 struct ActionViewButtonItem_Previews: PreviewProvider {
     static var previews: some View {
-        ActionViewButtonItem(actionType: .clearList).environmentObject(ListHolderDataModel(window: UIWindow()))
+        ActionViewButtonItem(actionType: .clearList).environmentObject(ListHolderDataModel(initialList: ElencoList(name: "All"), window: UIWindow()))
     }
 }
 #endif

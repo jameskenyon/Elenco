@@ -18,7 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // configure the ingredients
         IngredientAPIService.configureIngredientCache()
         // add 'All' list if required
-        createAllListIfRequired()
+        let allList = self.getAllList()
+        updateIngredientListsIfRequired()
         
         // Get the managed object context from the shared persistent container.
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -27,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
 
-            let listModel = ListHolderDataModel(window: window)
+            let listModel = ListHolderDataModel(initialList: allList, window: window)
             
             let contentView = ListHolderView()
                 .environment(\.managedObjectContext, context)
@@ -73,14 +74,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // Create the all list that will hold all the ingredients
     // if one doesn't already exist.
-    private func createAllListIfRequired() {
-        if ElencoListDataModel().getList(listName: ElencoDefaults.mainListName) == nil {
+    private func getAllList() -> ElencoList {
+        if let allList = ElencoListDataModel().getList(listName: ElencoDefaults.mainListName) {
+            return allList
+        } else {
             let list = ElencoList(name: ElencoDefaults.mainListName)
             ElencoListDataModel().createList(list: list) { (error) in
                 print("Error saving all list.")
             }
+            return list
         }
-        updateIngredientListsIfRequired()
     }
     
     // update the ingredients in the list so that if they have

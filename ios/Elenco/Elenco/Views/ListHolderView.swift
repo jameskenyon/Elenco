@@ -130,11 +130,11 @@ struct AddIngredientButton: View {
 struct MyListView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ListHolderView().environmentObject(ListHolderDataModel(window: UIWindow()))
+            ListHolderView().environmentObject(ListHolderDataModel(initialList: ElencoList(name: "All"), window: UIWindow()))
             .previewDevice(PreviewDevice(rawValue: "iPhone SE (2nd generation)"))
             .previewDisplayName("iPhone SE")
             
-            ListHolderView().environmentObject(ListHolderDataModel(window: UIWindow()))
+            ListHolderView().environmentObject(ListHolderDataModel(initialList: ElencoList(name: "All"), window: UIWindow()))
             .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
             .previewDisplayName("iPhone 11")
             

@@ -45,7 +45,7 @@ struct SortViewButtonItem: View {
 #if DEBUG
 struct SortViewButtonItem_Previews: PreviewProvider {
     static var previews: some View {
-        SortViewButtonItem(type: .aisle).environmentObject(ListHolderDataModel(window: UIWindow()))
+        SortViewButtonItem(type: .aisle).environmentObject(ListHolderDataModel(initialList: ElencoList(name: "All"), window: UIWindow()))
     }
 }
 #endif
