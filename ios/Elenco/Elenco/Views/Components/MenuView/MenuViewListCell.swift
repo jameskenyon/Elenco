@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MenuViewListCell: View, ElencoTextFieldDisplayable {
+struct MenuViewListCell: View {
     
     @EnvironmentObject var listModel: ElencoListDataModel
     @EnvironmentObject var listHolderModel: ListHolderDataModel
@@ -36,10 +36,9 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
                         .padding(.trailing, geometry.size.width)
                 }
                 HStack {
-//                    TextField(list.name, text: $editedName, onCommit: {
-//                        self.updateList()
-//                    })
-                    ElencoTextField(text: $editedName, isFirstResponder: isEditing, textFieldView: self)
+                    TextField(list.name, text: $editedName, onCommit: {
+                        self.updateList()
+                    })
                         .textFieldStyle(PlainTextFieldStyle())
                         .font(.system(size: 25, weight: .bold))
                         .accentColor(Color.white)
@@ -130,14 +129,5 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
     // Return if user has not named a new list with valid name
     private func userDidNotProvideValidName() -> Bool {
         return listHolderModel.lists.filter({ $0.name == ElencoDefaults.newListName }).count != 0
-    }
-    
-    // MARK: - Textfield Delegate Methods
-    func userDidReturnOnTextField() {
-        print("Return")
-    }
-    
-    func userDidEditTextField(newValue: String) {
-        print("edit")
     }
 }
