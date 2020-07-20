@@ -79,8 +79,19 @@ class ElencoListDataModel: ObservableObject {
     public func getLists() -> [ElencoList] {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         do {
-            let listStores = try ElencoDefaults.context.fetch(request)
-            return listStores.map({ getListFromStore(listStore: $0) })
+            var lists = [ElencoList]()
+            for store in try ElencoDefaults.context.fetch(request) {
+                if let listID = store.listID {
+                    var list = getList(listID: listID)
+                    if list?.name == ElencoDefaults.mainListName {
+                        list?.ingredients = IngredientDataModel.shared.fetchIngredients()
+                    }
+                    if let list = list {
+                        lists.append(list)
+                    }
+                }
+            }
+            return lists
         } catch {
             return []
         }

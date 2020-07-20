@@ -18,10 +18,7 @@ struct MenuListsView: View {
             ForEach(self.menuViewDataModel.lists, id: \.id) { list in
                 MenuViewListCell(list: list)
                 .onTapGesture {
-                    if let displayList = ElencoListDataModel.shared.getList(listID: list.listID) {
-                        self.listHolderDataModel.configureViewForList(newList: displayList)
-                        self.listHolderDataModel.menuIsShown = false
-                    }
+                    self.displayList(list: list)
                 }
             }
             Button(action: {
@@ -33,6 +30,19 @@ struct MenuListsView: View {
                     .padding(.leading, 15)
                     .padding(.vertical, 10)
             })
+        }
+    }
+    
+    private func displayList(list: ElencoList) {
+        if let displayList = ElencoListDataModel.shared.getList(listID: list.listID) {
+            if displayList.name == ElencoDefaults.mainListName {
+                let ingredients = IngredientDataModel.shared.fetchIngredients()
+                let mainList = ElencoList(name: ElencoDefaults.mainListName, ingredients: ingredients)
+                self.listHolderDataModel.configureViewForList(newList: mainList)
+            } else {
+                self.listHolderDataModel.configureViewForList(newList: displayList)
+            }
+            self.listHolderDataModel.menuIsShown = false
         }
     }
     

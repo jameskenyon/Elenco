@@ -79,7 +79,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Create the all list that will hold all the ingredients
     // if one doesn't already exist.
     private func getAllList() -> ElencoList {
-        if let allList = ElencoListDataModel.shared.getList(listName: ElencoDefaults.mainListName) {
+        if let allList = ElencoListDataModel.shared.getLists().first {
             return allList
         } else {
             let list = ElencoList(name: ElencoDefaults.mainListName)

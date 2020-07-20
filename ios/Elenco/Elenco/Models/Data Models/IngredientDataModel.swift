@@ -42,7 +42,9 @@ class IngredientDataModel: ObservableObject {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
         do {
             let ingredientsEntities = try ElencoDefaults.context.fetch(request)
-            return ingredientsEntities.map({ Ingredient(ingredientStore: $0) })
+            let ingredients = ingredientsEntities.map({ Ingredient(ingredientStore: $0) })
+            self.ingredients = ingredients
+            return ingredients
         }
         catch {
             return []
