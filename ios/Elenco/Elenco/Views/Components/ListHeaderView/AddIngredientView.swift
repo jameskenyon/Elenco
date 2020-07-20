@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct AddIngredientView: View {
+struct AddIngredientView: View, ElencoTextFieldDisplayable {
 
     // global observed model
     @EnvironmentObject var listHolderModel: ListHolderDataModel
@@ -22,7 +22,7 @@ struct AddIngredientView: View {
             if listHolderModel.userIsAddingIngredient {
                 VStack(alignment: .leading) {
                     HStack {
-                        AddIngredientTextField(text: $searchViewModel.query, isFirstResponder: listHolderModel.userIsAddingIngredient, addIngredientView: self)
+                        ElencoTextField(text: $searchViewModel.query, isFirstResponder: listHolderModel.userIsAddingIngredient, textFieldView: self)
                             .frame(height: 30)
                             .font(Font.custom("HelveticaNeue-Medium", size: 22))
                             .padding(15).padding(.leading)
@@ -64,22 +64,6 @@ struct AddIngredientView: View {
         .padding()
     }
     
-    // Called when the user adds an ingredient by returning on the text field
-    public func userDidAddReturnOnTextField() {
-        let query = self.searchViewModel.query
-        if query.trimmingCharacters(in: [" "]) != "" {
-            if listHolderModel.userHasIngredient(name: query) {
-                listHolderModel.window.displayAlert(title: "You already have this ingredient.",
-                                                okTitle: "Add anyway") { (alert) -> (Void) in
-                                                    self.addIngredient()
-                }
-            } else {
-                addIngredient()
-            }
-        }
-        hideTextField()
-    }
-    
     private func addIngredient() {
         let nameAndQuantity = Ingredient.getIngredientNameAndQuantity(searchText:
                    self.searchViewModel.query)
@@ -97,6 +81,27 @@ struct AddIngredientView: View {
         withAnimation {
             listHolderModel.userIsAddingIngredient = false
         }
+    }
+    
+    // MARK: ElencoListDisplayable Methods
+    
+    // do nothing when the user edits text - has to be implemented for protocol.
+    public func userDidEditTextField(newValue: String) {}
+    
+    // Called when the user adds an ingredient by returning on the text field
+    public func userDidReturnOnTextField() {
+        let query = self.searchViewModel.query
+        if query.trimmingCharacters(in: [" "]) != "" {
+            if listHolderModel.userHasIngredient(name: query) {
+                listHolderModel.window.displayAlert(title: "You already have this ingredient.",
+                                                okTitle: "Add anyway") { (alert) -> (Void) in
+                                                    self.addIngredient()
+                }
+            } else {
+                addIngredient()
+            }
+        }
+        hideTextField()
     }
     
 }
