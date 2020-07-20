@@ -17,13 +17,7 @@ struct MenuViewListCell: View {
     @State var isEditing: Bool
     
     var isSelected: Bool {
-        if list.name == menuViewDataModel.newListName {
-            return true
-        }
-        if userDidNotProvideValidName() {
-            return false
-        }
-        return listHolderDataModel.list.name == list.name
+        return list.listID == listHolderDataModel.list.listID
     }
     
     var body: some View {
@@ -102,18 +96,9 @@ struct MenuViewListCell: View {
     
     private func updateButtonTapped() {
         if isEditing {
-            if isValidListName() {
-                updateList()
-            } else {
-                isEditing.toggle()
-            }
+            updateList()
         }
         isEditing.toggle()
-    }
-    
-    // Return true if the edited name is unique
-    private func isValidListName() -> Bool {
-        return ElencoListDataModel.shared.getList(listName: editedName) == nil
     }
     
     // Save new list to coredata
@@ -124,11 +109,6 @@ struct MenuViewListCell: View {
     // Delete list
     private func deleteList() {
         menuViewDataModel.deleteList(list: list)
-    }
-    
-    // Return if user has not named a new list with valid name
-    private func userDidNotProvideValidName() -> Bool {
-        return menuViewDataModel.lists.filter({ $0.name == menuViewDataModel.newListName }).count != 0
     }
     
 }

@@ -60,7 +60,9 @@ class IngredientDataModel: ObservableObject {
         ingredientStore.aisle        = ingredient.aisle
         ingredientStore.quantity     = ingredient.quantity
         ingredientStore.completed    = ingredient.completed
-        ingredientStore.list = ElencoListDataModel.shared.getListStore(forName: ingredient.parentList?.name ?? "")
+        if let parentList = ingredient.parentList {
+            ingredientStore.list = ElencoListDataModel.shared.getListStore(forID: parentList.listID)
+        }
         
         do {
             try self.context.save()

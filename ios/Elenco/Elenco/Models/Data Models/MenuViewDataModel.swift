@@ -52,7 +52,7 @@ class MenuViewDataModel: ObservableObject {
     // delete a list
     public func deleteList(list: ElencoList) {
         lists.removeAll(where: { $0.name == list.name })
-        ElencoListDataModel.shared.deleteList(listName: list.name)
+        ElencoListDataModel.shared.deleteList(list: list)
         listHolderDataModel.configureViewForList(newList: lists.first)
     }
     
