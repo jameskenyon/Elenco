@@ -66,11 +66,11 @@ struct PagerIndicator: View {
             if isActive {
                 Circle()
                     .frame(width: size, height: size)
-                    .foregroundColor(colorScheme == .dark ? Color.white : Color("Light-Teal"))
+                    .foregroundColor(colorScheme == .dark ? Color.white : Color("Teal"))
                     .animation(.default)
             } else {
                 Circle()
-                    .stroke(colorScheme == .dark ? Color.white : Color("Light-Teal"), lineWidth: 2)
+                    .stroke(colorScheme == .dark ? Color.white : Color("Teal"), lineWidth: 2)
                     .frame(width: size, height: size)
                     .animation(.default)
             }

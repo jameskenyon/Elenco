@@ -105,4 +105,9 @@ public extension UIDevice {
         return devicesWithRounedCorners.contains(UIDevice.modelName.replacingOccurrences(of: "Simulator ", with: ""))
     }
     
+    static func deviceIsIPad() -> Bool {
+        let modelName = self.modelName
+        return modelName.contains("iPad")
+    }
+    
 }

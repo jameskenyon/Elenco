@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1A0CA12124C20887003EDD47 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0CA12024C20887003EDD47 /* TutorialView.swift */; };
-		1A0CA12324C21129003EDD47 /* ListMenuTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0CA12224C21129003EDD47 /* ListMenuTutorialView.swift */; };
 		1A12316A24C5B8DD001E0D79 /* ElencoPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A12316924C5B8DD001E0D79 /* ElencoPagerView.swift */; };
 		1A12316C24C5B9AE001E0D79 /* IngredientPredictionTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A12316B24C5B9AE001E0D79 /* IngredientPredictionTutorialView.swift */; };
 		1A17AA6824ABDDB700893676 /* IngredientDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A17AA6724ABDDB700893676 /* IngredientDataModel.swift */; };
@@ -56,6 +55,7 @@
 		8AD4BBF924A796EF00F81AAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AD4BBF724A796EF00F81AAF /* LaunchScreen.storyboard */; };
 		8AD4BC0424A796F000F81AAF /* ElencoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4BC0324A796F000F81AAF /* ElencoTests.swift */; };
 		8AD4BC0F24A7978000F81AAF /* ListHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4BC0E24A7978000F81AAF /* ListHolderView.swift */; };
+		8ADB42F024C781E600EB6C8C /* WelcomeTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB42EF24C781E600EB6C8C /* WelcomeTutorialView.swift */; };
 		8AE34E0824AD1AE2004651B5 /* AddIngredientTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE34E0724AD1AE2004651B5 /* AddIngredientTutorialView.swift */; };
 		8AED6C8024AF56380056F901 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED6C7F24AF56380056F901 /* UIDevice.swift */; };
 		8AEF2EEE24A7E5FB0071C69A /* AddIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2EED24A7E5FB0071C69A /* AddIngredientView.swift */; };
@@ -73,7 +73,6 @@
 
 /* Begin PBXFileReference section */
 		1A0CA12024C20887003EDD47 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
-		1A0CA12224C21129003EDD47 /* ListMenuTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMenuTutorialView.swift; sourceTree = "<group>"; };
 		1A12316924C5B8DD001E0D79 /* ElencoPagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElencoPagerView.swift; sourceTree = "<group>"; };
 		1A12316B24C5B9AE001E0D79 /* IngredientPredictionTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientPredictionTutorialView.swift; sourceTree = "<group>"; };
 		1A17AA6724ABDDB700893676 /* IngredientDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDataModel.swift; sourceTree = "<group>"; };
@@ -124,6 +123,7 @@
 		8AD4BC0324A796F000F81AAF /* ElencoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElencoTests.swift; sourceTree = "<group>"; };
 		8AD4BC0524A796F000F81AAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AD4BC0E24A7978000F81AAF /* ListHolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHolderView.swift; sourceTree = "<group>"; };
+		8ADB42EF24C781E600EB6C8C /* WelcomeTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeTutorialView.swift; sourceTree = "<group>"; };
 		8AE34E0724AD1AE2004651B5 /* AddIngredientTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientTutorialView.swift; sourceTree = "<group>"; };
 		8AED6C7F24AF56380056F901 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		8AEF2EED24A7E5FB0071C69A /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
@@ -152,8 +152,8 @@
 			children = (
 				1A0CA12024C20887003EDD47 /* TutorialView.swift */,
 				1A12316924C5B8DD001E0D79 /* ElencoPagerView.swift */,
+				8ADB42EF24C781E600EB6C8C /* WelcomeTutorialView.swift */,
 				8AE34E0724AD1AE2004651B5 /* AddIngredientTutorialView.swift */,
-				1A0CA12224C21129003EDD47 /* ListMenuTutorialView.swift */,
 				1A12316B24C5B9AE001E0D79 /* IngredientPredictionTutorialView.swift */,
 			);
 			path = TutorialView;
@@ -482,7 +482,6 @@
 				8AB367BD24B9ABCB00E795D5 /* UIApplication.swift in Sources */,
 				1A0CA12124C20887003EDD47 /* TutorialView.swift in Sources */,
 				8A381C4124AB44580023A5CD /* ListHolderDataModel.swift in Sources */,
-				1A0CA12324C21129003EDD47 /* ListMenuTutorialView.swift in Sources */,
 				8AB2FEFD24B89580002918AA /* ActionViewButtonItem.swift in Sources */,
 				8A381C3D24AA86120023A5CD /* HostingView.swift in Sources */,
 				1A1B402524B7B60000847E4C /* MenuView.swift in Sources */,
@@ -513,6 +512,7 @@
 				8AE34E0824AD1AE2004651B5 /* AddIngredientTutorialView.swift in Sources */,
 				8AC3729924AB9E05002699F2 /* UIWindow.swift in Sources */,
 				1A8E31FE24B8ACED008D6624 /* MenuViewListCell.swift in Sources */,
+				8ADB42F024C781E600EB6C8C /* WelcomeTutorialView.swift in Sources */,
 				1A49CE0624AB8B8900153D12 /* ActionView.swift in Sources */,
 				1A8E31F424B86C49008D6624 /* ListStore+CoreDataProperties.swift in Sources */,
 				1A12316A24C5B8DD001E0D79 /* ElencoPagerView.swift in Sources */,
@@ -669,7 +669,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Elenco/Preview Content\"";
 				DEVELOPMENT_TEAM = PYU3ATJWUG;
 				ENABLE_PREVIEWS = YES;
@@ -691,7 +691,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Elenco/Preview Content\"";
 				DEVELOPMENT_TEAM = PYU3ATJWUG;
 				ENABLE_PREVIEWS = YES;

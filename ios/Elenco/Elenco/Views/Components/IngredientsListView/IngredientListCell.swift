@@ -36,7 +36,7 @@ struct IngredientListCell: View {
                     }
                 
                 if listHolderModel.list.name == ElencoDefaults.mainListName {
-                    Text("List - \(ingredient.parentList?.name ?? "")")
+                    Text("List - \(ingredient.parentList?.name ?? ElencoDefaults.mainListName)")
                         .font(.custom("HelveticaNeue-Medium", size: 12))
                         .padding(.horizontal, 15).padding(.bottom, 5).padding(.top, 5)
                         .foregroundColor(Color("Dark-Gray"))
