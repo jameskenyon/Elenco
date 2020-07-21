@@ -18,6 +18,10 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
     @State var isEditing: Bool = false
     
     var isSelected: Bool {
+        // if the list is the main list then use name rather than id
+        if list.name == ElencoDefaults.mainListName {
+            return list.name == listHolderDataModel.list.name
+        }
         return list.listID == listHolderDataModel.list.listID
     }
     
