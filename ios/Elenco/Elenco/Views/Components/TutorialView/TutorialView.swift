@@ -39,6 +39,7 @@ struct TutorialView: View {
                             ListMenuTutorialView()
                             IngredientPredictionTutorialView()
                         }
+                    .clipped()
                     }
                 , alignment: .top)
         }
