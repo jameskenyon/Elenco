@@ -81,7 +81,7 @@ struct ListHolderView: View {
                     .environmentObject(self.listHolderModel)
                     .offset(x: self.menuViewOffsetX(geometry: geometry), y: 0)
                     .animation(
-                        Animation.spring()
+                        Animation.default
                         .speed(1)
                     )
                 .gesture(
