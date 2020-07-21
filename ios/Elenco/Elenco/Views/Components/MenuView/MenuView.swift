@@ -41,6 +41,7 @@ struct MenuView: View {
                         // Back Button
                         MenuBackButton()
                         .padding(.leading, 30)
+                            .padding(.bottom, self.getBottomElementPadding())
                     }
                     .offset(x: 0, y: -self.listHolderDataModel.keyboardHeight)
                     .animation(.spring())

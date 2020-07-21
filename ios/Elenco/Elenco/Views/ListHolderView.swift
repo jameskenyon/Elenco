@@ -56,6 +56,7 @@ struct ListHolderView: View {
                         VStack {
                             Spacer()
                             AddIngredientButton()
+                                .padding(.bottom, getBottomElementPadding())
                         }
                     }
                 }
@@ -65,6 +66,7 @@ struct ListHolderView: View {
                             .padding(.top)
                         Spacer()
                         AddIngredientButton()
+                            .padding(.bottom, getBottomElementPadding())
                     }
                 }
             }
@@ -97,7 +99,7 @@ struct ListHolderView: View {
             }
         }
     }
-    
+
     private func menuViewOffsetX(geometry: GeometryProxy) -> CGFloat {
         if !listHolderModel.menuIsShown {
             return self.menuDragAmount
@@ -125,6 +127,7 @@ struct AddIngredientButton: View {
         .buttonStyle(OrangeCircleButtonStyle())
         .shadow(color: colorScheme == .dark ? .clear : Color("Light-Gray").opacity(0.4) , radius: 4)
     }
+    
 }
 
 #if DEBUG
