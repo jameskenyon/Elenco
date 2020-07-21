@@ -17,7 +17,7 @@ struct ListMenuTutorialView: View {
             ScrollView(.vertical) {
                 VStack(alignment: .center, spacing: 0) {
                     
-                    Text("Tap menu button to access your lists.")
+                    Text("Tap the menu button to access your lists.")
                         .padding().padding(.horizontal, 30)
                         .font(.custom("HelveticaNeue-Regular", size: 22))
                         .fixedSize(horizontal: false, vertical: true)
