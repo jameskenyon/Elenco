@@ -92,7 +92,9 @@ extension Ingredient {
                 name += text + " "
             }
         }
-        name.removeLast()
+        if name.count != 0 {
+            name.removeLast()
+        }
         return (name, quantity == "" ? "1": quantity)
     }
     
