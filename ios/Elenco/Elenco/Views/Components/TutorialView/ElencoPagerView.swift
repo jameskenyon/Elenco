@@ -49,7 +49,7 @@ struct ElencoPagerView<Content: View>: View {
                             .padding(.top, 10)
                     }
                 }
-                .padding(.bottom, 20)
+                .padding(.bottom, 25)
             }
         }
     }

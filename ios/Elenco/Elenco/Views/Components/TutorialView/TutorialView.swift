@@ -27,7 +27,7 @@ struct TutorialView: View {
                         Text(self.tutorialTitles[self.currentPage])
                             .font(.system(size: 30, weight: .bold, design: .default))
                             .foregroundColor(self.colorScheme == .dark ? Color.white : Color("Lead"))
-                            .padding(.top, 25)
+                            .padding(.top, 30)
                             .animation(.default)
                         
                         Rectangle()
