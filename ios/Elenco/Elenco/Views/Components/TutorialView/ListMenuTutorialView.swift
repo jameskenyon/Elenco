@@ -17,7 +17,7 @@ struct ListMenuTutorialView: View {
             ScrollView(.vertical) {
                 VStack(alignment: .center, spacing: 0) {
                     
-                    Text("Tap menu button to acess your changes")
+                    Text("Tap menu button to access your lists.")
                         .padding().padding(.horizontal, 30)
                         .font(.custom("HelveticaNeue-Regular", size: 22))
                         .fixedSize(horizontal: false, vertical: true)
@@ -36,7 +36,7 @@ struct ListMenuTutorialView: View {
                         .frame(width: geometry.size.width * 0.6, height: geometry.size.width * 0.25)
                     
                     
-                    Text("Edit a list or add a new one in my lists view ")
+                    Text("Edit a list or create a new one in the menu panel.")
                         .padding().padding(.horizontal, 30).padding(.top)
                         .font(.custom("HelveticaNeue-Regular", size: 22))
                         .fixedSize(horizontal: false, vertical: true)
