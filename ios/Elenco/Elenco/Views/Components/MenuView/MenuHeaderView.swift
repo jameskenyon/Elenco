@@ -11,6 +11,7 @@ import SwiftUI
 struct MenuHeaderView: View {
     
     @Environment(\.colorScheme) var colorScheme
+
     var title: String
     var width: CGFloat
     
@@ -18,14 +19,16 @@ struct MenuHeaderView: View {
         // Title
         VStack(alignment: .leading) {
             Text(title)
-                .font(.system(size: 35, weight: .bold, design: .default))
-                .foregroundColor(self.colorScheme == .dark ? Color.white : Color("Tungsten"))
+
+                .font(.custom("HelveticaNeue-Bold", size: 35))
+                .foregroundColor(colorScheme == .dark ? Color.white : Color("Tungsten"))
+                .padding(.top, 15)
 
             // Underline
             Rectangle()
-                .frame(width: width - 80, height: 1)
-                .foregroundColor(self.colorScheme == .dark ? Color.white : Color("Light-Teal"))
-                .padding(.top, -5)
+                .frame(width: width - 80, height: 2)
+                .foregroundColor(Color(#colorLiteral(red: 0, green: 0.9176470588, blue: 0.662745098, alpha: 1)))
+                .padding(.top, -10)
         }
     }
 }

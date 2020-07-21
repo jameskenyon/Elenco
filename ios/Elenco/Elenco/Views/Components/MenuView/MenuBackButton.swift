@@ -11,6 +11,7 @@ import SwiftUI
 struct MenuBackButton: View {
     
     @EnvironmentObject var listHolderModel: ListHolderDataModel
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         HStack {
@@ -20,8 +21,8 @@ struct MenuBackButton: View {
                 self.listHolderModel.menuIsShown = false
             }, label: {
                 Text("Back")
-                .font(.system(size: 25, weight: .medium))
-                .foregroundColor(Color("Tungsten"))
+                .font(.custom("HelveticaNeue-Bold", size: 22))
+                    .foregroundColor(self.colorScheme == .dark ? Color.white : Color("Tungsten"))
             })
                 .padding(.trailing, 30)
         }

@@ -56,6 +56,7 @@ struct ListHolderView: View {
                         VStack {
                             Spacer()
                             AddIngredientButton()
+                                .padding(.bottom, getBottomElementPadding())
                         }
                     }
                 }
@@ -66,6 +67,7 @@ struct ListHolderView: View {
                             .padding(.horizontal, 20)
                         Spacer()
                         AddIngredientButton()
+                            .padding(.bottom, getBottomElementPadding())
                     }
                 }
             }
@@ -76,10 +78,11 @@ struct ListHolderView: View {
 
             GeometryReader { geometry in
 
-                MenuView()
+                MenuView().environmentObject(MenuViewDataModel(listHolderModel: self.listHolderModel))
+                    .environmentObject(self.listHolderModel)
                     .offset(x: self.menuViewOffsetX(geometry: geometry), y: 0)
                     .animation(
-                        Animation.spring()
+                        Animation.default
                         .speed(1)
                     )
                 .gesture(
@@ -97,7 +100,7 @@ struct ListHolderView: View {
             }
         }
     }
-    
+
     private func menuViewOffsetX(geometry: GeometryProxy) -> CGFloat {
         if !listHolderModel.menuIsShown {
             return self.menuDragAmount
@@ -125,17 +128,18 @@ struct AddIngredientButton: View {
         .buttonStyle(OrangeCircleButtonStyle())
         .shadow(color: colorScheme == .dark ? .clear : Color("Light-Gray").opacity(0.4) , radius: 4)
     }
+    
 }
 
 #if DEBUG
 struct MyListView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ListHolderView().environmentObject(ListHolderDataModel(window: UIWindow()))
+            ListHolderView().environmentObject(ListHolderDataModel(initialList: ElencoList(name: "All"), window: UIWindow()))
             .previewDevice(PreviewDevice(rawValue: "iPhone SE (2nd generation)"))
             .previewDisplayName("iPhone SE")
             
-            ListHolderView().environmentObject(ListHolderDataModel(window: UIWindow()))
+            ListHolderView().environmentObject(ListHolderDataModel(initialList: ElencoList(name: "All"), window: UIWindow()))
             .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
             .previewDisplayName("iPhone 11")
             

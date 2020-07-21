@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct AddIngredientView: View, ElencoTextFieldDisplayable {
 
@@ -22,9 +23,9 @@ struct AddIngredientView: View, ElencoTextFieldDisplayable {
             if listHolderModel.userIsAddingIngredient {
                 VStack(alignment: .leading) {
                     HStack {
-                        ElencoTextField(text: $searchViewModel.query, isFirstResponder: listHolderModel.userIsAddingIngredient, textFieldView: self)
+                        ElencoTextField(text: $searchViewModel.query, isFirstResponder: listHolderModel.userIsAddingIngredient, textFieldView: self, font: UIFont(name: "HelveticaNeue-Bold", size: 22),
+                                        color: colorScheme == .dark ? UIColor.white : UIColor(named: "Tungsten"))
                             .frame(height: 30)
-                            .font(Font.custom("HelveticaNeue-Medium", size: 22))
                             .padding(15).padding(.leading)
                             .padding(.top, searchViewModel.searchIngredients.count == 0 ? 0:10)
                             .accentColor(Color("Teal"))

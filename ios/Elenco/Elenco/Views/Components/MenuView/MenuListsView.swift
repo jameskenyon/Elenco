@@ -10,37 +10,40 @@ import SwiftUI
 
 struct MenuListsView: View {
     
-    @EnvironmentObject var listHolderModel: ListHolderDataModel
-    @EnvironmentObject var listDataModel: ElencoListDataModel
+    @EnvironmentObject var menuViewDataModel: MenuViewDataModel
+    @EnvironmentObject var listHolderDataModel: ListHolderDataModel
     
-    var lists: [ElencoList]
-
     var body: some View {  
         List {
-            ForEach(self.lists, id: \.id) { list in
-                MenuViewListCell(list: list, isEditing: list.name == ElencoDefaults.newListName)
-                .animation(nil)
-            }
-            
-            Button(action: {
-                if self.canCreateNewList() {
-                    let newList = ElencoList(name: ElencoDefaults.newListName)
-                    self.listHolderModel.createList(list: newList)
-                } else {
-                    print("Alert")
+            ForEach(self.menuViewDataModel.lists, id: \.id) { list in
+                MenuViewListCell(list: list)
+                .onTapGesture {
+                    self.displayList(list: list)
                 }
+            }
+            Button(action: {
+                self.menuViewDataModel.createNewList()
             }, label: {
                 Text("+ New List")
-                    .font(.system(size: 25, weight: .medium))
+                    .font(.custom("HelveticaNeue-Bold", size: 20))
                     .foregroundColor(Color("Orange"))
-                    .padding(.leading, 25)
-                    .padding(.vertical, 7)
+                    .padding(.leading, 15)
+                    .padding(.vertical, 10)
             })
         }
     }
     
-    // Return true if user has finished renaming previously created list
-    private func canCreateNewList() -> Bool {
-        return lists.filter({ $0.name == ElencoDefaults.newListName }).count == 0
+    private func displayList(list: ElencoList) {
+        if let displayList = ElencoListDataModel.shared.getList(listID: list.listID) {
+            if displayList.name == ElencoDefaults.mainListName {
+                let ingredients = IngredientDataModel.shared.fetchIngredients()
+                let mainList = ElencoList(name: ElencoDefaults.mainListName, ingredients: ingredients)
+                self.listHolderDataModel.configureViewForList(newList: mainList)
+            } else {
+                self.listHolderDataModel.configureViewForList(newList: displayList)
+            }
+            self.listHolderDataModel.menuIsShown = false
+        }
     }
+    
 }

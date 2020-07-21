@@ -15,10 +15,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
+//        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+//        print(paths[0])
+        
         // configure the ingredients
         IngredientAPIService.configureIngredientCache()
         // add 'All' list if required
-        createAllListIfRequired()
+        let allList = self.getAllList()
+        updateIngredientListsIfRequired()
+        updateListsIfRequired()
         
         // Get the managed object context from the shared persistent container.
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -27,12 +32,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
 
-            let listModel = ListHolderDataModel(window: window)
+            let listModel = ListHolderDataModel(initialList: allList, window: window)
             
             let contentView = ListHolderView()
                 .environment(\.managedObjectContext, context)
                 .environmentObject(listModel)
-                .environmentObject(ElencoListDataModel())
+                .environmentObject(ElencoListDataModel.shared)
             
             window.rootViewController = DarkHostingController(rootView: contentView)
             self.window = window
@@ -73,20 +78,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // Create the all list that will hold all the ingredients
     // if one doesn't already exist.
-    private func createAllListIfRequired() {
-        if ElencoListDataModel().getList(listName: ElencoDefaults.mainListName) == nil {
+    private func getAllList() -> ElencoList {
+        if let allList = ElencoListDataModel.shared.getLists().first {
+            return allList
+        } else {
             let list = ElencoList(name: ElencoDefaults.mainListName)
-            ElencoListDataModel().createList(list: list) { (error) in
+            ElencoListDataModel.shared.createList(list: list) { (error) in
                 print("Error saving all list.")
             }
+            return list
         }
-        updateIngredientListsIfRequired()
     }
     
     // update the ingredients in the list so that if they have
     // a parent list type of null, they will be assigned to the 'All' list.
     private func updateIngredientListsIfRequired() {
-        IngredientDataModel().updateIngredientListIfRequired()
+        IngredientDataModel.shared.updateIngredientListIfRequired()
+    }
+    
+    private func updateListsIfRequired() {
+        ElencoListDataModel.shared.updateListsIfRequired()
     }
 
 }

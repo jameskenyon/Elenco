@@ -8,22 +8,21 @@
 
 import SwiftUI
 
-struct MenuViewListCell: View {
+struct MenuViewListCell: View, ElencoTextFieldDisplayable {
     
-    @EnvironmentObject var listModel: ElencoListDataModel
-    @EnvironmentObject var listHolderModel: ListHolderDataModel
-    @State var editedName = ""
+    @EnvironmentObject var menuViewDataModel: MenuViewDataModel
+    @EnvironmentObject var listHolderDataModel: ListHolderDataModel
+    @Environment(\.colorScheme) var colorScheme
+
     @State var list: ElencoList
-    @State var isEditing: Bool
+    @State var isEditing: Bool = false
     
     var isSelected: Bool {
-        if list.name == ElencoDefaults.newListName {
-            return true
+        // if the list is the main list then use name rather than id
+        if list.name == ElencoDefaults.mainListName {
+            return list.name == listHolderDataModel.list.name
         }
-        if userDidNotProvideValidName() {
-            return false
-        }
-        return listHolderModel.list.name == list.name
+        return list.listID == listHolderDataModel.list.listID
     }
     
     var body: some View {
@@ -31,103 +30,115 @@ struct MenuViewListCell: View {
             if isSelected {
                 GeometryReader { geometry in
                     Capsule()
-                        .foregroundColor(Color(#colorLiteral(red: 0.368627451, green: 0.7883469462, blue: 0.6629261374, alpha: 1)))
+                        .foregroundColor(Color(#colorLiteral(red: 0.1058823529, green: 0.7647058824, blue: 0.662745098, alpha: 1)))
                         .frame(width: geometry.size.width * 2, height: geometry.size.height)
                         .padding(.trailing, geometry.size.width)
                 }
                 HStack {
-                    TextField(list.name, text: $editedName, onCommit: {
-                        self.updateList()
-                    })
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .font(.system(size: 25, weight: .bold))
-                        .accentColor(Color.white)
-                        .foregroundColor(Color.white)
-                        .padding(.leading, 25)
-                        .padding(.vertical, 10)
-                        .disabled(!isEditing)
-                        .onAppear {
-                            // Add Observer to detect when keyboard will be shown
-                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
-                                let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
-                                // Only set keybaord height when cell will not be moved off screen
-                                if self.listHolderModel.lists.lastIndex(of: self.list) ?? 0 > 5 {
-                                    self.listHolderModel.keyboardHeight = keyboardSize?.height ?? 0
+                    if isEditing {
+                        ElencoTextField(text: $menuViewDataModel.editedName, isFirstResponder: isEditing, textFieldView: self,
+                        font: UIFont(name: "HelveticaNeue-Bold", size: 25), color: UIColor.white)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .accentColor(Color.white)
+                            .foregroundColor(Color.white)
+                            .padding(.leading, 15)
+                            .padding(.vertical, 10)
+                            .disabled(!isEditing)
+                            .onAppear {
+                                // Add Observer to detect when keyboard will be shown
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
+                                    let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+                                    // Only set keybaord height when cell will not be moved off screen
+                                    if self.menuViewDataModel.lists.lastIndex(of: self.list) ?? 0 > 5 {
+                                        self.listHolderDataModel.keyboardHeight = keyboardSize?.height ?? 0
+                                    }
+                                }
+                                // Add observer to detect when keyboard will hide
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (notification) in
+                                    self.listHolderDataModel.keyboardHeight = 0
                                 }
                             }
-                            // Add observer to detect when keyboard will hide
-                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (notification) in
-                                self.listHolderModel.keyboardHeight = 0
+                    } else {
+                        Text(list.name != "" ? list.name : "Unnamed")
+                        .font(.custom("HelveticaNeue-Bold", size: 25))
+                        .foregroundColor(Color.white)
+                        .padding(.leading, 15)
+                        .padding(.vertical, 10)
+                        Spacer()
+                    }
+                    
+                    if list.name != ElencoDefaults.mainListName {
+                        // Edit button
+                        Image(uiImage: isEditing ? #imageLiteral(resourceName: "saveList") : #imageLiteral(resourceName: "editList"))
+                            .resizable()
+                            .foregroundColor(Color.white)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 25, height: 25)
+                            .onTapGesture {
+                                self.updateButtonTapped()
                             }
-                        }
 
-                    // Edit button
-                    Image(uiImage: isEditing ? #imageLiteral(resourceName: "saveList") : #imageLiteral(resourceName: "editList"))
-                        .resizable()
-                        .foregroundColor(Color.white)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 25, height: 25)
+                        // Bin button
+                        Image(uiImage: #imageLiteral(resourceName: "deleteList"))
+                            .resizable()
+                            .foregroundColor(Color.white)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 25, height: 25)
+                            .padding(.trailing, 20)
                         .onTapGesture {
-                            self.updateButtonTapped()
+                            self.deleteList()
                         }
-
-                    // Bin button
-                    Image(uiImage: #imageLiteral(resourceName: "deleteList"))
-                        .resizable()
-                        .foregroundColor(Color.white)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 25, height: 25)
-                        .padding(.trailing, 10)
-                    .onTapGesture {
-                        self.deleteList()
                     }
                 }
                 .onAppear {
-                    self.editedName = self.list.name
+                    self.menuViewDataModel.editedName = self.list.name
                 }
             } else {
-                Text(list.name)
-                .font(.system(size: 25, weight: .medium))
-                .foregroundColor(Color("Tungsten"))
-                .padding(.leading, 25)
-                .padding(.vertical, 10)
-                .onTapGesture {
-                    if !self.userDidNotProvideValidName() {
-                        self.listHolderModel.configureViewForList(newList: self.list)
-                    }
+                GeometryReader { geometry in
+                    Text(self.list.name != "" ? self.list.name : "Unnamed")
+                    .font(.custom("HelveticaNeue-Medium", size: 25))
+                        .foregroundColor(self.colorScheme == .dark ? Color.white : Color("Tungsten"))
+                    .padding(.leading, 15)
+                    .padding(.vertical, 10)
+                    .frame(width: geometry.size.width, alignment: .leading)
                 }
+                .background(self.colorScheme == .dark ? Color("Lead") : Color.white)
             }
         }
     }
     
     private func updateButtonTapped() {
         if isEditing {
-            if isValidListName() {
-                updateList()
-            } else {
-                isEditing.toggle()
-            }
+            updateList()
+            isEditing = false
+        } else {
+            isEditing = true
         }
-        isEditing.toggle()
-    }
-    
-    // Return true if the edited name is unique
-    private func isValidListName() -> Bool {
-        return listModel.getList(listName: editedName) == nil
     }
     
     // Save new list to coredata
     private func updateList() {
-        listHolderModel.updateList(list: list, newName: editedName)
+        if menuViewDataModel.editedName != "" {
+            if menuViewDataModel.editedName != ElencoDefaults.mainListName {
+                menuViewDataModel.updateList(list: list, newName: menuViewDataModel.editedName)
+                self.list.name = menuViewDataModel.editedName
+            } else {
+                listHolderDataModel.window.displayAlert(title: "Invalid list name.", message: "Can't be empty or \(ElencoDefaults.mainListName). Please try again.", okTitle: "Ok", okHandler: nil)
+            }
+        }
     }
     
     // Delete list
     private func deleteList() {
-        listHolderModel.deleteList(list: list)
+        menuViewDataModel.deleteList(list: list)
+    }
+
+    // MARK: - ElencoListDisplayable Methods
+    
+    func userDidReturnOnTextField() {
+        updateButtonTapped()
     }
     
-    // Return if user has not named a new list with valid name
-    private func userDidNotProvideValidName() -> Bool {
-        return listHolderModel.lists.filter({ $0.name == ElencoDefaults.newListName }).count != 0
-    }
+    func userDidEditTextField(newValue: String) {}
+    
 }

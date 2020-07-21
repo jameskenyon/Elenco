@@ -10,9 +10,8 @@ import SwiftUI
 
 struct MenuView: View {
     
-    @EnvironmentObject var menuViewDataModel: MenuViewDataModel
+    @EnvironmentObject var listDataModel: ElencoListDataModel
     @EnvironmentObject var listHolderDataModel: ListHolderDataModel
-    @Environment(\.colorScheme) var colorScheme
     
     init() {
         UITableView.appearance().separatorStyle  = .none
@@ -27,8 +26,8 @@ struct MenuView: View {
                 Rectangle()
                 .edgesIgnoringSafeArea(.all)
                 .frame(width: self.getWidth(geometry: geometry))
-                .foregroundColor(self.colorScheme == .dark ? Color("Lead") : Color.white)
-                    .shadow(color: self.colorScheme == .dark ? Color("Orange").opacity(0.2) : Color("Dark-Gray").opacity(0.4), radius: 8, x: 5, y: 5)
+                .foregroundColor(Color.white)
+                    .shadow(color: Color("Dark-Gray"), radius: 8, x: 5, y: 5)
 
                 .overlay(
                     VStack(alignment: .leading) {
@@ -37,12 +36,12 @@ struct MenuView: View {
                             .padding(.leading, 30)
 
                         // Lists
-                        MenuListsView()
+                        MenuListsView(lists: self.listHolderDataModel.lists)
+                            
 
                         // Back Button
                         MenuBackButton()
                         .padding(.leading, 30)
-                            .padding(.bottom, self.getBottomElementPadding())
                     }
                     .offset(x: 0, y: -self.listHolderDataModel.keyboardHeight)
                     .animation(.spring())
@@ -51,6 +50,7 @@ struct MenuView: View {
                 Spacer()
             }
         }
+    
     }
     
     private func getWidth(geometry: GeometryProxy) -> CGFloat {
