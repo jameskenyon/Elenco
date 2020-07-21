@@ -12,7 +12,7 @@ struct TutorialView: View {
     
     @Environment(\.colorScheme) var colorScheme
     @State var currentPage: Int = 0
-    @State var tutorialTitles = ["Edit Your Lists", "Smart Ingredient Adding", "Ingredient Prediction"]
+    @State var tutorialTitles = ["Smart Quantity", "Edit Your Lists", "Ingredient Prediction"]
     
     var body: some View {
         GeometryReader { geometry in
@@ -27,7 +27,7 @@ struct TutorialView: View {
                         Text(self.tutorialTitles[self.currentPage])
                             .font(.system(size: 30, weight: .bold, design: .default))
                             .foregroundColor(self.colorScheme == .dark ? Color.white : Color("Lead"))
-                            .padding(.top, 30)
+                            .padding(.top, 35)
                             .animation(.default)
                         
                         Rectangle()
