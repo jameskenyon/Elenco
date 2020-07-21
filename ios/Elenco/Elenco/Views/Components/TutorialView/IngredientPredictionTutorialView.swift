@@ -10,6 +10,8 @@ import SwiftUI
 
 struct IngredientPredictionTutorialView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
@@ -20,7 +22,7 @@ struct IngredientPredictionTutorialView: View {
                         .font(.custom("HelveticaNeue-Regular", size: 22))
                         .fixedSize(horizontal: false, vertical: true)
                     
-                    Image(uiImage: #imageLiteral(resourceName: "predictionTutorialIcon"))
+                    Image(uiImage: self.colorScheme == .dark ? #imageLiteral(resourceName: "predictionTutorialDark") : #imageLiteral(resourceName: "predictionTutorialLight"))
                         .resizable()
                         .scaledToFit()
                         .frame(width: geometry.size.width * 0.8, height: geometry.size.width * 0.6)

@@ -46,6 +46,7 @@ struct ElencoPagerView<Content: View>: View {
                 HStack {
                     ForEach(0 ..< self.pageCount) { number in
                         PagerIndicator(isActive: number == self.currentIndex)
+                            .padding(.top, 10)
                     }
                 }
                 .padding(.bottom, 20)

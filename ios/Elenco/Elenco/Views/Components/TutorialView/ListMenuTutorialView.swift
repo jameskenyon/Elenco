@@ -10,6 +10,8 @@ import SwiftUI
 
 struct ListMenuTutorialView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
@@ -20,7 +22,7 @@ struct ListMenuTutorialView: View {
                         .font(.custom("HelveticaNeue-Regular", size: 22))
                         .fixedSize(horizontal: false, vertical: true)
                     
-                    Image(uiImage: #imageLiteral(resourceName: "menuButtonIndicator"))
+                    Image(uiImage: self.colorScheme == .dark ? #imageLiteral(resourceName: "menuButtonIndicatorDark") : #imageLiteral(resourceName: "menuButtonIndicatorLight"))
                         .resizable()
                         .scaledToFit()
                         .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
@@ -28,7 +30,7 @@ struct ListMenuTutorialView: View {
                     MenuHeaderView(title: "My Lists", width: geometry.size.width * 0.8)
                         .padding(.bottom, 10)
                     
-                    Image(uiImage: #imageLiteral(resourceName: "menuTutorialIcon"))
+                    Image(uiImage: self.colorScheme == .dark ? #imageLiteral(resourceName: "menuTutorialDark") : #imageLiteral(resourceName: "menuTutorialLight"))
                         .resizable()
                         .scaledToFit()
                         .frame(width: geometry.size.width * 0.8, height: geometry.size.width * 0.3)
