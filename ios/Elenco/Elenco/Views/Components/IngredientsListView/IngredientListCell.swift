@@ -22,17 +22,26 @@ struct IngredientListCell: View {
                 self.cellTapped()
             }
            
-            Text("\(ingredient.name.capitalise())")
-                .strikethrough(self.ingredient.completed, color: Color("Dark-Gray"))
-                .font(.custom("HelveticaNeue-Medium", size: 23))
-                .padding(.horizontal, 15)
-                .foregroundColor(self.ingredient.completed ? Color("Light-Gray") : Color("BodyText"))
-                .onTapGesture {
-                    self.cellTapped()
+            VStack(alignment: .leading) {
+                Text("\(ingredient.name.capitalise())")
+                    .strikethrough(self.ingredient.completed, color: Color("Dark-Gray"))
+                    .font(.custom("HelveticaNeue-Medium", size: 23))
+                    .padding(.horizontal, 15)
+                    .foregroundColor(self.ingredient.completed ? Color("Light-Gray") : Color("BodyText"))
+                    .onTapGesture {
+                        self.cellTapped()
+                    }
+                    .onLongPressGesture {
+                        self.nameLabelLongTapped()
+                    }
+                
+                if listHolderModel.list.name == ElencoDefaults.mainListName {
+                    Text("List - \(ingredient.parentList?.name ?? "")")
+                        .font(.custom("HelveticaNeue-Medium", size: 12))
+                        .padding(.horizontal, 15).padding(.bottom, 5).padding(.top, 5)
+                        .foregroundColor(Color("Dark-Gray"))
                 }
-                .onLongPressGesture {
-                    self.nameLabelLongTapped()
-                }
+            }
            
            Spacer()
            
