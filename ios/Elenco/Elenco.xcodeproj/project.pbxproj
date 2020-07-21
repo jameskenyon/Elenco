@@ -182,13 +182,29 @@
 			path = IngredientsListView;
 			sourceTree = "<group>";
 		};
-		8A57BC3C24AE836700FB138B /* Data Models */ = {
+		8A0DA72F24C726E8001A5B0E /* Core Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				1A17AA6724ABDDB700893676 /* IngredientDataModel.swift */,
+				8AB2FEF824B7C202002918AA /* ElencoListDataModel.swift */,
+			);
+			path = "Core Data Models";
+			sourceTree = "<group>";
+		};
+		8A0DA73024C726F7001A5B0E /* View Data Models */ = {
 			isa = PBXGroup;
 			children = (
 				8A381C4024AB44580023A5CD /* ListHolderDataModel.swift */,
 				8A2A5C2B24C5BACE00BB1AB2 /* MenuViewDataModel.swift */,
-				1A17AA6724ABDDB700893676 /* IngredientDataModel.swift */,
-				8AB2FEF824B7C202002918AA /* ElencoListDataModel.swift */,
+			);
+			path = "View Data Models";
+			sourceTree = "<group>";
+		};
+		8A57BC3C24AE836700FB138B /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				8A0DA73024C726F7001A5B0E /* View Data Models */,
+				8A0DA72F24C726E8001A5B0E /* Core Data Models */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
