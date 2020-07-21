@@ -1,5 +1,55 @@
 [
     {
+        "aisle": "Refigerated",
+        "name": "pizza",
+        "id": 0
+    },
+    {
+        "aisle": "Milk, Eggs, Other Dairy",
+        "name": "yoghurt",
+        "id": 0
+    },
+    {
+        "aisle": "Meat",
+        "name": "bacon",
+        "id": 0
+    },
+    {
+        "aisle": "Milk, Eggs, Other Dairy",
+        "name": "butter",
+        "id": 0
+    },
+    {
+        "aisle": "Produce",
+        "name": "melon",
+        "id": 0
+    },
+    {
+        "aisle": "Produce",
+        "name": "blueberries",
+        "id": 0
+    },
+    {
+        "aisle": "Frozen",
+        "name": "waffles",
+        "id": 0
+    },
+    {
+        "aisle": "Spices and Seasonings",
+        "name": "cayenne pepper",
+        "id": 0
+    },
+    {
+        "aisle": "Spices and Seasonings",
+        "name": "paprika",
+        "id": 0
+    },
+    {
+        "aisle": "Spices and Seasonings",
+        "name": "oregano",
+        "id": 0
+    },
+    {
         "aisle": "Produce",
         "name": "beetroot",
         "id": 0
@@ -850,7 +900,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "thyme",
         "id": 0
     },
@@ -895,7 +945,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "rosemary",
         "id": 0
     },
@@ -1455,7 +1505,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "sage",
         "id": 0
     },
@@ -1875,7 +1925,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "parsley",
         "id": 0
     },
@@ -1905,7 +1955,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "basil",
         "id": 0
     },
@@ -1960,7 +2010,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "chervil",
         "id": 0
     },
@@ -4815,7 +4865,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "marjoram",
         "id": 0
     },
@@ -4840,7 +4890,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "cilantro",
         "id": 0
     },
@@ -5245,7 +5295,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "sorrel",
         "id": 0
     },
@@ -5450,7 +5500,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "herbs",
         "id": 0
     },
@@ -7160,7 +7210,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "bay leaf",
         "id": 0
     },
@@ -7240,7 +7290,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "herbs de provence",
         "id": 0
     },
@@ -7410,7 +7460,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "mint",
         "id": 0
     },
@@ -8045,7 +8095,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "dill",
         "id": 0
     },
@@ -8330,7 +8380,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "oregano leaves",
         "id": 0
     },
@@ -8380,7 +8430,7 @@
         "id": 0
     },
     {
-        "aisle": "Produce;Spices and Seasonings",
+        "aisle": "Spices and Seasonings",
         "name": "tarragon",
         "id": 0
     },
