@@ -10,6 +10,8 @@ import SwiftUI
 
 struct MenuHeaderView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var title: String
     var width: CGFloat
     
@@ -18,7 +20,7 @@ struct MenuHeaderView: View {
         VStack(alignment: .leading) {
             Text(title)
                 .font(.custom("HelveticaNeue-Bold", size: 35))
-                .foregroundColor(Color("Tungsten"))
+                .foregroundColor(colorScheme == .dark ? Color.white : Color("Tungsten"))
                 .padding(.top, 15)
 
             // Underline

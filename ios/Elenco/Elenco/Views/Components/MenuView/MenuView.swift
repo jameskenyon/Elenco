@@ -12,6 +12,7 @@ struct MenuView: View {
     
     @EnvironmentObject var menuViewDataModel: MenuViewDataModel
     @EnvironmentObject var listHolderDataModel: ListHolderDataModel
+    @Environment(\.colorScheme) var colorScheme
     
     init() {
         UITableView.appearance().separatorStyle  = .none
@@ -26,8 +27,8 @@ struct MenuView: View {
                 Rectangle()
                 .edgesIgnoringSafeArea(.all)
                 .frame(width: self.getWidth(geometry: geometry))
-                .foregroundColor(Color.white)
-                    .shadow(color: Color("Dark-Gray"), radius: 8, x: 5, y: 5)
+                .foregroundColor(self.colorScheme == .dark ? Color("Lead") : Color.white)
+                    .shadow(color: self.colorScheme == .dark ? Color("Orange").opacity(0.2) : Color("Dark-Gray").opacity(0.4), radius: 8, x: 5, y: 5)
 
                 .overlay(
                     VStack(alignment: .leading) {
@@ -50,7 +51,6 @@ struct MenuView: View {
                 Spacer()
             }
         }
-    
     }
     
     private func getWidth(geometry: GeometryProxy) -> CGFloat {

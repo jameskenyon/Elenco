@@ -12,6 +12,7 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
     
     @EnvironmentObject var menuViewDataModel: MenuViewDataModel
     @EnvironmentObject var listHolderDataModel: ListHolderDataModel
+    @Environment(\.colorScheme) var colorScheme
 
     @State var list: ElencoList
     @State var isEditing: Bool = false
@@ -92,12 +93,12 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
                 GeometryReader { geometry in
                     Text(self.list.name != "" ? self.list.name : "Unnamed")
                     .font(.custom("HelveticaNeue-Medium", size: 25))
-                    .foregroundColor(Color("Tungsten"))
+                        .foregroundColor(self.colorScheme == .dark ? Color.white : Color("Tungsten"))
                     .padding(.leading, 15)
                     .padding(.vertical, 10)
                     .frame(width: geometry.size.width, alignment: .leading)
                 }
-                .background(Color.white)
+                .background(self.colorScheme == .dark ? Color("Lead") : Color.white)
             }
         }
     }
