@@ -80,14 +80,20 @@ class ElencoListDataModel: ObservableObject {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         do {
             var lists = [ElencoList]()
+            var addedMainList = false // prevent adding too all lists
             for store in try ElencoDefaults.context.fetch(request) {
                 if let listID = store.listID {
-                    var list = getList(listID: listID)
-                    if list?.name == ElencoDefaults.mainListName {
-                        list?.ingredients = IngredientDataModel.shared.fetchIngredients()
-                    }
-                    if let list = list {
-                        lists.append(list)
+                    let list = getList(listID: listID)
+                    if var list = list {
+                        if list.name == ElencoDefaults.mainListName && addedMainList == false {
+                            list.ingredients = IngredientDataModel.shared.fetchIngredients()
+                            addedMainList = true
+                            lists.append(list)
+                        } else {
+                            if list.name != ElencoDefaults.mainListName {
+                                lists.append(list)
+                            }
+                        }
                     }
                 }
             }
