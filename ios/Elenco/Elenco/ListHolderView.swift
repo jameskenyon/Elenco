@@ -61,8 +61,9 @@ struct ListHolderView: View {
                 }
                 else {
                     VStack {
-                        EmptyListView()
+                        TutorialView()
                             .padding(.top)
+                            .padding(.horizontal, 20)
                         Spacer()
                         AddIngredientButton()
                     }
