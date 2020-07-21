@@ -28,7 +28,7 @@ struct MenuView: View {
                 .edgesIgnoringSafeArea(.all)
                 .frame(width: self.getWidth(geometry: geometry))
                 .foregroundColor(self.colorScheme == .dark ? Color("Lead") : Color.white)
-                    .shadow(color: self.colorScheme == .dark ? Color("Orange").opacity(0.2) : Color("Dark-Gray").opacity(0.4), radius: 8, x: 5, y: 5)
+                    .shadow(color: self.colorScheme == .dark ? Color("Orange").opacity(0.1) : Color("Dark-Gray").opacity(0.4), radius: 8, x: 5, y: 5)
 
                 .overlay(
                     VStack(alignment: .leading) {
