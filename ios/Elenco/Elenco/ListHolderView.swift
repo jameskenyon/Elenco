@@ -54,7 +54,6 @@ struct ListHolderView: View {
                             self.listHolderModel.userFinishedAddingIngredients()
                         }
                         VStack {
-                            ActionCompleteView()
                         
                             Spacer()
                             AddIngredientButton()
@@ -73,6 +72,8 @@ struct ListHolderView: View {
                     }
                 }
             }
+            .blur(radius: self.listHolderModel.showTickView ? 4 : 0)
+            .animation(Animation.linear(duration: 0.5))
             .edgesIgnoringSafeArea(.top)
             .onTapGesture {
                 self.listHolderModel.menuIsShown = false
@@ -100,6 +101,8 @@ struct ListHolderView: View {
                     }
                 )
             }
+            // Ingredient added view
+            ActionCompleteView()
         }
     }
 

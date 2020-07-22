@@ -12,76 +12,74 @@ struct ActionCompleteView: View {
     
     @EnvironmentObject var listHolderModel: ListHolderDataModel
     @State var scale: CGFloat = 0
+    @State var percentage: CGFloat = 0
+    let mass = 0.4
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                RoundedRectangle(cornerRadius: 20)
-//                    .cornerRadius(self.listHolderModel.showTickView ? 100 : 20)
-                    .frame(maxWidth: geometry.size.width * 0.5,  maxHeight: geometry.size.width * 0.5)
-                    .foregroundColor( Color("Light-Teal") )
-                    .opacity(0.8)
-                    .blur(radius: 10)
-                    .clipShape(RoundedRectangle(cornerRadius: self.listHolderModel.showTickView ? 100 : 20))
+                Circle()
+                    .frame(maxWidth: geometry.size.width * 0.3,  maxHeight: geometry.size.width * 0.3)
+                    .foregroundColor( Color("Teal") )
+                    .blur(radius: 2)
                     .animation(
-                        Animation.easeInOut(duration: 0.4)
-//                        .delay(1)
-//                        .repeatCount(3, autoreverses: true)
+                        Animation.interpolatingSpring(mass: self.mass, stiffness: 100.0,damping: 10, initialVelocity: 0)
                     )
                     
-                
                 Image(uiImage: #imageLiteral(resourceName: "saveList"))
                     .frame(width: 1, height: 1)
-                    .scaleEffect(self.scale)
+                    .modifier(
+                        ScaleModifier(totalScale: 0.6, percentage: self.listHolderModel.showTickView ? 1 : 0, completion: {
+                            withAnimation {
+                               self.listHolderModel.showTickView = false
+                            }
+                            
+                        })
+                    )
                     .animation(
-                        Animation.spring(response: 0.4, dampingFraction: 0.3, blendDuration: 0.8)
-//                        .delay(1)
-//                        .repeatCount(3, autoreverses: true)
+                        Animation.interpolatingSpring(mass: self.mass, stiffness: 100.0,damping: 10, initialVelocity: 0)
                     )
             }
-            .onTapGesture {
-                self.scale += 1
-                self.listHolderModel.showTickView = true
-            }
+            .opacity(self.listHolderModel.showTickView ? 1 : 0)
+            .animation(
+                Animation.interpolatingSpring(mass: self.mass, stiffness: 100.0,damping: 10, initialVelocity: 0)
+                    .delay(0.2)
+            )
         }
-        
-    }
-    
-    private func tickHeight() -> CGFloat {
-        return self.listHolderModel.showTickView ? 200 : 0
-    }
-    
-    private func secondTickHeight() -> CGFloat {
-        return self.listHolderModel.showTickView ? 100 : 0
     }
 }
 
-struct ContentView: View {
-    let squareWidth = CGFloat(100)
-    let squareHeight = CGFloat(100)
-
-    @State private var bigger = false
-
-    var body: some View {
-        HStack {
-            VStack {
-                Color.green
-                    .frame(width: bigger ? self.squareWidth * 2 : self.squareWidth)
-                    .frame(height: self.squareHeight)
-                    .animation(.default)
-
-                Button("Click me!") { self.bigger.toggle() }
-            }.border(Color.black)
-
-            Spacer()
-
-        }.border(Color.red)
+struct ScaleModifier: AnimatableModifier {
+    
+    var totalScale: CGFloat
+    var percentage: CGFloat
+    var completion: () -> () = {}
+    var scale: CGFloat { percentage * totalScale }
+    
+    func body(content: Content) -> some View {
+        content.scaleEffect(scale)
+    }
+    
+    var animatableData: CGFloat {
+        get {
+            percentage
+        } set (percentage) {
+            self.percentage = percentage
+            checkIfComplete()
+        }
+    }
+    
+    func checkIfComplete() {
+        if percentage == 1 {
+            DispatchQueue.main.async {
+                self.completion()
+            }
+        }
     }
 }
 
 struct ActionCompleteView_Previews: PreviewProvider {
     static var previews: some View {
-//        ContentView()
         ActionCompleteView()
     }
 }
