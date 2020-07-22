@@ -20,7 +20,6 @@ struct IngredientSectionHeader: View {
                 .font(.custom("HelveticaNeue-Bold", size: 25))
                 .foregroundColor(Color("Teal"))
                 .padding(.leading, 35)
-                .padding(.vertical, 20)
 
                 Spacer()
         }
