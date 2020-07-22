@@ -19,7 +19,6 @@ struct ActionCompleteView: View {
         GeometryReader { geometry in
             ZStack {
                 Circle()
-                    .frame(maxWidth: geometry.size.width * 0.3,  maxHeight: geometry.size.width * 0.3)
                     .foregroundColor( Color("Teal") )
                     .blur(radius: 2)
                     .animation(
@@ -29,11 +28,10 @@ struct ActionCompleteView: View {
                 Image(uiImage: #imageLiteral(resourceName: "saveList"))
                     .frame(width: 1, height: 1)
                     .modifier(
-                        ScaleModifier(totalScale: 0.6, percentage: self.listHolderModel.showTickView ? 1 : 0, completion: {
+                        ScaleModifier(totalScale: 0.5, percentage: self.listHolderModel.showTickView ? 1 : 0, completion: {
                             withAnimation {
                                self.listHolderModel.showTickView = false
                             }
-                            
                         })
                     )
                     .animation(
@@ -46,6 +44,7 @@ struct ActionCompleteView: View {
                     .delay(0.2)
             )
         }
+        .frame(maxWidth: 125, maxHeight: 125)
     }
 }
 
