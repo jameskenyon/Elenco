@@ -27,12 +27,12 @@ struct WelcomeTutorialView: View {
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.leading)
                 
-                Text("The '\(ElencoDefaults.mainListName)' list contains the items across all your lists. You can edit or create individual lists by using the menu button at the top left of the screen.")
+                Text("The '\(ElencoDefaults.mainListName)' list contains all the items across all of your lists. You can edit or create individual lists by using the menu button at the top left of the screen.")
                     .padding()
                     .font(.custom("HelveticaNeue-Regular", size: 22))
                     .frame(maxWidth: .infinity)
                 
-                Text("Explore Elenco yourself or swipe left for tips to make the most out of your experience.")
+                Text("Explore Elenco yourself or swipe left for tips to help make the most out of your experience.")
                     .padding()
                     .font(.custom("HelveticaNeue-Regular", size: 22))
                     .frame(maxWidth: .infinity)
@@ -42,11 +42,6 @@ struct WelcomeTutorialView: View {
                     .font(.custom("HelveticaNeue-Regular", size: 22))
                     .fixedSize(horizontal: false, vertical: true)
                     .multilineTextAlignment(.center)
-                
-//                Text("We believe that your data should stay private. That's why we will never ask you to create an account, or use your                      data for any other purpose than giving you the best experience possible")
-//                    .padding().padding(.horizontal, 30)
-//                    .font(.custom("HelveticaNeue-Regular", size: 22))
-//                    .fixedSize(horizontal: false, vertical: true)
             }
             .foregroundColor(Color("BodyText"))
             .padding(.horizontal, UIDevice.deviceIsIPad() ? 30 : 5)

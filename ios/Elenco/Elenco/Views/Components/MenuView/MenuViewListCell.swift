@@ -130,7 +130,10 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
     
     // Delete list
     private func deleteList() {
-        menuViewDataModel.deleteList(list: list)
+        self.listHolderDataModel.window.displayAlert(title: "Are you sure you want to delete the list: \(list.name)?", message: nil, okTitle: "Ok") { (action) -> (Void) in
+            self.menuViewDataModel.deleteList(list: self.list)
+        }
+        
     }
 
     // MARK: - ElencoListDisplayable Methods

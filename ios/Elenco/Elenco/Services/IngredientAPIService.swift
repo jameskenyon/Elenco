@@ -83,8 +83,14 @@ internal class IngredientAPIService {
         if let aisle = ingredientCache[name]?.aisle {
             return formattedAisle(aisle: aisle)
         } else {
+            // check if ending has ies. For example: berry = berries
+            if name.hasSuffix("ies") {
+                if let aisle = ingredientCache[name.replacingOccurrences(of: "ies", with: "y")]?.aisle {
+                    return formattedAisle(aisle: aisle)
+                }
+            }
+            // check if last letter is 's'
             if ingredientName.count >= 2 {
-                // remove last letter and check as might be 's'
                 name.removeLast()
                 if let aisle = ingredientCache[name]?.aisle {
                     return formattedAisle(aisle: aisle)
