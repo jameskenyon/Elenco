@@ -80,6 +80,7 @@ struct AddIngredientView: View, ElencoTextFieldDisplayable {
     // hide the text field from the user
     private func hideTextField() {
         withAnimation {
+            self.listHolderModel.showTickView = true
             listHolderModel.userIsAddingIngredient = false
         }
     }

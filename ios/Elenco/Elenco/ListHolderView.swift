@@ -54,6 +54,7 @@ struct ListHolderView: View {
                             self.listHolderModel.userFinishedAddingIngredients()
                         }
                         VStack {
+                            ActionCompleteView()
                             Spacer()
                             AddIngredientButton()
                                 .padding(.bottom, getBottomElementPadding())

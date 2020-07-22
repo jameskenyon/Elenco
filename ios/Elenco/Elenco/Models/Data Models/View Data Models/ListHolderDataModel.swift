@@ -42,6 +42,8 @@ class ListHolderDataModel: ObservableObject {
         
     @Published public var userIsAddingIngredient = false
     
+    @Published public var showTickView = false
+    
     init(initialList: ElencoList, window: UIWindow) {
         self.window = window
         self.list = initialList

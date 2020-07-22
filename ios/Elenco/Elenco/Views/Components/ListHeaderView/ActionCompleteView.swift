@@ -10,38 +10,48 @@ import SwiftUI
 
 struct ActionCompleteView: View {
     
-    @State var tickHeight: CGFloat = 0
-    @State var secondTickHeight: CGFloat = 0
+    @EnvironmentObject var listHolderModel: ListHolderDataModel
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
-                    .frame(width: geometry.size.width * 0.9, height: geometry.size.width * 0.9)
-                .foregroundColor(Color("Light-Gray"))
+                    .frame(maxWidth: geometry.size.width * 0.5,  maxHeight: geometry.size.width * 0.5)
+                    .foregroundColor(self.listHolderModel.showTickView ? Color("Light-Gray") : Color.clear)
                 .opacity(0.5)
                 
-                Capsule()
-                    .frame(width: 30, height: self.tickHeight)
-                    .foregroundColor(Color.white)
-                    .rotationEffect(.degrees(45))
-                    .animation(.spring())
-//                    .scaleEffect(CGSize(width: 40, height: self.tickHeight), anchor: .bottom)
-                
-                Capsule()
-                    .frame(width: 30, height: self.secondTickHeight)
-                    .foregroundColor(Color.white)
-                    .rotationEffect(.degrees(135))
-                    .animation(.spring())
-                
+                HStack(spacing: 0) {
+                    
+                    Capsule()
+                        .frame(width: 30, height: self.secondTickHeight())
+                        .foregroundColor(self.listHolderModel.showTickView ? Color.white : Color.clear)
+                        .rotationEffect(.degrees(135))
+                        .animation(
+                            Animation.spring()
+                            .delay(1)
+                        )
+                        .padding(.top, 70).padding(.trailing, 60)
+                    
+                    Capsule()
+                        .frame(width: 30, height: self.tickHeight())
+                        .foregroundColor(Color.white)
+                        .rotationEffect(.degrees(45))
+                        .animation(
+                            Animation.spring()
+                            .delay(1)
+                        )
+                }
             }
-            .onTapGesture {
-                self.tickHeight += 200
-                self.secondTickHeight += 200
-            }
-            
         }
         
+    }
+    
+    private func tickHeight() -> CGFloat {
+        return self.listHolderModel.showTickView ? 200 : 0
+    }
+    
+    private func secondTickHeight() -> CGFloat {
+        return self.listHolderModel.showTickView ? 100 : 0
     }
 }
 
@@ -70,6 +80,7 @@ struct ContentView: View {
 
 struct ActionCompleteView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+//        ContentView()
+        ActionCompleteView()
     }
 }
