@@ -340,11 +340,6 @@
         "id": 0
     },
     {
-        "aisle": "Canned and Jarred",
-        "name": "lowfat cream of mushroom soup",
-        "id": 0
-    },
-    {
         "aisle": "Meat",
         "name": "chicken quarters",
         "id": 0
@@ -1705,11 +1700,6 @@
         "id": 0
     },
     {
-        "aisle": "Canned and Jarred",
-        "name": "lowfat cream of celery soup",
-        "id": 0
-    },
-    {
         "aisle": "Seafood",
         "name": "raw shrimp",
         "id": 0
@@ -2145,11 +2135,6 @@
         "id": 0
     },
     {
-        "aisle": "Produce",
-        "name": "abgeriebene Schale einer Zitrone",
-        "id": 0
-    },
-    {
         "aisle": "Health Foods;Gourmet",
         "name": "elderflower",
         "id": 0
@@ -2276,7 +2261,7 @@
     },
     {
         "aisle": "Canned and Jarred",
-        "name": "healthy request cream of chicken soup",
+        "name": "chicken soup",
         "id": 0
     },
     {
@@ -4990,11 +4975,6 @@
         "id": 0
     },
     {
-        "aisle": "Canned and Jarred",
-        "name": "healthy request cream of mushroom soup",
-        "id": 0
-    },
-    {
         "aisle": "Bakery/Bread",
         "name": "crostini",
         "id": 0
@@ -5387,11 +5367,6 @@
     {
         "aisle": "Ethnic Foods;Baking",
         "name": "cornmeal",
-        "id": 0
-    },
-    {
-        "aisle": "Canned and Jarred",
-        "name": "condensed cream of celery soup",
         "id": 0
     },
     {
@@ -6316,7 +6291,7 @@
     },
     {
         "aisle": "Canned and Jarred",
-        "name": "condensed cream of mushroom soup",
+        "name": "mushroom soup",
         "id": 0
     },
     {
@@ -6422,11 +6397,6 @@
     {
         "aisle": "Baking",
         "name": "yellow food color",
-        "id": 0
-    },
-    {
-        "aisle": "Canned and Jarred",
-        "name": "condensed cream of chicken soup",
         "id": 0
     },
     {
@@ -9595,11 +9565,6 @@
         "id": 0
     },
     {
-        "aisle": "Canned and Jarred",
-        "name": "low-fat cream of chicken soup",
-        "id": 0
-    },
-    {
         "aisle": "Produce",
         "name": "jicama",
         "id": 0
@@ -10276,7 +10241,7 @@
     },
     {
         "aisle": "Canned and Jarred",
-        "name": "healthy request cream of celery soup",
+        "name": "celery soup",
         "id": 0
     },
     {

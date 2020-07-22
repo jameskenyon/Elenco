@@ -23,14 +23,17 @@ struct AddIngredientView: View, ElencoTextFieldDisplayable {
             if listHolderModel.userIsAddingIngredient {
                 VStack(alignment: .leading) {
                     HStack {
-                        ElencoTextField(text: $searchViewModel.query, isFirstResponder: listHolderModel.userIsAddingIngredient, textFieldView: self, font: UIFont(name: "HelveticaNeue-Bold", size: 22),
-                                        color: colorScheme == .dark ? UIColor.white : UIColor(named: "Tungsten"))
+                        GeometryReader { geometry in
+                            ElencoTextField(text: self.$searchViewModel.query, isFirstResponder: self.listHolderModel.userIsAddingIngredient, textFieldView: self, font: UIFont(name: "HelveticaNeue-Bold", size: 22),
+                                            color: self.colorScheme == .dark ? UIColor.white : UIColor(named: "Tungsten"))
                             .frame(height: 30)
-                            .padding(15).padding(.leading)
-                            .padding(.top, searchViewModel.searchIngredients.count == 0 ? 0:10)
+                            .frame(maxWidth: geometry.size.width - 50)
+                            .padding(.top, self.searchViewModel.searchIngredients.count == 0 ? 0:10)
                             .accentColor(Color("Teal"))
                             .foregroundColor(Color("BodyText"))
                             .background(Color("Background"))
+                        }
+                        .frame(height: 60)
                         if searchViewModel.query.count != 0 {
                             Button(action: {
                                 self.addIngredient()
