@@ -61,6 +61,9 @@ class ListHolderDataModel: ObservableObject {
     /// Indicates if the user is currently searching for an ingredient.
     @Published public var userIsAddingIngredient = false
     
+    /// Updates if the tick view should be displayed over this view.
+    @Published public var showTickView = false
+    
     /**
      Create a new ListHolderDataModel.
      

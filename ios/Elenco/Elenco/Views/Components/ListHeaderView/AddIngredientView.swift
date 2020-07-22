@@ -77,6 +77,7 @@ struct AddIngredientView: View, ElencoTextFieldDisplayable {
         self.listHolderModel.addIngredient(ingredient:
             Ingredient(ingredientID: UUID(), name: name, aisle: aisle, quantity: quantity, parentList: self.listHolderModel.list)
         )
+        self.listHolderModel.showTickView = true
         hideTextField()
     }
     

@@ -51,6 +51,7 @@ struct ListHolderView: View {
                         IngredientsListView()
                             .padding(.top, 10)
                         VStack {
+                        
                             Spacer()
                             AddIngredientButton()
                                 .padding(.bottom, getBottomElementPadding())
@@ -71,6 +72,8 @@ struct ListHolderView: View {
                     }
                 }
             }
+            .blur(radius: self.listHolderModel.showTickView ? 4 : 0)
+            .animation(Animation.linear(duration: 0.5))
             .edgesIgnoringSafeArea(.top)
 
             GeometryReader { geometry in
@@ -95,6 +98,8 @@ struct ListHolderView: View {
                     }
                 )
             }
+            // Ingredient added view
+            ActionCompleteView()
         }
     }
 
