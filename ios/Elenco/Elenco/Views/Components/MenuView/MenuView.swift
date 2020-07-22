@@ -38,6 +38,7 @@ struct MenuView: View {
 
                         // Lists
                         MenuListsView()
+                            .padding(.top, self.listHolderDataModel.list.name == ElencoDefaults.mainListName ? 5 : 10)
 
                         // Back Button
                         MenuBackButton()
@@ -45,7 +46,10 @@ struct MenuView: View {
                             .padding(.bottom, self.getBottomElementPadding())
                     }
                     .offset(x: 0, y: -self.listHolderDataModel.keyboardHeight)
-                    .animation(.spring())
+                    .animation(
+                    Animation.interpolatingSpring(stiffness: 200, damping: 100000)
+                        .speed(1)
+                    )
                     
                     , alignment: .topLeading)
                 Spacer()

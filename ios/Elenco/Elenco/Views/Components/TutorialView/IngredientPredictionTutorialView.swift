@@ -14,11 +14,11 @@ struct IngredientPredictionTutorialView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ScrollView(.vertical) {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .center, spacing: 0) {
                     
                     Text("When you search for an ingredient, Elenco will predict what you’re looking for.")
-                        .padding().padding(.horizontal, 30).padding(.bottom, 10)
+                        .padding().padding(.bottom, UIDevice.deviceIsIPad() ? 20 : 10)
                         .font(.custom("HelveticaNeue-Regular", size: 22))
                         .fixedSize(horizontal: false, vertical: true)
                     
@@ -27,12 +27,13 @@ struct IngredientPredictionTutorialView: View {
                         .scaledToFit()
                         .frame(width: geometry.size.width * 0.8, height: geometry.size.width * 0.6)
                     
-                    Text("If no ingredients are predicted, you can still add it to your list.")
-                        .padding().padding(.horizontal, 30).padding(.top, 20)
+                    Text("If no ingredients are predicted, you can still add the ingredient to your list.")
+                        .padding().padding(.top, UIDevice.deviceIsIPad() ? 20 : 10)
                         .font(.custom("HelveticaNeue-Regular", size: 22))
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
+            .padding(.horizontal, UIDevice.deviceIsIPad() ? 30 : 5)
         }
     }
 }

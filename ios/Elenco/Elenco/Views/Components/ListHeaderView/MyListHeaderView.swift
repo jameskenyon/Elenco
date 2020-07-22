@@ -24,7 +24,6 @@ struct MyListHeaderView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                
                 MenuIcon()
                     .padding(.leading, 20).padding(.bottom, -25).padding(.top, 60)
                     .onTapGesture {

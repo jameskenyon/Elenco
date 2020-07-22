@@ -8,8 +8,21 @@
 
 import Foundation
 
+/**
+ Extension to the String class.
+ 
+ - Author: James Kenyon
+*/
+
 extension String {
     
+    // MARK: Public Interface
+    
+    /**
+    Capitalise the first letter of a string.
+     
+    - Returns: The capitalised string.
+     */
     func capitalise() -> String {
         if self.count > 0 {
             return (self.first?.uppercased() ?? "") + self.dropFirst()

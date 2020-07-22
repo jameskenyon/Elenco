@@ -10,16 +10,29 @@ import Foundation
 import UIKit
 import SwiftUI
 
-/*
-    
- Hold all the data for the MyListDataView in this class.
- This means that there is only one view for all the subviews to access
- and all the data is in one place.
-
+/**
+ The view model for the ListHolderView.
+ 
+ This view is responsible for holding all of the data for a ListHolderView.
+ This means that there is only one view for all the subviews to access and all the data is
+ in one place.
+ 
+ - Important: This class is responsible for holding a **single** list.
+ 
+ - Author: James Kenyon and James Bernhardt
  */
 
 class ListHolderDataModel: ObservableObject {
     
+    // MARK: Properties
+    
+    /**
+     The current list being displayed in the ListHolderView
+     
+     When this property is updated, the view should alslo be updated and
+     the data source should be configured, which in turn supplies the IngredientListView
+     with the data it requires to display the list.
+     */
     @Published private(set) var list: ElencoList {
         didSet {
             // make sure not sorting by list on other table
@@ -30,20 +43,34 @@ class ListHolderDataModel: ObservableObject {
         }
     }
     
+    /// The data that is being displayed in the IngredientListView.
     @Published private(set) var listDataSource: [IngredientSection] = []
     
+    /// The current app window.
     @Published private(set) var window: UIWindow
     
+    /// The sort type that the user is currently sorting the ingredients by.
     @Published public var sortType: SortType = .name
     
+    /// Updates if the menu should be displayed over this view.
     @Published public var menuIsShown = false
     
+    /// Tracks the keyboard height to make design chanegs accordingly.
     @Published public var keyboardHeight: CGFloat = 0
         
+    /// Indicates if the user is currently searching for an ingredient.
     @Published public var userIsAddingIngredient = false
     
+    /// Updates if the tick view should be displayed over this view.
     @Published public var showTickView = false
     
+    /**
+     Create a new ListHolderDataModel.
+     
+     - Parameters:
+        - initialList: The initial list that should be displayed when the view loads.
+        - window: The app window, so that alerts can be shown on top of this view.
+     */
     init(initialList: ElencoList, window: UIWindow) {
         self.window = window
         self.list = initialList
@@ -53,12 +80,30 @@ class ListHolderDataModel: ObservableObject {
     
     // MARK: Public Interface
     
-    // configure view for list
+    /**
+     Configure the ListHolderView for a new list.
+     
+     When the user updates the list they want to view, this method
+     should be called to update the subviews to display that new list.
+     
+     - Precondition: The new list must not be nil.
+     
+     - Parameter newList: The new list to be displayed.
+     */
     public func configureViewForList(newList: ElencoList?) {
         guard let newList = newList else { return }
         self.list = newList
     }
     
+    /**
+     Add an ingredient to the current list.
+     
+     Allow a user to add an ingredient from the table view into the current list that is
+     being displayed. A core data call will be required to enure that the ingredient is saved
+     on disk.
+     
+     - Parameter ingredient: The new ingredient to save.
+     */
     public func addIngredient(ingredient: Ingredient) {
         var ingredientCopy = ingredient.copy()
         ingredientCopy.parentList = self.list
@@ -66,16 +111,24 @@ class ListHolderDataModel: ObservableObject {
         self.saveIngredient(ingredient: ingredientCopy)
     }
     
-    // save the ingredient to the core data model
+    /**
+     Save the ingredient to the core data model.
+        
+     - Parameter ingredient: The ingredient to save.
+     */
     public func saveIngredient(ingredient: Ingredient) {
         IngredientDataModel.shared.save(ingredient: ingredient) { (error) in
             if let error = error { print(error.localizedDescription) }
         }
     }
     
-    // Returns:
-    //      True if the user has this ingredient in their
-    //      list already.
+    /**
+     Find out if the user already has an ingredient in their list.
+     
+     - Parameter name: The name of the ingredient to check.
+     
+     - Returns: True if the ingredient already exists in the user's list.
+     */
     public func userHasIngredient(name: String) -> Bool {
         let ingredientAndQuantity = Ingredient.getIngredientNameAndQuantity(searchText: name)
         for ingredient in list.ingredients {
@@ -86,20 +139,33 @@ class ListHolderDataModel: ObservableObject {
         return false
     }
     
-    // remove the ingredient from ingredients array and remove from coredata
+    /**
+     Remove an ingredient from a list.
+     
+     Remove from the ingredients array and remove from core data.
+     
+     - Important:
+        Removing an ingredient from core data will also remove it from the List in core data
+        as they are linked with a relationship.
+     
+     - Parameter ingredient: The ingredient to delete.
+     */
     public func deleteIngredient(ingredient: Ingredient) {
         list.ingredients.removeAll(where: { $0.ingredientID == ingredient.ingredientID })
         removeFromCoreDataModel(ingredient: ingredient)
     }
-    
-    // remove the ingredient from the core data model
-    private func removeFromCoreDataModel(ingredient: Ingredient) {
-        IngredientDataModel.shared.delete(ingredient: ingredient) { (error) in
-            if let error = error { print(error.localizedDescription) }
-        }
-    }
         
-    // update the properties of an ingredient
+    /**
+     Update the properties of an ingredinet.
+     
+     - Important: Provide nil as an argument to any optional property that you don't want to update.
+     
+     - Parameters:
+        - ingredient: The ingredient to update.
+        - newName: The new name of the ingredient (if not nill).
+        - newQuantity: The new quantity of the ingredient.
+        - newCompleted: Whether the updated ingredient has been completed.
+     */
     public func updateIngredient(ingredient: Ingredient, newName: String? = nil,
                                  newQuantity: String? = nil, newCompleted: Bool? = nil) {
         for i in 0..<list.ingredients.count {
@@ -117,7 +183,14 @@ class ListHolderDataModel: ObservableObject {
         }
     }
     
-    // configure the current data source
+    /**
+     Configure the current data source based on a given sort type.
+     
+     The method does not return a value because it updates the local copy of the ingredient data store. This can
+     then be used to display all of the cells in the table view.
+     
+     - Parameter sortType: The sort type to sort the data source list by.
+     */
     public func configureDataSourceFor(sortType: SortType) {
         switch sortType {
         case .name:
@@ -147,19 +220,51 @@ class ListHolderDataModel: ObservableObject {
         }
         self.sortType = sortType
     }
-
+    
+    // MARK: Private Interface
+    
+    /**
+     Remove an ingredient from core data.
+     
+     - Parameter ingredient: The ingredient to be removed from core data.
+     */
+    private func removeFromCoreDataModel(ingredient: Ingredient) {
+        IngredientDataModel.shared.delete(ingredient: ingredient) { (error) in
+            if let error = error { print(error.localizedDescription) }
+        }
+    }
 }
 
 // MARK: - Sort Ingredient Data
+
 extension ListHolderDataModel {
 
-    /*
-     Sort ingredients and return
-     Param:
-        getSectionHeaders - a closure that determines the section header
-                            FOR NAME SORT: $0.map({ $0.name.first?.lowercased() ?? ""})
-        ingredientInSection - a closeure that determines if the ingredient is in the section
-                            FOR NAME SORT: $0.name.first?.lowercased() ?? "" == header && !$0.completed
+    /**
+     Sort Ingredients
+     
+     A method that sorts the ingredients into an array of ingredient sections. This is what the List view will rely on for displaying items.
+     
+     - Parameters:
+        - getSectionHeaders: A closure that determines the sections headers.
+        - ingredientInSection: A closure that determines whether the ingredient is in the section.
+     
+     - Important: Read documentation before implementing method.
+     
+     # Get Section Headers Example
+        $0 = Ingredient
+        ```
+        $0.map({ $0.name.first?.lowercased() ?? "" })
+        ```
+        This creates ingredient headers based on the first letter of the name of the ingredient.
+     
+     # Ingredient In Section Example
+        $0 = Ingredient, $1 = Header String
+        ```
+        $0.name.first?.lowercased() ?? "" == $1 && !$0.completed
+        ```
+        This gets ingredients which are not completed and have the same first letter as the header.
+     
+     - Returns: An array of ingredientSecitons.
      */
     public func sortIngredients(
             getSectionHeaders: (Ingredients)->[String],
@@ -184,7 +289,7 @@ extension ListHolderDataModel {
             sections : sections + [IngredientSection(title: "Completed", ingredients: completedIngredients)]
     }
     
-    // get completed ingredients
+    /// Get an array containing the completed ingredients.
     private func getCompletedIngredients() -> Ingredients {
         var returnIngredients = Ingredients()
         list.ingredients.forEach { (ingredient) in
@@ -194,37 +299,17 @@ extension ListHolderDataModel {
         }
         return returnIngredients
     }
-
-
-    /* Return ingredients sorted by quantity
-    public func ingredientsSortedByQuantity() -> [IngredientSection] {
-        let sortedIngredients = ingredients.sorted { (ingredientOne, ingredientTwo) -> Bool in
-            let ingredientOneDigits = getDigits(fromString: ingredientOne.quantity ?? "")
-            let ingredientTwoDigits = getDigits(fromString: ingredientTwo.quantity ?? "")
-            if Int(ingredientOne.quantity ?? "") != nil && Int(ingredientTwo.quantity ?? "") == nil {
-                return true
-            }
-            if Int(ingredientOne.quantity ?? "") == nil && Int(ingredientTwo.quantity ?? "") != nil {
-                return false
-            }
-            return ingredientOneDigits > ingredientTwoDigits
-        }
-        let sections = [IngredientSection(title: "", ingredients: sortedIngredients)]
-        return addCompletedSection(sections: sections)
-    }
-    
-    // Return int from inside a string - when theres no int return 0
-    private func getDigits(fromString string: String) -> Int {
-        let stringDigit = string.components(separatedBy: CharacterSet.decimalDigits.inverted).first ?? ""
-        return Int(stringDigit) ?? 0
-    }
-     */
-
 }
 
 // MARK: - List Holder Actions
+
 extension ListHolderDataModel {
     
+    /**
+     Carry out a list action based on the action type.
+     
+     - Parameter actionType: The type of action that should be performed on the list.
+     */
     public func completeListAction(actionType: ActionType) {
         switch actionType {
         case .clearList     : handleClearList()
@@ -233,20 +318,25 @@ extension ListHolderDataModel {
         }
     }
     
+    /// Called to clear the list.
     private func handleClearList() {
         self.window.displayAlert(title: "Are you sure you want to delete all ingredients in this list?", message: nil, okTitle: "Ok") { (action) -> (Void) in
             self.clearList()
         }
     }
     
+    /**
+     Called to complete, or uncomplete, all of the elements in a list.
+     
+     - Parameter shouldComplete: True if all the items should be set to completed.
+     */
     private func handleAllCompletion(shouldComplete: Bool) {
         changeCompletion(shouldComplete: shouldComplete)
     }
     
-    // ------------------------------------
-    // Background tasks
+    // MARK: Background Tasks
     
-    // clear the list of all ingredients
+    /// Clear the current list of all ingredients.
     private func clearList() {
         let ingredientsCopy = self.list.ingredients
         for ingredient in ingredientsCopy {
@@ -254,7 +344,7 @@ extension ListHolderDataModel {
         }
     }
     
-    // change the value of the completion
+    /// Change the value of the completion for all items in the current list.
     private func changeCompletion(shouldComplete: Bool) {
         for i in 0..<list.ingredients.count {
             var updateIngredient = list.ingredients.remove(at: i).copy()
@@ -265,19 +355,23 @@ extension ListHolderDataModel {
             }
         }
     }
-    
 }
 
-// UIMethods
+// MARK: - UI Methods
+
 extension ListHolderDataModel {
     
-    // called when the user is done adding ingredients.
-    // first responder should be cancelled and the state is set.
+    /**
+     Stop user from editing the add ingredient text field.
+     
+     Called when the user is done adding ingredients.
+     First responder should be cancelled and the state is set.
+     */
     public func userFinishedAddingIngredients() {
         withAnimation {
+            self.menuIsShown = false
             self.userIsAddingIngredient = false
             UIApplication.resignResponder()
         }
     }
-    
 }

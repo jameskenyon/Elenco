@@ -10,21 +10,30 @@ import CoreData
 import SwiftUI
 import UIKit
 
-/*
- This class is responsible for fetching and saving all of the user's
+/**
+ The IngredientDataModel class is responsible for fetching and saving all of the user's
  ingredients with CoreData.
+ 
+ - Author: James Kenyon
  */
 
 class IngredientDataModel: ObservableObject {
     
+    /// The shared instance of IngredientDataModel
     public static let shared = IngredientDataModel()
     
-    // MARK: - Properties
+    // MARK: Properties
+    
+    /// An array of the users current ingredients.
     @Published var ingredients = Ingredients()
     
-    // MARK: - Fetch Methods
+    // MARK: Fetch Methods
     
-    // Fetch Ingredients
+    /**
+     Fetch Ingredients from core data.
+     
+     -  Parameter completion: A completion block with the errors (if any)
+     */
     public func fetchIngredients(completion: @escaping (Error?)->()) {
         DispatchQueue.global().async {
             let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
@@ -38,6 +47,13 @@ class IngredientDataModel: ObservableObject {
         }
     }
     
+    /**
+     Fetch Ingredients from core data (that the user has saved) and return.
+    
+     - Important: This method also updates the local ingredients property
+    
+     - Returns: An array of ingredients, empty if none are found.
+     */
     public func fetchIngredients() -> Ingredients {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
         do {
@@ -51,9 +67,15 @@ class IngredientDataModel: ObservableObject {
         }
     }
     
-    // MARK: - Update Methods
+    // MARK: Update Methods
     
-    // Save Ingredient to core data model
+    /**
+     Save Ingredient to core data model.
+     
+     - Parameters:
+        - ingredient: The ingredient to save.
+        - completion: Error completion handler
+     */
     public func save(ingredient: Ingredient, completion: @escaping (Error?) -> ()) {
         let ingredientStore = IngredientStore(context: ElencoDefaults.context)
         ingredientStore.ingredientID = ingredient.ingredientID
@@ -64,7 +86,6 @@ class IngredientDataModel: ObservableObject {
         if let parentList = ingredient.parentList {
             ingredientStore.list = ElencoListDataModel.shared.getListStore(forID: parentList.listID)
         }
-        
         do {
             try ElencoDefaults.context.save()
             completion(nil)
@@ -73,7 +94,13 @@ class IngredientDataModel: ObservableObject {
         }
     }
     
-    // Update the completion of a ingredient
+    /**
+     Update an ingredient
+     
+     - Parameters:
+        - ingredient: The new ingredient to update.
+        - compltion: Error completion handler.
+     */
     public func update(ingredient: Ingredient, completion: @escaping (Error?)->()) {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
         request.predicate = NSPredicate(format: "ingredientID == %@", ingredient.ingredientID as CVarArg)
@@ -90,7 +117,13 @@ class IngredientDataModel: ObservableObject {
         }
     }
     
-    // Delete ingredient from data model
+    /**
+     Delete an ingredient
+     
+     - Parameters:
+        - ingredient: The new ingredient to delete.
+        - compltion: Error completion handler.
+     */
     public func delete(ingredient: Ingredient, completion: @escaping (Error?)->()) {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
         request.predicate = NSPredicate(format: "ingredientID == %@", ingredient.ingredientID as CVarArg)
@@ -104,8 +137,11 @@ class IngredientDataModel: ObservableObject {
         }
     }
     
-    // update the ingredients in the list so that if they have
-    // a parent list type of null, they will be assigned to the 'All' list.
+    /**
+     Update the user's ingredients.
+     
+     If an ingredinet has a parent list of null, it will be assigned to the 'All' list.
+     */
     public func updateIngredientListIfRequired() {
         let request: NSFetchRequest<IngredientStore> = IngredientStore.fetchRequest()
         do {
@@ -123,5 +159,4 @@ class IngredientDataModel: ObservableObject {
             try ElencoDefaults.context.save()
         } catch {}
     }
-
 }
