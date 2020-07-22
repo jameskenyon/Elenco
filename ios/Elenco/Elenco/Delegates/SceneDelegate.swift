@@ -83,9 +83,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return allList
         } else {
             let list = ElencoList(name: ElencoDefaults.mainListName)
-            ElencoListDataModel.shared.createList(list: list) { (error) in
-                print("Error saving all list.")
-            }
+            ElencoListDataModel.shared.createList(list: list) { (_) in }
             return list
         }
     }

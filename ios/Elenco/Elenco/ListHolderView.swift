@@ -49,10 +49,7 @@ struct ListHolderView: View {
 
                     ZStack {
                         IngredientsListView()
-                        .padding(.top, 10)
-                        .onTapGesture {
-                            self.listHolderModel.userFinishedAddingIngredients()
-                        }
+                            .padding(.top, 10)
                         VStack {
                             Spacer()
                             AddIngredientButton()
@@ -65,6 +62,9 @@ struct ListHolderView: View {
                         TutorialView()
                             .padding(.top)
                             .padding(.horizontal, 20)
+                            .onTapGesture {
+                                self.listHolderModel.userFinishedAddingIngredients()
+                            }
                         Spacer()
                         AddIngredientButton()
                             .padding(.bottom, getBottomElementPadding())
@@ -72,9 +72,6 @@ struct ListHolderView: View {
                 }
             }
             .edgesIgnoringSafeArea(.top)
-            .onTapGesture {
-                self.listHolderModel.menuIsShown = false
-            }
 
             GeometryReader { geometry in
 

@@ -10,6 +10,8 @@ import SwiftUI
 
 struct IngredientSectionHeader: View {
     
+    @EnvironmentObject var listHolderModel: ListHolderDataModel
+
     var title: String
     
     var body: some View {
@@ -28,6 +30,10 @@ struct IngredientSectionHeader: View {
             leading: 0,
             bottom: 0,
             trailing: 0))
+        .contentShape(Rectangle())
+            .onTapGesture {
+                self.listHolderModel.userFinishedAddingIngredients()
+            }
     }
 }
 

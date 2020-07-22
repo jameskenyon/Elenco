@@ -273,6 +273,7 @@ extension ListHolderDataModel {
     // first responder should be cancelled and the state is set.
     public func userFinishedAddingIngredients() {
         withAnimation {
+            self.menuIsShown = false
             self.userIsAddingIngredient = false
             UIApplication.resignResponder()
         }

@@ -19,7 +19,7 @@ struct IngredientListCell: View {
         HStack {
             IngredientListTick(completed: ingredient.completed)
             .onTapGesture {
-                self.cellTapped()
+                self.completeButtonTapped()
             }
            
             VStack(alignment: .leading) {
@@ -29,18 +29,22 @@ struct IngredientListCell: View {
                     .padding(.horizontal, 15)
                     .foregroundColor(self.ingredient.completed ? Color("Light-Gray") : Color("BodyText"))
                     .onTapGesture {
-                        self.cellTapped()
+                        self.listHolderModel.userFinishedAddingIngredients()
                     }
                     .onLongPressGesture {
                         self.nameLabelLongTapped()
                     }
                 
                 if listHolderModel.list.name == ElencoDefaults.mainListName {
-                    Text("List - \(ingredient.parentList?.name ?? ElencoDefaults.mainListName)")
+                    Text("List - \(getParentListName())")
                         .font(.custom("HelveticaNeue-Medium", size: 12))
                         .padding(.horizontal, 15).padding(.bottom, 5).padding(.top, 5)
                         .foregroundColor(Color("Dark-Gray"))
                 }
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                self.listHolderModel.userFinishedAddingIngredients()
             }
            
            Spacer()
@@ -49,17 +53,22 @@ struct IngredientListCell: View {
                 .foregroundColor(colorScheme == .dark ? Color("Light-Gray") : Color("Dark-Gray"))
                 .padding(.trailing, 15)
                 .onTapGesture {
+                    self.listHolderModel.userFinishedAddingIngredients()
                     self.quantityLabelTapped()
                 }
         }
         .listRowBackground(Color("Background"))
+        .contentShape(Rectangle())
+        .onTapGesture {
+            self.listHolderModel.userFinishedAddingIngredients()
+        }
     }
     
     /*
         When ingredient is checked off it is removed from core data
         When ingredient is unchecked off save it back to core data
      */
-    private func cellTapped() {
+    private func completeButtonTapped() {
         self.listHolderModel.updateIngredient(ingredient: ingredient, newCompleted: !ingredient.completed)
     }
     
@@ -91,6 +100,15 @@ struct IngredientListCell: View {
                 }
             }
         }
+    }
+    
+    private func getParentListName() -> String {
+        if let parentListName = ingredient.parentList?.name {
+            if parentListName != "" {
+                return parentListName
+            }
+        }
+        return ElencoDefaults.mainListName
     }
     
 }
