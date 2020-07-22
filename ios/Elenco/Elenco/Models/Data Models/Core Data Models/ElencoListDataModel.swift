@@ -10,13 +10,27 @@ import Foundation
 import UIKit
 import CoreData
 
+/**
+ The ElencoListDataModel class is responsible for fetching and saving all of the user's
+ lists with CoreData.
+ 
+ - Author: James Kenyon
+*/
+
 class ElencoListDataModel: ObservableObject {
     
+    /// The shared instance of ElencoListDataModel
     public static let shared = ElencoListDataModel()
 
-    // MARK: Fetch Methods available to public
+    // MARK: Public Interface
     
-    // create a new list from scratch
+    /**
+     Create a new list from scratch.
+     
+     - Parameters:
+        - list: The list to create.
+        - completion: The completion handler.
+     */
     public func createList(list: ElencoList, completion: @escaping (Error?) -> ()) {
         let listStore = ListStore(context: ElencoDefaults.context)
         listStore.id       = list.id
@@ -32,7 +46,11 @@ class ElencoListDataModel: ObservableObject {
         }
     }
     
-    // delete a list
+    /**
+     Delete a list.
+     
+     - Parameter list: The list to delete.
+     */
     public func deleteList(list: ElencoList) {
         DispatchQueue.global().async {
             let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
@@ -45,7 +63,13 @@ class ElencoListDataModel: ObservableObject {
         }
     }
     
-    // update the name of a list
+    /**
+     Update the name of a list.
+     
+     - Parameters:
+        - list: The list to update.
+        - newName: The new name to give to the list.
+     */
     public func updateListName(list: ElencoList, newName: String) {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         request.predicate = NSPredicate(format: "listID == %@", list.listID as CVarArg)
@@ -58,7 +82,13 @@ class ElencoListDataModel: ObservableObject {
         } catch {} // ignore for now
     }
     
-    // get individual list - nil if list not found
+    /**
+     Get a list by listID
+     
+     - Parameter listID: The ID of the list to retreive.
+    
+     - Returns: The list (nil if no list was found with matching ID)
+     */
     public func getList(listID: UUID) -> ElencoList? {
         let listStore = getListStore(forID: listID)
         if let listStore = listStore {
@@ -67,6 +97,13 @@ class ElencoListDataModel: ObservableObject {
         return nil
     }
     
+    /**
+     Get a list by name.
+     
+     - Parameter listName: The name of the list to retreive.
+    
+     - Returns: The list (nil if no list was found with matching name)
+     */
     public func getList(listName: String) -> ElencoList? {
         let listStore = getListStore(forName: listName)
         if let listStore = listStore {
@@ -75,7 +112,14 @@ class ElencoListDataModel: ObservableObject {
         return nil
     }
     
-    // get all the lists that the user has currently
+    /**
+     Get all of the user's current lists.
+     
+     Append the all list to the lists array. This all list contains all of the ingredients that the user has and
+     also acts as its own list that the user can add to.
+     
+     - Returns: An array of all of the user's lists.
+     */
     public func getLists() -> [ElencoList] {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         do {
@@ -103,8 +147,13 @@ class ElencoListDataModel: ObservableObject {
         }
     }
     
-    // get a list store object for when the user needs to save
-    // the list to memory
+    /**
+     Get a list store object.
+     
+     Get a list store object for when the user needs to save the list to memory.
+     
+     - Parameter listID: The ID of the list to get the store of.
+     */
     public func getListStore(forID listID: UUID) -> ListStore? {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         request.predicate = NSPredicate(format: "listID == %@", listID as CVarArg)
@@ -116,8 +165,13 @@ class ElencoListDataModel: ObservableObject {
         }
     }
     
-    // get a list store object for when the user needs to save
-    // the list to memory
+    /**
+     Get a list store object.
+     
+     Get a list store object for when the user needs to save the list to memory.
+     
+     - Parameter listName: The name of the list to get the store of.
+     */
     public func getListStore(forName listName: String) -> ListStore? {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         request.predicate = NSPredicate(format: "name == %@", listName)
@@ -129,14 +183,7 @@ class ElencoListDataModel: ObservableObject {
         }
     }
     
-    // MARK: Private helper methods
-    
-    // get list from store
-    private func getListFromStore(listStore: ListStore) -> ElencoList {
-        return ElencoList(listStore: listStore)
-    }
-    
-    // update the list so that all lists have an id
+    /// Update lists so that all lists have an ID.
     public func updateListsIfRequired() {
         let request: NSFetchRequest<ListStore> = ListStore.fetchRequest()
         do {
@@ -150,4 +197,10 @@ class ElencoListDataModel: ObservableObject {
         } catch {}
     }
     
+    // MARK: Private Interface
+    
+    // Get list from store
+    private func getListFromStore(listStore: ListStore) -> ElencoList {
+        return ElencoList(listStore: listStore)
+    }
 }

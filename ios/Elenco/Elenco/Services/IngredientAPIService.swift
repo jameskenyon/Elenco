@@ -8,19 +8,32 @@
 
 import Foundation
 
+/**
+ The Ingredient Service interfaces with the ingredientData.json file to load the ingredients.
+ 
+ The IngredientAPIService is responsible for loading all of the ingredients into the app from the json file.
+ All the information on the ingredients is stored in this file and are loaded into the current session when the
+ app loads.
+ 
+ - Author: James Kenyon
+ */
+
 internal class IngredientAPIService {
     
-    // save all the ingredients
+    // MARK: Properties
+    
+    /// The cache where all the ingredients are stored..
     private static var ingredientCache: [String: Ingredient] = [:]
-    // save ingredient search results
+    /// Save all ingredient search results in this cache.
     private static var ingredientListCache: [String: Ingredients] = [:]
-    // save the most recent api request query
-    private static var mostRecentAPIQuery: String = ""
     
     // MARK: Public Interface
     
-    /*
-     Load all of the ingredients into the app (use background thread)
+    /**
+     Load all of the ingredients into the app.
+     
+     Called when the app loads, this method uses a background thread to populate all of the ingredient
+     information into the ingredientCache.
      */
     static func configureIngredientCache() {
         DispatchQueue.global().async {
@@ -43,11 +56,16 @@ internal class IngredientAPIService {
         }
     }
     
-    /*
-        Return all the possible ingredients for a given search
-        Param:
-            query - the name that of the ingredient that the user is searching for
-            numResults - the number of results to return
+    /**
+     Get all of the possible ingredients matching a query.
+     
+     This method can be used to get the ingredients whose name's contain a substring of the query.
+     
+     - Parameters:
+        - query: The query that the user wants to search based on.
+        - numResults: The max number of ingredients to be returned in one call.
+     
+     - Returns: An array of ingredients whose name's  match the given query.
      */
     static func getPossibleIngredientsFor(query: String, numResults: Int = 5) -> Ingredients {
         var returnIngredients: Ingredients = []
@@ -64,19 +82,18 @@ internal class IngredientAPIService {
                     }
                 }
             }
-            mostRecentAPIQuery = query
             ingredientListCache[query] = returnIngredients
         }
         return returnIngredients
     }
     
-    /*/
-        Return the Aisle that the ingredient belongs to, if nothing can be found then use
-        nil.
-        Param:
-            ingredientName - the name of the ingredient
-            completion - the completion closure that will contain the name of the aisle that the
-                         ingredient belongs to.
+    /**
+     Get an aisle for an ingredient by name.
+     
+     - Parameters:
+        - ingredientName: The name of the ingredient to get the aisle for.
+     
+     - Returns: The name of the aisle as a String.
      */
     public static func getAisleForIngredient(ingredientName: String) -> String {
         var name = ingredientName.lowercased()
@@ -102,18 +119,15 @@ internal class IngredientAPIService {
     
     // MARK: Private Interface
     
-    /*
-     Save the new values to the ingredient cache
-     */
-    private static func updateIngredientCache(ingredients: Ingredients) {
-        for ingredient in ingredients {
-            self.ingredientCache[ingredient.name] = ingredient
-        }
-    }
-    
-    /*
-     Format the aisle name as this sometimes contains ; which separates aisle types
-     if an ingredient falls into different categories
+    /**
+     Format the aisle name.
+     
+     Sometimes the aisle contains ; which separates aisle types if an ingredient falls into
+     different categories.
+     
+     - Parameter aisle: The unformatted aisle string.
+     
+     - Returns: The formatted aisle string.
      */
     private static func formattedAisle(aisle: String) -> String {
         let segments = aisle.split(separator: ";")

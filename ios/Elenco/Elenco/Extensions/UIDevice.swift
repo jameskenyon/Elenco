@@ -8,8 +8,17 @@
 
 import UIKit
 
+/**
+ Extension to UIDevice class.
+ 
+ - Author: James Kenyon
+ */
+
 public extension UIDevice {
     
+    // MARK: Properties
+    
+    /// The current model name of the device, eg: iPhone 11
     static let modelName: String = {
         var systemInfo = utsname()
         uname(&systemInfo)
@@ -18,7 +27,6 @@ public extension UIDevice {
             guard let value = element.value as? Int8, value != 0 else { return identifier }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
-
         func mapToDevice(identifier: String) -> String { // swiftlint:disable:this cyclomatic_complexity
             #if os(iOS)
             switch identifier {
@@ -88,6 +96,17 @@ public extension UIDevice {
         return mapToDevice(identifier: identifier)
     }()
     
+    // MARK: Public Interface
+    
+    /**
+     Returns whether the current device has curved screens (such as the new iPhone and iPad).
+     
+     # Reasoning
+     When displaying some views, it is helpful to obtain the layout of the screen edges
+     to best position the views.
+     
+     - Returns: True if the device has round corners, false otherwise.
+     */
     static func deviceHasCurvedScreen() -> Bool {
         let devicesWithRounedCorners = [
             "iPhone XR",
@@ -105,6 +124,14 @@ public extension UIDevice {
         return devicesWithRounedCorners.contains(UIDevice.modelName.replacingOccurrences(of: "Simulator ", with: ""))
     }
     
+    /**
+     Obtain whether the current device is an iPad.
+     
+     # Reasoning
+     For help displaying views, we can see if a device is an iPad or not quickly.
+     
+     - Returns: True if the current device is an iPad.
+     */
     static func deviceIsIPad() -> Bool {
         let modelName = self.modelName
         return modelName.contains("iPad")
