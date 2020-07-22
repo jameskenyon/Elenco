@@ -14,7 +14,7 @@ struct IngredientPredictionTutorialView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ScrollView(.vertical) {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .center, spacing: 0) {
                     
                     Text("When you search for an ingredient, Elenco will predict what you’re looking for.")

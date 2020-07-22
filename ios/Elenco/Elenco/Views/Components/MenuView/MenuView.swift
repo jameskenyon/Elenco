@@ -38,6 +38,7 @@ struct MenuView: View {
 
                         // Lists
                         MenuListsView()
+                            .padding(.top, self.listHolderDataModel.list.name == ElencoDefaults.mainListName ? 5 : 10)
 
                         // Back Button
                         MenuBackButton()

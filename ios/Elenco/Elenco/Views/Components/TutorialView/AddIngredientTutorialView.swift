@@ -19,7 +19,7 @@ struct AddIngredientTutorialView: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        ScrollView(.vertical) {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack {
                 Text("Elenco automatically detects the quantity of your ingredient.")
                     .padding().padding(.bottom)

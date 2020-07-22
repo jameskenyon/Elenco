@@ -13,7 +13,7 @@ struct WelcomeTutorialView: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        ScrollView(.vertical) {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack() {
                 Text("Your list is empty at the moment.")
                     .padding()

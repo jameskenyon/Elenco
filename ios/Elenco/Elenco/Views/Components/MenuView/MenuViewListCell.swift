@@ -32,7 +32,7 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
                     GeometryReader { geometry in
                         Capsule()
                             .foregroundColor(Color(#colorLiteral(red: 0.1058823529, green: 0.7647058824, blue: 0.662745098, alpha: 1)))
-                            .frame(width: geometry.size.width * 2, height: geometry.size.height + 5)
+                            .frame(width: geometry.size.width * 2, height: geometry.size.height + 10)
                             .padding(.trailing, geometry.size.width)
                     }
                     HStack {
@@ -146,7 +146,12 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
     }
     
     private func getMenuSubtitle() -> String {
-        let count = list.ingredients.count
+        var count = 0
+        if list.name != ElencoDefaults.mainListName {
+            count = ElencoListDataModel.shared.getList(listID: list.listID)?.ingredients.count ?? 0
+        } else {
+            count = IngredientDataModel.shared.ingredients.count
+        }
         return count == 1 ? "\(count) item" : "\(count) items"
     }
 
