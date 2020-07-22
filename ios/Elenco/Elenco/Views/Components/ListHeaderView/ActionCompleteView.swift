@@ -11,36 +11,37 @@ import SwiftUI
 struct ActionCompleteView: View {
     
     @EnvironmentObject var listHolderModel: ListHolderDataModel
+    @State var scale: CGFloat = 0
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                RoundedRectangle(cornerRadius: 15)
+                RoundedRectangle(cornerRadius: 20)
+//                    .cornerRadius(self.listHolderModel.showTickView ? 100 : 20)
                     .frame(maxWidth: geometry.size.width * 0.5,  maxHeight: geometry.size.width * 0.5)
-                    .foregroundColor(self.listHolderModel.showTickView ? Color("Light-Gray") : Color.clear)
-                .opacity(0.5)
+                    .foregroundColor( Color("Light-Teal") )
+                    .opacity(0.8)
+                    .blur(radius: 10)
+                    .clipShape(RoundedRectangle(cornerRadius: self.listHolderModel.showTickView ? 100 : 20))
+                    .animation(
+                        Animation.easeInOut(duration: 0.4)
+//                        .delay(1)
+//                        .repeatCount(3, autoreverses: true)
+                    )
+                    
                 
-                HStack(spacing: 0) {
-                    
-                    Capsule()
-                        .frame(width: 30, height: self.secondTickHeight())
-                        .foregroundColor(self.listHolderModel.showTickView ? Color.white : Color.clear)
-                        .rotationEffect(.degrees(135))
-                        .animation(
-                            Animation.spring()
-                            .delay(1)
-                        )
-                        .padding(.top, 70).padding(.trailing, 60)
-                    
-                    Capsule()
-                        .frame(width: 30, height: self.tickHeight())
-                        .foregroundColor(Color.white)
-                        .rotationEffect(.degrees(45))
-                        .animation(
-                            Animation.spring()
-                            .delay(1)
-                        )
-                }
+                Image(uiImage: #imageLiteral(resourceName: "saveList"))
+                    .frame(width: 1, height: 1)
+                    .scaleEffect(self.scale)
+                    .animation(
+                        Animation.spring(response: 0.4, dampingFraction: 0.3, blendDuration: 0.8)
+//                        .delay(1)
+//                        .repeatCount(3, autoreverses: true)
+                    )
+            }
+            .onTapGesture {
+                self.scale += 1
+                self.listHolderModel.showTickView = true
             }
         }
         

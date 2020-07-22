@@ -74,13 +74,13 @@ struct AddIngredientView: View, ElencoTextFieldDisplayable {
         self.listHolderModel.addIngredient(ingredient:
             Ingredient(ingredientID: UUID(), name: name, aisle: aisle, quantity: quantity, parentList: self.listHolderModel.list)
         )
+        self.listHolderModel.showTickView = true
         hideTextField()
     }
     
     // hide the text field from the user
     private func hideTextField() {
         withAnimation {
-            self.listHolderModel.showTickView = true
             listHolderModel.userIsAddingIngredient = false
         }
     }
