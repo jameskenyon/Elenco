@@ -46,6 +46,11 @@
     },
     {
         "aisle": "Spices and Seasonings",
+        "name": "turmeric",
+        "id": 0
+    },
+    {
+        "aisle": "Spices and Seasonings",
         "name": "oregano",
         "id": 0
     },
@@ -117,6 +122,11 @@
     {
         "aisle": "Pasta and Rice;Canned and Jarred",
         "name": "fava beans",
+        "id": 0
+    },
+    {
+        "aisle": "Canned and Jarred",
+        "name": "bean",
         "id": 0
     },
     {
@@ -1820,6 +1830,21 @@
         "id": 0
     },
     {
+        "aisle": "Bakery/Bread",
+        "name": "rolls",
+        "id": 0
+    },
+    {
+        "aisle": "Bakery/Bread",
+        "name": "bread rolls",
+        "id": 0
+    },
+    {
+        "aisle": "Bakery/Bread",
+        "name": "pita bread",
+        "id": 0
+    },
+    {
         "aisle": "Cereal;Health Foods;Baking",
         "name": "bran",
         "id": 0
@@ -1887,6 +1912,11 @@
     {
         "aisle": "Seafood",
         "name": "yellowtail snapper",
+        "id": 0
+    },
+    {
+        "aisle": "Seafood",
+        "name": "king prawns",
         "id": 0
     },
     {
@@ -2596,7 +2626,7 @@
     },
     {
         "aisle": "Produce",
-        "name": "avocados",
+        "name": "avocado",
         "id": 0
     },
     {
@@ -3747,11 +3777,6 @@
     {
         "aisle": "Oil, Vinegar, Salad Dressing",
         "name": "italian dressing",
-        "id": 0
-    },
-    {
-        "aisle": "Spices and Seasonings",
-        "name": "edels\u00fc\u00dfes Paprikapulver",
         "id": 0
     },
     {
