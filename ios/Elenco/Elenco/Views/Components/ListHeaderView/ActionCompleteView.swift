@@ -20,7 +20,6 @@ struct ActionCompleteView: View {
             ZStack {
                 Circle()
                     .foregroundColor( Color("Teal") )
-                    .blur(radius: 2)
                     .animation(
                         Animation.interpolatingSpring(mass: self.mass, stiffness: 100.0,damping: 10, initialVelocity: 0)
                     )
