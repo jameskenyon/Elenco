@@ -32,7 +32,7 @@ struct MenuView: View {
 
                 .overlay(
                     VStack(alignment: .leading) {
-                        // Title
+                        // My Lists Title
                         MenuHeaderView(title: "My Lists", width: self.getWidth(geometry: geometry))
                             .padding(.leading, 30)
 
@@ -40,6 +40,11 @@ struct MenuView: View {
                         MenuListsView()
                             .padding(.top, self.listHolderDataModel.list.name == ElencoDefaults.mainListName ? 5 : 10)
 
+                        // Recipies
+                        MenuHeaderView(title: "My Recipies", width: self.getWidth(geometry: geometry))
+                        .padding(.leading, 30)
+                        
+                        
                         // Back Button
                         MenuBackButton()
                         .padding(.leading, 30)
