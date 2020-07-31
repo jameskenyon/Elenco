@@ -13,23 +13,25 @@ struct MenuListsView: View {
     @EnvironmentObject var menuViewDataModel: MenuViewDataModel
     @EnvironmentObject var listHolderDataModel: ListHolderDataModel
     
-    var body: some View {  
-        List {
-            ForEach(self.menuViewDataModel.lists, id: \.id) { list in
-                MenuViewListCell(list: list)
-                .onTapGesture {
-                    self.displayList(list: list)
+    var body: some View {
+        GeometryReader { geometry in
+            List {
+                ForEach(self.menuViewDataModel.lists, id: \.id) { list in
+                    MenuViewListCell(list: list)
+                    .onTapGesture {
+                        self.displayList(list: list)
+                    }
                 }
+                
+                ElencoButton(title: "+ New List", width: self.buttonWidth(for: geometry.size)) {
+                    self.menuViewDataModel.createNewList()
+                }
+                
+                ElencoButton(title: "Edit Essentials", style: .green, width: self.buttonWidth(for: geometry.size)) {
+                    print("Edit essentials")
+                }
+
             }
-            Button(action: {
-                self.menuViewDataModel.createNewList()
-            }, label: {
-                Text("+ New List")
-                    .font(.custom("HelveticaNeue-Bold", size: 20))
-                    .foregroundColor(Color("Orange"))
-                    .padding(.leading, 15)
-                    .padding(.vertical, 10)
-            })
         }
     }
     
@@ -44,6 +46,11 @@ struct MenuListsView: View {
             }
             self.listHolderDataModel.menuIsShown = false
         }
+    }
+    
+    // MARK: - View Constants
+    private func buttonWidth(for size: CGSize) -> CGFloat {
+        size.width * 0.65
     }
     
 }

@@ -28,8 +28,7 @@
 		1A8E31FA24B88787008D6624 /* MenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E31F924B88787008D6624 /* MenuHeaderView.swift */; };
 		1A8E31FC24B88B91008D6624 /* MenuIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E31FB24B88B91008D6624 /* MenuIcon.swift */; };
 		1A8E31FE24B8ACED008D6624 /* MenuViewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E31FD24B8ACED008D6624 /* MenuViewListCell.swift */; };
-		1AC4431E24D4271D0032C4E3 /* ActionButtonOrange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC4431D24D4271D0032C4E3 /* ActionButtonOrange.swift */; };
-		1AC4432024D42AE20032C4E3 /* ActionButtonGreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC4431F24D42AE20032C4E3 /* ActionButtonGreen.swift */; };
+		1AC4431E24D4271D0032C4E3 /* ElencoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC4431D24D4271D0032C4E3 /* ElencoButton.swift */; };
 		8A057C1F24B7286000BDC888 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A057C1E24B7285F00BDC888 /* String.swift */; };
 		8A0DA72E24C70660001A5B0E /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DA72D24C70660001A5B0E /* View.swift */; };
 		8A2A5C2C24C5BACE00BB1AB2 /* MenuViewDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2A5C2B24C5BACE00BB1AB2 /* MenuViewDataModel.swift */; };
@@ -95,8 +94,7 @@
 		1A8E31F924B88787008D6624 /* MenuHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderView.swift; sourceTree = "<group>"; };
 		1A8E31FB24B88B91008D6624 /* MenuIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuIcon.swift; sourceTree = "<group>"; };
 		1A8E31FD24B8ACED008D6624 /* MenuViewListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewListCell.swift; sourceTree = "<group>"; };
-		1AC4431D24D4271D0032C4E3 /* ActionButtonOrange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonOrange.swift; sourceTree = "<group>"; };
-		1AC4431F24D42AE20032C4E3 /* ActionButtonGreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonGreen.swift; sourceTree = "<group>"; };
+		1AC4431D24D4271D0032C4E3 /* ElencoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElencoButton.swift; sourceTree = "<group>"; };
 		8A057C1E24B7285F00BDC888 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		8A0DA72D24C70660001A5B0E /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		8A2A5C2B24C5BACE00BB1AB2 /* MenuViewDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewDataModel.swift; sourceTree = "<group>"; };
@@ -337,8 +335,7 @@
 				8AB367C024BB318100E795D5 /* ElencoTextField.swift */,
 				8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */,
 				8AB367C224BB3EEB00E795D5 /* CircularButton.swift */,
-				1AC4431D24D4271D0032C4E3 /* ActionButtonOrange.swift */,
-				1AC4431F24D42AE20032C4E3 /* ActionButtonGreen.swift */,
+				1AC4431D24D4271D0032C4E3 /* ElencoButton.swift */,
 				1A1B402624B7B60700847E4C /* MenuView */,
 				8A9C612324B65D0B000E337F /* ListHeaderView */,
 				8A9C612224B65C81000E337F /* ListActionView */,
@@ -503,12 +500,11 @@
 				8A9C611F24AFA149000E337F /* IngredientListTick.swift in Sources */,
 				1A20D3E424AA490600C6633F /* IngredientListCell.swift in Sources */,
 				8AD4BC0F24A7978000F81AAF /* ListHolderView.swift in Sources */,
-				1AC4431E24D4271D0032C4E3 /* ActionButtonOrange.swift in Sources */,
+				1AC4431E24D4271D0032C4E3 /* ElencoButton.swift in Sources */,
 				1A20D3D924AA20D000C6633F /* (null) in Sources */,
 				1A8E31F024B86B5F008D6624 /* IngredientStore+CoreDataProperties.swift in Sources */,
 				8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */,
 				1A12316C24C5B9AE001E0D79 /* IngredientPredictionTutorialView.swift in Sources */,
-				1AC4432024D42AE20032C4E3 /* ActionButtonGreen.swift in Sources */,
 				8AB367C324BB3EEB00E795D5 /* CircularButton.swift in Sources */,
 				8AB2FEF924B7C202002918AA /* ElencoListDataModel.swift in Sources */,
 				8A0DA72E24C70660001A5B0E /* View.swift in Sources */,

@@ -20,7 +20,7 @@ struct ActionViewButtonItem: View {
     @State var actionType: ActionType
     
     var body: some View {
-        ActionButtonGreen(title: "\(actionType.rawValue)") {
+        ElencoButton(title: "\(actionType.rawValue)", style: .green) {
             self.listHolderModel.completeListAction(actionType: self.actionType)
         }
     }

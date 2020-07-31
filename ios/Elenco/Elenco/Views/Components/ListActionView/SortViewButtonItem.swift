@@ -15,7 +15,7 @@ struct SortViewButtonItem: View {
     @State var type: SortType
     
     var body: some View {
-        ActionButtonOrange(title: self.type.rawValue, isSelected: isSelected()) {
+        ElencoButton(title: self.type.rawValue, isSelected: isSelected()) {
             self.listHolderModel.configureDataSourceFor(sortType: self.type)
         }
     }
