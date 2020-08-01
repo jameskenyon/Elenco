@@ -13,11 +13,19 @@ struct ElencoPagerView<Content: View>: View {
     @Binding var currentIndex: Int
     let content: Content
     @GestureState private var translation: CGFloat = 0
+    var showsPageIndicator: Bool = true
 
     init(pageCount: Int, currentIndex: Binding<Int>, @ViewBuilder content: () -> Content) {
         self.pageCount = pageCount
         self._currentIndex = currentIndex
         self.content = content()
+    }
+    
+    init(pageCount: Int, currentIndex: Binding<Int>, showsPageIndicator: Bool, @ViewBuilder content: () -> Content) {
+        self.pageCount = pageCount
+        self._currentIndex = currentIndex
+        self.content = content()
+        self.showsPageIndicator = showsPageIndicator
     }
     
     var body: some View {
@@ -43,13 +51,15 @@ struct ElencoPagerView<Content: View>: View {
                     }
                 )
                 
-                HStack {
-                    ForEach(0 ..< self.pageCount) { number in
-                        PagerIndicator(isActive: number == self.currentIndex)
-                            .padding(.top, 10)
+                if self.showsPageIndicator {
+                    HStack {
+                        ForEach(0 ..< self.pageCount) { number in
+                            PagerIndicator(isActive: number == self.currentIndex)
+                                .padding(.top, 10)
+                        }
                     }
+                    .padding(.bottom, 25)
                 }
-                .padding(.bottom, 25)
             }
         }
     }
