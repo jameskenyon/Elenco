@@ -14,7 +14,7 @@ struct MenuListsView: View {
     @EnvironmentObject var listHolderDataModel: ListHolderDataModel
     
     var body: some View {  
-        List {
+        VStack(alignment: .leading) {
             ForEach(self.menuViewDataModel.lists, id: \.id) { list in
                 MenuViewListCell(list: list)
                 .onTapGesture {
