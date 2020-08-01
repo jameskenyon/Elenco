@@ -7,8 +7,6 @@
 //
 
 import CoreData
-import SwiftUI
-import UIKit
 
 /**
  The IngredientDataModel class is responsible for fetching and saving all of the user's

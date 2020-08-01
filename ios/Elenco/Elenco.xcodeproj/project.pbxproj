@@ -37,6 +37,10 @@
 		8A381C3F24AB42EF0023A5CD /* MyListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A381C3E24AB42EF0023A5CD /* MyListHeaderView.swift */; };
 		8A381C4124AB44580023A5CD /* ListHolderDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A381C4024AB44580023A5CD /* ListHolderDataModel.swift */; };
 		8A9C611F24AFA149000E337F /* IngredientListTick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9C611E24AFA149000E337F /* IngredientListTick.swift */; };
+		8AAC174224D57EBE004C6ADA /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAC174124D57EBE004C6ADA /* Recipe.swift */; };
+		8AAC174424D58836004C6ADA /* RecipeDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAC174324D58836004C6ADA /* RecipeDataModel.swift */; };
+		8AAC174B24D59514004C6ADA /* RecipeStore+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAC174924D59514004C6ADA /* RecipeStore+CoreDataClass.swift */; };
+		8AAC174C24D59514004C6ADA /* RecipeStore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAC174A24D59514004C6ADA /* RecipeStore+CoreDataProperties.swift */; };
 		8AAEE48424A7A3BC0025D15D /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE48324A7A3BC0025D15D /* Ingredient.swift */; };
 		8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */; };
 		8AB2FEF724B7B46C002918AA /* ElencoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB2FEF624B7B46C002918AA /* ElencoList.swift */; };
@@ -102,6 +106,10 @@
 		8A381C3E24AB42EF0023A5CD /* MyListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListHeaderView.swift; sourceTree = "<group>"; };
 		8A381C4024AB44580023A5CD /* ListHolderDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHolderDataModel.swift; sourceTree = "<group>"; };
 		8A9C611E24AFA149000E337F /* IngredientListTick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListTick.swift; sourceTree = "<group>"; };
+		8AAC174124D57EBE004C6ADA /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		8AAC174324D58836004C6ADA /* RecipeDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDataModel.swift; sourceTree = "<group>"; };
+		8AAC174924D59514004C6ADA /* RecipeStore+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeStore+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8AAC174A24D59514004C6ADA /* RecipeStore+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeStore+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8AAEE48324A7A3BC0025D15D /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		8AAEE48724A7A8170025D15D /* IngredientAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAPIService.swift; sourceTree = "<group>"; };
 		8AB2FEF624B7B46C002918AA /* ElencoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElencoList.swift; sourceTree = "<group>"; };
@@ -188,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				1A17AA6724ABDDB700893676 /* IngredientDataModel.swift */,
+				8AAC174324D58836004C6ADA /* RecipeDataModel.swift */,
 				8AB2FEF824B7C202002918AA /* ElencoListDataModel.swift */,
 			);
 			path = "Core Data Models";
@@ -216,6 +225,8 @@
 			children = (
 				1A8E31F124B86C49008D6624 /* ListStore+CoreDataClass.swift */,
 				1A8E31F224B86C49008D6624 /* ListStore+CoreDataProperties.swift */,
+				8AAC174924D59514004C6ADA /* RecipeStore+CoreDataClass.swift */,
+				8AAC174A24D59514004C6ADA /* RecipeStore+CoreDataProperties.swift */,
 				1A8E31EB24B86B5F008D6624 /* IngredientStore+CoreDataClass.swift */,
 				1A8E31EC24B86B5F008D6624 /* IngredientStore+CoreDataProperties.swift */,
 			);
@@ -357,6 +368,7 @@
 			children = (
 				8A57BC3C24AE836700FB138B /* Data Models */,
 				8AAEE48324A7A3BC0025D15D /* Ingredient.swift */,
+				8AAC174124D57EBE004C6ADA /* Recipe.swift */,
 				8AB2FEF624B7B46C002918AA /* ElencoList.swift */,
 				8AB2FEFA24B88D22002918AA /* ElencoDefaults.swift */,
 			);
@@ -489,6 +501,7 @@
 				8A381C3D24AA86120023A5CD /* HostingView.swift in Sources */,
 				1A1B402524B7B60000847E4C /* MenuView.swift in Sources */,
 				8A381C3F24AB42EF0023A5CD /* MyListHeaderView.swift in Sources */,
+				8AAC174224D57EBE004C6ADA /* Recipe.swift in Sources */,
 				1A8E31F624B886BA008D6624 /* MenuListsView.swift in Sources */,
 				8AED6C8024AF56380056F901 /* UIDevice.swift in Sources */,
 				1A49CE0424AB8B6900153D12 /* SortViewButtonItem.swift in Sources */,
@@ -498,9 +511,11 @@
 				1A20D3E424AA490600C6633F /* IngredientListCell.swift in Sources */,
 				8AD4BC0F24A7978000F81AAF /* ListHolderView.swift in Sources */,
 				1A20D3D924AA20D000C6633F /* (null) in Sources */,
+				8AAC174B24D59514004C6ADA /* RecipeStore+CoreDataClass.swift in Sources */,
 				1A8E31F024B86B5F008D6624 /* IngredientStore+CoreDataProperties.swift in Sources */,
 				8AAEE48824A7A8170025D15D /* IngredientAPIService.swift in Sources */,
 				1A12316C24C5B9AE001E0D79 /* IngredientPredictionTutorialView.swift in Sources */,
+				8AAC174C24D59514004C6ADA /* RecipeStore+CoreDataProperties.swift in Sources */,
 				8AB367C324BB3EEB00E795D5 /* CircularButton.swift in Sources */,
 				8AB2FEF924B7C202002918AA /* ElencoListDataModel.swift in Sources */,
 				8A0DA72E24C70660001A5B0E /* View.swift in Sources */,
@@ -514,6 +529,7 @@
 				8AEF2EEE24A7E5FB0071C69A /* AddIngredientView.swift in Sources */,
 				1A20D3DF24AA401700C6633F /* IngredientsListView.swift in Sources */,
 				8AE34E0824AD1AE2004651B5 /* AddIngredientTutorialView.swift in Sources */,
+				8AAC174424D58836004C6ADA /* RecipeDataModel.swift in Sources */,
 				8AC3729924AB9E05002699F2 /* UIWindow.swift in Sources */,
 				1A8E31FE24B8ACED008D6624 /* MenuViewListCell.swift in Sources */,
 				8ADB42F024C781E600EB6C8C /* WelcomeTutorialView.swift in Sources */,
