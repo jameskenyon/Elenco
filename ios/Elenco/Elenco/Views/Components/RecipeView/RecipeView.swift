@@ -11,15 +11,12 @@ import SwiftUI
 struct RecipeView: View {
     
     var body: some View {
-        RecipieIngredientMethodPagerView()
+//        RecipeIngredientListView()
+        Text("Hello")
     }
 }
 
-struct RecipeIngredientListView: View {
-    var body: some View {
-        Text("hi")
-    }
-}
+
 
 
 struct RecipeView_Previews: PreviewProvider {
