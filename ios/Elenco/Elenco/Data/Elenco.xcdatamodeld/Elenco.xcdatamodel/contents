@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="IngredientStore" representedClassName="IngredientStore" syncable="YES">
         <attribute name="aisle" attributeType="String"/>
         <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -15,8 +15,21 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="IngredientStore" inverseName="list" inverseEntity="IngredientStore"/>
     </entity>
+    <entity name="RecipeStore" representedClassName="RecipeStore" syncable="YES">
+        <attribute name="dietaryRequirements" optional="YES" attributeType="String"/>
+        <attribute name="estimatedTime" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="ingredients" optional="YES" attributeType="String"/>
+        <attribute name="isShared" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="method" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="recipeID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="serves" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <elements>
         <element name="IngredientStore" positionX="-45" positionY="0" width="128" height="133"/>
-        <element name="ListStore" positionX="-45" positionY="27" width="128" height="118"/>
+        <element name="ListStore" positionX="-262.328125" positionY="-166.86328125" width="128" height="118"/>
+        <element name="RecipeStore" positionX="-47.77734375" positionY="-259.3828125" width="128" height="193"/>
     </elements>
 </model>
