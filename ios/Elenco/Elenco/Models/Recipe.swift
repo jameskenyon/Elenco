@@ -129,7 +129,8 @@ struct Recipe: Identifiable {
 }
 
 /// Represents a single instruction in the recipe method
-struct RecipeMethod {
+struct RecipeMethod: Identifiable {
+    var id = UUID()
     var number: Int
     var instruction: String
 }

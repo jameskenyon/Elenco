@@ -30,12 +30,11 @@ struct RecipeIngredientListView<SectionConent>: View where SectionConent: Identi
                 
                 Spacer()
                 
-                Text("QRY")
+                Text("QTY")
             }
             .foregroundColor(Color("Dark-Gray"))
             .font(.custom("HelveticaNeue-Regular", size: 12))
-            .padding(.horizontal, 35)
-            
+            .padding(.horizontal, 35).padding(.bottom)
             
             List {
                 ForEach(sections, id: \.title) { section in
@@ -48,10 +47,9 @@ struct RecipeIngredientListView<SectionConent>: View where SectionConent: Identi
                                 RecipeIngredientListViewCell(ingredient: content as! Ingredient)
                             }
                             
-//                            if content as? String != nil {
-//                                RecipeIngredientListViewCell(ingredient: content as! Ingredient)
-//                            }
-                            
+                            if content as? RecipeMethod != nil {
+                                RecipeMethodListViewCell(recipeMethod: content as! RecipeMethod)
+                            }       
                         }
                     }
                 }
@@ -80,17 +78,20 @@ struct RecipeIngredientListViewCell: View {
     }
 }
 
+struct RecipeMethodListViewCell: View {
+    
+    var recipeMethod: RecipeMethod
+    
+    var body: some View {
+        Text(recipeMethod.instruction)
+            .foregroundColor(Color("Lead"))
+            .font(.custom("HelveticaNeue-Regular", size: 23))
+        .padding(.horizontal)
+    }
+}
+
 struct RecipeIngredientListView_Previews: PreviewProvider {
     static var previews: some View {
-        let sections: [RecipeListViewSection<Ingredient>] = [
-            RecipeListViewSection<Ingredient>.init(title: "A", content: [
-                Ingredient.init(ingredientID: UUID(), name: "Apple", aisle: "", parentList: nil),
-                Ingredient.init(ingredientID: UUID(), name: "Ape", aisle: "", parentList: nil)
-            ]), RecipeListViewSection<Ingredient>.init(title: "D", content: [
-                Ingredient.init(ingredientID: UUID(), name: "Drink", aisle: "", parentList: nil),
-                Ingredient.init(ingredientID: UUID(), name: "Dope", aisle: "", parentList: nil)
-            ])
-        ]
-        return RecipeIngredientListView<Ingredient>(sections: sections)
+        return RecipeMethodListViewCell(recipeMethod: RecipeMethod(number: 1, instruction: "Stick it in"))
     }
 }

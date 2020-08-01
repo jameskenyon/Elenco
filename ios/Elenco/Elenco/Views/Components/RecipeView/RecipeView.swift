@@ -11,8 +11,13 @@ import SwiftUI
 struct RecipeView: View {
     
     var body: some View {
-//        RecipeIngredientListView()
-        Text("Hello")
+        VStack {
+            RecipeHeaderView(image: #imageLiteral(resourceName: "tomatoPasta"))
+                .edgesIgnoringSafeArea(.all)
+            RecipieIngredientMethodPagerView()
+        }
+        .edgesIgnoringSafeArea(.all)
+        
     }
 }
 

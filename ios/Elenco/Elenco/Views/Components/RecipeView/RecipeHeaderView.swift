@@ -20,15 +20,16 @@ struct RecipeHeaderView: View {
                         .resizable()
                         .scaledToFill()
                         .clipped()
-                        .frame(width: geometry.size.width, height: geometry.size.height * 0.85)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 1)
                         .cornerRadius(20)
-                        .overlay(
-                            self.headerBody(for: geometry.size)
-                        )
+//                        .overlay(
+//                            self.headerBody(for: geometry.size)
+//                        )
+                    self.headerBody(for: geometry.size)
                     
                 } else {
                     RoundedRectangle(cornerRadius: 20)
-                        .frame(width: geometry.size.width, height: geometry.size.height * 0.85)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 1)
                         .foregroundColor(Color("Light-Gray"))
                         .overlay(
                             self.headerBody(for: geometry.size)
@@ -81,5 +82,11 @@ struct RecipeHeaderView: View {
             .padding(.leading)
         }
         .foregroundColor(Color.white)
+    }
+}
+
+struct RecipeHeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+        RecipeHeaderView()
     }
 }
