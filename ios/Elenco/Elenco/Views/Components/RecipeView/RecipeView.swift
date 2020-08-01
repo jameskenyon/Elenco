@@ -10,36 +10,14 @@ import SwiftUI
 
 struct RecipeView: View {
     
-    @State var currentIndex = 0
-    
     var body: some View {
-        VStack {
-            HStack {
-                Button(action: {
-                    self.currentIndex = 0
-                }) {
-                    Text("Ingredients")
-                }
-                
-                Spacer()
-                
-                Button(action: {
-                    self.currentIndex = 1
-                }) {
-                    Text("Recipe")
-                }
-            }
-            .foregroundColor(Color("Tungsten"))
-            .font(.custom("HelveticaNeue-Bold", size: 35))
-            .padding()
-            
-            ElencoPagerView(pageCount: 2, currentIndex: $currentIndex, showsPageIndicator: false) {
-                Text("hello")
-                Text("Bye")
-            }
-        }
-        
-        
+        RecipieIngredientMethodPagerView()
+    }
+}
+
+struct RecipeIngredientListView: View {
+    var body: some View {
+        Text("hi")
     }
 }
 
