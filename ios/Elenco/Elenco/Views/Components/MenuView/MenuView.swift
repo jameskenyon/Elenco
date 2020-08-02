@@ -31,7 +31,6 @@ struct MenuView: View {
                     .shadow(color: self.colorScheme == .dark ? Color("Orange").opacity(0.1) : Color("Dark-Gray").opacity(0.4), radius: 8, x: 5, y: 5)
 
                 .overlay(
-
                     List {
                         // Title
                         MenuHeaderView(title: "Lists", image: #imageLiteral(resourceName: "menuListIcon"), width: self.getWidth(geometry: geometry), showSeporator: false)
@@ -40,6 +39,14 @@ struct MenuView: View {
                         // Lists
                         MenuListsView()
                             .padding(.top, self.listHolderDataModel.list.name == ElencoDefaults.mainListName ? 5 : 10)
+                        
+                        ElencoButton(title: "+ New List", width: self.buttonWidth(for: geometry.size)) {
+                            self.menuViewDataModel.createNewList()
+                        }
+                        
+                        ElencoButton(title: "Edit Essentials", style: .green, width: self.buttonWidth(for: geometry.size)) {
+                            print("Edit essentials")
+                        }
                         
                         // Title
                         MenuHeaderView(title: "Recipes", image: #imageLiteral(resourceName: "menuRecipeIcon"), width: self.getWidth(geometry: geometry))
@@ -54,7 +61,6 @@ struct MenuView: View {
                             .padding(.top)
 
                         Spacer()
-                        
                         // Back Button
                         MenuBackButton()
                         .padding(.leading, 30)
@@ -84,6 +90,10 @@ struct MenuView: View {
         return geometry.size.width - (geometry.size.width / 3)
     }
     
+    private func buttonWidth(for size: CGSize) -> CGFloat {
+        size.width * 0.5
+    }
+    
 }
 
 struct MenuView_Previews: PreviewProvider {
@@ -91,3 +101,4 @@ struct MenuView_Previews: PreviewProvider {
         MenuView()
     }
 }
+

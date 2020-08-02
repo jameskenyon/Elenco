@@ -12,25 +12,12 @@ struct MenuListsView: View {
     
     @EnvironmentObject var menuViewDataModel: MenuViewDataModel
     @EnvironmentObject var listHolderDataModel: ListHolderDataModel
-    
+        
     var body: some View {
-        GeometryReader { geometry in
-            VStack(alignment: .leading) {
-                ForEach(self.menuViewDataModel.lists, id: \.id) { list in
-                    MenuViewListCell(list: list)
-                    .onTapGesture {
-                        self.displayList(list: list)
-                    }
-                }
-                
-//                ElencoButton(title: "+ New List", width: self.buttonWidth(for: geometry.size)) {
-//                    self.menuViewDataModel.createNewList()
-//                }
-//                
-//                ElencoButton(title: "Edit Essentials", style: .green, width: self.buttonWidth(for: geometry.size)) {
-//                    print("Edit essentials")
-//                }
-
+        ForEach(self.menuViewDataModel.lists, id: \.id) { list in
+            MenuViewListCell(list: list)
+            .onTapGesture {
+                self.displayList(list: list)
             }
         }
     }
@@ -50,7 +37,7 @@ struct MenuListsView: View {
     
     // MARK: - View Constants
     private func buttonWidth(for size: CGSize) -> CGFloat {
-        size.width * 0.65
+        size.width * 0.5
     }
     
 }
