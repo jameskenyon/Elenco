@@ -37,7 +37,7 @@ struct IngredientListCell: View {
                         self.nameLabelLongTapped()
                     }
                 
-                if listHolderModel.list.name == ElencoDefaults.mainListName {
+                if listHolderModel.isAllList {
                     Text("List - \(getParentListName())")
                         .font(.custom("HelveticaNeue-Medium", size: 12))
                         .padding(.horizontal, 15).padding(.bottom, 5).padding(.top, 5)

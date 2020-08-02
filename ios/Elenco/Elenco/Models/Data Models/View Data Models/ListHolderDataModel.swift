@@ -26,6 +26,20 @@ class ListHolderDataModel: ObservableObject {
     
     // MARK: Properties
     
+    /// Determines if the current list is the essentials list
+    var isEssentials: Bool {
+        get {
+            return list.name == ElencoDefaults.essentialsName
+        }
+    }
+    
+    /// Determines if the current list is the all list
+    var isAllList: Bool {
+        get {
+            return list.name == ElencoDefaults.mainListName
+        }
+    }
+    
     /**
      The current list being displayed in the ListHolderView
      

@@ -22,11 +22,18 @@ struct ActionView: View {
     @Environment(\.colorScheme) var colorScheme
     @State var actionViewIsVisible: Bool = false
     
-    let actionTypes: [ActionType] = [.clearList, .completeAll, .uncompleteAll]
+    var actionTypes: [ActionType] {
+        get {
+            if listHolderModel.isEssentials {
+                return [.clearList]
+            }
+            return [.clearList, .completeAll, .uncompleteAll]
+        }
+    }
     
     var sortTypes: [SortType] {
         get {
-            if listHolderModel.list.name == ElencoDefaults.mainListName {
+            if listHolderModel.isAllList {
                 return [.name, .aisle, .list, .none]
             }
             return  [.name, .aisle, .none]

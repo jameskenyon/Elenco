@@ -60,7 +60,7 @@ struct ListHolderView: View {
                 }
                 else {
                     VStack {
-                        if self.listHolderModel.list.name == ElencoDefaults.essentialsName {
+                        if self.listHolderModel.isEssentials {
                             EssentialsTutorialView()
                                 .padding(.top)
                                 .padding(.horizontal, 20)
