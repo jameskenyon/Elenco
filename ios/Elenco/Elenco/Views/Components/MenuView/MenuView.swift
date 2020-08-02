@@ -12,6 +12,8 @@ struct MenuView: View {
     
     @EnvironmentObject var menuViewDataModel: MenuViewDataModel
     @EnvironmentObject var listHolderDataModel: ListHolderDataModel
+    @EnvironmentObject var contentViewDataModel: ContentViewDataModel
+    
     @Environment(\.colorScheme) var colorScheme
     
     init() {
@@ -45,7 +47,7 @@ struct MenuView: View {
                         }
                         
                         ElencoButton(title: "Essentials", style: .green, width: self.buttonWidth(for: geometry.size)) {
-                            print("Edit essentials")
+                            self.contentViewDataModel.currentView = .Essentials
                         }
                         
                         // Title

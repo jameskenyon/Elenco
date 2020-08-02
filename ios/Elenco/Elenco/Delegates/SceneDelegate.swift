@@ -41,12 +41,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
 
+            let contentModel = ContentViewDataModel()
             let listModel = ListHolderDataModel(initialList: allList, window: window)
             
-            let contentView = ListHolderView()
+            let contentView = ContentView()
                 .environment(\.managedObjectContext, context)
                 .environmentObject(listModel)
-                .environmentObject(ElencoListDataModel.shared)
+                .environmentObject(contentModel)
             
             window.rootViewController = DarkHostingController(rootView: contentView)
             self.window = window

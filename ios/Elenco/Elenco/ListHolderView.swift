@@ -18,6 +18,7 @@ import SwiftUI
 struct ListHolderView: View {
         
     @EnvironmentObject var listHolderModel: ListHolderDataModel
+    @EnvironmentObject var contentViewDataModel: ContentViewDataModel
     @State var menuDragAmount: CGFloat = -UIScreen.main.bounds.width
     
     var body: some View {
