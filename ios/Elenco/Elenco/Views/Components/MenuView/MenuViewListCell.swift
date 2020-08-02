@@ -12,6 +12,7 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
     
     @EnvironmentObject var menuViewDataModel: MenuViewDataModel
     @EnvironmentObject var listHolderDataModel: ListHolderDataModel
+    @EnvironmentObject var contentViewDataModel: ContentViewDataModel
     @Environment(\.colorScheme) var colorScheme
 
     @State var list: ElencoList
@@ -51,12 +52,12 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
                                         let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
                                         // Only set keybaord height when cell will not be moved off screen
                                         if self.menuViewDataModel.lists.lastIndex(of: self.list) ?? 0 > 5 {
-                                            self.listHolderDataModel.keyboardHeight = keyboardSize?.height ?? 0
+                                            self.contentViewDataModel.keyboardHeight = keyboardSize?.height ?? 0
                                         }
                                     }
                                     // Add observer to detect when keyboard will hide
                                     NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (notification) in
-                                        self.listHolderDataModel.keyboardHeight = 0
+                                        self.contentViewDataModel.keyboardHeight = 0
                                     }
                                 }
                         } else {

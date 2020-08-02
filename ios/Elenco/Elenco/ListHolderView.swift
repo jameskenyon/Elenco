@@ -18,46 +18,45 @@ import SwiftUI
 struct ListHolderView: View {
         
     @EnvironmentObject var listHolderModel: ListHolderDataModel
-    @State var menuDragAmount: CGFloat = -UIScreen.main.bounds.width
+    @EnvironmentObject var contentViewDataModel: ContentViewDataModel
     
     var body: some View {
         ZStack {
             VStack {
-//                MyListHeaderView()
-//                .padding(.top, UIDevice.deviceHasCurvedScreen() ? 0:-25)
+                MyListHeaderView()
+                .padding(.top, UIDevice.deviceHasCurvedScreen() ? 0:-25)
 
                 if listHolderModel.list.ingredients.count != 0 {
-                    RecipeView()
-//                    ActionView()
-//                        .padding(.top, 20)
-//                        .onTapGesture {
-//                            self.listHolderModel.userFinishedAddingIngredients()
-//                        }
-//                    
-//                    Spacer()
-//                        
-//                    HStack {
-//                        Text("NAME").padding(.leading)
-//                        Spacer()
-//                        Text("QTY").padding(.trailing)
-//                    }
-//                    .font(.custom("HelveticaNeue-Bold", size: 16))
-//                    .foregroundColor(Color("Dark-Gray"))
-//                    .padding(.horizontal).padding(.top, 15)
-//                    .onTapGesture {
-//                        self.listHolderModel.userFinishedAddingIngredients()
-//                    }
-//
-//                    ZStack {
-//                        IngredientsListView()
-//                            .padding(.top, 10)
-//                        VStack {
-//                        
-//                            Spacer()
-//                            AddIngredientButton()
-//                                .padding(.bottom, getBottomElementPadding())
-//                        }
-//                    }
+                    ActionView()
+                        .padding(.top, 20)
+                        .onTapGesture {
+                            self.listHolderModel.userFinishedAddingIngredients()
+                        }
+                    
+                    Spacer()
+                        
+                    HStack {
+                        Text("NAME").padding(.leading)
+                        Spacer()
+                        Text("QTY").padding(.trailing)
+                    }
+                    .font(.custom("HelveticaNeue-Bold", size: 16))
+                    .foregroundColor(Color("Dark-Gray"))
+                    .padding(.horizontal).padding(.top, 15)
+                    .onTapGesture {
+                        self.listHolderModel.userFinishedAddingIngredients()
+                    }
+
+                    ZStack {
+                        IngredientsListView()
+                            .padding(.top, 10)
+                        VStack {
+                        
+                            Spacer()
+                            AddIngredientButton()
+                                .padding(.bottom, getBottomElementPadding())
+                        }
+                    }
                 }
                 else {
                     VStack {
@@ -76,38 +75,9 @@ struct ListHolderView: View {
             .blur(radius: self.listHolderModel.showTickView ? 4 : 0)
             .edgesIgnoringSafeArea(.top)
 
-            GeometryReader { geometry in
-
-                MenuView().environmentObject(MenuViewDataModel(listHolderModel: self.listHolderModel))
-                    .environmentObject(self.listHolderModel)
-                    .offset(x: self.menuViewOffsetX(geometry: geometry), y: 0)
-                    .animation(
-                        Animation.interpolatingSpring(stiffness: 200, damping: 100000)
-                        .speed(1)
-                    )
-                .gesture(
-                    DragGesture()
-                        .onChanged{ gesutre in
-                            self.listHolderModel.menuIsShown = false
-                            if gesutre.translation.width <= 0 {
-                                self.menuDragAmount = gesutre.translation.width
-                            }
-                        }
-                    .onEnded { _ in
-                        self.menuDragAmount = -geometry.size.width
-                    }
-                )
-            }
             // Ingredient added view
             ActionCompleteView()
         }
-    }
-
-    private func menuViewOffsetX(geometry: GeometryProxy) -> CGFloat {
-        if !listHolderModel.menuIsShown {
-            return self.menuDragAmount
-        }
-        return self.listHolderModel.menuIsShown ? 0 : -geometry.size.width
     }
 }
 

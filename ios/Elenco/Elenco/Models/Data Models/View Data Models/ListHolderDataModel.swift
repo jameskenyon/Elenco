@@ -52,12 +52,6 @@ class ListHolderDataModel: ObservableObject {
     /// The sort type that the user is currently sorting the ingredients by.
     @Published public var sortType: SortType = .name
     
-    /// Updates if the menu should be displayed over this view.
-    @Published public var menuIsShown = false
-    
-    /// Tracks the keyboard height to make design chanegs accordingly.
-    @Published public var keyboardHeight: CGFloat = 0
-        
     /// Indicates if the user is currently searching for an ingredient.
     @Published public var userIsAddingIngredient = false
     
@@ -369,7 +363,6 @@ extension ListHolderDataModel {
      */
     public func userFinishedAddingIngredients() {
         withAnimation {
-            self.menuIsShown = false
             self.userIsAddingIngredient = false
             UIApplication.resignResponder()
         }

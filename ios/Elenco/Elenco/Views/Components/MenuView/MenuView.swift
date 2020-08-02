@@ -12,6 +12,8 @@ struct MenuView: View {
     
     @EnvironmentObject var menuViewDataModel: MenuViewDataModel
     @EnvironmentObject var listHolderDataModel: ListHolderDataModel
+    @EnvironmentObject var contentViewDataModel: ContentViewDataModel
+    
     @Environment(\.colorScheme) var colorScheme
     
     init() {
@@ -35,6 +37,9 @@ struct MenuView: View {
                         // Title
                         MenuHeaderView(title: "Lists", image: #imageLiteral(resourceName: "menuListIcon"), width: self.getWidth(geometry: geometry), showSeporator: false)
                             .padding(.leading)
+                            .onTapGesture {
+                                self.contentViewDataModel.updateView(viewType: .ListHolder)
+                        }
 
                         // Lists
                         MenuListsView()
@@ -44,8 +49,8 @@ struct MenuView: View {
                             self.menuViewDataModel.createNewList()
                         }
                         
-                        ElencoButton(title: "Edit Essentials", style: .green, width: self.buttonWidth(for: geometry.size)) {
-                            print("Edit essentials")
+                        ElencoButton(title: "Essentials", style: .green, width: self.buttonWidth(for: geometry.size)) {
+                            self.contentViewDataModel.updateView(viewType: .Essentials)
                         }
                         
                         // Title
@@ -59,6 +64,9 @@ struct MenuView: View {
                         MenuHeaderView(title: "Settings", image: #imageLiteral(resourceName: "menuSettingsIcon"), width: self.getWidth(geometry: geometry))
                         .padding(.leading)
                             .padding(.top)
+                            .onTapGesture {
+                                self.contentViewDataModel.updateView(viewType: .Settings)
+                        }
 
                         Spacer()
                         // Back Button
@@ -66,7 +74,7 @@ struct MenuView: View {
                         .padding(.leading, 30)
                             .padding(.bottom, self.getBottomElementPadding())
                     }
-                    .offset(x: 0, y: -self.listHolderDataModel.keyboardHeight)
+                    .offset(x: 0, y: -self.contentViewDataModel.keyboardHeight)
                     .animation(
                     Animation.interpolatingSpring(stiffness: 200, damping: 100000)
                         .speed(1)
@@ -87,11 +95,11 @@ struct MenuView: View {
     }
     
     private func getWidth(geometry: GeometryProxy) -> CGFloat {
-        return geometry.size.width - (geometry.size.width / 3)
+        return geometry.size.width - (geometry.size.width / 4)
     }
     
     private func buttonWidth(for size: CGSize) -> CGFloat {
-        size.width * 0.5
+        size.width * 0.57
     }
     
 }

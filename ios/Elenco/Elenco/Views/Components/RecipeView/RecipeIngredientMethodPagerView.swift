@@ -10,7 +10,8 @@ import SwiftUI
 
 struct RecipieIngredientMethodPagerView: View {
     
-    let recipes = Recipe.getRecipes()
+//    let recipes = Recipe.getRecipes()
+    var recipe: Recipe
     @State var currentIndex = 0
     
     var body: some View {
@@ -80,7 +81,7 @@ struct RecipieIngredientMethodPagerView: View {
     // MARK: - TODO move these
     // Return ingredients sorted into alphabetical sections
     public func ingredientsSortedByName() -> [RecipeListViewSection<Ingredient>] {
-        let ingredients = recipes.first!.ingredients
+        let ingredients = recipe.ingredients
         var sections = [RecipeListViewSection<Ingredient>]()
         let sectionHeaders = Set(ingredients.map({ $0.name.first?.lowercased() ?? ""}))
         
@@ -97,7 +98,7 @@ struct RecipieIngredientMethodPagerView: View {
     // Return Methods sorted into sectinos
     public func methodsSortedIntoSections() -> [RecipeListViewSection<RecipeMethod>] {
         
-        let methods = recipes.first!.method
+        let methods = recipe.method
         var sections = [RecipeListViewSection<RecipeMethod>]()
         for method in methods {
             let section = RecipeListViewSection<RecipeMethod>(title: "\(method.number)", content: [method])
@@ -107,8 +108,8 @@ struct RecipieIngredientMethodPagerView: View {
     }
 }
 
-struct RecipeIngredientMethodPagerView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipieIngredientMethodPagerView()
-    }
-}
+//struct RecipeIngredientMethodPagerView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipieIngredientMethodPagerView()
+//    }
+//}

@@ -10,12 +10,14 @@ import SwiftUI
 
 struct RecipeView: View {
     
+    var recipe: Recipe
+    
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                RecipeHeaderView(image: #imageLiteral(resourceName: "tomatoPasta"), geometry: geometry)
+                RecipeHeaderView(image: self.recipe.image, geometry: geometry)
                     .edgesIgnoringSafeArea(.all)
-                RecipieIngredientMethodPagerView()
+                RecipieIngredientMethodPagerView(recipe: self.recipe)
             }
             .edgesIgnoringSafeArea(.all)
         }
@@ -27,8 +29,8 @@ struct RecipeView: View {
 
 
 
-struct RecipeView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeView()
-    }
-}
+//struct RecipeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipeView()
+//    }
+//}
