@@ -45,7 +45,7 @@ struct Recipe: Identifiable {
     var method: Instructions
     
     /// The image for the recipe
-    var image: Image
+    var image: UIImage?
     
     /// The dietry requirements that this recipe meets.
     var dietaryRequirements: String?
@@ -53,19 +53,18 @@ struct Recipe: Identifiable {
     // MARK: Inits
     
     /// Init recipe when in app using all the default fields.
-    init(name: String, id: UUID = UUID(), recipeID: UUID, serves: Int, ingredients: Ingredients, isShared: Bool, estimatedTime: String, method: Instructions, dietaryRequirements: String? = nil) {
+    init(name: String, id: UUID = UUID(), recipeID: UUID, serves: Int, isShared: Bool = false, estimatedTime: String,
+         dietaryRequirements: String? = nil, image: UIImage? = nil, ingredients: Ingredients, method: Instructions) {
         self.name = name
         self.id = id
         self.recipeID = recipeID
         self.serves = serves
-        self.ingredients = ingredients
         self.isSharedRecipe = isShared
         self.estimatedTime = estimatedTime
-        self.method = method
         self.dietaryRequirements = dietaryRequirements
-        
-        // ⚠️ set image as deafult for now
-        self.image = Image("tomatoPasta")
+        self.image = image
+        self.ingredients = ingredients
+        self.method = method
     }
     
     /**
@@ -74,10 +73,21 @@ struct Recipe: Identifiable {
      - Parameters:
         - recipeStore: The recipe store gathered from core data
      */
-    // ⚠️ create method to init recipes from data store.
-//    init(recipeStore: RecipeStore) {
-//
-//    }
+     
+    init(recipeStore: RecipeStore) {
+        self.name = recipeStore.name ?? ""
+        self.id = recipeStore.id ?? UUID()
+        self.recipeID = recipeStore.recipeID ?? UUID()
+        self.serves = Int(recipeStore.serves)
+        self.isSharedRecipe = recipeStore.isShared
+        self.estimatedTime = recipeStore.estimatedTime ?? ""
+        self.dietaryRequirements = recipeStore.dietaryRequirements
+        if let data = recipeStore.image {
+            self.image = UIImage(data: data)
+        }
+        self.ingredients = Recipe.getIngredientsFromJSONString(ingredientsJSON: recipeStore.ingredients ?? "")
+        self.method = Recipe.getRecipeFromJSONString(methodJSON: recipeStore.method ?? "")
+    }
     
     // MARK: Public Interface
     
@@ -85,51 +95,112 @@ struct Recipe: Identifiable {
         return lhs.recipeID == rhs.recipeID
     }
     
+    // ⚠️ Remove after testing
+    /// Method for testing the recipes - returns dummy array of recipes
     static func getRecipes() -> Recipes {
         return [
-            Recipe(name: "Tomato Pasta", recipeID: UUID(), serves: 2, ingredients:
+            Recipe(name: "Tomato Pasta", recipeID: UUID(), serves: 2, estimatedTime: "20mins", image: UIImage(named: "tomatoPasta"), ingredients:
                 [Ingredient(ingredientID: UUID(), name: "Tomato", aisle: "Produce", parentList: nil),
                  Ingredient(ingredientID: UUID(), name: "Pasta", aisle: "Pasta", parentList: nil),
                  Ingredient(ingredientID: UUID(), name: "Garlic", aisle: "Produce", parentList: nil),
                  Ingredient(ingredientID: UUID(), name: "Tomato Sauce", aisle: "Sauces", parentList: nil)
-                ],
-                   isShared: false, estimatedTime: "20mins", method: [
+                ], method: [
                     RecipeMethod(number: 1, instruction: "Do this and then this and then this."),
                     RecipeMethod(number: 2, instruction: "Do this and then this and then this."),
                     RecipeMethod(number: 3, instruction: "Do this and then this and then this."),
                     RecipeMethod(number: 4, instruction: "Do this and then this and then this."),
             ]),
-            Recipe(name: "Tomato Pasta", recipeID: UUID(), serves: 2, ingredients:
+            Recipe(name: "Tomato Pasta", recipeID: UUID(), serves: 2, estimatedTime: "20mins", ingredients:
                 [Ingredient(ingredientID: UUID(), name: "Tomato", aisle: "Produce", parentList: nil),
                  Ingredient(ingredientID: UUID(), name: "Pasta", aisle: "Pasta", parentList: nil),
                  Ingredient(ingredientID: UUID(), name: "Garlic", aisle: "Produce", parentList: nil),
                  Ingredient(ingredientID: UUID(), name: "Tomato Sauce", aisle: "Sauces", parentList: nil)
-                ],
-                   isShared: false, estimatedTime: "20mins", method: [
+                ], method: [
                     RecipeMethod(number: 1, instruction: "Do this and then this and then this."),
                     RecipeMethod(number: 2, instruction: "Do this and then this and then this."),
                     RecipeMethod(number: 3, instruction: "Do this and then this and then this."),
                     RecipeMethod(number: 4, instruction: "Do this and then this and then this."),
             ]),
-            Recipe(name: "Tomato Pasta", recipeID: UUID(), serves: 2, ingredients:
+            Recipe(name: "Tomato Pasta", recipeID: UUID(), serves: 2, estimatedTime: "20mins", ingredients:
                 [Ingredient(ingredientID: UUID(), name: "Tomato", aisle: "Produce", parentList: nil),
                  Ingredient(ingredientID: UUID(), name: "Pasta", aisle: "Pasta", parentList: nil),
                  Ingredient(ingredientID: UUID(), name: "Garlic", aisle: "Produce", parentList: nil),
                  Ingredient(ingredientID: UUID(), name: "Tomato Sauce", aisle: "Sauces", parentList: nil)
-                ],
-                   isShared: false, estimatedTime: "20mins", method: [
+                ], method: [
                     RecipeMethod(number: 1, instruction: "Do this and then this and then this."),
                     RecipeMethod(number: 2, instruction: "Do this and then this and then this."),
                     RecipeMethod(number: 3, instruction: "Do this and then this and then this."),
                     RecipeMethod(number: 4, instruction: "Do this and then this and then this."),
-            ])
+            ]),
         ]
     }
     
 }
 
+extension Recipe {
+    
+    // MARK: JSON Core Data Methods
+    
+    /// Convert the current recipe's ingredients to a string in JSON format
+    public func getIngredientsAsJSONString() -> String {
+        var formattedString: String = "["
+        let jsonEncoder = JSONEncoder()
+        do {
+            for ingredient in self.ingredients {
+                let jsonData = try jsonEncoder.encode(ingredient)
+                if let str = String(data: jsonData, encoding: .utf8) {
+                    formattedString += (str + ",")
+                }
+            }
+            formattedString += "]"
+        } catch {} // handle error
+        return formattedString
+    }
+    
+    /// Convert the current recipe's method to a string in JSON format
+    public func getMethodAsJSONString() -> String {
+        var formattedString: String = "["
+        let jsonEncoder = JSONEncoder()
+        do {
+            for instruction in self.method {
+                let jsonData = try jsonEncoder.encode(instruction)
+                if let str = String(data: jsonData, encoding: .utf8) {
+                    formattedString += (str + ",")
+                }
+            }
+            formattedString += "]"
+        } catch {} // handle error
+        return formattedString
+    }
+    
+    /// Get recipe method from a json stirng that is saved in core data
+    public static func getRecipeFromJSONString(methodJSON: String) -> Instructions {
+        do {
+            guard let data = methodJSON.data(using: .utf8) else { return [] }
+            let recipeMethod = try JSONDecoder().decode(Instructions.self, from: data)
+            return recipeMethod
+        } catch {
+            return []
+        }
+    }
+    
+    /// Get ingredients from a json string that is saved in core data
+    public static func getIngredientsFromJSONString(ingredientsJSON: String) -> Ingredients {
+        do {
+            guard let data = ingredientsJSON.data(using: .utf8) else { return [] }
+            let recipeIngredients = try JSONDecoder().decode(Ingredients.self, from: data)
+            return recipeIngredients
+        } catch {
+            return []
+        }
+    }
+    
+    // MARK: Private Interface
+    
+}
+
 /// Represents a single instruction in the recipe method
-struct RecipeMethod {
+struct RecipeMethod: Codable {
     var number: Int
     var instruction: String
 }

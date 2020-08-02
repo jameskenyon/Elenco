@@ -15,9 +15,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
+        // GET THE PATH FOR THE LOCAL DATABASE
 //        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
 //        print(paths[0])
         
+        // REMOVE ALL RECIPES
+//        let recipes = RecipeDataModel.shared.fetchRecipes()
+//        for recipe in recipes {
+//            RecipeDataModel.shared.delete(recipe: recipe) { (error) in
+//                print(error)
+//            }
+//        }
+       
         // configure the ingredients
         IngredientAPIService.configureIngredientCache()
         // add 'All' list if required
