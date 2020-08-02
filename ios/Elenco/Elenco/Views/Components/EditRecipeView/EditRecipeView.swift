@@ -54,9 +54,11 @@ struct EditRecipeView: View {
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)
                         }
+                        .padding(.horizontal, 30)
                         
                     }
                 }
+                
                 
                 RecipeEditField(fieldName: "Time", placeholder: "Time To Make", fieldText: self.$time, size: geometry.size)
                 
@@ -69,8 +71,9 @@ struct EditRecipeView: View {
                 DietryToggle(dietryToggle: self.$isNutFree, dietryName: "Nut Free")
                 DietryToggle(dietryToggle: self.$isGlutenFree, dietryName: "Gluten Free")
                 
+                RecipieIngredientMethodPagerView()
+                
             }
-            .padding(.horizontal, 30)
         }
     }
     
@@ -93,6 +96,7 @@ struct DietryToggle: View {
                 .animation(.easeIn(duration: 5))
                 .padding(.leading)
         }
+        .padding(.horizontal, 30)
     }
 }
 
@@ -115,6 +119,7 @@ struct RecipeEditField: View, ElencoTextFieldDisplayable {
                 .accentColor(Color("Teal"))
                 .frame(width: size.width * 0.6, height: 50)
         }
+        .padding(.horizontal, 30)
     }
     
     // MARK: - Text Field Delegate Methods
