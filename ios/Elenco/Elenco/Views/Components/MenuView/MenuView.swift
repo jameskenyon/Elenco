@@ -58,7 +58,7 @@ struct MenuView: View {
                         .padding(.leading)
                             .padding(.top)
                             .onTapGesture {
-                                self.recipeButtonTapped()
+                                self.contentViewDataModel.updateView(viewType: .Recipes)
                             }
                         
                         MenuHeaderView(title: "Settings", image: #imageLiteral(resourceName: "menuSettingsIcon"), width: self.getWidth(geometry: geometry))
@@ -84,14 +84,6 @@ struct MenuView: View {
                 Spacer()
             }
         }
-    }
-    
-    private func recipeButtonTapped() {
-        print("Show recipe")
-    }
-    
-    private func settingsButtonTapped() {
-        print("Show settings")
     }
     
     private func getWidth(geometry: GeometryProxy) -> CGFloat {
