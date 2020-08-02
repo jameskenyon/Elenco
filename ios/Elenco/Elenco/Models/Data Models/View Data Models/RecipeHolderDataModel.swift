@@ -10,7 +10,7 @@ import SwiftUI
 
 class RecipeHolderDataModel: ObservableObject {
     
-    
+    @Published var editRecipiesIsShown: Bool = false
     
 }
 

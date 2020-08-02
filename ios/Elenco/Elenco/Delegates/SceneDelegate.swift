@@ -48,6 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 .environment(\.managedObjectContext, context)
                 .environmentObject(listModel)
                 .environmentObject(contentModel)
+                .environmentObject(RecipeHolderDataModel())
             
             window.rootViewController = DarkHostingController(rootView: contentView)
             self.window = window
