@@ -14,7 +14,7 @@ struct RecipieIngredientMethodPagerView: View {
     @State var currentIndex = 0
     
     var body: some View {
-        GeometryReader {geometry in
+        GeometryReader { geometry in
             VStack {
                 HStack {
                     Button(action: {
@@ -35,9 +35,10 @@ struct RecipieIngredientMethodPagerView: View {
                         .foregroundColor(self.currentIndex == 1 ? Color("Lead") : Color("Dark-Gray"))
                     }
                 }
-                .font(.custom("HelveticaNeue-Bold", size: 30))
+                .font(.custom("HelveticaNeue-Bold", size: 25))
                 .animation(.easeInOut(duration: 0.2))
                 .padding(.horizontal, self.pagerButtonHorizontalPaddig)
+                .padding(.top)
                 
                 HStack {
                     Rectangle()

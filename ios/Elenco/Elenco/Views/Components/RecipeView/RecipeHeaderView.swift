@@ -11,33 +11,30 @@ import SwiftUI
 struct RecipeHeaderView: View {
     
     var image: UIImage?
+    var geometry: GeometryProxy
     
     var body: some View {
-        GeometryReader { geometry in
             ZStack(alignment: .top) {
                 if self.image != nil {
                     Image(uiImage: self.image!)
                         .resizable()
                         .scaledToFill()
                         .clipped()
-                        .frame(width: geometry.size.width, height: geometry.size.height * 1)
-                        .cornerRadius(20)
-//                        .overlay(
-//                            self.headerBody(for: geometry.size)
-//                        )
-                    self.headerBody(for: geometry.size)
+                        .frame(width: geometry.size.width, height: headerViewHeight)
+                        .cornerRadius(headerViewCornerRadius)
+                        .overlay(
+                            self.headerBody(for: geometry.size)
+                        )
                     
                 } else {
-                    RoundedRectangle(cornerRadius: 20)
-                        .frame(width: geometry.size.width, height: geometry.size.height * 1)
+                    RoundedRectangle(cornerRadius: headerViewCornerRadius)
+                        .frame(width: geometry.size.width, height: headerViewHeight)
                         .foregroundColor(Color("Light-Gray"))
                         .overlay(
                             self.headerBody(for: geometry.size)
                         )
                 }
             }
-            .edgesIgnoringSafeArea(.all)
-        }
     }
     
     func headerBody(for size: CGSize) -> some View {
@@ -46,16 +43,14 @@ struct RecipeHeaderView: View {
                 MenuIcon()
                 Spacer()
             }
-            .padding(.top, 40)
+            .padding(.top, menuIconTop)
             .padding(.leading)
             
             Text("Tomato Pasta")
                 .font(.custom("HelveticaNeue-Bold", size: 35))
-                .padding(.top, 25)
-                .padding(.leading, nil)
             
             Rectangle()
-                .frame(width: size.width * 0.2, height: 1)
+                .frame(width: underLineWidth(for: size), height: 1)
             
             HStack {
                 VStack(alignment: .leading) {
@@ -69,24 +64,50 @@ struct RecipeHeaderView: View {
             .padding(.top)
             
             HStack {
-                RecipeButton(title: "Edit", color: Color("Teal"), width: size.width * 0.25) {
+                RecipeButton(title: "Edit", color: Color("Teal"), width: buttonWidth(for: size)) {
                     print("Hello")
                 }
                 
-                RecipeButton(title: "Delete", color: Color(#colorLiteral(red: 0.9647058824, green: 0.5058823529, blue: 0.137254902, alpha: 1)), width: size.width * 0.25) {
+                RecipeButton(title: "Delete", color: Color(#colorLiteral(red: 0.9647058824, green: 0.5058823529, blue: 0.137254902, alpha: 1)), width: buttonWidth(for: size)) {
                     print("Hello")
                 }
                 Spacer()
             }
-            .padding(.top, 30)
+            .padding(.top, buttonTop)
             .padding(.leading)
         }
         .foregroundColor(Color.white)
     }
-}
-
-struct RecipeHeaderView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeHeaderView()
+    
+    // MARK: - View Constants
+    
+    private var headerViewHeight: CGFloat {
+        return 350
+    }
+    
+    private var headerViewCornerRadius: CGFloat {
+        return 20
+    }
+    
+    private var menuIconTop: CGFloat {
+        return geometry.safeAreaInsets.top
+    }
+    
+    private func underLineWidth(for size: CGSize) -> CGFloat {
+        return size.width * 0.2
+    }
+    
+    private func buttonWidth(for size: CGSize) -> CGFloat {
+        return size.width * 0.25
+    }
+    
+    private var buttonTop: CGFloat {
+        return 25
     }
 }
+
+//struct RecipeHeaderView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipeHeaderView()
+//    }
+//}

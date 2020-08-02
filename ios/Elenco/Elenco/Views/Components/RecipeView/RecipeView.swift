@@ -11,12 +11,15 @@ import SwiftUI
 struct RecipeView: View {
     
     var body: some View {
-        VStack {
-            RecipeHeaderView(image: #imageLiteral(resourceName: "tomatoPasta"))
-                .edgesIgnoringSafeArea(.all)
-            RecipieIngredientMethodPagerView()
+        GeometryReader { geometry in
+            VStack {
+                RecipeHeaderView(image: #imageLiteral(resourceName: "tomatoPasta"), geometry: geometry)
+                    .edgesIgnoringSafeArea(.all)
+                RecipieIngredientMethodPagerView()
+            }
+            .edgesIgnoringSafeArea(.all)
         }
-        .edgesIgnoringSafeArea(.all)
+        
         
     }
 }
