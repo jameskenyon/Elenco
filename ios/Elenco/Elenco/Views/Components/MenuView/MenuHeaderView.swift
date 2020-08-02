@@ -23,7 +23,7 @@ struct MenuHeaderView: View {
             if showSeporator {
                 Rectangle()
                     .frame(width: width * 0.3, height: 2)
-                    .foregroundColor(Color("Light-Gray"))
+                    .foregroundColor(Color("Light-Gray").opacity(0.5))
             }
             
             HStack(alignment: .center) {
@@ -36,7 +36,7 @@ struct MenuHeaderView: View {
                     .font(.custom("HelveticaNeue-Bold", size: 35))
                     .foregroundColor(colorScheme == .dark ? Color.white : Color("Tungsten"))
             }
-            .padding(.top)
+            .padding(.top, 28)
         }
         
     }

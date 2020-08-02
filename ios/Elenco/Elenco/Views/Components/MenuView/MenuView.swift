@@ -44,7 +44,7 @@ struct MenuView: View {
                             self.menuViewDataModel.createNewList()
                         }
                         
-                        ElencoButton(title: "Edit Essentials", style: .green, width: self.buttonWidth(for: geometry.size)) {
+                        ElencoButton(title: "Essentials", style: .green, width: self.buttonWidth(for: geometry.size)) {
                             print("Edit essentials")
                         }
                         
@@ -87,11 +87,11 @@ struct MenuView: View {
     }
     
     private func getWidth(geometry: GeometryProxy) -> CGFloat {
-        return geometry.size.width - (geometry.size.width / 3)
+        return geometry.size.width - (geometry.size.width / 4)
     }
     
     private func buttonWidth(for size: CGSize) -> CGFloat {
-        size.width * 0.5
+        size.width * 0.57
     }
     
 }
