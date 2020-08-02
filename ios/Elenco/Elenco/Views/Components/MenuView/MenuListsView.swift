@@ -15,7 +15,7 @@ struct MenuListsView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            List {
+            VStack(alignment: .leading) {
                 ForEach(self.menuViewDataModel.lists, id: \.id) { list in
                     MenuViewListCell(list: list)
                     .onTapGesture {
@@ -23,13 +23,13 @@ struct MenuListsView: View {
                     }
                 }
                 
-                ElencoButton(title: "+ New List", width: self.buttonWidth(for: geometry.size)) {
-                    self.menuViewDataModel.createNewList()
-                }
-                
-                ElencoButton(title: "Edit Essentials", style: .green, width: self.buttonWidth(for: geometry.size)) {
-                    print("Edit essentials")
-                }
+//                ElencoButton(title: "+ New List", width: self.buttonWidth(for: geometry.size)) {
+//                    self.menuViewDataModel.createNewList()
+//                }
+//                
+//                ElencoButton(title: "Edit Essentials", style: .green, width: self.buttonWidth(for: geometry.size)) {
+//                    print("Edit essentials")
+//                }
 
             }
         }
