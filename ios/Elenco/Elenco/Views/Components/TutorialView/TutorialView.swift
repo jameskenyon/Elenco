@@ -10,9 +10,11 @@ import SwiftUI
 
 struct TutorialView: View {
     
+    @EnvironmentObject var listHolderModel: ListHolderDataModel
+
     @Environment(\.colorScheme) var colorScheme
     @State var currentPage: Int = 0
-    @State var tutorialTitles = ["Welcome 🎉", "Smart Quantity", "Ingredient Prediction"]
+    @State var tutorialTitles: [String]
     
     var body: some View {
         GeometryReader { geometry in
@@ -36,7 +38,7 @@ struct TutorialView: View {
                             AddIngredientTutorialView()
                             IngredientPredictionTutorialView()
                         }
-                    .clipped()
+                        .clipped()
                     }
                 , alignment: .top)
         }
@@ -45,6 +47,6 @@ struct TutorialView: View {
 
 struct TutorialView_Previews: PreviewProvider {
     static var previews: some View {
-        TutorialView()
+        TutorialView(tutorialTitles: ["Test"])
     }
 }

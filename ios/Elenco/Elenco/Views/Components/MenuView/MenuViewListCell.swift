@@ -129,11 +129,11 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
     // Save new list to coredata
     private func updateList() {
         if menuViewDataModel.editedName != "" {
-            if menuViewDataModel.editedName != ElencoDefaults.mainListName {
+            if (menuViewDataModel.editedName != ElencoDefaults.mainListName) && (menuViewDataModel.editedName != ElencoDefaults.essentialsName) {
                 menuViewDataModel.updateList(list: list, newName: menuViewDataModel.editedName)
                 self.list.name = menuViewDataModel.editedName
             } else {
-                listHolderDataModel.window.displayAlert(title: "Invalid list name.", message: "Can't be empty or \(ElencoDefaults.mainListName). Please try again.", okTitle: "Ok", okHandler: nil)
+                listHolderDataModel.window.displayAlert(title: "Invalid list name.", message: "Can't be empty, '\(ElencoDefaults.essentialsName)' or \(ElencoDefaults.mainListName). Please try again.", okTitle: "Ok", okHandler: nil)
             }
         }
     }

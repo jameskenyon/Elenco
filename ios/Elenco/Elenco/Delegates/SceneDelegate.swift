@@ -27,12 +27,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            }
 //        }
        
+        // MARK: Initial Setup
+        
         // configure the ingredients
         IngredientAPIService.configureIngredientCache()
         // add 'All' list if required
         let allList = self.getAllList()
         updateIngredientListsIfRequired()
         updateListsIfRequired()
+        createEssentialsListIfRequired()
         
         // Get the managed object context from the shared persistent container.
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -107,6 +110,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func updateListsIfRequired() {
         ElencoListDataModel.shared.updateListsIfRequired()
     }
-
+    
+    private func createEssentialsListIfRequired() {
+        ElencoListDataModel.shared.createEssentialsListIfRequired()
+    }
 }
 

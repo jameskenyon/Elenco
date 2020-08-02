@@ -114,7 +114,7 @@ class ElencoListDataModel: ObservableObject {
      Get all of the user's current lists.
      
      Append the all list to the lists array. This all list contains all of the ingredients that the user has and
-     also acts as its own list that the user can add to.
+     also acts as its own list that the user can add to. Don't include the essentials list.
      
      - Returns: An array of all of the user's lists.
      */
@@ -124,6 +124,10 @@ class ElencoListDataModel: ObservableObject {
             var lists = [ElencoList]()
             var addedMainList = false // prevent adding too all lists
             for store in try ElencoDefaults.context.fetch(request) {
+                // don't add in the essentials list.
+                if store.name == ElencoDefaults.essentialsName {
+                    continue
+                }
                 if let listID = store.listID {
                     let list = getList(listID: listID)
                     if var list = list {
@@ -193,6 +197,14 @@ class ElencoListDataModel: ObservableObject {
             }
             try ElencoDefaults.context.save()
         } catch {}
+    }
+    
+    /// Get the essentials list.
+    public func createEssentialsListIfRequired() {
+        if getList(listName: ElencoDefaults.essentialsName) == nil {
+            let essentials = ElencoList(name: ElencoDefaults.essentialsName)
+            self.createList(list: essentials){_ in}
+        }
     }
     
     // MARK: Private Interface

@@ -17,11 +17,13 @@ struct IngredientListCell: View {
     
     var body: some View {
         HStack {
-            IngredientListTick(completed: ingredient.completed)
-            .onTapGesture {
-                self.completeButtonTapped()
+            if listHolderModel.list.name != ElencoDefaults.essentialsName {
+                IngredientListTick(completed: ingredient.completed)
+                .onTapGesture {
+                    self.completeButtonTapped()
+                }
             }
-           
+            
             VStack(alignment: .leading) {
                 Text("\(ingredient.name.capitalise())")
                     .strikethrough(self.ingredient.completed, color: Color("Dark-Gray"))

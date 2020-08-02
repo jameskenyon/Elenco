@@ -22,8 +22,6 @@ struct ContentView: View {
             // Show different views depeneding on the current state
             if self.contentViewDataModel.currentView == .ListHolder {
                 ListHolderView(listHolderModel: _listHolderModel)
-            } else if self.contentViewDataModel.currentView == .Essentials {
-                EssentialsView()
             } else if self.contentViewDataModel.currentView == .Recipes {
                 RecipesListView()
             } else {

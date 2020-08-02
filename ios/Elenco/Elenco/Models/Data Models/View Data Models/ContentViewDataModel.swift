@@ -29,6 +29,6 @@ class ContentViewDataModel: ObservableObject {
 }
 
 enum CurrentViewType {
-    case ListHolder, Essentials, Recipes, Settings
+    case ListHolder, Recipes, Settings
 }
     

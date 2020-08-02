@@ -60,12 +60,18 @@ struct ListHolderView: View {
                 }
                 else {
                     VStack {
-                        TutorialView()
-                            .padding(.top)
-                            .padding(.horizontal, 20)
-                            .onTapGesture {
-                                self.listHolderModel.userFinishedAddingIngredients()
+                        if self.listHolderModel.list.name == ElencoDefaults.essentialsName {
+                            EssentialsTutorialView()
+                                .padding(.top)
+                                .padding(.horizontal, 20)
+                        } else {
+                            TutorialView(tutorialTitles: ["Welcome 🎉", "Smart Quantity", "Ingredient Prediction"])
+                              .padding(.top)
+                              .padding(.horizontal, 20)
+                              .onTapGesture {
+                                  self.listHolderModel.userFinishedAddingIngredients()
                             }
+                        }
                         Spacer()
                         AddIngredientButton()
                             .padding(.bottom, getBottomElementPadding())

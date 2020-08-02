@@ -19,6 +19,9 @@ struct ElencoDefaults {
     
     /// The name of the list that holds all of the user's ingredients.
     public static let mainListName = "All"
+    
+    /// The name of the list that will contain all of the essential ingredients
+    public static let essentialsName = "Essentials"
  
     /// The app context used for saving things with CoreData.
     public static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
