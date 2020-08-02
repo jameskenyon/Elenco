@@ -16,11 +16,19 @@ struct RecipeListViewSection<SectionContent> where SectionContent: Identifiable 
 struct RecipeIngredientListView<SectionConent>: View where SectionConent: Identifiable {
     
     var sections: [RecipeListViewSection<SectionConent>]
+    var addAction: (()->())?
+    var saveAction: (()->())?
     
     init(sections: [RecipeListViewSection<SectionConent>]) {
         self.sections = sections
-        UITableView.appearance().separatorStyle = .none
-        UITableView.appearance().backgroundColor = .clear
+        configureTableViewAppearance()
+    }
+    
+    init(sections: [RecipeListViewSection<SectionConent>], addAction: (()->())?, saveAction: (()->())?) {
+        self.sections = sections
+        self.saveAction = saveAction
+        self.addAction  = addAction
+        configureTableViewAppearance()
     }
             
     var body: some View {
@@ -53,9 +61,26 @@ struct RecipeIngredientListView<SectionConent>: View where SectionConent: Identi
                         }
                     }
                 }
+                if addAction != nil && saveAction != nil {
+                    HStack(alignment: .center) {
+                        ElencoButton(title: "+ Ingredient") {
+                            self.addAction!()
+                        }
+                        
+                        ElencoButton(title: "Save") {
+                            self.saveAction!()
+                        }
+                    }
+                }
+                
             }
             .listStyle(GroupedListStyle())
         }
+    }
+    
+    private func configureTableViewAppearance() {
+        UITableView.appearance().separatorStyle = .none
+        UITableView.appearance().backgroundColor = .clear
     }
 }
 

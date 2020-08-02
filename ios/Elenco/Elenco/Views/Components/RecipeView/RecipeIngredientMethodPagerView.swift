@@ -12,6 +12,10 @@ struct RecipieIngredientMethodPagerView: View {
     
     var recipe: Recipe
     @State var currentIndex = 0
+    var addIngredientAction: (()->())?
+    var saveIngredientActoin: (()->())?
+    var addMethodAction: (()->())?
+    var saveMethodAction: (()->())?
     
     var body: some View {
         GeometryReader { geometry in
@@ -50,8 +54,13 @@ struct RecipieIngredientMethodPagerView: View {
                 }
                 
                 ElencoPagerView(pageCount: 2, currentIndex: self.$currentIndex, showsPageIndicator: false) {
-                    RecipeIngredientListView(sections: self.ingredientsSortedByName())
-                    RecipeIngredientListView(sections: self.methodsSortedIntoSections())
+                    RecipeIngredientListView(sections: self.ingredientsSortedByName(),
+                                             addAction: self.addIngredientAction,
+                                             saveAction: self.saveIngredientActoin)
+                    
+                    RecipeIngredientListView(sections: self.methodsSortedIntoSections(),
+                                             addAction: self.addMethodAction,
+                                             saveAction: self.saveMethodAction)
                 }
                 .padding(.top)
             }

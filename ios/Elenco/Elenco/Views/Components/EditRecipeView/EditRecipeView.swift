@@ -42,14 +42,14 @@ struct EditRecipeView: View {
                 
                 HStack {
                     RecipeEditField(fieldName: "Name", placeholder: "Recipe Name", fieldText: self.$recipeName, size: geometry.size)
-                    
+
                     Spacer()
-                    
+
                     VStack {
                         Text("Image")
                             .font(.custom("HelveticaNeue-Regular", size: 15))
                         .foregroundColor(Color("Light-Gray"))
-                        
+
                         ZStack {
                             if self.recipe.image == nil {
                                 RoundedRectangle(cornerRadius: 35)
@@ -69,26 +69,50 @@ struct EditRecipeView: View {
                                 .frame(width: 30, height: 30)
                         }
                         .padding(.horizontal, 30)
-                        
+
                     }
                 }
-                
-                
+
+
                 RecipeEditField(fieldName: "Time", placeholder: "Time To Make", fieldText: self.$time, size: geometry.size)
-                
+
                 Text("Daily Requirements")
                     .font(.custom("HelveticaNeue-Regular", size: 15))
                     .foregroundColor(Color("Light-Gray"))
                     .padding(.bottom)
-                
+
                 DietryToggle(dietryToggle: self.$isVegitarian, dietryName: "Vegitarian")
                 DietryToggle(dietryToggle: self.$isNutFree, dietryName: "Nut Free")
                 DietryToggle(dietryToggle: self.$isGlutenFree, dietryName: "Gluten Free")
                 
-                RecipieIngredientMethodPagerView(recipe: self.recipe)
-                
+                RecipieIngredientMethodPagerView(recipe: self.recipe, currentIndex: 0, addIngredientAction: {
+                    self.addIngredientButtonTapped()
+                }, saveIngredientActoin: {
+                    self.saveIngredientButtonTapped()
+                }, addMethodAction: {
+                    self.addMethodStepButtonTapped()
+                }, saveMethodAction: {
+                    self.saveMethodSetpButtonTapped()
+                })
             }
         }
+    }
+    
+    // MARK: - View methods
+    private func addIngredientButtonTapped() {
+        print("added ingredient")
+    }
+    
+    private func saveIngredientButtonTapped() {
+        print("ingredient saved")
+    }
+    
+    private func addMethodStepButtonTapped() {
+        print("Add step")
+    }
+    
+    private func saveMethodSetpButtonTapped() {
+        print("Save Step")
     }
     
     
