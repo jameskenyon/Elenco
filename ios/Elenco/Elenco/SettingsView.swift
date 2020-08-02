@@ -1,5 +1,5 @@
 //
-//  EssentialsView.swift
+//  SettingsView.swift
 //  Elenco
 //
 //  Created by James Kenyon on 02/08/2020.
@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct EssentialsView: View {
-    
+struct SettingsView: View {
+
     @EnvironmentObject var contentViewDataModel: ContentViewDataModel
     
     var body: some View {
@@ -19,10 +19,11 @@ struct EssentialsView: View {
             Text("Back")
         }
     }
+    
 }
 
-struct EssentialsView_Previews: PreviewProvider {
+struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        EssentialsView()
+        SettingsView()
     }
 }

@@ -54,6 +54,7 @@
 		8AB63CD524D6C309005FBAD0 /* EssentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB63CD424D6C309005FBAD0 /* EssentialsView.swift */; };
 		8AB63CD724D6DE0D005FBAD0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB63CD624D6DE0D005FBAD0 /* ContentView.swift */; };
 		8AB63CD924D6EAC6005FBAD0 /* ContentViewDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB63CD824D6EAC6005FBAD0 /* ContentViewDataModel.swift */; };
+		8AB63CDB24D6F10F005FBAD0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB63CDA24D6F10F005FBAD0 /* SettingsView.swift */; };
 		8AC3729424AB82BB002699F2 /* IngredientData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AC3729324AB82BB002699F2 /* IngredientData.json */; };
 		8AC3729924AB9E05002699F2 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC3729824AB9E05002699F2 /* UIWindow.swift */; };
 		8AD4BBEA24A796E900F81AAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD4BBE924A796E900F81AAF /* AppDelegate.swift */; };
@@ -127,6 +128,7 @@
 		8AB63CD424D6C309005FBAD0 /* EssentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialsView.swift; sourceTree = "<group>"; };
 		8AB63CD624D6DE0D005FBAD0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8AB63CD824D6EAC6005FBAD0 /* ContentViewDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewDataModel.swift; sourceTree = "<group>"; };
+		8AB63CDA24D6F10F005FBAD0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8AC3729324AB82BB002699F2 /* IngredientData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = IngredientData.json; sourceTree = "<group>"; };
 		8AC3729824AB9E05002699F2 /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		8AD4BBE624A796E900F81AAF /* Elenco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Elenco.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -315,6 +317,7 @@
 				8AB63CD624D6DE0D005FBAD0 /* ContentView.swift */,
 				8AD4BC0E24A7978000F81AAF /* ListHolderView.swift */,
 				8AB63CD424D6C309005FBAD0 /* EssentialsView.swift */,
+				8AB63CDA24D6F10F005FBAD0 /* SettingsView.swift */,
 				8AD4BBF224A796EF00F81AAF /* Assets.xcassets */,
 				8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */,
 				8AD4BBF724A796EF00F81AAF /* LaunchScreen.storyboard */,
@@ -547,6 +550,7 @@
 				8AE34E0824AD1AE2004651B5 /* AddIngredientTutorialView.swift in Sources */,
 				8AAC174424D58836004C6ADA /* RecipeDataModel.swift in Sources */,
 				8AC3729924AB9E05002699F2 /* UIWindow.swift in Sources */,
+				8AB63CDB24D6F10F005FBAD0 /* SettingsView.swift in Sources */,
 				1A8E31FE24B8ACED008D6624 /* MenuViewListCell.swift in Sources */,
 				8ADB42F024C781E600EB6C8C /* WelcomeTutorialView.swift in Sources */,
 				1A49CE0624AB8B8900153D12 /* ActionView.swift in Sources */,

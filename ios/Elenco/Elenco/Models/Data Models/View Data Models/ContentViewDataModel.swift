@@ -7,10 +7,24 @@
 //
 
 import Foundation
+import UIKit
 
 class ContentViewDataModel: ObservableObject {
     
-    @Published var currentView: CurrentViewType = .ListHolder
+    /// Updates if the menu should be displayed over this view.
+    @Published public var menuIsShown = false
+    
+    /// Hold the type of the current view that is being displayed
+    @Published private(set) var currentView: CurrentViewType = .ListHolder
+    
+    /// Tracks the keyboard height to make design chanegs accordingly.
+    @Published public var keyboardHeight: CGFloat = 0
+    
+    /// Hide menu and set view using the type
+    public func updateView(viewType type: CurrentViewType) {
+        self.currentView = type
+        self.menuIsShown = false
+    }
 
 }
 

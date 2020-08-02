@@ -37,6 +37,9 @@ struct MenuView: View {
                         // Title
                         MenuHeaderView(title: "Lists", image: #imageLiteral(resourceName: "menuListIcon"), width: self.getWidth(geometry: geometry), showSeporator: false)
                             .padding(.leading)
+                            .onTapGesture {
+                                self.contentViewDataModel.updateView(viewType: .ListHolder)
+                        }
 
                         // Lists
                         MenuListsView()
@@ -47,7 +50,7 @@ struct MenuView: View {
                         }
                         
                         ElencoButton(title: "Essentials", style: .green, width: self.buttonWidth(for: geometry.size)) {
-                            self.contentViewDataModel.currentView = .Essentials
+                            self.contentViewDataModel.updateView(viewType: .Essentials)
                         }
                         
                         // Title
@@ -61,6 +64,9 @@ struct MenuView: View {
                         MenuHeaderView(title: "Settings", image: #imageLiteral(resourceName: "menuSettingsIcon"), width: self.getWidth(geometry: geometry))
                         .padding(.leading)
                             .padding(.top)
+                            .onTapGesture {
+                                self.contentViewDataModel.updateView(viewType: .Settings)
+                        }
 
                         Spacer()
                         // Back Button
@@ -68,7 +74,7 @@ struct MenuView: View {
                         .padding(.leading, 30)
                             .padding(.bottom, self.getBottomElementPadding())
                     }
-                    .offset(x: 0, y: -self.listHolderDataModel.keyboardHeight)
+                    .offset(x: 0, y: -self.contentViewDataModel.keyboardHeight)
                     .animation(
                     Animation.interpolatingSpring(stiffness: 200, damping: 100000)
                         .speed(1)
