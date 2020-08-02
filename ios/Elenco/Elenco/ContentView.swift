@@ -24,6 +24,8 @@ struct ContentView: View {
                 ListHolderView(listHolderModel: _listHolderModel)
             } else if self.contentViewDataModel.currentView == .Essentials {
                 EssentialsView()
+            } else if self.contentViewDataModel.currentView == .Recipes {
+                RecipesListView()
             } else {
                 SettingsView()
             }

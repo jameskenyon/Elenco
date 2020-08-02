@@ -10,6 +10,8 @@ import SwiftUI
 
 struct RecipesListView: View {
     
+    @EnvironmentObject var contentViewDataModel: ContentViewDataModel
+    
     init() {
         UITableView.appearance().separatorStyle = .none
         UITableView.appearance().backgroundColor = .clear
@@ -17,11 +19,17 @@ struct RecipesListView: View {
     
     var body: some View {
         ZStack(alignment: .center) {
-            List {
-                RecipeListCell(image: #imageLiteral(resourceName: "predictionTutorialDark"))
+            VStack {
+                List {
+                    RecipeListCell(image: #imageLiteral(resourceName: "predictionTutorialDark"))
+                }
+                Button(action: {
+                    self.contentViewDataModel.menuIsShown = true
+                }) {
+                    Text("Back")
+                }
             }
         }
-        
     }
 }
 
