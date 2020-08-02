@@ -19,6 +19,7 @@ import SwiftUI
 struct MyListHeaderView: View {
     
     @EnvironmentObject var listHolderModel: ListHolderDataModel
+    @EnvironmentObject var contentViewDataModel: ContentViewDataModel
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -27,7 +28,7 @@ struct MyListHeaderView: View {
                 MenuIcon()
                     .padding(.leading, 20).padding(.bottom, -25).padding(.top, 60)
                     .onTapGesture {
-                        self.listHolderModel.menuIsShown = true
+                        self.contentViewDataModel.menuIsShown = true
                     }
                                 
                 Text("\(listHolderModel.list.name)")

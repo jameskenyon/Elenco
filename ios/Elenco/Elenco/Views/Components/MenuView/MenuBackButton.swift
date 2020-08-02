@@ -11,6 +11,7 @@ import SwiftUI
 struct MenuBackButton: View {
     
     @EnvironmentObject var listHolderModel: ListHolderDataModel
+    @EnvironmentObject var contentViewDataModel: ContentViewDataModel
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -18,7 +19,7 @@ struct MenuBackButton: View {
             Spacer()
             
             Button(action: {
-                self.listHolderModel.menuIsShown = false
+                self.contentViewDataModel.menuIsShown = false
             }, label: {
                 Text("Back")
                 .font(.custom("HelveticaNeue-Bold", size: 22))

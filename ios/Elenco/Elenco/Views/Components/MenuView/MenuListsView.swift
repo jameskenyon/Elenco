@@ -12,12 +12,14 @@ struct MenuListsView: View {
     
     @EnvironmentObject var menuViewDataModel: MenuViewDataModel
     @EnvironmentObject var listHolderDataModel: ListHolderDataModel
+    @EnvironmentObject var contentViewDataModel: ContentViewDataModel
         
     var body: some View {
         ForEach(self.menuViewDataModel.lists, id: \.id) { list in
             MenuViewListCell(list: list)
             .onTapGesture {
                 self.displayList(list: list)
+                self.contentViewDataModel.updateView(viewType: .ListHolder)
             }
         }
     }
@@ -31,7 +33,7 @@ struct MenuListsView: View {
             } else {
                 self.listHolderDataModel.configureViewForList(newList: displayList)
             }
-            self.listHolderDataModel.menuIsShown = false
+            self.contentViewDataModel.menuIsShown = false
         }
     }
     
