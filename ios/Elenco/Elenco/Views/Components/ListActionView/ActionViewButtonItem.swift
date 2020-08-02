@@ -20,25 +20,9 @@ struct ActionViewButtonItem: View {
     @State var actionType: ActionType
     
     var body: some View {
-        Button(action: {
+        ElencoButton(title: "\(actionType.rawValue)", style: .green) {
             self.listHolderModel.completeListAction(actionType: self.actionType)
-        }) {
-            Text("\(actionType.rawValue)")
-                .padding(.vertical, 10)
-                .padding(.horizontal, 20)
-                .font(.custom("HelveticaNeue-Medium", size: 22))
-                .foregroundColor(viewTitleColor())
-                .background(viewBackgroundColor())
         }
-        .cornerRadius(10)
-    }
-    
-    private func viewBackgroundColor() -> Color {
-        return Color("Light-Teal").opacity(0.1)
-    }
-    
-    private func viewTitleColor() -> Color {
-        return Color("Teal")
     }
 }
 

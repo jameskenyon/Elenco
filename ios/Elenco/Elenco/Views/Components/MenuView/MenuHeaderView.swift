@@ -13,22 +13,37 @@ struct MenuHeaderView: View {
     @Environment(\.colorScheme) var colorScheme
 
     var title: String
+    var image: UIImage
     var width: CGFloat
+    var showSeporator: Bool = true
     
     var body: some View {
-        // Title
-        VStack(alignment: .leading) {
-            Text(title)
-
-                .font(.custom("HelveticaNeue-Bold", size: 35))
-                .foregroundColor(colorScheme == .dark ? Color.white : Color("Tungsten"))
-                .padding(.top, 15)
-
+        VStack(alignment: .leading, spacing: 0) {
             // Underline
-            Rectangle()
-                .frame(width: width - 80, height: 2)
-                .foregroundColor(Color(#colorLiteral(red: 0, green: 0.9176470588, blue: 0.662745098, alpha: 1)))
-                .padding(.top, -10)
+            if showSeporator {
+                Rectangle()
+                    .frame(width: width * 0.3, height: 2)
+                    .foregroundColor(Color("Light-Gray"))
+            }
+            
+            HStack(alignment: .center) {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 40, height: 40)
+                
+                Text(title)
+                    .font(.custom("HelveticaNeue-Bold", size: 35))
+                    .foregroundColor(colorScheme == .dark ? Color.white : Color("Tungsten"))
+            }
+            .padding(.top)
         }
+        
+    }
+}
+
+struct MenuHeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+        MenuHeaderView(title: "Recipes", image: #imageLiteral(resourceName: "menuRecipeIcon"), width: 1000)
     }
 }

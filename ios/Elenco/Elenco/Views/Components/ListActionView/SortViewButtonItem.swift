@@ -15,30 +15,14 @@ struct SortViewButtonItem: View {
     @State var type: SortType
     
     var body: some View {
-        Button(action: {
+        ElencoButton(title: self.type.rawValue, isSelected: isSelected()) {
             self.listHolderModel.configureDataSourceFor(sortType: self.type)
-        }) {
-            Text(self.type.rawValue)
-                .padding(.vertical, 10)
-                .padding(.horizontal, 20)
-                .font(.custom("HelveticaNeue-Medium", size: 22))
-                .foregroundColor(viewTitleColor())
-                .background(viewBackgroundColor())
         }
-        .cornerRadius(10)
     }
     
     // Return true if this button has been selected
     private func isSelected() -> Bool {
         return listHolderModel.sortType == type
-    }
-    
-    private func viewBackgroundColor() -> Color {
-        return isSelected() ? Color("Orange") : Color("Orange").opacity(0.1)
-    }
-    
-    private func viewTitleColor() -> Color {
-        return isSelected() ? Color(.white) : Color("Orange")
     }
 }
 
