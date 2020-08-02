@@ -21,7 +21,7 @@ struct RecipesListView: View {
     var body: some View {
         ZStack {
             if recipeViewDataModel.editRecipiesIsShown {
-                Text("Edit")
+                EditRecipeView()
             } else {
                 listView()
             }

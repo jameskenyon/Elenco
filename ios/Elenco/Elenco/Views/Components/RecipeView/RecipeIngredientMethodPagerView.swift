@@ -10,7 +10,6 @@ import SwiftUI
 
 struct RecipieIngredientMethodPagerView: View {
     
-//    let recipes = Recipe.getRecipes()
     var recipe: Recipe
     @State var currentIndex = 0
     
