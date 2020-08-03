@@ -61,7 +61,6 @@ struct EditRecipeView: View {
                     }
                 }
 
-
                 RecipeEditField(fieldName: "Time", placeholder: "Time To Make", fieldText: self.$time, size: geometry.size, keyboardType: .numberPad)
                 
                 RecipeEditField(fieldName: "Serves", placeholder: "How Many People", fieldText: self.$serves, size: geometry.size, keyboardType: .numberPad)
@@ -71,9 +70,9 @@ struct EditRecipeView: View {
                     .foregroundColor(Color("Light-Gray"))
                     .padding(.bottom)
 
-                DietryToggle(dietryToggle: self.$isVegitarian, dietryName: "Vegitarian")
-                DietryToggle(dietryToggle: self.$isNutFree, dietryName: "Nut Free")
-                DietryToggle(dietryToggle: self.$isGlutenFree, dietryName: "Gluten Free")
+                RequirmentToggleView(dietryToggle: self.$isVegitarian, dietryName: "Vegitarian")
+                RequirmentToggleView(dietryToggle: self.$isNutFree, dietryName: "Nut Free")
+                RequirmentToggleView(dietryToggle: self.$isGlutenFree, dietryName: "Gluten Free")
                 
                 IngredientMethodPagerView(addIngredientAction: {
                     self.addIngredientButtonTapped()
@@ -122,65 +121,5 @@ struct EditRecipeView: View {
             recipeDataModel.updateRecipe(name: recipeName, time: time, serves: serves)
         }
         recipeDataModel.hideViews()
-    }
-}
-
-struct DietryToggle: View {
-    
-    @Binding var dietryToggle: Bool
-    var dietryName: String
-    
-    var body: some View {
-        HStack {
-            Toggle("", isOn: $dietryToggle)
-            .labelsHidden()
-            
-            Text(dietryName)
-                .font(.custom("HelveticaNeue-Bold", size: 30))
-                .foregroundColor(dietryToggle ? Color("Lead") : Color("Light-Gray"))
-                .animation(.easeIn(duration: 5))
-                .padding(.leading)
-        }
-        .padding(.horizontal, 30)
-    }
-}
-
-struct RecipeEditField: View, ElencoTextFieldDisplayable {
-    
-    var fieldName: String
-    var placeholder: String
-    @Binding var fieldText: String
-    var size: CGSize
-    var keyboardType: UIKeyboardType
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(fieldName)
-                .font(.custom("HelveticaNeue-Regular", size: 15))
-            .foregroundColor(Color("Light-Gray"))
-            
-            ElencoTextField(text: $fieldText, isFirstResponder: false, textFieldView: self, font: UIFont(name: "HelveticaNeue-Bold", size: 25), color: #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1), placeholder: placeholder, keyBoardType: keyboardType)
-                .textFieldStyle(PlainTextFieldStyle())
-                .foregroundColor(Color("Tungtsen"))
-                .accentColor(Color("Teal"))
-                .frame(width: size.width * 0.6, height: 50)
-        }
-        .padding(.horizontal, 30)
-    }
-    
-    // MARK: - Text Field Delegate Methods
-    func userDidReturnOnTextField() {
-        print("Return")
-    }
-    
-    func userDidEditTextField(newValue: String) {
-        print("Print Edit")
-    }
-}
-
-
-struct EditRecipeView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditRecipeView()
     }
 }
