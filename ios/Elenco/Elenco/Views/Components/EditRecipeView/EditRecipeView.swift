@@ -15,6 +15,7 @@ struct EditRecipeView: View {
     
     @State var recipeName: String = ""
     @State var time: String = ""
+    @State var serves: String = ""
     @State var isVegitarian: Bool = false
     @State var isNutFree: Bool = false
     @State var isGlutenFree: Bool = false
@@ -28,7 +29,7 @@ struct EditRecipeView: View {
             VStack(alignment: .leading) {
                 
                 HStack {
-                    RecipeEditField(fieldName: "Name", placeholder: "Recipe Name", fieldText: self.$recipeName, size: geometry.size)
+                    RecipeEditField(fieldName: "Name", placeholder: "Recipe Name", fieldText: self.$recipeName, size: geometry.size, keyboardType: .default)
 
                     Spacer()
 
@@ -61,7 +62,9 @@ struct EditRecipeView: View {
                 }
 
 
-                RecipeEditField(fieldName: "Time", placeholder: "Time To Make", fieldText: self.$time, size: geometry.size)
+                RecipeEditField(fieldName: "Time", placeholder: "Time To Make", fieldText: self.$time, size: geometry.size, keyboardType: .numberPad)
+                
+                RecipeEditField(fieldName: "Serves", placeholder: "How Many People", fieldText: self.$serves, size: geometry.size, keyboardType: .numberPad)
 
                 Text("Daily Requirements")
                     .font(.custom("HelveticaNeue-Regular", size: 15))
@@ -108,9 +111,9 @@ struct EditRecipeView: View {
     // Save recipe to core data and stop showing edit recipe page
     private func saveRecipe() {
         if recipeDataModel.isNewRecipe {
-            recipeDataModel.saveRecipe(name: recipeName, time: time)
+            recipeDataModel.saveRecipe(name: recipeName, time: time, serves: serves)
         } else {
-            recipeDataModel.updateRecipe(name: recipeName, time: time)
+            recipeDataModel.updateRecipe(name: recipeName, time: time, serves: serves)
         }
         recipeDataModel.hideViews()
     }
@@ -142,6 +145,7 @@ struct RecipeEditField: View, ElencoTextFieldDisplayable {
     var placeholder: String
     @Binding var fieldText: String
     var size: CGSize
+    var keyboardType: UIKeyboardType
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -149,7 +153,7 @@ struct RecipeEditField: View, ElencoTextFieldDisplayable {
                 .font(.custom("HelveticaNeue-Regular", size: 15))
             .foregroundColor(Color("Light-Gray"))
             
-            ElencoTextField(text: $fieldText, isFirstResponder: false, textFieldView: self, font: UIFont(name: "HelveticaNeue-Bold", size: 25), color: #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1), placeholder: placeholder)
+            ElencoTextField(text: $fieldText, isFirstResponder: false, textFieldView: self, font: UIFont(name: "HelveticaNeue-Bold", size: 25), color: #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1), placeholder: placeholder, keyBoardType: keyboardType)
                 .textFieldStyle(PlainTextFieldStyle())
                 .foregroundColor(Color("Tungtsen"))
                 .accentColor(Color("Teal"))
