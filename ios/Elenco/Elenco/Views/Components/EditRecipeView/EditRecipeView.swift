@@ -85,6 +85,12 @@ struct EditRecipeView: View {
                     self.saveRecipe()
                 })
             }
+            .onAppear {
+                self.recipeName = self.recipeDataModel.selectedRecipe.name
+                self.time = self.recipeDataModel.selectedRecipe.estimatedTime
+                let recipeServes = self.recipeDataModel.selectedRecipe.serves
+                self.serves = recipeServes != 0 ? "\(recipeServes)" : ""
+            }
         }
     }
     

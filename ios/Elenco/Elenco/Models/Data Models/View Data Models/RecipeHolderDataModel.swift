@@ -48,7 +48,7 @@ class RecipeHolderDataModel: ObservableObject {
     
     public func configureNewSelectedRecipe() {
         isNewRecipe = true
-        selectedRecipe = Recipe(name: "recipeName", recipeID: UUID(), serves: 0, estimatedTime: "time", ingredients: Ingredients(), method: Instructions())
+        selectedRecipe = Recipe(name: "", recipeID: UUID(), serves: 0, estimatedTime: "", ingredients: Ingredients(), method: Instructions())
     }
     
     // MARK: - Access to Core data model
