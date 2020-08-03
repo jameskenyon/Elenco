@@ -11,7 +11,6 @@ import SwiftUI
 struct IngredientMethodPagerView: View {
     
     @EnvironmentObject var recipeHolderDataModel: RecipeHolderDataModel
-    var recipe: Recipe
     @State var currentIndex = 0
     var addIngredientAction: (()->())?
     var saveIngredientActoin: (()->())?
@@ -55,17 +54,27 @@ struct IngredientMethodPagerView: View {
                 }
                 
                 ElencoPagerView(pageCount: 2, currentIndex: self.$currentIndex, showsPageIndicator: false) {
-                    RecipeIngredientListView(sections: self.recipeHolderDataModel.ingredientsSortedByName(recipe: self.recipe),
+                    RecipeIngredientListView(sections: self.getIngredientSections(),
                                              addAction: self.addIngredientAction,
                                              saveAction: self.saveIngredientActoin)
                     
-                    RecipeIngredientListView(sections: self.recipeHolderDataModel.methodsSortedIntoSections(recipe: self.recipe),
+                    RecipeIngredientListView(sections: self.getMethodSections(),
                                              addAction: self.addMethodAction,
                                              saveAction: self.saveMethodAction)
                 }
                 .padding(.top)
             }
         }
+    }
+    
+    // MARK: - Methods to sort ingredients and instructions into sectios
+    
+    private func getIngredientSections() -> [RecipeListViewSection<Ingredient>] {
+        return recipeHolderDataModel.ingredientsSortedByName()
+    }
+    
+    private func getMethodSections() -> [RecipeListViewSection<RecipeMethod>] {
+        return recipeHolderDataModel.methodsSortedIntoSections()
     }
     
     // MARK: - View Constants

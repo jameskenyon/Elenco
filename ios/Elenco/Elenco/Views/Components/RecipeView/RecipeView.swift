@@ -17,7 +17,7 @@ struct RecipeView: View {
             VStack {
                 RecipeHeaderView(image: self.recipe.image, geometry: geometry)
                     .edgesIgnoringSafeArea(.all)
-                IngredientMethodPagerView(recipe: self.recipe)
+                IngredientMethodPagerView()
             }
             .edgesIgnoringSafeArea(.all)
         }

@@ -8,11 +8,6 @@
 
 import SwiftUI
 
-struct RecipeListViewSection<SectionContent> where SectionContent: Identifiable {
-    var title: String
-    var content: [SectionContent]
-}
-
 struct RecipeIngredientListView<SectionConent>: View where SectionConent: Identifiable {
     
     var sections: [RecipeListViewSection<SectionConent>]

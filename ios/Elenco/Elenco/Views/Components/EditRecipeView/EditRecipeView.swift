@@ -10,30 +10,16 @@ import SwiftUI
 
 struct EditRecipeView: View {
     
-    var recipe: Recipe
+    @EnvironmentObject var recipeDataModel: RecipeHolderDataModel
+    
     @State var recipeName: String = ""
     @State var time: String = ""
     @State var isVegitarian: Bool = false
     @State var isNutFree: Bool = false
     @State var isGlutenFree: Bool = false
-    var ingredients: Ingredients
-    var method: Instructions
-    
-    init(editRecipe recipe: Recipe) {
-        UISwitch.appearance().onTintColor = #colorLiteral(red: 0.3696106672, green: 0.7883469462, blue: 0.6629261374, alpha: 1)
-        self.recipe = recipe
-        self.ingredients = recipe.ingredients
-        self.method = recipe.method
-//        recipeName = recipe.name
-//        time = recipe.estimatedTime
-        print(recipe.dietaryRequirements ?? "No requirements")
-    }
     
     init() {
         UISwitch.appearance().onTintColor = #colorLiteral(red: 0.3696106672, green: 0.7883469462, blue: 0.6629261374, alpha: 1)
-        self.ingredients = Ingredients()
-        self.method = Instructions()
-        self.recipe = Recipe(name: "recipeName", recipeID: UUID(), serves: 0, estimatedTime: "time", ingredients: ingredients, method: method)
     }
     
     var body: some View {
@@ -51,12 +37,12 @@ struct EditRecipeView: View {
                         .foregroundColor(Color("Light-Gray"))
 
                         ZStack {
-                            if self.recipe.image == nil {
+                            if self.recipeDataModel.selectedRecipe.image == nil {
                                 RoundedRectangle(cornerRadius: 35)
                                 .foregroundColor(Color("Light-Gray"))
                                 .frame(width: 70, height: 70)
                             } else {
-                                Image(uiImage: #imageLiteral(resourceName: "editList"))
+                                Image(uiImage: self.recipeDataModel.selectedRecipe.image!)
                                     .resizable()
                                     .scaledToFit()
                                     .clipped()
@@ -85,7 +71,7 @@ struct EditRecipeView: View {
                 DietryToggle(dietryToggle: self.$isNutFree, dietryName: "Nut Free")
                 DietryToggle(dietryToggle: self.$isGlutenFree, dietryName: "Gluten Free")
                 
-                IngredientMethodPagerView(recipe: self.recipe, currentIndex: 0, addIngredientAction: {
+                IngredientMethodPagerView(addIngredientAction: {
                     self.addIngredientButtonTapped()
                 }, saveIngredientActoin: {
                     self.saveIngredientButtonTapped()
@@ -101,6 +87,7 @@ struct EditRecipeView: View {
     // MARK: - View methods
     private func addIngredientButtonTapped() {
         print("added ingredient")
+        recipeDataModel.addIngredient(ingredient: Ingredient(ingredientID: UUID(), name: "Chicken", aisle: "", parentList: nil))
     }
     
     private func saveIngredientButtonTapped() {

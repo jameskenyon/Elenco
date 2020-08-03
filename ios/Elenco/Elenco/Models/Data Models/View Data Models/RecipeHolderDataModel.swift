@@ -11,10 +11,32 @@ import SwiftUI
 class RecipeHolderDataModel: ObservableObject {
     
     @Published var editRecipiesIsShown: Bool = false
+    @Published private(set) var selectedRecipe: Recipe
+    @Published private var isNewRecipe: Bool = false
     
+    init() {
+        self.selectedRecipe = Recipe(name: "recipeName", recipeID: UUID(), serves: 0, estimatedTime: "time", ingredients: Ingredients(), method: Instructions())
+    }
+    
+    public func configureSelectedRecipe(for recipe: Recipe) {
+        isNewRecipe = false
+        selectedRecipe = recipe
+    }
+    
+    public func configureNewSelectedRecipe() {
+        isNewRecipe = true
+        selectedRecipe = Recipe(name: "recipeName", recipeID: UUID(), serves: 0, estimatedTime: "time", ingredients: Ingredients(), method: Instructions())
+    }
+    
+    public func addIngredient(ingredient: Ingredient) {
+        selectedRecipe.ingredients.append(ingredient)
+    }
+    
+    
+    // MARK: - Methods To Sort Ingredients and Instructions into sections
     // Return ingredients sorted into alphabetical sections
-    public func ingredientsSortedByName(recipe: Recipe) -> [RecipeListViewSection<Ingredient>] {
-        let ingredients = recipe.ingredients
+    public func ingredientsSortedByName() -> [RecipeListViewSection<Ingredient>] {
+        let ingredients = selectedRecipe.ingredients
         var sections = [RecipeListViewSection<Ingredient>]()
         let sectionHeaders = Set(ingredients.map({ $0.name.first?.lowercased() ?? ""}))
         
@@ -29,9 +51,9 @@ class RecipeHolderDataModel: ObservableObject {
     }
     
     // Return Methods sorted into sectinos
-    public func methodsSortedIntoSections(recipe: Recipe) -> [RecipeListViewSection<RecipeMethod>] {
+    public func methodsSortedIntoSections() -> [RecipeListViewSection<RecipeMethod>] {
         
-        let methods = recipe.method
+        let methods = selectedRecipe.method
         var sections = [RecipeListViewSection<RecipeMethod>]()
         for method in methods {
             let section = RecipeListViewSection<RecipeMethod>(title: "\(method.number)", content: [method])
@@ -41,3 +63,7 @@ class RecipeHolderDataModel: ObservableObject {
     }
 }
 
+struct RecipeListViewSection<SectionContent> where SectionContent: Identifiable {
+    var title: String
+    var content: [SectionContent]
+}
