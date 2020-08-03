@@ -25,6 +25,7 @@ class RecipeHolderDataModel: ObservableObject {
         self.selectedRecipe = Recipe(name: "recipeName", recipeID: UUID(), serves: 0, estimatedTime: "time", ingredients: Ingredients(), method: Instructions())
     }
     
+    // MARK: - View Configuration Methods
     public func displayEditRecipeView() {
         editRecipiesIsShown = true
         recipeViewIsShown = false
@@ -99,6 +100,14 @@ class RecipeHolderDataModel: ObservableObject {
     
     public func getRecipes() -> Recipes {
         return RecipeDataModel.shared.fetchRecipes()
+    }
+    
+    // MARK: - Query methods
+    public func search(text: String) -> Recipes {
+        if !text.isEmpty {
+            return recipes.filter({ $0.name.contains(text) })
+        }
+        return recipes
     }
     
     

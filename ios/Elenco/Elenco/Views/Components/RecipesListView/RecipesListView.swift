@@ -8,10 +8,12 @@
 
 import SwiftUI
 
-struct RecipesListView: View {
-    
+struct RecipesListView: View, ElencoTextFieldDisplayable {
+        
     @EnvironmentObject var contentViewDataModel: ContentViewDataModel
     @EnvironmentObject var recipeViewDataModel: RecipeHolderDataModel
+    @State var searchText: String = ""
+    @State var searchTextFieldIsFirstResponder: Bool = false
     
     init() {
         UITableView.appearance().separatorStyle = .none
@@ -28,17 +30,35 @@ struct RecipesListView: View {
             } else {
                 RecipesHeaderView()
                 listView()
+                .onTapGesture {
+                    self.searchTextFieldIsFirstResponder = false
+                }
             }
         }
         .edgesIgnoringSafeArea(.top)
-        
     }
     
     // MARK: - Recipe List View
     public func listView() -> some View {
         ZStack(alignment: .center) {
             List {
-                ForEach(recipeViewDataModel.getRecipes()) { recipe in
+                // Search view
+                ZStack(alignment: .center) {
+                    RoundedRectangle(cornerRadius: 15)
+                    .foregroundColor(Color("Background"))
+                    .shadow(color: Color("Light-Gray"), radius: 5)
+                        .frame(height: 50)
+                    
+                    ElencoTextField(text: $searchText, isFirstResponder: searchTextFieldIsFirstResponder, textFieldView: self, font: UIFont(name: "HelveticaNeue-Regular", size: 20), color: UIColor.black, placeholder: "Search your recipes")
+                        .accentColor(Color("Teal"))
+                        .foregroundColor(Color("BodyText"))
+                        .padding(.leading)
+                }
+                .padding(.bottom)
+                
+                
+                // Recipes
+                ForEach(recipeViewDataModel.search(text: searchText)) { recipe in
                     RecipeListCell(recipe: recipe)
                         .onTapGesture {
                             self.recipeViewDataModel.displayRecipeView()
@@ -50,7 +70,14 @@ struct RecipesListView: View {
                     self.removeRecipe(index: index)
                 }
             }
-                     
+            .gesture(
+                DragGesture()
+                    .onChanged { _ in
+                        print("Drag")
+                        self.searchTextFieldIsFirstResponder = false
+                    }
+            )
+            // Add Button
             VStack {
                 Spacer()
                 Button(action: {
@@ -68,10 +95,17 @@ struct RecipesListView: View {
     // Work out which section and row ingredient is in and remove from list
     func removeRecipe(index: Int) {
         let recipe = recipeViewDataModel.recipes[index]
-        recipeViewDataModel.configureSelectedRecipe(for: recipe)
-        recipeViewDataModel.deleteRecipe()
-//        recipeViewDataModel.delete(recipe: recipe)
+//        recipeViewDataModel.configureSelectedRecipe(for: recipe)
+//        recipeViewDataModel.deleteRecipe()
+        recipeViewDataModel.delete(recipe: recipe)
     }
+    
+    // MARK: - Text Field Delegate Methods
+    func userDidReturnOnTextField() {
+        searchTextFieldIsFirstResponder = false
+    }
+    
+    func userDidEditTextField(newValue: String) {}
 }
 
 
