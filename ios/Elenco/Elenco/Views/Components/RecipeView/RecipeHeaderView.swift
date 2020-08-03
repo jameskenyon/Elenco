@@ -105,9 +105,3 @@ struct RecipeHeaderView: View {
         return 25
     }
 }
-
-//struct RecipeHeaderView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RecipeHeaderView()
-//    }
-//}

@@ -8,8 +8,9 @@
 
 import SwiftUI
 
-struct RecipieIngredientMethodPagerView: View {
+struct IngredientMethodPagerView: View {
     
+    @EnvironmentObject var recipeHolderDataModel: RecipeHolderDataModel
     var recipe: Recipe
     @State var currentIndex = 0
     var addIngredientAction: (()->())?
@@ -54,11 +55,11 @@ struct RecipieIngredientMethodPagerView: View {
                 }
                 
                 ElencoPagerView(pageCount: 2, currentIndex: self.$currentIndex, showsPageIndicator: false) {
-                    RecipeIngredientListView(sections: self.ingredientsSortedByName(),
+                    RecipeIngredientListView(sections: self.recipeHolderDataModel.ingredientsSortedByName(recipe: self.recipe),
                                              addAction: self.addIngredientAction,
                                              saveAction: self.saveIngredientActoin)
                     
-                    RecipeIngredientListView(sections: self.methodsSortedIntoSections(),
+                    RecipeIngredientListView(sections: self.recipeHolderDataModel.methodsSortedIntoSections(recipe: self.recipe),
                                              addAction: self.addMethodAction,
                                              saveAction: self.saveMethodAction)
                 }
@@ -85,39 +86,4 @@ struct RecipieIngredientMethodPagerView: View {
     var pagerButtonHorizontalPaddig: CGFloat {
         return 30
     }
-    
-    // MARK: - TODO move these
-    // Return ingredients sorted into alphabetical sections
-    public func ingredientsSortedByName() -> [RecipeListViewSection<Ingredient>] {
-        let ingredients = recipe.ingredients
-        var sections = [RecipeListViewSection<Ingredient>]()
-        let sectionHeaders = Set(ingredients.map({ $0.name.first?.lowercased() ?? ""}))
-        
-        // Filter ingredients in each section
-        for header in sectionHeaders {
-            let ingredientsInSection = ingredients.filter({ $0.name.first?.lowercased() ?? "" == header })
-            let section = RecipeListViewSection<Ingredient>(title: String(header), content: ingredientsInSection)
-            sections.append(section)
-        }
-        sections = sections.sorted(by: { $0.title < $1.title })
-        return sections
-    }
-    
-    // Return Methods sorted into sectinos
-    public func methodsSortedIntoSections() -> [RecipeListViewSection<RecipeMethod>] {
-        
-        let methods = recipe.method
-        var sections = [RecipeListViewSection<RecipeMethod>]()
-        for method in methods {
-            let section = RecipeListViewSection<RecipeMethod>(title: "\(method.number)", content: [method])
-            sections.append(section)
-        }
-        return sections
-    }
 }
-
-//struct RecipeIngredientMethodPagerView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RecipieIngredientMethodPagerView()
-//    }
-//}

@@ -85,7 +85,7 @@ struct EditRecipeView: View {
                 DietryToggle(dietryToggle: self.$isNutFree, dietryName: "Nut Free")
                 DietryToggle(dietryToggle: self.$isGlutenFree, dietryName: "Gluten Free")
                 
-                RecipieIngredientMethodPagerView(recipe: self.recipe, currentIndex: 0, addIngredientAction: {
+                IngredientMethodPagerView(recipe: self.recipe, currentIndex: 0, addIngredientAction: {
                     self.addIngredientButtonTapped()
                 }, saveIngredientActoin: {
                     self.saveIngredientButtonTapped()

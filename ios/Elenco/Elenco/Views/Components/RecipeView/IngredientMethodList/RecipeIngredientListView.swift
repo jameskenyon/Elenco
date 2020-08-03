@@ -52,23 +52,35 @@ struct RecipeIngredientListView<SectionConent>: View where SectionConent: Identi
                     ) {
                         ForEach(section.content) { content in
                             if content as? Ingredient != nil {
-                                RecipeIngredientListViewCell(ingredient: content as! Ingredient)
+                                AddIngredientCell(ingredient: content as! Ingredient)
                             }
                             
                             if content as? RecipeMethod != nil {
-                                RecipeMethodListViewCell(recipeMethod: content as! RecipeMethod)
+                                AddRecipeCell(recipeMethod: content as! RecipeMethod)
                             }       
                         }
                     }
                 }
                 if addAction != nil && saveAction != nil {
                     HStack(alignment: .center) {
-                        ElencoButton(title: "+ Ingredient") {
-                            self.addAction!()
+                        Text("Add")
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 20)
+                            .font(.custom("HelveticaNeue-Medium", size: 22))
+                            .foregroundColor(Color("Orange"))
+                            .background(Color("Orange").opacity(0.1))
+                            .onTapGesture {
+                                self.addAction!()
                         }
                         
-                        ElencoButton(title: "Save") {
-                            self.saveAction!()
+                        Text("Save")
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 20)
+                            .font(.custom("HelveticaNeue-Medium", size: 22))
+                            .foregroundColor(Color("Orange"))
+                            .background(Color("Orange").opacity(0.1))
+                            .onTapGesture {
+                                self.saveAction!()
                         }
                     }
                 }
@@ -81,42 +93,5 @@ struct RecipeIngredientListView<SectionConent>: View where SectionConent: Identi
     private func configureTableViewAppearance() {
         UITableView.appearance().separatorStyle = .none
         UITableView.appearance().backgroundColor = .clear
-    }
-}
-
-struct RecipeIngredientListViewCell: View {
-    var ingredient: Ingredient
-    
-    var body: some View {
-        HStack {
-            Text(ingredient.name)
-                .foregroundColor(Color("Lead"))
-                .font(.custom("HelveticaNeue-Regular", size: 23))
-            
-            Spacer()
-            
-            Text(ingredient.quantity ?? "")
-            .foregroundColor(Color("Dark-Gray"))
-            .font(.custom("HelveticaNeue-Regular", size: 15))
-        }
-        .padding(.horizontal)
-    }
-}
-
-struct RecipeMethodListViewCell: View {
-    
-    var recipeMethod: RecipeMethod
-    
-    var body: some View {
-        Text(recipeMethod.instruction)
-            .foregroundColor(Color("Lead"))
-            .font(.custom("HelveticaNeue-Regular", size: 23))
-        .padding(.horizontal)
-    }
-}
-
-struct RecipeIngredientListView_Previews: PreviewProvider {
-    static var previews: some View {
-        return RecipeMethodListViewCell(recipeMethod: RecipeMethod(number: 1, instruction: "Stick it in"))
     }
 }
