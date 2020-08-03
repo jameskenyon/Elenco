@@ -32,8 +32,8 @@ struct RecipesListView: View {
     public func listView() -> some View {
         ZStack(alignment: .center) {
             VStack {
-                List {
-                    RecipeListCell(image: #imageLiteral(resourceName: "predictionTutorialDark"))
+                List(recipeViewDataModel.getRecipes()) { recipe in
+                    RecipeListCell(recipe: recipe)
                 }
                 Button(action: {
                     self.contentViewDataModel.menuIsShown = true

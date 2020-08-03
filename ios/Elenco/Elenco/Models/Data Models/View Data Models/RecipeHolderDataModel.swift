@@ -11,7 +11,9 @@ import SwiftUI
 class RecipeHolderDataModel: ObservableObject {
     
     @Published var editRecipiesIsShown: Bool = false
+    
     @Published private(set) var selectedRecipe: Recipe
+    
     @Published private var isNewRecipe: Bool = false
     
     init() {
@@ -37,6 +39,16 @@ class RecipeHolderDataModel: ObservableObject {
         let methodNumber = selectedRecipe.ingredients.count + 1
         let method = RecipeMethod(number: methodNumber, instruction: instruction)
         selectedRecipe.method.append(method)
+    }
+    
+    public func saveRecipe() {
+        RecipeDataModel.shared.createRecipe(recipe: selectedRecipe) { (error) in
+            if let error = error { print(error.localizedDescription) }
+        }
+    }
+    
+    public func getRecipes() -> Recipes {
+        return RecipeDataModel.shared.fetchRecipes()
     }
     
     

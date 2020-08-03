@@ -11,7 +11,7 @@ import SwiftUI
 
 struct RecipeListCell: View {
     
-    var image: UIImage?
+    var recipe: Recipe
     
     var body: some View {
         ZStack(alignment: .leading) {
@@ -21,11 +21,11 @@ struct RecipeListCell: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Chicken Bask")
+                    Text(recipe.name)
                         .foregroundColor(Color("Tungsten"))
                         .font(.custom("HelveticaNeue-Bold", size: 25))
                     
-                    Text("20mins")
+                    Text(recipe.estimatedTime)
                         .foregroundColor(Color("Dark-Gray"))
                         .font(.custom("HelveticaNeue-Medium", size: 15))
                 }
@@ -34,12 +34,19 @@ struct RecipeListCell: View {
                 Spacer()
                 
                 ZStack(alignment: .bottomTrailing) {
-                    Image(uiImage: image!)
-                        .resizable()
-                        .scaledToFill()
-                        .clipped()
-                        .frame(width: imageSize, height: imageSize)
-                        .cornerRadius(imageCornerRadius)
+                    if recipe.image != nil {
+                        Image(uiImage: recipe.image!)
+                            .resizable()
+                            .scaledToFill()
+                            .clipped()
+                            .frame(width: imageSize, height: imageSize)
+                            .cornerRadius(imageCornerRadius)
+                    } else {
+                        RoundedRectangle(cornerRadius: imageCornerRadius)
+                            .frame(width: imageSize, height: imageSize)
+                            .foregroundColor(Color("Light-Gray"))
+                    }
+                    
                     
                     Button(action: {
                         print("hello")

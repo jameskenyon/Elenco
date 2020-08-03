@@ -75,11 +75,11 @@ struct EditRecipeView: View {
                 IngredientMethodPagerView(addIngredientAction: {
                     self.addIngredientButtonTapped()
                 }, saveIngredientActoin: {
-                    self.saveIngredientButtonTapped()
+                    self.saveRecipe()
                 }, addMethodAction: {
                     self.addMethodStepButtonTapped()
                 }, saveMethodAction: {
-                    self.saveMethodSetpButtonTapped()
+                    self.saveRecipe()
                 })
             }
         }
@@ -96,10 +96,7 @@ struct EditRecipeView: View {
         }
     }
     
-    private func saveIngredientButtonTapped() {
-        print("ingredient saved")
-    }
-    
+    // Enable user to add a instruction to recipe
     private func addMethodStepButtonTapped() {
         // MARK: TODO custom input field
         listHolderDataModel.window.displayAlertWithTextField(title: "Add Ingredient", message: "Add Ingredient to this recipe", placeholder: "Add Ingredient") { (methodString) in
@@ -108,11 +105,9 @@ struct EditRecipeView: View {
         }
     }
     
-    private func saveMethodSetpButtonTapped() {
-        print("Save Step")
+    private func saveRecipe() {
+        print("ingredient saved")
     }
-    
-    
 }
 
 struct DietryToggle: View {
