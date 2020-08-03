@@ -19,15 +19,19 @@ struct RecipesListView: View {
     }
     
     var body: some View {
-        ZStack {
+        VStack {
             if recipeViewDataModel.editRecipiesIsShown {
+                RecipesHeaderView()
                 EditRecipeView()
             } else if recipeViewDataModel.recipeViewIsShown {
                 RecipeView()
             } else {
+                RecipesHeaderView()
                 listView()
             }
         }
+        .edgesIgnoringSafeArea(.top)
+        
     }
     
     // MARK: - Recipe List View
