@@ -106,7 +106,7 @@ struct EditRecipeView: View {
     }
     
     private func saveRecipe() {
-        print("ingredient saved")
+        recipeDataModel.saveRecipe(name: recipeName, time: time)
     }
 }
 

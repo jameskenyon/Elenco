@@ -41,7 +41,9 @@ class RecipeHolderDataModel: ObservableObject {
         selectedRecipe.method.append(method)
     }
     
-    public func saveRecipe() {
+    public func saveRecipe(name: String, time: String) {
+        selectedRecipe.name = name
+        selectedRecipe.estimatedTime = time
         RecipeDataModel.shared.createRecipe(recipe: selectedRecipe) { (error) in
             if let error = error { print(error.localizedDescription) }
         }
