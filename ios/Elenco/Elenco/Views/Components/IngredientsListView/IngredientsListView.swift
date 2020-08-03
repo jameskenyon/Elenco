@@ -43,9 +43,7 @@ struct IngredientsListView: View {
                 Spacer()
             }
             .listStyle(GroupedListStyle())
-//            .id(UUID())
         }
-    
     }
     
     // Work out which section and row ingredient is in and remove from list

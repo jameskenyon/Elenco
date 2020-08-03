@@ -18,7 +18,10 @@ class RecipeHolderDataModel: ObservableObject {
     
     @Published private(set) var isNewRecipe: Bool = false
     
+    @Published private(set) var recipes: Recipes
+    
     init() {
+        self.recipes = RecipeDataModel.shared.fetchRecipes()
         self.selectedRecipe = Recipe(name: "recipeName", recipeID: UUID(), serves: 0, estimatedTime: "time", ingredients: Ingredients(), method: Instructions())
     }
     
@@ -64,11 +67,23 @@ class RecipeHolderDataModel: ObservableObject {
         selectedRecipe.estimatedTime = time
         RecipeDataModel.shared.createRecipe(recipe: selectedRecipe) { (error) in
             if let error = error { print(error.localizedDescription) }
+            self.recipes.append(self.selectedRecipe)
         }
     }
     
+    // Deletes the selected recipe
     public func deleteRecipe() {
+        recipes.removeAll(where: { $0.id == selectedRecipe.id })
         RecipeDataModel.shared.delete(recipe: selectedRecipe) { (error) in
+            if let error = error { print(error.localizedDescription) }
+        }
+    }
+    
+    // Delete a recipe
+    public func delete(recipe: Recipe) {
+        recipes.removeAll(where: { $0.id == recipe.id })
+
+        RecipeDataModel.shared.delete(recipe: recipe) { (error) in
             if let error = error { print(error.localizedDescription) }
         }
     }

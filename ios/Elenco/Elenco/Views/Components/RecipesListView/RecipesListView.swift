@@ -37,14 +37,18 @@ struct RecipesListView: View {
     // MARK: - Recipe List View
     public func listView() -> some View {
         ZStack(alignment: .center) {
-                
-            
-            List(recipeViewDataModel.getRecipes()) { recipe in
-                RecipeListCell(recipe: recipe)
-                    .onTapGesture {
-                        self.recipeViewDataModel.displayRecipeView()
-                        self.recipeViewDataModel.configureSelectedRecipe(for: recipe)
-                    }
+            List {
+                ForEach(recipeViewDataModel.getRecipes()) { recipe in
+                    RecipeListCell(recipe: recipe)
+                        .onTapGesture {
+                            self.recipeViewDataModel.displayRecipeView()
+                            self.recipeViewDataModel.configureSelectedRecipe(for: recipe)
+                        }
+                }
+                .onDelete { (indexSet) in
+                    guard let index = indexSet.first else { return }
+                    self.removeRecipe(index: index)
+                }
             }
                      
             VStack {
@@ -59,6 +63,14 @@ struct RecipesListView: View {
                 }.buttonStyle(OrangeCircleButtonStyle())
             }
         }
+    }
+    
+    // Work out which section and row ingredient is in and remove from list
+    func removeRecipe(index: Int) {
+        let recipe = recipeViewDataModel.recipes[index]
+        recipeViewDataModel.configureSelectedRecipe(for: recipe)
+        recipeViewDataModel.deleteRecipe()
+//        recipeViewDataModel.delete(recipe: recipe)
     }
 }
 
