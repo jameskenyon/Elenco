@@ -37,21 +37,18 @@ struct RecipesListView: View {
     // MARK: - Recipe List View
     public func listView() -> some View {
         ZStack(alignment: .center) {
-            VStack {
-                List(recipeViewDataModel.getRecipes()) { recipe in
-                    RecipeListCell(recipe: recipe)
-                        .onTapGesture {
-                            self.recipeViewDataModel.displayRecipeView()
-                            self.recipeViewDataModel.configureSelectedRecipe(for: recipe)
-                        }
-                }
-                Button(action: {
-                    self.contentViewDataModel.menuIsShown = true
-                }) {
-                    Text("Back")
-                }
+                
+            
+            List(recipeViewDataModel.getRecipes()) { recipe in
+                RecipeListCell(recipe: recipe)
+                    .onTapGesture {
+                        self.recipeViewDataModel.displayRecipeView()
+                        self.recipeViewDataModel.configureSelectedRecipe(for: recipe)
+                    }
             }
-            ZStack {
+                     
+            VStack {
+                Spacer()
                 Button(action: {
                     self.recipeViewDataModel.displayEditRecipeView()
                     self.recipeViewDataModel.configureNewSelectedRecipe()
