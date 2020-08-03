@@ -151,7 +151,7 @@ struct MenuViewListCell: View, ElencoTextFieldDisplayable {
         if list.name != ElencoDefaults.mainListName {
             count = ElencoListDataModel.shared.getList(listID: list.listID)?.ingredients.count ?? 0
         } else {
-            count = IngredientDataModel.shared.ingredients.count
+            count = IngredientDataModel.shared.ingredients.filter({$0.parentList?.name != ElencoDefaults.essentialsName}).count
         }
         return count == 1 ? "\(count) item" : "\(count) items"
     }

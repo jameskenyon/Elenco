@@ -52,6 +52,7 @@ struct MenuView: View {
                         ElencoButton(title: ElencoDefaults.essentialsName, style: .green, width: self.buttonWidth(for: geometry.size)) {
                             if let essentialsList = ElencoListDataModel.shared.getList(listName: ElencoDefaults.essentialsName) {
                                 self.listHolderDataModel.configureViewForList(newList: essentialsList)
+                                self.contentViewDataModel.updateView(viewType: .ListHolder)
                             }
                         }
                         

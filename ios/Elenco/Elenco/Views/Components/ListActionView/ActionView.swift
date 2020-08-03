@@ -9,6 +9,13 @@
 import SwiftUI
 import Foundation
 
+public enum ActionType: String {
+    case clearList     = "Clear List"
+    case addEssentials = "Add Essentials"
+    case completeAll   = "Complete All"
+    case uncompleteAll = "Uncomplete All"
+}
+
 public enum SortType: String {
     case name     = "Name"
     case aisle    = "Aisle"
@@ -27,7 +34,7 @@ struct ActionView: View {
             if listHolderModel.isEssentials {
                 return [.clearList]
             }
-            return [.clearList, .completeAll, .uncompleteAll]
+            return [.clearList, .addEssentials, .completeAll, .uncompleteAll]
         }
     }
     

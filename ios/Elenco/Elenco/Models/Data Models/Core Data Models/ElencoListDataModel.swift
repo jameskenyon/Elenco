@@ -132,7 +132,8 @@ class ElencoListDataModel: ObservableObject {
                     let list = getList(listID: listID)
                     if var list = list {
                         if list.name == ElencoDefaults.mainListName && addedMainList == false {
-                            list.ingredients = IngredientDataModel.shared.fetchIngredients()
+                            // adding the main list by fetching all ingredients
+                            list.ingredients = IngredientDataModel.shared.fetchIngredients().filter({$0.parentList?.name != ElencoDefaults.essentialsName})
                             addedMainList = true
                             lists.append(list)
                         } else {

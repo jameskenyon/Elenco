@@ -8,12 +8,6 @@
 
 import SwiftUI
 
-public enum ActionType: String {
-    case clearList     = "Clear List"
-    case completeAll   = "Complete All"
-    case uncompleteAll = "Uncomplete All"
-}
-
 struct ActionViewButtonItem: View {
     
     @EnvironmentObject var listHolderModel: ListHolderDataModel

@@ -26,13 +26,13 @@ struct Ingredient: Codable, Identifiable, Hashable {
     var name: String
     
     /// The id of the ingredient for Lists.
-    let id = UUID()
+    private(set) var id = UUID()
     
     /// The aisle that the ingredient can be found in
     let aisle: String
     
     /// The specific ingredient ID that is used in app.
-    let ingredientID: UUID
+    private(set) var ingredientID: UUID
 
     /// The quantity of the current ingredient
     var quantity: String?
@@ -96,6 +96,12 @@ struct Ingredient: Codable, Identifiable, Hashable {
      */
     public func copy() -> Ingredient {
         return Ingredient(ingredientID: self.ingredientID, name: self.name, aisle: self.aisle, quantity: self.quantity, parentList: self.parentList, completed: self.completed)
+    }
+    
+    /// Generate a new id and ingredientID for the ingredient
+    public mutating func generateNewID() {
+        self.id = UUID()
+        self.ingredientID = UUID()
     }
 }
 

@@ -83,7 +83,7 @@ class ListHolderDataModel: ObservableObject {
         self.window = window
         self.list = initialList
         
-        configureViewForList(newList: self.list)
+        configureViewForList(newList: initialList)
     }
     
     // MARK: Public Interface
@@ -100,7 +100,12 @@ class ListHolderDataModel: ObservableObject {
      */
     public func configureViewForList(newList: ElencoList?) {
         guard let newList = newList else { return }
-        self.list = newList
+        var listCopy = newList.copy()
+        if listCopy.name == ElencoDefaults.mainListName {
+            // filter essentials if the next list is the main list
+            listCopy.ingredients = listCopy.ingredients.filter({$0.parentList?.name != ElencoDefaults.essentialsName})
+        }
+        self.list = listCopy
     }
     
     /**
@@ -321,6 +326,7 @@ extension ListHolderDataModel {
     public func completeListAction(actionType: ActionType) {
         switch actionType {
         case .clearList     : handleClearList()
+        case .addEssentials : handleAddEssentials()
         case .completeAll   : handleAllCompletion(shouldComplete: true)
         case .uncompleteAll : handleAllCompletion(shouldComplete: false)
         }
@@ -331,6 +337,48 @@ extension ListHolderDataModel {
         self.window.displayAlert(title: "Are you sure you want to delete all ingredients in this list?", message: nil, okTitle: "Ok") { (action) -> (Void) in
             self.clearList()
         }
+    }
+    
+    /// Called to add the essentials list to the current list
+    private func handleAddEssentials() {
+        self.window.displayAlert(title: "Are you sure you want to add your essentials to this list?", message: nil, okTitle: "Ok") { (action) -> (Void) in
+            if let essentialsList = ElencoListDataModel.shared.getList(listName: ElencoDefaults.essentialsName) {
+                if self.listContainsEssential(essentialsList: essentialsList) {
+                    self.window.displayAlert(title: "Warning", message: "You already have some essentials in this list. Continue anyway?", okTitle: "Ok") { (action) -> (Void) in
+                        self.addEssentials(essentialsList: essentialsList)
+                    }
+                } else {
+                    self.addEssentials(essentialsList: essentialsList)
+                }
+
+            }
+        }
+    }
+    
+    /// Check if adding essentials causes overwrite
+    private func listContainsEssential(essentialsList: ElencoList) -> Bool {
+        for ingredient in essentialsList.ingredients {
+            if self.userHasIngredient(name: ingredient.name) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    /// Add essentials to the list
+    private func addEssentials(essentialsList: ElencoList) {
+        for ingredient in essentialsList.ingredients {
+            self.addEssential(ingredient: ingredient)
+        }
+        self.showTickView = true
+    }
+    
+    /// Add essential ingredient to list
+    private func addEssential(ingredient: Ingredient) {
+        var ingredientCopy = ingredient.copy()
+        // update the id to a new id
+        ingredientCopy.generateNewID()
+        self.addIngredient(ingredient: ingredientCopy)
     }
     
     /**
