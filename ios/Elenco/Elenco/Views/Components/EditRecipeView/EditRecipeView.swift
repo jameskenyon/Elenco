@@ -99,14 +99,16 @@ struct EditRecipeView: View {
     // Enable user to add a instruction to recipe
     private func addMethodStepButtonTapped() {
         // MARK: TODO custom input field
-        listHolderDataModel.window.displayAlertWithTextField(title: "Add Ingredient", message: "Add Ingredient to this recipe", placeholder: "Add Ingredient") { (methodString) in
+        listHolderDataModel.window.displayAlertWithTextField(title: "Add Method", message: "Add a method step to this recipe", placeholder: "Add Method") { (methodString) in
             guard let methodString = methodString else { return }
             self.recipeDataModel.addMethod(for: methodString)
         }
     }
     
+    // Save recipe to core data and stop showing edit recipe page
     private func saveRecipe() {
         recipeDataModel.saveRecipe(name: recipeName, time: time)
+        recipeDataModel.editRecipiesIsShown = false
     }
 }
 

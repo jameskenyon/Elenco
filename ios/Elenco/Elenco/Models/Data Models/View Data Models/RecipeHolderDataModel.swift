@@ -36,7 +36,7 @@ class RecipeHolderDataModel: ObservableObject {
     }
     
     public func addMethod(for instruction: String) {
-        let methodNumber = selectedRecipe.ingredients.count + 1
+        let methodNumber = selectedRecipe.method.count + 1
         let method = RecipeMethod(number: methodNumber, instruction: instruction)
         selectedRecipe.method.append(method)
     }
