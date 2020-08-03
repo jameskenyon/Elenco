@@ -44,6 +44,7 @@ struct RecipesListView: View {
             ZStack {
                 Button(action: {
                     self.recipeViewDataModel.editRecipiesIsShown = true
+                    self.recipeViewDataModel.configureNewSelectedRecipe()
                 }) {
                     Text("+")
                         .font(.custom("HelveticaNeue-Regular", size: 40))

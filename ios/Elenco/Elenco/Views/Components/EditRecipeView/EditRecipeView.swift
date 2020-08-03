@@ -11,6 +11,7 @@ import SwiftUI
 struct EditRecipeView: View {
     
     @EnvironmentObject var recipeDataModel: RecipeHolderDataModel
+    @EnvironmentObject var listHolderDataModel: ListHolderDataModel
     
     @State var recipeName: String = ""
     @State var time: String = ""
@@ -85,9 +86,14 @@ struct EditRecipeView: View {
     }
     
     // MARK: - View methods
+    
+    // Enable user to input ingredient name and display in list
     private func addIngredientButtonTapped() {
-        print("added ingredient")
-        recipeDataModel.addIngredient(ingredient: Ingredient(ingredientID: UUID(), name: "Chicken", aisle: "", parentList: nil))
+        // MARK: TODO custom input field
+        listHolderDataModel.window.displayAlertWithTextField(title: "Add Ingredient", message: "Add Ingredient to this recipe", placeholder: "Add Ingredient") { (ingredientString) in
+            guard let ingredientString = ingredientString   else { return }
+            self.recipeDataModel.addIngredient(name: ingredientString)
+        }
     }
     
     private func saveIngredientButtonTapped() {
@@ -95,7 +101,11 @@ struct EditRecipeView: View {
     }
     
     private func addMethodStepButtonTapped() {
-        print("Add step")
+        // MARK: TODO custom input field
+        listHolderDataModel.window.displayAlertWithTextField(title: "Add Ingredient", message: "Add Ingredient to this recipe", placeholder: "Add Ingredient") { (methodString) in
+            guard let methodString = methodString else { return }
+            self.recipeDataModel.addMethod(for: methodString)
+        }
     }
     
     private func saveMethodSetpButtonTapped() {

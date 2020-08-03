@@ -28,8 +28,15 @@ class RecipeHolderDataModel: ObservableObject {
         selectedRecipe = Recipe(name: "recipeName", recipeID: UUID(), serves: 0, estimatedTime: "time", ingredients: Ingredients(), method: Instructions())
     }
     
-    public func addIngredient(ingredient: Ingredient) {
+    public func addIngredient(name: String) {
+        let ingredient = Ingredient(ingredientID: UUID(), name: name, aisle: "", parentList: nil)
         selectedRecipe.ingredients.append(ingredient)
+    }
+    
+    public func addMethod(for instruction: String) {
+        let methodNumber = selectedRecipe.ingredients.count + 1
+        let method = RecipeMethod(number: methodNumber, instruction: instruction)
+        selectedRecipe.method.append(method)
     }
     
     
