@@ -12,6 +12,7 @@ struct RecipeHeaderView: View {
     
     @EnvironmentObject var listDataModel: ListHolderDataModel
     @EnvironmentObject var recipeDataModel: RecipeHolderDataModel
+    @EnvironmentObject var contentDataModel: ContentViewDataModel
     
     var image: UIImage?
     var geometry: GeometryProxy
@@ -44,6 +45,9 @@ struct RecipeHeaderView: View {
         VStack {
             HStack {
                 MenuIcon()
+                    .onTapGesture {
+                        self.menuIconPressed()
+                    }
                 Spacer()
             }
             .padding(.top, menuIconTop)
@@ -93,6 +97,11 @@ struct RecipeHeaderView: View {
             self.recipeDataModel.deleteRecipe()
             self.recipeDataModel.hideViews()
         }
+    }
+    
+    private func menuIconPressed() {
+        recipeDataModel.hideViews()
+        contentDataModel.menuIsShown = true
     }
     
     // MARK: - View Constants
