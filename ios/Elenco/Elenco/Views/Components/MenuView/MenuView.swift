@@ -37,13 +37,14 @@ struct MenuView: View {
                         // Title
                         MenuHeaderView(title: "Lists", image: #imageLiteral(resourceName: "menuListIcon"), width: self.getWidth(geometry: geometry), showSeporator: false)
                             .padding(.leading)
+                            .padding(.bottom, 10)
                             .onTapGesture {
                                 self.contentViewDataModel.updateView(viewType: .ListHolder)
                         }
 
                         // Lists
                         MenuListsView()
-                            .padding(.top, self.listHolderDataModel.list.name == ElencoDefaults.mainListName ? 5 : 10)
+                            .padding(.top, self.listHolderDataModel.list.name == ElencoDefaults.mainListName ? 5 : 0)
                         
                         ElencoButton(title: "+ New List", width: self.buttonWidth(for: geometry.size)) {
                             self.menuViewDataModel.createNewList()
@@ -72,10 +73,16 @@ struct MenuView: View {
                         }
 
                         Spacer()
-                        // Back Button
-                        MenuBackButton()
-                        .padding(.leading, 30)
-                            .padding(.bottom, self.getBottomElementPadding())
+                        HStack {
+                            Spacer()
+                            Image("backButton")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .padding(.trailing, -5)
+                            // Back Button
+                            MenuBackButton()
+                        }
+                        .padding(.bottom, self.getBottomElementPadding())
                     }
                     .offset(x: 0, y: -self.contentViewDataModel.keyboardHeight)
                     .animation(

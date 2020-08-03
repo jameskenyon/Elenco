@@ -16,14 +16,12 @@ struct MenuBackButton: View {
     
     var body: some View {
         HStack {
-            Spacer()
-            
             Button(action: {
                 self.contentViewDataModel.menuIsShown = false
             }, label: {
                 Text("Back")
                 .font(.custom("HelveticaNeue-Bold", size: 22))
-                    .foregroundColor(self.colorScheme == .dark ? Color.white : Color("Tungsten"))
+                    .foregroundColor(Color("Dark-Gray"))
             })
                 .padding(.trailing, 30)
         }
