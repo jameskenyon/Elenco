@@ -20,17 +20,6 @@ struct RecipeView: View {
                 IngredientMethodPagerView()
             }
             .edgesIgnoringSafeArea(.all)
-        }
-        
-        
+        }  
     }
 }
-
-
-
-
-//struct RecipeView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RecipeView()
-//    }
-//}

@@ -16,7 +16,7 @@ class RecipeHolderDataModel: ObservableObject {
     
     @Published private(set) var selectedRecipe: Recipe
     
-    @Published private var isNewRecipe: Bool = false
+    @Published private(set) var isNewRecipe: Bool = false
     
     init() {
         self.selectedRecipe = Recipe(name: "recipeName", recipeID: UUID(), serves: 0, estimatedTime: "time", ingredients: Ingredients(), method: Instructions())
@@ -32,6 +32,11 @@ class RecipeHolderDataModel: ObservableObject {
         editRecipiesIsShown = false
     }
     
+    public func hideViews() {
+        recipeViewIsShown = false
+        editRecipiesIsShown = false
+    }
+    
     public func configureSelectedRecipe(for recipe: Recipe) {
         isNewRecipe = false
         selectedRecipe = recipe
@@ -42,6 +47,7 @@ class RecipeHolderDataModel: ObservableObject {
         selectedRecipe = Recipe(name: "recipeName", recipeID: UUID(), serves: 0, estimatedTime: "time", ingredients: Ingredients(), method: Instructions())
     }
     
+    // MARK: - Access to Core data model
     public func addIngredient(name: String) {
         let ingredient = Ingredient(ingredientID: UUID(), name: name, aisle: "", parentList: nil)
         selectedRecipe.ingredients.append(ingredient)
@@ -57,6 +63,15 @@ class RecipeHolderDataModel: ObservableObject {
         selectedRecipe.name = name
         selectedRecipe.estimatedTime = time
         RecipeDataModel.shared.createRecipe(recipe: selectedRecipe) { (error) in
+            if let error = error { print(error.localizedDescription) }
+        }
+    }
+    
+    // Update recipe in Core data
+    public func updateRecipe(name: String, time: String) {
+        selectedRecipe.name = name
+        selectedRecipe.estimatedTime = time
+        RecipeDataModel.shared.update(recipe: selectedRecipe) { (error) in
             if let error = error { print(error.localizedDescription) }
         }
     }

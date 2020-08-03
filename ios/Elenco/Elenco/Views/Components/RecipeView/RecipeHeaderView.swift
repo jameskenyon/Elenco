@@ -10,6 +10,8 @@ import SwiftUI
 
 struct RecipeHeaderView: View {
     
+    @EnvironmentObject var recipeDataModel: RecipeHolderDataModel
+    
     var image: UIImage?
     var geometry: GeometryProxy
     
@@ -46,7 +48,7 @@ struct RecipeHeaderView: View {
             .padding(.top, menuIconTop)
             .padding(.leading)
             
-            Text("Tomato Pasta")
+            Text(recipeDataModel.selectedRecipe.name)
                 .font(.custom("HelveticaNeue-Bold", size: 35))
             
             Rectangle()
@@ -54,8 +56,8 @@ struct RecipeHeaderView: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text("8 Ingredients")
-                    Text("Estimated time 20min")
+                    Text("\(recipeDataModel.selectedRecipe.ingredients.count) Ingredients")
+                    Text("Estimated time \(recipeDataModel.selectedRecipe.estimatedTime)min")
                 }
                 Spacer()
             }
@@ -65,11 +67,11 @@ struct RecipeHeaderView: View {
             
             HStack {
                 RecipeButton(title: "Edit", color: Color("Teal"), width: buttonWidth(for: size)) {
-                    print("Hello")
+                    self.editButtonTapped()
                 }
                 
                 RecipeButton(title: "Delete", color: Color(#colorLiteral(red: 0.9647058824, green: 0.5058823529, blue: 0.137254902, alpha: 1)), width: buttonWidth(for: size)) {
-                    print("Hello")
+                    self.deleteButtonTapped()
                 }
                 Spacer()
             }
@@ -77,6 +79,16 @@ struct RecipeHeaderView: View {
             .padding(.leading)
         }
         .foregroundColor(Color.white)
+    }
+    
+    // MARK: - Button Actions
+    private func editButtonTapped() {
+        recipeDataModel.configureSelectedRecipe(for: recipeDataModel.selectedRecipe)
+        recipeDataModel.displayEditRecipeView()
+    }
+    
+    private func deleteButtonTapped() {
+        print("delete")
     }
     
     // MARK: - View Constants

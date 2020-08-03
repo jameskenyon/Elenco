@@ -107,8 +107,12 @@ struct EditRecipeView: View {
     
     // Save recipe to core data and stop showing edit recipe page
     private func saveRecipe() {
-        recipeDataModel.saveRecipe(name: recipeName, time: time)
-        recipeDataModel.editRecipiesIsShown = false
+        if recipeDataModel.isNewRecipe {
+            recipeDataModel.saveRecipe(name: recipeName, time: time)
+        } else {
+            recipeDataModel.updateRecipe(name: recipeName, time: time)
+        }
+        recipeDataModel.hideViews()
     }
 }
 
