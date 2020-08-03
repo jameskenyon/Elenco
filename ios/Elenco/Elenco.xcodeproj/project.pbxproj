@@ -237,9 +237,9 @@
 			isa = PBXGroup;
 			children = (
 				1AC4432624D56F7E0032C4E3 /* RecipeView.swift */,
-				1AC4433A24D809010032C4E3 /* IngredientMethodList */,
-				1AC4432D24D58E1D0032C4E3 /* IngredientMethodPagerView.swift */,
 				1AC4432B24D580480032C4E3 /* RecipeHeaderView.swift */,
+				1AC4432D24D58E1D0032C4E3 /* IngredientMethodPagerView.swift */,
+				1AC4433A24D809010032C4E3 /* IngredientMethodList */,
 				1AC4432924D57E1D0032C4E3 /* RecipeButton.swift */,
 			);
 			path = RecipeView;

@@ -67,6 +67,12 @@ class RecipeHolderDataModel: ObservableObject {
         }
     }
     
+    public func deleteRecipe() {
+        RecipeDataModel.shared.delete(recipe: selectedRecipe) { (error) in
+            if let error = error { print(error.localizedDescription) }
+        }
+    }
+    
     // Update recipe in Core data
     public func updateRecipe(name: String, time: String) {
         selectedRecipe.name = name

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct RecipeHeaderView: View {
     
+    @EnvironmentObject var listDataModel: ListHolderDataModel
     @EnvironmentObject var recipeDataModel: RecipeHolderDataModel
     
     var image: UIImage?
@@ -88,7 +89,10 @@ struct RecipeHeaderView: View {
     }
     
     private func deleteButtonTapped() {
-        print("delete")
+        listDataModel.window.displayAlert(title: "Delete Recipe", message: "Are you sure you want to delete this recipe", okTitle: "Delete") { (_) -> (Void) in
+            self.recipeDataModel.deleteRecipe()
+            self.recipeDataModel.hideViews()
+        }
     }
     
     // MARK: - View Constants
