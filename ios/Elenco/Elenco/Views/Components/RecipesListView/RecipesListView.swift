@@ -22,6 +22,8 @@ struct RecipesListView: View {
         ZStack {
             if recipeViewDataModel.editRecipiesIsShown {
                 EditRecipeView()
+            } else if recipeViewDataModel.recipeViewIsShown {
+                RecipeView()
             } else {
                 listView()
             }
@@ -34,6 +36,10 @@ struct RecipesListView: View {
             VStack {
                 List(recipeViewDataModel.getRecipes()) { recipe in
                     RecipeListCell(recipe: recipe)
+                        .onTapGesture {
+                            self.recipeViewDataModel.displayRecipeView()
+                            self.recipeViewDataModel.configureSelectedRecipe(for: recipe)
+                        }
                 }
                 Button(action: {
                     self.contentViewDataModel.menuIsShown = true
@@ -43,7 +49,7 @@ struct RecipesListView: View {
             }
             ZStack {
                 Button(action: {
-                    self.recipeViewDataModel.editRecipiesIsShown = true
+                    self.recipeViewDataModel.displayEditRecipeView()
                     self.recipeViewDataModel.configureNewSelectedRecipe()
                 }) {
                     Text("+")

@@ -10,7 +10,9 @@ import SwiftUI
 
 class RecipeHolderDataModel: ObservableObject {
     
-    @Published var editRecipiesIsShown: Bool = false
+    @Published private(set) var editRecipiesIsShown: Bool = false
+    
+    @Published private(set) var recipeViewIsShown: Bool = false
     
     @Published private(set) var selectedRecipe: Recipe
     
@@ -18,6 +20,16 @@ class RecipeHolderDataModel: ObservableObject {
     
     init() {
         self.selectedRecipe = Recipe(name: "recipeName", recipeID: UUID(), serves: 0, estimatedTime: "time", ingredients: Ingredients(), method: Instructions())
+    }
+    
+    public func displayEditRecipeView() {
+        editRecipiesIsShown = true
+        recipeViewIsShown = false
+    }
+    
+    public func displayRecipeView() {
+        recipeViewIsShown = true
+        editRecipiesIsShown = false
     }
     
     public func configureSelectedRecipe(for recipe: Recipe) {

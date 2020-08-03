@@ -10,12 +10,12 @@ import SwiftUI
 
 struct RecipeView: View {
     
-    var recipe: Recipe
-    
+    @EnvironmentObject var recipeDataModel: RecipeHolderDataModel
+        
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                RecipeHeaderView(image: self.recipe.image, geometry: geometry)
+                RecipeHeaderView(image: self.recipeDataModel.selectedRecipe.image, geometry: geometry)
                     .edgesIgnoringSafeArea(.all)
                 IngredientMethodPagerView()
             }
