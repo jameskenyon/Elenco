@@ -173,7 +173,6 @@ extension AddIngredientView {
             }
         }
     
-    
         private func loadIngredientsAndRecipesFor(query: String) {
             // user must type at least 2 letters before beginning auto-complete
             if query.count >= 2 {

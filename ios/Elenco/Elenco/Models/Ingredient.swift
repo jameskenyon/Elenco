@@ -43,6 +43,17 @@ struct Ingredient: Codable, Identifiable, Hashable {
     /// Whether the ingredient is marked as completed or not.
     var completed: Bool = false
     
+    /// The unit of the ingredient from the quantity string
+    var unit: String {
+        return self.quantity?.components(separatedBy: .decimalDigits)
+            .joined().lowercased() ?? ""
+    }
+    
+    /// The raw integer quantity of the ingredient
+    var rawQuantity: Int {
+        return Int(self.quantity?.components(separatedBy: .letters).joined() ?? "0") ?? 0
+    }
+    
     // MARK: Inits
     
     init(ingredientID: UUID, name: String, aisle: String, parentList: ElencoList?) {
@@ -96,6 +107,15 @@ struct Ingredient: Codable, Identifiable, Hashable {
      */
     public func copy() -> Ingredient {
         return Ingredient(ingredientID: self.ingredientID, name: self.name, aisle: self.aisle, quantity: self.quantity, parentList: self.parentList, completed: self.completed)
+    }
+    
+    /// Add the quantities of two ingredients.
+    public mutating func addIngredient(ingredient: Ingredient) -> Bool {
+        if self.unit == ingredient.unit && self.name.lowercased() == ingredient.name.lowercased() {
+            self.quantity = String(rawQuantity + ingredient.rawQuantity) + unit
+            return true
+        }
+        return false
     }
     
     /// Generate a new id and ingredientID for the ingredient
