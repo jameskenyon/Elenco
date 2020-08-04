@@ -55,7 +55,7 @@ struct Recipe: Identifiable {
     /// Init recipe when in app using all the default fields.
     init(name: String, id: UUID = UUID(), recipeID: UUID, serves: Int, isShared: Bool = false, estimatedTime: String,
          dietaryRequirements: String? = nil, image: UIImage? = nil, ingredients: Ingredients, method: Instructions) {
-        self.name = name
+        self.name = name.lowercased()
         self.id = id
         self.recipeID = recipeID
         self.serves = serves
@@ -75,7 +75,7 @@ struct Recipe: Identifiable {
      */
      
     init(recipeStore: RecipeStore) {
-        self.name = recipeStore.name ?? ""
+        self.name = recipeStore.name?.lowercased() ?? ""
         self.id = recipeStore.id ?? UUID()
         self.recipeID = recipeStore.recipeID ?? UUID()
         self.serves = Int(recipeStore.serves)

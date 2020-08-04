@@ -36,7 +36,7 @@ struct AddIngredientView: View, ElencoTextFieldDisplayable {
                         .frame(height: 60)
                         if searchViewModel.query.count != 0 {
                             Button(action: {
-                                self.addIngredient()
+                                self.addIngredientOrRecipe()
                                 self.listHolderModel.userFinishedAddingIngredients()
                             }) {
                                 Text("+")
@@ -49,6 +49,18 @@ struct AddIngredientView: View, ElencoTextFieldDisplayable {
                     }
                     .background(Color("Background"))
                     
+                    // display each of the recipe suggestions
+                    ForEach(searchViewModel.searchRecipes.indices, id: \.self) { index in
+                        RecipeSearchCell(recipe: self.searchViewModel.searchRecipes[index],
+                                         query: self.searchViewModel.query)
+                            .padding(.top).padding(.bottom)
+                            .onTapGesture {
+                                self.searchViewModel.query = self.searchViewModel.searchRecipes[index].name.capitalise()
+                            }
+                    }
+                    .background(Color("Background"))
+                    
+                    // display each of the ingredient suggestions
                     ForEach(searchViewModel.searchIngredients.indices, id: \.self) { index in
                         IngredientSearchCell(ingredient: self.searchViewModel.searchIngredients[index],
                                              index: index, query: self.searchViewModel.query)
@@ -68,6 +80,25 @@ struct AddIngredientView: View, ElencoTextFieldDisplayable {
         .padding()
     }
     
+    // decides whether to add ingredient or recipe
+    private func addIngredientOrRecipe() {
+        // there is at least one recipe that has been found
+        if searchViewModel.searchRecipes.count != 0 {
+            let searchQuery = searchViewModel.query
+            if let recipe = RecipeDataModel.shared.fetchRecipe(forName: searchQuery) {
+                self.listHolderModel.window.displayChoiceAlert(title: "Alert", message: "Would you like to add this as a recipe or ingredient?", actionOneTitle: "Ingredient", actionTwoTitle: "Recipe", actionOne: { (action) -> (Void) in
+                    self.addIngredient(searchText: searchQuery)
+                }) { (action) -> (Void) in
+                    self.addRecipe(recipe: recipe)
+                }
+            }
+        } else {
+            addIngredient()
+        }
+        self.listHolderModel.showTickView = true
+        hideTextField()
+    }
+    
     private func addIngredient() {
         let nameAndQuantity = Ingredient.getIngredientNameAndQuantity(searchText:
                    self.searchViewModel.query)
@@ -77,10 +108,28 @@ struct AddIngredientView: View, ElencoTextFieldDisplayable {
         self.listHolderModel.addIngredient(ingredient:
             Ingredient(ingredientID: UUID(), name: name, aisle: aisle, quantity: quantity, parentList: self.listHolderModel.list)
         )
-        self.listHolderModel.showTickView = true
-        hideTextField()
     }
     
+    private func addIngredient(searchText: String) {
+        let nameAndQuantity = Ingredient.getIngredientNameAndQuantity(searchText: searchText)
+        let name  = nameAndQuantity.0
+        let quantity = nameAndQuantity.1
+        let aisle = IngredientAPIService.getAisleForIngredient(ingredientName: name)
+        self.listHolderModel.addIngredient(ingredient:
+            Ingredient(ingredientID: UUID(), name: name, aisle: aisle, quantity: quantity, parentList: self.listHolderModel.list)
+        )
+    }
+    
+    // Add all ingredients from a recipe
+    private func addRecipe(recipe: Recipe) {
+        for ingredient in recipe.ingredients {
+            var ingredientCopy = ingredient.copy()
+            ingredientCopy.generateNewID()
+            ingredientCopy.parentList = listHolderModel.list
+            self.listHolderModel.addIngredient(ingredient: ingredientCopy)
+        }
+    }
+
     // hide the text field from the user
     private func hideTextField() {
         withAnimation {
@@ -100,10 +149,10 @@ struct AddIngredientView: View, ElencoTextFieldDisplayable {
             if listHolderModel.userHasIngredient(name: query) {
                 listHolderModel.window.displayAlert(title: "You already have this ingredient.",
                                                 okTitle: "Add anyway") { (alert) -> (Void) in
-                                                    self.addIngredient()
+                                                    self.addIngredientOrRecipe()
                 }
             } else {
-                addIngredient()
+                addIngredientOrRecipe()
             }
         }
         hideTextField()
@@ -116,31 +165,37 @@ extension AddIngredientView {
     class SearchViewModel: ObservableObject {
         
         @Published private(set) var searchIngredients: Ingredients = []
+        @Published private(set) var searchRecipes: Recipes = []
         
         @Published var query:String = "" {
             didSet {
-                loadIngredientsFor(query: query)
+                loadIngredientsAndRecipesFor(query: query)
             }
         }
-        
-        private func loadIngredientsFor(query: String) {
-            // user must type at least 3 letters before beginning auto-complete
+    
+    
+        private func loadIngredientsAndRecipesFor(query: String) {
+            // user must type at least 2 letters before beginning auto-complete
             if query.count >= 2 {
-                let results = IngredientAPIService.getPossibleIngredientsFor(query: query)
+                let ingredientsResults = IngredientAPIService.getPossibleIngredientsFor(query: query)
+                let recipesResults = RecipeDataModel.shared.fetchRecipes(withName: query)
                 DispatchQueue.main.async {
                     withAnimation { () -> () in
-                        self.searchIngredients = results
+                        self.searchIngredients = ingredientsResults
+                        self.searchRecipes = recipesResults
                     }
                 }
             } else {
                 withAnimation { () -> () in
                     self.searchIngredients = []
+                    self.searchRecipes = []
                 }
             }
         }
     }
 }
 
+/// Represents an ingredient in the search view
 struct IngredientSearchCell: View {
     
     // Properties
@@ -156,6 +211,26 @@ struct IngredientSearchCell: View {
                 .foregroundColor(index == 0 ?
                     Color("Dark-Gray") : Color("Light-Gray"))
             SemiBoldLabel(text: ingredient.name.lowercased(), query: query.lowercased(),
+                          font: .custom("HelveticaNeue-Regular", size: 20))
+            Spacer()
+        }
+    }
+}
+
+/// Represents a recipe in the search view
+struct RecipeSearchCell: View {
+    
+    // Properties
+    var recipe: Recipe
+    var query: String
+    
+    var body: some View {
+        HStack {
+            Text("Recipe")
+                .padding(.trailing).padding(.leading, 30)
+                .font(.custom("HelveticaNeue-Regular", size: 18))
+                .foregroundColor(Color("Teal"))
+            SemiBoldLabel(text: recipe.name.lowercased(), query: query.lowercased(),
                           font: .custom("HelveticaNeue-Regular", size: 20))
             Spacer()
         }

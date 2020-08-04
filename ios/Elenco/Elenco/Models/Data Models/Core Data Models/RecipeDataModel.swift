@@ -66,6 +66,45 @@ class RecipeDataModel: ObservableObject {
     }
     
     /**
+     Fetch recipes from core data based on the name of the recipe.
+     
+     - Returns: An arry of recipes, empty if none are found
+     */
+    public func fetchRecipes(withName query: String, limit: Int? = 3) -> Recipes {
+        let request: NSFetchRequest<RecipeStore> = RecipeStore.fetchRequest()
+        request.predicate = NSPredicate(format: "name CONTAINS[c] '\(query)'")
+        do {
+            let recipeEntities = try ElencoDefaults.context.fetch(request)
+            let recipes = recipeEntities.map({ Recipe(recipeStore: $0) })
+            if let limit = limit {
+                var returnRecipes: Recipes = []
+                if recipes.count > limit {
+                    for i in 0...limit {
+                        returnRecipes.append(recipes[i])
+                    }
+                    return returnRecipes
+                }
+            }
+            return recipes
+        } catch {
+            return []
+        }
+    }
+    
+    /// Get a recipe that matches name exactly
+    public func fetchRecipe(forName name: String) -> Recipe? {
+        let request: NSFetchRequest<RecipeStore> = RecipeStore.fetchRequest()
+        request.predicate = NSPredicate(format: "name == %@", name.lowercased())
+        do {
+            let recipeEntity = try ElencoDefaults.context.fetch(request).first
+            if let recipeEntity = recipeEntity {
+                return Recipe(recipeStore: recipeEntity)
+            }
+        } catch {}
+        return nil
+    }
+    
+    /**
      Create a new recipe from scratch.
      
      - Parameters:

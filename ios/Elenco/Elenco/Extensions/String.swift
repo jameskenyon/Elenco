@@ -30,4 +30,8 @@ extension String {
         return ""
     }
     
+    func removeWhitespace() -> String {
+        return self.trimmingCharacters(in: NSCharacterSet.whitespaces)
+    }
+    
 }

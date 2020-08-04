@@ -43,6 +43,22 @@ public extension UIWindow {
         self.rootViewController?.present(alertController, animated: true, completion: nil)
     }
     
+    func displayChoiceAlert(title: String = "Alert", message: String? = nil, actionOneTitle: String?,
+                            actionTwoTitle: String?, actionOne: ((UIAlertAction)->(Void))?,
+                            actionTwo: ((UIAlertAction)->(Void))?) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        if let actionOneTitle = actionOneTitle {
+            let actionOne = UIAlertAction(title: actionOneTitle, style: .default, handler: actionOne)
+            alertController.addAction(actionOne)
+        }
+        if let actionTwoTitle = actionTwoTitle {
+            let actionTwo = UIAlertAction(title: actionTwoTitle, style: .default, handler: actionTwo)
+            alertController.addAction(actionTwo)
+        }
+        alertController.view.tintColor = UIColor(named: "Teal")
+        self.rootViewController?.present(alertController, animated: true, completion: nil)
+    }
+    
     /**
      Displays an alert on the target window using prebuilt UIAlertController. Contains a textfiled so that
      the user can enter data into the alert.

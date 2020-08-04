@@ -26,6 +26,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //                print(error)
 //            }
 //        }
+        
+        // SAVE DUMMY RECIPE
+//        let recipes = Recipe.getRecipes()
+//        RecipeDataModel.shared.createRecipe(recipe: recipes.first!) { (error) in
+//            print(error)
+//        }
        
         // MARK: Initial Setup
         
