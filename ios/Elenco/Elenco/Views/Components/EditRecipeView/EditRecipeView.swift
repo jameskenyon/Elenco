@@ -14,12 +14,14 @@ struct EditRecipeView: View {
     @EnvironmentObject var listHolderDataModel: ListHolderDataModel
     
     @State var recipeName: String = ""
+    @State var selectedImage = UIImage()
     @State var time: String = ""
     @State var serves: String = ""
     @State var isVegitarian: Bool = false
     @State var isNutFree: Bool = false
     @State var isGlutenFree: Bool = false
     @State var showAlert = false
+    @State var isShowingImagePicker = false
     @State var alertAction: ((String?)->())?
     
     init() {
@@ -43,22 +45,29 @@ struct EditRecipeView: View {
                             .foregroundColor(Color("Light-Gray"))
 
                             ZStack {
-                                if self.recipeDataModel.selectedRecipe.image == nil {
-                                    RoundedRectangle(cornerRadius: 35)
-                                    .foregroundColor(Color("Light-Gray"))
-                                    .frame(width: 70, height: 70)
-                                } else {
-                                    Image(uiImage: self.recipeDataModel.selectedRecipe.image!)
+//                                if self.recipeDataModel.selectedRecipe.image == nil {
+//                                    RoundedRectangle(cornerRadius: 35)
+//                                    .foregroundColor(Color("Light-Gray"))
+//                                    .frame(width: 70, height: 70)
+//                                } else {
+                                    Image(uiImage: self.selectedImage)
                                         .resizable()
                                         .scaledToFit()
                                         .clipped()
                                         .frame(width: 70, height: 70)
                                         .cornerRadius(35)
-                                }
+                                        .background(Color("Light-Gray"))
+//                                }
                                 Image(uiImage: #imageLiteral(resourceName: "editList"))
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 30, height: 30)
+                            }
+                            .sheet(isPresented: self.$isShowingImagePicker) {
+                                ImagePickerView(isPresented: self.$isShowingImagePicker, selectedImage: self.$selectedImage)
+                            }
+                            .onTapGesture {
+                                self.isShowingImagePicker.toggle()
                             }
                             .padding(.horizontal, 30)
 
@@ -118,6 +127,7 @@ struct EditRecipeView: View {
         self.time = self.recipeDataModel.selectedRecipe.estimatedTime
         let recipeServes = self.recipeDataModel.selectedRecipe.serves
         self.serves = recipeServes != 0 ? "\(recipeServes)" : ""
+        selectedImage = recipeDataModel.selectedRecipe.image ?? UIImage()
     }
     
     // Enable user to input ingredient name and display in list
@@ -145,9 +155,9 @@ struct EditRecipeView: View {
     // Save recipe to core data and stop showing edit recipe page
     private func saveRecipe() {
         if recipeDataModel.isNewRecipe {
-            recipeDataModel.saveRecipe(name: recipeName, time: time, serves: serves)
+            recipeDataModel.saveRecipe(name: recipeName, time: time, serves: serves, image: selectedImage)
         } else {
-            recipeDataModel.updateRecipe(name: recipeName, time: time, serves: serves)
+            recipeDataModel.updateRecipe(name: recipeName, time: time, serves: serves, image: selectedImage)
         }
         recipeDataModel.hideViews()
     }

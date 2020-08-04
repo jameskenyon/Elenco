@@ -63,10 +63,11 @@ class RecipeHolderDataModel: ObservableObject {
         selectedRecipe.method.append(method)
     }
     
-    public func saveRecipe(name: String, time: String, serves: String) {
+    public func saveRecipe(name: String, time: String, serves: String, image: UIImage) {
         selectedRecipe.name = name
         selectedRecipe.estimatedTime = time
         selectedRecipe.serves = Int(serves) ?? 1
+        selectedRecipe.image = image
         RecipeDataModel.shared.createRecipe(recipe: selectedRecipe) { (error) in
             if let error = error { print(error.localizedDescription) }
             self.recipes.append(self.selectedRecipe)
@@ -91,10 +92,11 @@ class RecipeHolderDataModel: ObservableObject {
     }
     
     // Update recipe in Core data
-    public func updateRecipe(name: String, time: String, serves: String) {
+    public func updateRecipe(name: String, time: String, serves: String, image: UIImage) {
         selectedRecipe.name = name
         selectedRecipe.estimatedTime = time
         selectedRecipe.serves = Int(serves) ?? 1
+        selectedRecipe.image = image
         RecipeDataModel.shared.update(recipe: selectedRecipe) { (error) in
             if let error = error { print(error.localizedDescription) }
         }
