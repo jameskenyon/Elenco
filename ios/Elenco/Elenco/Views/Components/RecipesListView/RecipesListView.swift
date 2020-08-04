@@ -74,12 +74,13 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
                                 self.recipeViewDataModel.configureSelectedRecipe(for: recipe)
                             }
                         }
+                        .onDelete { (indexSet) in
+                            guard let index = indexSet.first else { return }
+                            self.removeRecipe(atSection: section, index: index)
+                        }
                     }
                 }
-//                .onDelete { (indexSet) in
-//                    guard let index = indexSet.first else { return }
-//                    self.removeRecipe(index: index)
-//                }
+
             }
             .listStyle(GroupedListStyle())
             .gesture(
@@ -103,10 +104,12 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
         }
     }
     
-    // Work out which section and row ingredient is in and remove from list
-    func removeRecipe(index: Int) {
-        let recipe = recipeViewDataModel.recipes[index]
-        recipeViewDataModel.delete(recipe: recipe)
+    // Work out which section and row recipe is in and remove from list
+    func removeRecipe(atSection section: RecipeListViewSection<Recipe>, index: Int) {
+        let selectedSection = sections().filter({ $0.title == section.title}).first
+        if let recipe = selectedSection?.content[index] {
+            self.recipeViewDataModel.delete(recipe: recipe)
+        }
     }
     
     func sections() -> [RecipeListViewSection<Recipe>] {
