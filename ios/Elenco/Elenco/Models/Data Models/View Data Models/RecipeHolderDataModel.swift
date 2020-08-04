@@ -141,6 +141,21 @@ class RecipeHolderDataModel: ObservableObject {
         }
         return sections
     }
+    
+    // Return recipes sorted into sectinos
+    public func recipeSections(for recipes: Recipes) -> [RecipeListViewSection<Recipe>] {
+       var sections = [RecipeListViewSection<Recipe>]()
+       let sectionHeaders = Set(recipes.map({ $0.name.first?.lowercased() ?? ""}))
+       
+       // Filter ingredients in each section
+       for header in sectionHeaders {
+           let ingredientsInSection = recipes.filter({ $0.name.first?.lowercased() ?? "" == header })
+           let section = RecipeListViewSection<Recipe>(title: String(header), content: ingredientsInSection)
+           sections.append(section)
+       }
+       sections = sections.sorted(by: { $0.title < $1.title })
+       return sections
+    }
 }
 
 struct RecipeListViewSection<SectionContent> where SectionContent: Identifiable {

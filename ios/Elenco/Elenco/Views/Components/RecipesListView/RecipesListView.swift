@@ -42,38 +42,49 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
     public func listView() -> some View {
         ZStack(alignment: .center) {
             List {
-                // Search view
-                ZStack(alignment: .center) {
-                    RoundedRectangle(cornerRadius: 15)
-                    .foregroundColor(Color("Background"))
-                    .shadow(color: Color("Light-Gray"), radius: 5)
-                        .frame(height: 50)
-                    
-                    ElencoTextField(text: $searchText, isFirstResponder: searchTextFieldIsFirstResponder, textFieldView: self, font: UIFont(name: "HelveticaNeue-Regular", size: 20), color: UIColor.black, placeholder: "Search your recipes")
-                        .accentColor(Color("Teal"))
-                        .foregroundColor(Color("BodyText"))
-                        .padding(.leading)
-                }
-                .padding(.bottom)
+                Section(header:
+                    // Search view
+                    ZStack(alignment: .center) {
+                        RoundedRectangle(cornerRadius: 8)
+                        .foregroundColor(Color("Background"))
+                        .shadow(color: Color("Light-Gray"), radius: 5)
+                            .frame(height: 50)
+                        
+                        ElencoTextField(text: $searchText, isFirstResponder: searchTextFieldIsFirstResponder, textFieldView: self, font: UIFont(name: "HelveticaNeue-Regular", size: 20), color: UIColor.black, placeholder: "Search your recipes")
+                            .accentColor(Color("Teal"))
+                            .foregroundColor(Color("BodyText"))
+                            .padding(.leading)
+                    }
+                    .padding(.bottom)
+                    ) {
+                        EmptyView()
+                    }
                 
                 
                 // Recipes
-                ForEach(recipeViewDataModel.search(text: searchText)) { recipe in
-                    RecipeListCell(recipe: recipe)
-                        .onTapGesture {
-                            self.recipeViewDataModel.displayRecipeView()
-                            self.recipeViewDataModel.configureSelectedRecipe(for: recipe)
+                ForEach(sections(), id: \.title) { section in
+                    Section(header:
+                        IngredientSectionHeader(title: section.title)
+                            .padding(.top, -18)
+                    ) {
+                        ForEach(section.content) { recipe in
+                            RecipeListCell(recipe: recipe)
+                            .onTapGesture {
+                                self.recipeViewDataModel.displayRecipeView()
+                                self.recipeViewDataModel.configureSelectedRecipe(for: recipe)
+                            }
                         }
+                    }
                 }
-                .onDelete { (indexSet) in
-                    guard let index = indexSet.first else { return }
-                    self.removeRecipe(index: index)
-                }
+//                .onDelete { (indexSet) in
+//                    guard let index = indexSet.first else { return }
+//                    self.removeRecipe(index: index)
+//                }
             }
+            .listStyle(GroupedListStyle())
             .gesture(
                 DragGesture()
                     .onChanged { _ in
-                        print("Drag")
                         self.searchTextFieldIsFirstResponder = false
                     }
             )
@@ -95,9 +106,12 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
     // Work out which section and row ingredient is in and remove from list
     func removeRecipe(index: Int) {
         let recipe = recipeViewDataModel.recipes[index]
-//        recipeViewDataModel.configureSelectedRecipe(for: recipe)
-//        recipeViewDataModel.deleteRecipe()
         recipeViewDataModel.delete(recipe: recipe)
+    }
+    
+    func sections() -> [RecipeListViewSection<Recipe>] {
+        let recipes = recipeViewDataModel.search(text: searchText)
+        return recipeViewDataModel.recipeSections(for: recipes)
     }
     
     // MARK: - Text Field Delegate Methods
