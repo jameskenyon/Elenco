@@ -13,6 +13,8 @@ struct RecipesHeaderView: View {
     @EnvironmentObject var contentViewDataModel: ContentViewDataModel
     @Environment(\.colorScheme) var colorScheme
     
+    var title: String
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -25,7 +27,7 @@ struct RecipesHeaderView: View {
                         self.recipeDataModel.hideViews()
                     }
                                 
-                Text("Recipes")
+                Text(title)
                     .padding(.leading, 20).padding(.bottom, -25)
                     .padding(.top, 10)
                     .font(.custom("HelveticaNeue-Bold", size: 36))
@@ -51,11 +53,5 @@ struct RecipesHeaderView: View {
         .background(Color("TealBackground"))
         .cornerRadius(20)
         .shadow(color: colorScheme == .dark ? .clear : Color("Dark-Gray") , radius: 4)
-    }
-}
-
-struct RecipesHeaderView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipesHeaderView()
     }
 }

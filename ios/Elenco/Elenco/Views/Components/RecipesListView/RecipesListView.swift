@@ -24,12 +24,12 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
         
         VStack {
             if recipeViewDataModel.editRecipiesIsShown {
-                RecipesHeaderView()
+                RecipesHeaderView(title: recipeViewDataModel.isNewRecipe ? "Add Recipe" : "Edit Recipe")
                 EditRecipeView()
             } else if recipeViewDataModel.recipeViewIsShown {
                 RecipeView()
             } else {
-                RecipesHeaderView()
+                RecipesHeaderView(title: "Recipes")
                 if recipeViewDataModel.recipes.isEmpty {
                     RecipeListTutorialView().padding(.horizontal)
                 } else {
