@@ -21,6 +21,7 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
     }
     
     var body: some View {
+        
         VStack {
             if recipeViewDataModel.editRecipiesIsShown {
                 RecipesHeaderView()
@@ -29,78 +30,83 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
                 RecipeView()
             } else {
                 RecipesHeaderView()
-                listView()
-                .onTapGesture {
-                    self.searchTextFieldIsFirstResponder = false
+                if recipeViewDataModel.recipes.isEmpty {
+                    RecipeListTutorialView().padding(.horizontal)
+                } else {
+                    listView()
+                    .onTapGesture {
+                        self.searchTextFieldIsFirstResponder = false
+                    }
                 }
-            }
+                addButton()
+            }               
         }
         .edgesIgnoringSafeArea(.top)
     }
     
     // MARK: - Recipe List View
     public func listView() -> some View {
-        ZStack(alignment: .center) {
-            List {
+        List {
+            Section(header:
+                // Search view
+                ZStack(alignment: .center) {
+                    RoundedRectangle(cornerRadius: 8)
+                    .foregroundColor(Color("Background"))
+                    .shadow(color: Color("Light-Gray"), radius: 5)
+                        .frame(height: 50)
+                    
+                    ElencoTextField(text: $searchText, isFirstResponder: searchTextFieldIsFirstResponder, textFieldView: self, font: UIFont(name: "HelveticaNeue-Regular", size: 20), color: UIColor.black, placeholder: "Search your recipes")
+                        .accentColor(Color("Teal"))
+                        .foregroundColor(Color("BodyText"))
+                        .padding(.leading)
+                }
+                .padding(.bottom)
+                ) {
+                    EmptyView()
+                }
+            
+            
+            // Recipes
+            ForEach(sections(), id: \.title) { section in
                 Section(header:
-                    // Search view
-                    ZStack(alignment: .center) {
-                        RoundedRectangle(cornerRadius: 8)
-                        .foregroundColor(Color("Background"))
-                        .shadow(color: Color("Light-Gray"), radius: 5)
-                            .frame(height: 50)
-                        
-                        ElencoTextField(text: $searchText, isFirstResponder: searchTextFieldIsFirstResponder, textFieldView: self, font: UIFont(name: "HelveticaNeue-Regular", size: 20), color: UIColor.black, placeholder: "Search your recipes")
-                            .accentColor(Color("Teal"))
-                            .foregroundColor(Color("BodyText"))
-                            .padding(.leading)
-                    }
-                    .padding(.bottom)
-                    ) {
-                        EmptyView()
-                    }
-                
-                
-                // Recipes
-                ForEach(sections(), id: \.title) { section in
-                    Section(header:
-                        ElencoSectionHeader(title: section.title)
-                            .padding(.top, -18)
-                    ) {
-                        ForEach(section.content) { recipe in
-                            RecipeListCell(recipe: recipe)
-                            .onTapGesture {
-                                self.recipeViewDataModel.displayRecipeView()
-                                self.recipeViewDataModel.configureSelectedRecipe(for: recipe)
-                            }
+                    ElencoSectionHeader(title: section.title)
+                        .padding(.top, -18)
+                ) {
+                    ForEach(section.content) { recipe in
+                        RecipeListCell(recipe: recipe)
+                        .onTapGesture {
+                            self.recipeViewDataModel.displayRecipeView()
+                            self.recipeViewDataModel.configureSelectedRecipe(for: recipe)
                         }
-                        .onDelete { (indexSet) in
-                            guard let index = indexSet.first else { return }
-                            self.removeRecipe(atSection: section, index: index)
-                        }
+                    }
+                    .onDelete { (indexSet) in
+                        guard let index = indexSet.first else { return }
+                        self.removeRecipe(atSection: section, index: index)
                     }
                 }
+            }
 
-            }
-            .listStyle(GroupedListStyle())
-            .gesture(
-                DragGesture()
-                    .onChanged { _ in
-                        self.searchTextFieldIsFirstResponder = false
-                    }
-            )
-            // Add Button
-            VStack {
-                Spacer()
-                Button(action: {
-                    self.recipeViewDataModel.displayEditRecipeView()
-                    self.recipeViewDataModel.configureNewSelectedRecipe()
-                }) {
-                    Text("+")
-                        .font(.custom("HelveticaNeue-Regular", size: 40))
-                        .foregroundColor(Color.white)
-                }.buttonStyle(OrangeCircleButtonStyle())
-            }
+        }
+        .listStyle(GroupedListStyle())
+        .gesture(
+            DragGesture()
+                .onChanged { _ in
+                    self.searchTextFieldIsFirstResponder = false
+                }
+        )
+    }
+    
+    func addButton() -> some View {
+        // Add Button
+        VStack {
+            Button(action: {
+                self.recipeViewDataModel.displayEditRecipeView()
+                self.recipeViewDataModel.configureNewSelectedRecipe()
+            }) {
+                Text("+")
+                    .font(.custom("HelveticaNeue-Regular", size: 40))
+                    .foregroundColor(Color.white)
+            }.buttonStyle(OrangeCircleButtonStyle())
         }
     }
     
