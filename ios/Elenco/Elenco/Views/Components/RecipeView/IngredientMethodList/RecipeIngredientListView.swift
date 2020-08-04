@@ -10,16 +10,16 @@ import SwiftUI
 
 struct RecipeIngredientListView<SectionConent>: View where SectionConent: Identifiable {
     
-    var sections: [RecipeListViewSection<SectionConent>]
+    var sections: [ListViewSection<SectionConent>]
     var addAction: (()->())?
     var saveAction: (()->())?
     
-    init(sections: [RecipeListViewSection<SectionConent>]) {
+    init(sections: [ListViewSection<SectionConent>]) {
         self.sections = sections
         configureTableViewAppearance()
     }
     
-    init(sections: [RecipeListViewSection<SectionConent>], addAction: (()->())?, saveAction: (()->())?) {
+    init(sections: [ListViewSection<SectionConent>], addAction: (()->())?, saveAction: (()->())?) {
         self.sections = sections
         self.saveAction = saveAction
         self.addAction  = addAction
@@ -42,7 +42,7 @@ struct RecipeIngredientListView<SectionConent>: View where SectionConent: Identi
             List {
                 ForEach(sections, id: \.title) { section in
                     Section(header:
-                        IngredientSectionHeader(title: section.title)
+                        ElencoSectionHeader(title: section.title)
                             .padding(.top, -18)
                     ) {
                         ForEach(section.content) { content in

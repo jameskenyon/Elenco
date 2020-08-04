@@ -44,7 +44,7 @@ class ListHolderDataModel: ObservableObject {
     }
     
     /// The data that is being displayed in the IngredientListView.
-    @Published private(set) var listDataSource: [IngredientSection] = []
+    @Published private(set) var listDataSource: [ListViewSection<Ingredient>] = []
     
     /// The current app window.
     @Published private(set) var window: UIWindow
@@ -263,8 +263,8 @@ extension ListHolderDataModel {
     public func sortIngredients(
             getSectionHeaders: (Ingredients)->[String],
             ingredientInSection: (Ingredient, String)->Bool)
-            -> [IngredientSection] {
-        var sections: [IngredientSection] = []
+            -> [ListViewSection<Ingredient>] {
+        var sections: [ListViewSection<Ingredient>] = []
         var completedIngredients: Ingredients = []
         let sectionHeaders = Set(getSectionHeaders(list.ingredients))
         for header in sectionHeaders {
@@ -273,14 +273,14 @@ extension ListHolderDataModel {
                 if $0.completed { if !completedIngredients.contains($0) { completedIngredients.append($0)} }
                 return ingredientInSection($0, header)
             })
-            let section = IngredientSection(title: String(header), ingredients: ingredientsInSection)
+            let section = ListViewSection(title: String(header), content: ingredientsInSection)
             sections.append(section)
         }
         sections = sections.sorted(by: { $0.title < $1.title })
         if sections.isEmpty { completedIngredients = getCompletedIngredients() }
         // add completed only if it exists
         return completedIngredients.count == 0 ?
-            sections : sections + [IngredientSection(title: "Completed", ingredients: completedIngredients)]
+            sections : sections + [ListViewSection(title: "Completed", content: completedIngredients)]
     }
     
     /// Get an array containing the completed ingredients.

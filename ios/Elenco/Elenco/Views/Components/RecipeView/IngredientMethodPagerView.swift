@@ -69,11 +69,11 @@ struct IngredientMethodPagerView: View {
     
     // MARK: - Methods to sort ingredients and instructions into sectios
     
-    private func getIngredientSections() -> [RecipeListViewSection<Ingredient>] {
+    private func getIngredientSections() -> [ListViewSection<Ingredient>] {
         return recipeHolderDataModel.ingredientsSortedByName()
     }
     
-    private func getMethodSections() -> [RecipeListViewSection<RecipeMethod>] {
+    private func getMethodSections() -> [ListViewSection<RecipeMethod>] {
         return recipeHolderDataModel.methodsSortedIntoSections()
     }
     

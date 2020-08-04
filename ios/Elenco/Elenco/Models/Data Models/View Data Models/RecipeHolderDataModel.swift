@@ -115,15 +115,15 @@ class RecipeHolderDataModel: ObservableObject {
     
     // MARK: - Methods To Sort Ingredients and Instructions into sections
     // Return ingredients sorted into alphabetical sections
-    public func ingredientsSortedByName() -> [RecipeListViewSection<Ingredient>] {
+    public func ingredientsSortedByName() -> [ListViewSection<Ingredient>] {
         let ingredients = selectedRecipe.ingredients
-        var sections = [RecipeListViewSection<Ingredient>]()
+        var sections = [ListViewSection<Ingredient>]()
         let sectionHeaders = Set(ingredients.map({ $0.name.first?.lowercased() ?? ""}))
         
         // Filter ingredients in each section
         for header in sectionHeaders {
             let ingredientsInSection = ingredients.filter({ $0.name.first?.lowercased() ?? "" == header })
-            let section = RecipeListViewSection<Ingredient>(title: String(header), content: ingredientsInSection)
+            let section = ListViewSection<Ingredient>(title: String(header), content: ingredientsInSection)
             sections.append(section)
         }
         sections = sections.sorted(by: { $0.title < $1.title })
@@ -131,34 +131,29 @@ class RecipeHolderDataModel: ObservableObject {
     }
     
     // Return Methods sorted into sectinos
-    public func methodsSortedIntoSections() -> [RecipeListViewSection<RecipeMethod>] {
+    public func methodsSortedIntoSections() -> [ListViewSection<RecipeMethod>] {
         
         let methods = selectedRecipe.method
-        var sections = [RecipeListViewSection<RecipeMethod>]()
+        var sections = [ListViewSection<RecipeMethod>]()
         for method in methods {
-            let section = RecipeListViewSection<RecipeMethod>(title: "\(method.number)", content: [method])
+            let section = ListViewSection<RecipeMethod>(title: "\(method.number)", content: [method])
             sections.append(section)
         }
         return sections
     }
     
     // Return recipes sorted into sectinos
-    public func recipeSections(for recipes: Recipes) -> [RecipeListViewSection<Recipe>] {
-       var sections = [RecipeListViewSection<Recipe>]()
+    public func recipeSections(for recipes: Recipes) -> [ListViewSection<Recipe>] {
+       var sections = [ListViewSection<Recipe>]()
        let sectionHeaders = Set(recipes.map({ $0.name.first?.lowercased() ?? ""}))
        
        // Filter ingredients in each section
        for header in sectionHeaders {
            let ingredientsInSection = recipes.filter({ $0.name.first?.lowercased() ?? "" == header })
-           let section = RecipeListViewSection<Recipe>(title: String(header), content: ingredientsInSection)
+           let section = ListViewSection<Recipe>(title: String(header), content: ingredientsInSection)
            sections.append(section)
        }
        sections = sections.sorted(by: { $0.title < $1.title })
        return sections
     }
-}
-
-struct RecipeListViewSection<SectionContent> where SectionContent: Identifiable {
-    var title: String
-    var content: [SectionContent]
 }

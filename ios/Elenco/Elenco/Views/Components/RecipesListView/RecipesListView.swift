@@ -64,7 +64,7 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
                 // Recipes
                 ForEach(sections(), id: \.title) { section in
                     Section(header:
-                        IngredientSectionHeader(title: section.title)
+                        ElencoSectionHeader(title: section.title)
                             .padding(.top, -18)
                     ) {
                         ForEach(section.content) { recipe in
@@ -105,14 +105,14 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
     }
     
     // Work out which section and row recipe is in and remove from list
-    func removeRecipe(atSection section: RecipeListViewSection<Recipe>, index: Int) {
+    func removeRecipe(atSection section: ListViewSection<Recipe>, index: Int) {
         let selectedSection = sections().filter({ $0.title == section.title}).first
         if let recipe = selectedSection?.content[index] {
             self.recipeViewDataModel.delete(recipe: recipe)
         }
     }
     
-    func sections() -> [RecipeListViewSection<Recipe>] {
+    func sections() -> [ListViewSection<Recipe>] {
         let recipes = recipeViewDataModel.search(text: searchText)
         return recipeViewDataModel.recipeSections(for: recipes)
     }
