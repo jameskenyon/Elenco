@@ -17,6 +17,19 @@ import UIKit
 
 public extension UIWindow {
     
+    static var isDisplayingAlert = false
+    
+    // MARK: Private Interface
+    
+    /// Display an alert controller on the current window root view
+    private func display(alertController: UIAlertController) {
+        alertController.view.tintColor = UIColor(named: "Teal")
+        if !UIWindow.isDisplayingAlert {
+            self.rootViewController?.present(alertController, animated: true, completion: nil)
+            UIWindow.isDisplayingAlert = true
+        }
+    }
+    
     // MARK: Public Interface
     
     /**
@@ -32,15 +45,20 @@ public extension UIWindow {
                       okHandler: ((UIAlertAction)->(Void))?) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         if let okTitle = okTitle {
-            let okAction = UIAlertAction(title: okTitle, style: .default, handler: okHandler)
+            let okAction = UIAlertAction(title: okTitle, style: .default) { (action) in
+                if let okHandler = okHandler {
+                    okHandler(action)
+                }
+                UIWindow.isDisplayingAlert = false
+            }
             alertController.addAction(okAction)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
             alertController.removeFromParent()
+            UIWindow.isDisplayingAlert = false
         }
         alertController.addAction(cancelAction)
-        alertController.view.tintColor = UIColor(named: "Teal")
-        self.rootViewController?.present(alertController, animated: true, completion: nil)
+        display(alertController: alertController)
     }
     
     func displayChoiceAlert(title: String = "Alert", message: String? = nil, actionOneTitle: String?,
@@ -48,15 +66,24 @@ public extension UIWindow {
                             actionTwo: ((UIAlertAction)->(Void))?) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         if let actionOneTitle = actionOneTitle {
-            let actionOne = UIAlertAction(title: actionOneTitle, style: .default, handler: actionOne)
+            let actionOne = UIAlertAction(title: actionOneTitle, style: .default) { (action) in
+                if let actionOne = actionOne {
+                    actionOne(action)
+                }
+                UIWindow.isDisplayingAlert = false
+            }
             alertController.addAction(actionOne)
         }
         if let actionTwoTitle = actionTwoTitle {
-            let actionTwo = UIAlertAction(title: actionTwoTitle, style: .default, handler: actionTwo)
+            let actionTwo = UIAlertAction(title: actionTwoTitle, style: .default) { (action) in
+                if let actionTwo = actionTwo {
+                    actionTwo(action)
+                }
+                UIWindow.isDisplayingAlert = false
+            }
             alertController.addAction(actionTwo)
         }
-        alertController.view.tintColor = UIColor(named: "Teal")
-        self.rootViewController?.present(alertController, animated: true, completion: nil)
+        display(alertController: alertController)
     }
     
     /**
@@ -86,14 +113,15 @@ public extension UIWindow {
             } else {
                 saveAction(nil)
             }
+            UIWindow.isDisplayingAlert = false
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
             alertController.removeFromParent()
+            UIWindow.isDisplayingAlert = false
         }
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
-        alertController.view.tintColor = UIColor(named: "Teal")
-        self.rootViewController?.present(alertController, animated: true, completion: nil)
+        display(alertController: alertController)
     }
     
 }
