@@ -45,11 +45,11 @@ struct EditRecipeView: View {
                             .foregroundColor(Color("Light-Gray"))
 
                             ZStack {
-//                                if self.recipeDataModel.selectedRecipe.image == nil {
-//                                    RoundedRectangle(cornerRadius: 35)
-//                                    .foregroundColor(Color("Light-Gray"))
-//                                    .frame(width: 70, height: 70)
-//                                } else {
+                                if self.recipeDataModel.selectedRecipe.image == UIImage() {
+                                    RoundedRectangle(cornerRadius: 35)
+                                    .foregroundColor(Color("Light-Gray"))
+                                    .frame(width: 70, height: 70)
+                                } else {
                                     Image(uiImage: self.selectedImage)
                                         .resizable()
                                         .scaledToFit()
@@ -57,7 +57,7 @@ struct EditRecipeView: View {
                                         .frame(width: 70, height: 70)
                                         .cornerRadius(35)
                                         .background(Color("Light-Gray"))
-//                                }
+                                }
                                 Image(uiImage: #imageLiteral(resourceName: "editList"))
                                     .resizable()
                                     .scaledToFit()
