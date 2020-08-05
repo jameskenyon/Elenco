@@ -118,19 +118,21 @@ class ListHolderDataModel: ObservableObject {
      - Parameter ingredient: The new ingredient to save.
      */
     public func addIngredient(ingredient: Ingredient) {
-        var ingredientCopy = ingredient.copy()
-        ingredientCopy.parentList = self.list
-        self.list.ingredients.append(ingredientCopy)
-        self.saveIngredient(ingredient: ingredientCopy)
+        if !tryAddQuantity(newIngredient: ingredient) {
+            self.saveIngredient(ingredient: ingredient)
+        }
     }
     
     /**
-     Save the ingredient to the core data model.
+     Save the ingredient to the core data model and to the local data model.
         
      - Parameter ingredient: The ingredient to save.
      */
     public func saveIngredient(ingredient: Ingredient) {
-        IngredientDataModel.shared.save(ingredient: ingredient) { (error) in
+        var ingredientCopy = ingredient.copy()
+        ingredientCopy.parentList = self.list
+        self.list.ingredients.append(ingredientCopy)
+        IngredientDataModel.shared.save(ingredient: ingredientCopy) { (error) in
             if let error = error { print(error.localizedDescription) }
         }
     }
@@ -245,6 +247,25 @@ class ListHolderDataModel: ObservableObject {
         IngredientDataModel.shared.delete(ingredient: ingredient) { (error) in
             if let error = error { print(error.localizedDescription) }
         }
+    }
+    
+    /**
+     Try going through the list to see if a quantity can be added
+     
+     - Parameter newIngredient: The ingredient that is going to be added to the list to check if quantity can be added.
+     - Returns: True if the quantitiy was successfully added to an ingredient with the same name, false otherwise.
+     */
+    private func tryAddQuantity(newIngredient: Ingredient) -> Bool {
+        for ingredient in self.list.ingredients {
+            if ingredient.name.lowercased() == newIngredient.name.lowercased() {
+                var ingredientCopy = ingredient.copy()
+                if ingredientCopy.addIngredient(ingredient: newIngredient) {
+                    self.updateIngredient(ingredient: ingredientCopy, newQuantity: ingredientCopy.quantity)
+                    return true
+                }
+            }
+        }
+        return false
     }
 }
 

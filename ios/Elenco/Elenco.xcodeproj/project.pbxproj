@@ -39,6 +39,7 @@
 		8A057C1F24B7286000BDC888 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A057C1E24B7285F00BDC888 /* String.swift */; };
 		8A0DA72E24C70660001A5B0E /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DA72D24C70660001A5B0E /* View.swift */; };
 		8A0FB7BB24D7469C00A80620 /* EssentialsTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0FB7BA24D7469C00A80620 /* EssentialsTutorialView.swift */; };
+		8A14808924DAE27000E8F930 /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A14808824DAE27000E8F930 /* Float.swift */; };
 		8A2A5C2C24C5BACE00BB1AB2 /* MenuViewDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2A5C2B24C5BACE00BB1AB2 /* MenuViewDataModel.swift */; };
 		8A381C3724AA1FD90023A5CD /* HelveticaNeue.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */; };
 		8A381C3924AA4E480023A5CD /* SemiBoldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */; };
@@ -120,6 +121,7 @@
 		8A057C1E24B7285F00BDC888 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		8A0DA72D24C70660001A5B0E /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		8A0FB7BA24D7469C00A80620 /* EssentialsTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialsTutorialView.swift; sourceTree = "<group>"; };
+		8A14808824DAE27000E8F930 /* Float.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Float.swift; sourceTree = "<group>"; };
 		8A2A5C2B24C5BACE00BB1AB2 /* MenuViewDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewDataModel.swift; sourceTree = "<group>"; };
 		8A381C3624AA1FD90023A5CD /* HelveticaNeue.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeue.ttc; sourceTree = "<group>"; };
 		8A381C3824AA4E480023A5CD /* SemiBoldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiBoldLabel.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				8AB367BC24B9ABCB00E795D5 /* UIApplication.swift */,
 				8A057C1E24B7285F00BDC888 /* String.swift */,
 				8A0DA72D24C70660001A5B0E /* View.swift */,
+				8A14808824DAE27000E8F930 /* Float.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -566,6 +569,7 @@
 				8A9C611F24AFA149000E337F /* IngredientListTick.swift in Sources */,
 				1A20D3E424AA490600C6633F /* IngredientListCell.swift in Sources */,
 				8AD4BC0F24A7978000F81AAF /* ListHolderView.swift in Sources */,
+				8A14808924DAE27000E8F930 /* Float.swift in Sources */,
 				1AC4431E24D4271D0032C4E3 /* ElencoButton.swift in Sources */,
 				1A20D3D924AA20D000C6633F /* (null) in Sources */,
 				8AAC174B24D59514004C6ADA /* RecipeStore+CoreDataClass.swift in Sources */,

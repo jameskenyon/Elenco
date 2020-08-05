@@ -51,7 +51,7 @@ struct IngredientListCell: View {
            
            Spacer()
            
-           Text("\(ingredient.quantity ?? "1")")
+            Text("\(ingredient.quantity ?? "1")")
                 .foregroundColor(colorScheme == .dark ? Color("Light-Gray") : Color("Dark-Gray"))
                 .padding(.trailing, 15)
                 .onTapGesture {

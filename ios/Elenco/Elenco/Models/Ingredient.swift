@@ -45,13 +45,17 @@ struct Ingredient: Codable, Identifiable, Hashable {
     
     /// The unit of the ingredient from the quantity string
     var unit: String {
-        return self.quantity?.components(separatedBy: .decimalDigits)
+        var charSet = CharacterSet()
+        charSet.formUnion(.decimalDigits)
+        charSet.insert(charactersIn: ".")
+        charSet.insert(charactersIn: ",")
+        return self.quantity?.components(separatedBy: charSet)
             .joined().lowercased() ?? ""
     }
     
     /// The raw integer quantity of the ingredient
-    var rawQuantity: Int {
-        return Int(self.quantity?.components(separatedBy: .letters).joined() ?? "0") ?? 0
+    var rawQuantity: Float {
+        return Float(self.quantity?.components(separatedBy: .letters).joined() ?? "1") ?? 1
     }
     
     // MARK: Inits
@@ -112,7 +116,7 @@ struct Ingredient: Codable, Identifiable, Hashable {
     /// Add the quantities of two ingredients.
     public mutating func addIngredient(ingredient: Ingredient) -> Bool {
         if self.unit == ingredient.unit && self.name.lowercased() == ingredient.name.lowercased() {
-            self.quantity = String(rawQuantity + ingredient.rawQuantity) + unit
+            self.quantity = (rawQuantity + ingredient.rawQuantity).clean + unit
             return true
         }
         return false
