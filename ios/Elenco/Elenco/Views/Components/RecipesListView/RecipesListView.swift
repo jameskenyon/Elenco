@@ -13,7 +13,6 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
     @EnvironmentObject var contentViewDataModel: ContentViewDataModel
     @EnvironmentObject var recipeViewDataModel: RecipeHolderDataModel
     @State var searchText: String = ""
-    @State var searchTextFieldIsFirstResponder: Bool = false
     
     init() {
         UITableView.appearance().separatorStyle = .none
@@ -35,7 +34,7 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
                 } else {
                     listView()
                     .onTapGesture {
-                        self.searchTextFieldIsFirstResponder = false
+                        self.recipeViewDataModel.recipeSearchIsFirstResponder = false
                     }
                 }
                 AddRecipeButton()
@@ -54,9 +53,9 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
                     RoundedRectangle(cornerRadius: 8)
                     .foregroundColor(Color("Background"))
                         .shadow(color: Color("Light-Gray").opacity(0.5), radius: 5, y: 3)
-                        .frame(height: 50)
+                        .frame(height: 60)
                     
-                    ElencoTextField(text: $searchText, isFirstResponder: searchTextFieldIsFirstResponder, textFieldView: self, font: UIFont(name: "HelveticaNeue-Medium", size: 20), color: UIColor.black, placeholder: "Search recipes...")
+                    ElencoTextField(text: $searchText, isFirstResponder: recipeViewDataModel.recipeSearchIsFirstResponder, textFieldView: self, font: UIFont(name: "HelveticaNeue-Medium", size: 20), color: UIColor.black, placeholder: "Search recipes...")
                         .accentColor(Color("Teal"))
                         .foregroundColor(Color("BodyText"))
                         .padding(.leading)
@@ -65,7 +64,6 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
                 ) {
                     EmptyView()
                 }
-            
             
             // Recipes
             ForEach(sections(), id: \.title) { section in
@@ -86,13 +84,12 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
                     }
                 }
             }
-
         }
         .listStyle(GroupedListStyle())
         .gesture(
             DragGesture()
                 .onChanged { _ in
-                    self.searchTextFieldIsFirstResponder = false
+                    self.recipeViewDataModel.recipeSearchIsFirstResponder = false
                 }
         )
     }
@@ -112,7 +109,7 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
     
     // MARK: - Text Field Delegate Methods
     func userDidReturnOnTextField() {
-        searchTextFieldIsFirstResponder = false
+        recipeViewDataModel.recipeSearchIsFirstResponder = false
     }
     
     func userDidEditTextField(newValue: String) {}

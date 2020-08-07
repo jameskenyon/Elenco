@@ -20,6 +20,8 @@ class RecipeHolderDataModel: ObservableObject {
     
     @Published private(set) var recipes: Recipes
     
+    @Published public var recipeSearchIsFirstResponder: Bool = false
+    
     init() {
         self.recipes = RecipeDataModel.shared.fetchRecipes()
         self.selectedRecipe = Recipe(name: "recipeName", recipeID: UUID(), serves: 0, estimatedTime: "time", ingredients: Ingredients(), method: Instructions())

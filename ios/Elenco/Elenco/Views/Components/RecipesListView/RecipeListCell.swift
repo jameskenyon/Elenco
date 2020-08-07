@@ -28,7 +28,7 @@ struct RecipeListCell: View {
                     
                     Text(recipe.estimatedTime)
                         .foregroundColor(Color("Dark-Gray"))
-                        .font(.custom("HelveticaNeue-Medium", size: 15))
+                        .font(.custom("HelveticaNeue-Bold", size: 15))
                         .padding(.leading, 2)
                 }
                 .padding()
