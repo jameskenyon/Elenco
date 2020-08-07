@@ -54,8 +54,8 @@ class RecipeHolderDataModel: ObservableObject {
     }
     
     // MARK: - Access to Core data model
-    public func addIngredient(name: String) {
-        let ingredient = Ingredient(ingredientID: UUID(), name: name, aisle: "", parentList: nil)
+    public func addIngredient(name: String, quantity: String) {
+        let ingredient = Ingredient(ingredientID: UUID(), name: name, aisle: "", quantity: quantity, parentList: nil)
         selectedRecipe.ingredients.append(ingredient)
     }
     

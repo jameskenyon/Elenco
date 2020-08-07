@@ -12,6 +12,7 @@ struct ElencoAlert: View, ElencoTextFieldDisplayable {
     
     var title: String
     var message: String
+    var placeholder: String
     var onCompleteAction: (String?) -> ()
     @State var text: String = ""
     
@@ -27,14 +28,14 @@ struct ElencoAlert: View, ElencoTextFieldDisplayable {
                     VStack(alignment: .center, spacing: 5) {
                         Text(self.title)
                             .font(.custom("HelveticaNeue-Bold", size: 30))
-                            .padding(.top, 50)
+                            .padding(.top, 35)
                         
-                        ElencoTextField(text: self.$text, isFirstResponder: true, textFieldView: self, placeholder: "Add")
+                        ElencoTextField(text: self.$text, isFirstResponder: true, textFieldView: self, placeholder: self.placeholder)
                             .foregroundColor(Color("Background"))
                             .frame(width: geometry.size.width * 0.6, height: 50)
                             .font(.custom("HelveticaNeue-Regular", size: 20))
                             .multilineTextAlignment(.center)
-                            .padding(.top)
+                            .padding(.top, 30)
                         
                         Rectangle()
                             .foregroundColor(Color("Teal"))
@@ -42,16 +43,10 @@ struct ElencoAlert: View, ElencoTextFieldDisplayable {
                         
                         Spacer()
                         
-                        Button(action: {
+                        AddButton {
                             self.onCompleteAction(self.text)
-                        }) {
-                            Text("+")
-                                .foregroundColor(Color.white)
-                                .font(.custom("HelveticaNeue-Regular", size: 50))
-                                .padding(.bottom, 5)
                         }
-                        .buttonStyle(OrangeCircleButtonStyle())
-                        .padding(.bottom)
+                        .padding(.bottom, 25)
                     }
                 )
             }
@@ -64,10 +59,32 @@ struct ElencoAlert: View, ElencoTextFieldDisplayable {
     func userDidEditTextField(newValue: String) {}
 }
 
+struct AddButton: View {
+    
+    @Environment(\.colorScheme) var colorScheme
+    var onCompleteAction: () -> ()
+
+    var body: some View {
+        Button(action: {
+            withAnimation {
+                self.onCompleteAction()
+            }
+         }, label: {
+            Text("+")
+                .font(.custom("HelveticaNeue-Bold", size: 50))
+                .foregroundColor(Color.white)
+                .padding(.bottom, 10)
+        })
+        .buttonStyle(OrangeCircleButtonStyle())
+        .shadow(color: colorScheme == .dark ? .clear : Color("Light-Gray").opacity(0.4) , radius: 4)
+    }
+    
+}
+
 struct ElencoAlert_Previews: PreviewProvider {
     static var previews: some View {
-        ElencoAlert(title: "Add Ingredient", message: "Add ingredients to recipe") { _ in
-            print("Compet")
+        ElencoAlert(title: "Add Ingredient", message: "Add ingredients to recipe", placeholder: "Add") { _ in
+            print("Complete")
         }
     }
 }

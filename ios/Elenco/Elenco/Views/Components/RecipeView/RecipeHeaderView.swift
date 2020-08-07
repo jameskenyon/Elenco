@@ -64,7 +64,7 @@ struct RecipeHeaderView: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text("\(recipeDataModel.selectedRecipe.ingredients.count) Ingredients")
+                    Text("Serves: \(recipeDataModel.selectedRecipe.serves)")
                     Text("Estimated time: \(recipeDataModel.selectedRecipe.estimatedTime)")
                 }
                 Spacer()

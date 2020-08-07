@@ -71,19 +71,7 @@ struct EditRecipeView: View {
 
                     RecipeEditField(fieldName: "Time", placeholder: "Time To Make", fieldText: self.$time, size: geometry.size, keyboardType: .default)
                     
-                    RecipeEditField(fieldName: "Serves", placeholder: "How Many People", fieldText: self.$serves, size: geometry.size, keyboardType: .numberPad)
-
-                    Text("Daily Requirements")
-                        .font(.custom("HelveticaNeue-Regular", size: 15))
-                        .foregroundColor(Color("Teal"))
-                        .padding(.bottom)
-                        .padding(.horizontal, 30)
-
-                    RequirmentToggleView(dietryToggle: self.$isVegitarian, dietryName: "Vegetarian")
-                        
-                    RequirmentToggleView(dietryToggle: self.$isNutFree, dietryName: "Nut Free")
-                        
-                    RequirmentToggleView(dietryToggle: self.$isGlutenFree, dietryName: "Gluten Free")
+                    RecipeEditField(fieldName: "Serves", placeholder: "Number Of Servings", fieldText: self.$serves, size: geometry.size, keyboardType: .numberPad)
                     
                     IngredientMethodPagerView(addIngredientAction: {
                         self.addIngredientButtonTapped()
@@ -101,7 +89,7 @@ struct EditRecipeView: View {
                 }
                 
                 if self.showAlert {
-                    ElencoAlert(title: "Add Stuff", message: "Test") { (text) in
+                    ElencoAlert(title: "Add Item", message: "", placeholder: "Add item here") { (text) in
                         self.alertAction!(text)
                         withAnimation {
                            self.showAlert = false
@@ -135,7 +123,9 @@ struct EditRecipeView: View {
         }
         alertAction = { text in
             guard let ingredientString = text   else { return }
-            self.recipeDataModel.addIngredient(name: ingredientString)
+            let ingredientInfo = Ingredient.getIngredientNameAndQuantity(searchText: ingredientString)
+            
+            self.recipeDataModel.addIngredient(name: ingredientInfo.0, quantity: ingredientInfo.1)
         }
     }
     
