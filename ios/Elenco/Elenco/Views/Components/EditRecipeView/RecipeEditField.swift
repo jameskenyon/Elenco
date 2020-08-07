@@ -20,7 +20,7 @@ struct RecipeEditField: View, ElencoTextFieldDisplayable {
         VStack(alignment: .leading) {
             Text(fieldName)
                 .font(.custom("HelveticaNeue-Regular", size: 15))
-            .foregroundColor(Color("Light-Gray"))
+                .foregroundColor(Color("Teal"))
             
             ElencoTextField(text: $fieldText, isFirstResponder: false, textFieldView: self, font: UIFont(name: "HelveticaNeue-Bold", size: 25), color: #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1), placeholder: placeholder, keyBoardType: keyboardType)
                 .textFieldStyle(PlainTextFieldStyle())

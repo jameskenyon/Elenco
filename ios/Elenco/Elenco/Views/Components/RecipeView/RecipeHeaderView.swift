@@ -44,11 +44,12 @@ struct RecipeHeaderView: View {
     func headerBody(for size: CGSize) -> some View {
         VStack {
             HStack {
-                Text("Back")
+                Image("backButton")
+                    .resizable()
+                    .frame(width: 40, height: 40)
                     .onTapGesture {
                         self.backButtonPressed()
                     }
-                    .font(.custom("HelveticaNeue-Bold", size: 20))
                 Spacer()
             }
             .padding(.top, menuIconTop + 30)
@@ -57,7 +58,7 @@ struct RecipeHeaderView: View {
             Text(recipeDataModel.selectedRecipe.name.capitalized)
                 .font(.custom("HelveticaNeue-Bold", size: 35))
                 .padding(.bottom, -10)
-                .padding(.top, 45)
+                .padding(.top, 10)
             Rectangle()
                 .frame(width: underLineWidth(for: size), height: 2)
             

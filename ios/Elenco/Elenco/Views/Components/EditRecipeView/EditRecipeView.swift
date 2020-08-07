@@ -38,10 +38,10 @@ struct EditRecipeView: View {
                         VStack {
                             Text("Image")
                                 .font(.custom("HelveticaNeue-Regular", size: 15))
-                            .foregroundColor(Color("Light-Gray"))
+                                .foregroundColor(Color("Teal"))
 
                             ZStack {
-                                if self.recipeDataModel.selectedRecipe.image == UIImage() {
+                                if self.recipeDataModel.selectedRecipe.image == nil {
                                     RoundedRectangle(cornerRadius: 35)
                                     .foregroundColor(Color("Light-Gray"))
                                     .frame(width: 70, height: 70)
@@ -66,6 +66,7 @@ struct EditRecipeView: View {
                                 self.isShowingImagePicker.toggle()
                             }
                         }
+                        .padding(.top)
                     }
 
                     RecipeEditField(fieldName: "Time", placeholder: "Time To Make", fieldText: self.$time, size: geometry.size, keyboardType: .default)
@@ -74,7 +75,7 @@ struct EditRecipeView: View {
 
                     Text("Daily Requirements")
                         .font(.custom("HelveticaNeue-Regular", size: 15))
-                        .foregroundColor(Color("Light-Gray"))
+                        .foregroundColor(Color("Teal"))
                         .padding(.bottom)
                         .padding(.horizontal, 30)
 

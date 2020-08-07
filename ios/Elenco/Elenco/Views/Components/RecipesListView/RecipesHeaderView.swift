@@ -29,12 +29,16 @@ struct RecipesHeaderView: View {
                         self.recipeDataModel.hideViews()
                     }
                 } else {
-                    Text("Back")
-                        .padding(.leading, 20).padding(.bottom, -25).padding(.top, 10)
-                        .font(.custom("HelveticaNeue-Bold", size: 20))
-                        .foregroundColor(Color.white)
+                    Image("backButton")
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                        .padding(.leading, 20).padding(.bottom, -25).padding(.top, 12)
                         .onTapGesture {
-                            self.recipeDataModel.displayRecipeView()
+                            if self.recipeDataModel.isNewRecipe {
+                                self.recipeDataModel.hideViews()
+                            } else {
+                                self.recipeDataModel.displayRecipeView()
+                            }
                         }
                 }
                                 
@@ -61,7 +65,7 @@ struct RecipesHeaderView: View {
                     
                 }
             }
-            .frame(height: 130)
+            .frame(height: 120)
         }
         .background(Color("TealBackground"))
         .cornerRadius(20)
