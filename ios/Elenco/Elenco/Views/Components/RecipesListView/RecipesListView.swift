@@ -23,7 +23,7 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
         
         VStack {
             if recipeViewDataModel.editRecipiesIsShown {
-                RecipesHeaderView(title: recipeViewDataModel.isNewRecipe ? "Add Recipe" : "Edit Recipe")
+                RecipesHeaderView(isEditList: true, title: recipeViewDataModel.isNewRecipe ? "Add Recipe" : "Edit Recipe")
                 EditRecipeView()
             } else if recipeViewDataModel.recipeViewIsShown {
                 RecipeView()

@@ -31,14 +31,10 @@ struct EditRecipeView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                
                 VStack(alignment: .leading) {
-                    
                     HStack {
                         RecipeEditField(fieldName: "Name", placeholder: "Recipe Name", fieldText: self.$recipeName, size: geometry.size, keyboardType: .default)
-
-                        Spacer()
-
+                        
                         VStack {
                             Text("Image")
                                 .font(.custom("HelveticaNeue-Regular", size: 15))
@@ -52,11 +48,11 @@ struct EditRecipeView: View {
                                 } else {
                                     Image(uiImage: self.selectedImage)
                                         .resizable()
-                                        .scaledToFit()
+                                        .scaledToFill()
                                         .clipped()
+                                        .colorMultiply(.gray)
                                         .frame(width: 70, height: 70)
                                         .cornerRadius(35)
-                                        .background(Color("Light-Gray"))
                                 }
                                 Image(uiImage: #imageLiteral(resourceName: "editList"))
                                     .resizable()
@@ -69,12 +65,10 @@ struct EditRecipeView: View {
                             .onTapGesture {
                                 self.isShowingImagePicker.toggle()
                             }
-                            .padding(.horizontal, 30)
-
                         }
                     }
 
-                    RecipeEditField(fieldName: "Time", placeholder: "Time To Make", fieldText: self.$time, size: geometry.size, keyboardType: .numberPad)
+                    RecipeEditField(fieldName: "Time", placeholder: "Time To Make", fieldText: self.$time, size: geometry.size, keyboardType: .default)
                     
                     RecipeEditField(fieldName: "Serves", placeholder: "How Many People", fieldText: self.$serves, size: geometry.size, keyboardType: .numberPad)
 
@@ -82,9 +76,12 @@ struct EditRecipeView: View {
                         .font(.custom("HelveticaNeue-Regular", size: 15))
                         .foregroundColor(Color("Light-Gray"))
                         .padding(.bottom)
+                        .padding(.horizontal, 30)
 
-                    RequirmentToggleView(dietryToggle: self.$isVegitarian, dietryName: "Vegitarian")
+                    RequirmentToggleView(dietryToggle: self.$isVegitarian, dietryName: "Vegetarian")
+                        
                     RequirmentToggleView(dietryToggle: self.$isNutFree, dietryName: "Nut Free")
+                        
                     RequirmentToggleView(dietryToggle: self.$isGlutenFree, dietryName: "Gluten Free")
                     
                     IngredientMethodPagerView(addIngredientAction: {
@@ -123,7 +120,7 @@ struct EditRecipeView: View {
     
     // Set text field content to be that of selected recipe
     private func configureTextFieldContent() {
-        self.recipeName = self.recipeDataModel.selectedRecipe.name
+        self.recipeName = self.recipeDataModel.selectedRecipe.name.capitalized
         self.time = self.recipeDataModel.selectedRecipe.estimatedTime
         let recipeServes = self.recipeDataModel.selectedRecipe.serves
         self.serves = recipeServes != 0 ? "\(recipeServes)" : ""

@@ -66,7 +66,7 @@ struct RecipeIngredientListView<SectionConent>: View where SectionConent: Identi
                             .onTapGesture {
                                 self.saveAction!()
                         }
-                    }
+                    }.padding(.leading)
                 }
                 
             }

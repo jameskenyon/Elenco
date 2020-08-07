@@ -30,8 +30,6 @@ struct RecipeHeaderView: View {
                         .overlay(
                             self.headerBody(for: geometry.size)
                         )
-                    
-                    
                 } else {
                     RoundedRectangle(cornerRadius: headerViewCornerRadius)
                         .frame(width: geometry.size.width, height: headerViewHeight)
@@ -46,7 +44,7 @@ struct RecipeHeaderView: View {
     func headerBody(for size: CGSize) -> some View {
         VStack {
             HStack {
-                Text("< Back")
+                Text("Back")
                     .onTapGesture {
                         self.backButtonPressed()
                     }
@@ -98,7 +96,7 @@ struct RecipeHeaderView: View {
     }
     
     private func deleteButtonTapped() {
-        listDataModel.window.displayAlert(title: "Delete Recipe", message: "Are you sure you want to delete this recipe", okTitle: "Delete") { (_) -> (Void) in
+        listDataModel.window.displayAlert(title: "Delete Recipe", message: "Are you sure you want to delete this recipe?", okTitle: "Delete") { (_) -> (Void) in
             self.recipeDataModel.deleteRecipe()
             self.recipeDataModel.hideViews()
         }
