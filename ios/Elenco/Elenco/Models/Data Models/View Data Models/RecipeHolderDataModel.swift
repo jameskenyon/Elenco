@@ -109,7 +109,7 @@ class RecipeHolderDataModel: ObservableObject {
     // MARK: - Query methods
     public func search(text: String) -> Recipes {
         if !text.isEmpty {
-            return recipes.filter({ $0.name.contains(text) })
+            return recipes.filter({ $0.name.lowercased().contains(text.lowercased()) })
         }
         return recipes
     }

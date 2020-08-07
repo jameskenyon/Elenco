@@ -29,7 +29,7 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
             } else if recipeViewDataModel.recipeViewIsShown {
                 RecipeView()
             } else {
-                RecipesHeaderView(title: "Recipes")
+                RecipesHeaderView(title: "My Recipes")
                 if recipeViewDataModel.recipes.isEmpty {
                     RecipeListTutorialView().padding(.horizontal)
                 } else {
@@ -38,7 +38,8 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
                         self.searchTextFieldIsFirstResponder = false
                     }
                 }
-                addButton()
+                AddRecipeButton()
+                    .padding(.bottom, getBottomElementPadding())
             }               
         }
         .edgesIgnoringSafeArea(.top)
@@ -52,10 +53,10 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
                 ZStack(alignment: .center) {
                     RoundedRectangle(cornerRadius: 8)
                     .foregroundColor(Color("Background"))
-                    .shadow(color: Color("Light-Gray"), radius: 5)
+                        .shadow(color: Color("Light-Gray").opacity(0.5), radius: 5, y: 3)
                         .frame(height: 50)
                     
-                    ElencoTextField(text: $searchText, isFirstResponder: searchTextFieldIsFirstResponder, textFieldView: self, font: UIFont(name: "HelveticaNeue-Regular", size: 20), color: UIColor.black, placeholder: "Search your recipes")
+                    ElencoTextField(text: $searchText, isFirstResponder: searchTextFieldIsFirstResponder, textFieldView: self, font: UIFont(name: "HelveticaNeue-Medium", size: 20), color: UIColor.black, placeholder: "Search recipes...")
                         .accentColor(Color("Teal"))
                         .foregroundColor(Color("BodyText"))
                         .padding(.leading)
@@ -96,20 +97,6 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
         )
     }
     
-    func addButton() -> some View {
-        // Add Button
-        VStack {
-            Button(action: {
-                self.recipeViewDataModel.displayEditRecipeView()
-                self.recipeViewDataModel.configureNewSelectedRecipe()
-            }) {
-                Text("+")
-                    .font(.custom("HelveticaNeue-Regular", size: 40))
-                    .foregroundColor(Color.white)
-            }.buttonStyle(OrangeCircleButtonStyle())
-        }
-    }
-    
     // Work out which section and row recipe is in and remove from list
     func removeRecipe(atSection section: ListViewSection<Recipe>, index: Int) {
         let selectedSection = sections().filter({ $0.title == section.title}).first
@@ -131,6 +118,29 @@ struct RecipesListView: View, ElencoTextFieldDisplayable {
     func userDidEditTextField(newValue: String) {}
 }
 
+// The add recipe button
+struct AddRecipeButton: View {
+    
+    @EnvironmentObject var recipeViewDataModel: RecipeHolderDataModel
+    @Environment(\.colorScheme) var colorScheme
+
+    var body: some View {
+        Button(action: {
+            withAnimation {
+                self.recipeViewDataModel.displayEditRecipeView()
+                self.recipeViewDataModel.configureNewSelectedRecipe()
+            }
+         }, label: {
+            Text("+")
+                .font(.custom("HelveticaNeue-Bold", size: 50))
+                .foregroundColor(Color.white)
+                .padding(.bottom, 10)
+        })
+        .buttonStyle(OrangeCircleButtonStyle())
+        .shadow(color: colorScheme == .dark ? .clear : Color("Light-Gray").opacity(0.4) , radius: 4)
+    }
+    
+}
 
 struct RecipesView_Previews: PreviewProvider {
     static var previews: some View {

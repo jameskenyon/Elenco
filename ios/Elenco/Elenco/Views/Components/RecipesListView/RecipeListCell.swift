@@ -17,17 +17,19 @@ struct RecipeListCell: View {
         ZStack(alignment: .leading) {
            RoundedRectangle(cornerRadius: 10)
                 .foregroundColor(Color.white)
-            .shadow(color: Color("Light-Gray"), radius: 5, x: 0, y: 0)
+            .shadow(color: Color("Light-Gray").opacity(0.4), radius: 5, x: 0, y: 3)
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text(recipe.name)
+                    Text(recipe.name.capitalise())
                         .foregroundColor(Color("Tungsten"))
                         .font(.custom("HelveticaNeue-Bold", size: 25))
+                        .padding(.bottom, 5)
                     
                     Text(recipe.estimatedTime)
                         .foregroundColor(Color("Dark-Gray"))
                         .font(.custom("HelveticaNeue-Medium", size: 15))
+                        .padding(.leading, 2)
                 }
                 .padding()
                 
@@ -62,16 +64,9 @@ struct RecipeListCell: View {
                         }
                         .padding(.leading, 15)
                     }
-                    
-                    
                 }.padding()
-                
-                
-                    
             }
-            
         }
-        
     }
     
     // MARK: - View Constants
