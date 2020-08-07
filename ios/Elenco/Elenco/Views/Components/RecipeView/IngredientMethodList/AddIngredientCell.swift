@@ -19,7 +19,7 @@ struct AddIngredientCell: View {
             
             Spacer()
             
-            Text(ingredient.quantity ?? "")
+            Text(ingredient.quantity ?? "1")
             .foregroundColor(Color("Dark-Gray"))
             .font(.custom("HelveticaNeue-Regular", size: 15))
         }

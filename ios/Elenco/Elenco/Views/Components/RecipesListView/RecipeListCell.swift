@@ -21,7 +21,7 @@ struct RecipeListCell: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text(recipe.name.capitalise())
+                    Text(recipe.name.capitalized)
                         .foregroundColor(Color("Tungsten"))
                         .font(.custom("HelveticaNeue-Bold", size: 25))
                         .padding(.bottom, 5)
@@ -32,6 +32,7 @@ struct RecipeListCell: View {
                         .padding(.leading, 2)
                 }
                 .padding()
+                .padding(.leading, 5)
                 
                 Spacer()
                 

@@ -28,17 +28,6 @@ struct RecipeIngredientListView<SectionConent>: View where SectionConent: Identi
             
     var body: some View {
         VStack {
-            HStack {
-                Text("NAME")
-                
-                Spacer()
-                
-                Text("QTY")
-            }
-            .foregroundColor(Color("Dark-Gray"))
-            .font(.custom("HelveticaNeue-Regular", size: 12))
-            .padding(.horizontal, 35).padding(.bottom)
-            
             List {
                 ForEach(sections, id: \.title) { section in
                     Section(header:

@@ -24,11 +24,13 @@ struct RecipeHeaderView: View {
                         .resizable()
                         .scaledToFill()
                         .clipped()
+                        .colorMultiply(.gray)
                         .frame(width: geometry.size.width, height: headerViewHeight)
                         .cornerRadius(headerViewCornerRadius)
                         .overlay(
                             self.headerBody(for: geometry.size)
                         )
+                    
                     
                 } else {
                     RoundedRectangle(cornerRadius: headerViewCornerRadius)
@@ -44,30 +46,32 @@ struct RecipeHeaderView: View {
     func headerBody(for size: CGSize) -> some View {
         VStack {
             HStack {
-                MenuIcon()
+                Text("< Back")
                     .onTapGesture {
-                        self.menuIconPressed()
+                        self.backButtonPressed()
                     }
+                    .font(.custom("HelveticaNeue-Bold", size: 20))
                 Spacer()
             }
-            .padding(.top, menuIconTop)
+            .padding(.top, menuIconTop + 30)
             .padding(.leading)
             
-            Text(recipeDataModel.selectedRecipe.name)
+            Text(recipeDataModel.selectedRecipe.name.capitalized)
                 .font(.custom("HelveticaNeue-Bold", size: 35))
-            
+                .padding(.bottom, -10)
+                .padding(.top, 45)
             Rectangle()
-                .frame(width: underLineWidth(for: size), height: 1)
+                .frame(width: underLineWidth(for: size), height: 2)
             
             HStack {
                 VStack(alignment: .leading) {
                     Text("\(recipeDataModel.selectedRecipe.ingredients.count) Ingredients")
-                    Text("Estimated time \(recipeDataModel.selectedRecipe.estimatedTime)min")
+                    Text("Estimated time: \(recipeDataModel.selectedRecipe.estimatedTime)")
                 }
                 Spacer()
             }
-            .font(.custom("HelveticaNeue-Regular", size: 20))
-            .padding(.leading)
+            .font(.custom("HelveticaNeue-Bold", size: 20))
+            .padding(.leading, 20)
             .padding(.top)
             
             HStack {
@@ -78,10 +82,11 @@ struct RecipeHeaderView: View {
                 RecipeButton(title: "Delete", color: Color(#colorLiteral(red: 0.9647058824, green: 0.5058823529, blue: 0.137254902, alpha: 1)), width: buttonWidth(for: size)) {
                     self.deleteButtonTapped()
                 }
+                .padding(.leading, 5)
                 Spacer()
             }
             .padding(.top, buttonTop)
-            .padding(.leading)
+            .padding(.leading, 20)
         }
         .foregroundColor(Color.white)
     }
@@ -99,15 +104,14 @@ struct RecipeHeaderView: View {
         }
     }
     
-    private func menuIconPressed() {
+    private func backButtonPressed() {
         recipeDataModel.hideViews()
-        contentDataModel.menuIsShown = true
     }
     
     // MARK: - View Constants
     
     private var headerViewHeight: CGFloat {
-        return 350
+        return 380
     }
     
     private var headerViewCornerRadius: CGFloat {
