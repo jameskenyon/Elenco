@@ -44,31 +44,7 @@ struct RecipeIngredientListView<SectionConent>: View where SectionConent: Identi
                             }       
                         }
                     }
-                }
-                if addAction != nil && saveAction != nil {
-                    HStack(alignment: .center) {
-                        Text("Add")
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 20)
-                            .font(.custom("HelveticaNeue-Medium", size: 22))
-                            .foregroundColor(Color("Orange"))
-                            .background(Color("Orange").opacity(0.1))
-                            .onTapGesture {
-                                self.addAction!()
-                        }
-                        
-                        Text("Save")
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 20)
-                            .font(.custom("HelveticaNeue-Medium", size: 22))
-                            .foregroundColor(Color("Orange"))
-                            .background(Color("Orange").opacity(0.1))
-                            .onTapGesture {
-                                self.saveAction!()
-                        }
-                    }.padding(.leading)
-                }
-                
+                }                
             }
             .listStyle(GroupedListStyle())
         }

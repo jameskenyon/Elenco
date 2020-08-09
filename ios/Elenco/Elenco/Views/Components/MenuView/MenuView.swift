@@ -61,12 +61,12 @@ struct MenuView: View {
                                 self.contentViewDataModel.updateView(viewType: .Recipes)
                             }
                         
-                        MenuHeaderView(title: "Settings", image: #imageLiteral(resourceName: "menuSettingsIcon"), width: self.getWidth(geometry: geometry))
-                        .padding(.leading)
-                            .padding(.top)
-                            .onTapGesture {
-                                self.contentViewDataModel.updateView(viewType: .Settings)
-                        }
+//                        MenuHeaderView(title: "Settings", image: #imageLiteral(resourceName: "menuSettingsIcon"), width: self.getWidth(geometry: geometry))
+//                        .padding(.leading)
+//                            .padding(.top)
+//                            .onTapGesture {
+//                                self.contentViewDataModel.updateView(viewType: .Settings)
+//                        }
 
                         Spacer()
                         // Back Button

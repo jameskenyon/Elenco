@@ -17,9 +17,6 @@ struct EditRecipeView: View {
     @State var selectedImage = UIImage()
     @State var time: String = ""
     @State var serves: String = ""
-    @State var isVegitarian: Bool = false
-    @State var isNutFree: Bool = false
-    @State var isGlutenFree: Bool = false
     @State var showAlert = false
     @State var isShowingImagePicker = false
     @State var alertAction: ((String?)->())?
@@ -67,21 +64,55 @@ struct EditRecipeView: View {
                             }
                         }
                         .padding(.top)
-                    }
+                    }.padding(.bottom, -10)
 
                     RecipeEditField(fieldName: "Time", placeholder: "Time To Make", fieldText: self.$time, size: geometry.size, keyboardType: .default)
                     
                     RecipeEditField(fieldName: "Serves", placeholder: "Number Of Servings", fieldText: self.$serves, size: geometry.size, keyboardType: .numberPad)
                     
-                    IngredientMethodPagerView(addIngredientAction: {
-                        self.addIngredientButtonTapped()
-                    }, saveIngredientActoin: {
-                        self.saveRecipe()
-                    }, addMethodAction: {
-                        self.addMethodStepButtonTapped()
-                    }, saveMethodAction: {
-                        self.saveRecipe()
-                    })
+                    ZStack {
+                        IngredientMethodPagerView(addIngredientAction: {
+                            self.addIngredientButtonTapped()
+                        }, saveIngredientActoin: {
+                            self.saveRecipe()
+                        }, addMethodAction: {
+                            self.addMethodStepButtonTapped()
+                        }, saveMethodAction: {
+                            self.saveRecipe()
+                        })
+                        
+                        VStack {
+                            Spacer()
+                            
+                            HStack(alignment: .center) {
+
+                                Button(action: {
+                                    self.addIngredientButtonTapped()
+                                }) {
+                                    Text("Add Item")
+                                        .padding(.vertical, 10)
+                                        .padding(.horizontal, 20)
+                                        .font(.custom("HelveticaNeue-Medium", size: 22))
+                                        .foregroundColor(Color("Orange"))
+                                        .background(Color("Orange").opacity(0.2))
+                                        .cornerRadius(6)
+                                }
+                                
+                                Button(action: {
+                                    self.saveRecipe()
+                                }) {
+                                    Text("Save Changes")
+                                        .cornerRadius(10)
+                                        .padding(.vertical, 10)
+                                        .padding(.horizontal, 20)
+                                        .font(.custom("HelveticaNeue-Medium", size: 22))
+                                        .foregroundColor(Color("Teal"))
+                                        .background(Color("Teal").opacity(0.2))
+                                        .cornerRadius(6)
+                                }
+                            }.padding(.leading)
+                        }
+                    }
                 }
                 .blur(radius: self.showAlert ? 3 : 0)
                 .onAppear {

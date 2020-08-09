@@ -22,7 +22,7 @@ struct RecipeButton: View {
             Text(self.title)
                 .padding(.vertical, 8)
                 .frame(width: width)
-                .background(self.color).opacity(0.8)
+                .background(self.color).opacity(0.9)
                 .foregroundColor(Color.white)
                 .font(.custom("HelveticaNeue-Medium", size: 20))
             .cornerRadius(6)
