@@ -8,11 +8,6 @@
 
 import SwiftUI
 
-struct IngredientSection {
-    var title: String
-    var ingredients: [Ingredient]
-}
-
 struct IngredientsListView: View {
     
     @EnvironmentObject var listHolderModel: ListHolderDataModel
@@ -28,10 +23,10 @@ struct IngredientsListView: View {
                 // display list with the headers
                 ForEach(listHolderModel.listDataSource, id: \.title) { section in
                     Section(header:
-                        IngredientSectionHeader(title: section.title)
+                        ElencoSectionHeader(title: section.title)
                             .padding(.top, -18)
                     ) {
-                        ForEach(section.ingredients) { ingredient in
+                        ForEach(section.content) { ingredient in
                             IngredientListCell(ingredient: ingredient)
                         }
                         .onDelete { (indexSet) in
@@ -43,23 +38,14 @@ struct IngredientsListView: View {
                 Spacer()
             }
             .listStyle(GroupedListStyle())
-//            .id(UUID())
         }
-    
     }
     
     // Work out which section and row ingredient is in and remove from list
-    func removeIngredient(atSection section: IngredientSection, index: Int) {
+    func removeIngredient(atSection section: ListViewSection<Ingredient>, index: Int) {
         let sections = self.listHolderModel.listDataSource.filter({ $0.title == section.title}).first
-        if let ingredient = sections?.ingredients[index] {
+        if let ingredient = sections?.content[index] {
             self.listHolderModel.deleteIngredient(ingredient: ingredient)
         }
-    }
-    
-}
-
-struct IngredientsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        IngredientsListView()
     }
 }

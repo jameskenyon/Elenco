@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct IngredientSectionHeader: View {
+struct ElencoSectionHeader: View {
     
     @EnvironmentObject var listHolderModel: ListHolderDataModel
 
@@ -33,12 +33,5 @@ struct IngredientSectionHeader: View {
             .onTapGesture {
                 self.listHolderModel.userFinishedAddingIngredients()
             }
-    }
-}
-
-
-struct IngredientSectionHeader_Previews: PreviewProvider {
-    static var previews: some View {
-        IngredientSectionHeader(title: "A")
     }
 }

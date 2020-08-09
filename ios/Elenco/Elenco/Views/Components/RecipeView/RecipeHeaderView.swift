@@ -10,6 +10,10 @@ import SwiftUI
 
 struct RecipeHeaderView: View {
     
+    @EnvironmentObject var listDataModel: ListHolderDataModel
+    @EnvironmentObject var recipeDataModel: RecipeHolderDataModel
+    @EnvironmentObject var contentDataModel: ContentViewDataModel
+    
     var image: UIImage?
     var geometry: GeometryProxy
     
@@ -20,12 +24,12 @@ struct RecipeHeaderView: View {
                         .resizable()
                         .scaledToFill()
                         .clipped()
+                        .colorMultiply(.gray)
                         .frame(width: geometry.size.width, height: headerViewHeight)
                         .cornerRadius(headerViewCornerRadius)
                         .overlay(
                             self.headerBody(for: geometry.size)
                         )
-                    
                 } else {
                     RoundedRectangle(cornerRadius: headerViewCornerRadius)
                         .frame(width: geometry.size.width, height: headerViewHeight)
@@ -40,49 +44,73 @@ struct RecipeHeaderView: View {
     func headerBody(for size: CGSize) -> some View {
         VStack {
             HStack {
-                MenuIcon()
+                Image("backButton")
+                    .resizable()
+                    .frame(width: 40, height: 40)
+                    .onTapGesture {
+                        self.backButtonPressed()
+                    }
                 Spacer()
             }
-            .padding(.top, menuIconTop)
+            .padding(.top, menuIconTop + 30)
             .padding(.leading)
             
-            Text("Tomato Pasta")
+            Text(recipeDataModel.selectedRecipe.name.capitalized)
                 .font(.custom("HelveticaNeue-Bold", size: 35))
-            
+                .padding(.bottom, -10)
+                .padding(.top, 10)
             Rectangle()
-                .frame(width: underLineWidth(for: size), height: 1)
+                .frame(width: underLineWidth(for: size), height: 2)
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text("8 Ingredients")
-                    Text("Estimated time 20min")
+                    Text("Serves: \(recipeDataModel.selectedRecipe.serves)")
+                    Text("Estimated time: \(recipeDataModel.selectedRecipe.estimatedTime)")
                 }
                 Spacer()
             }
-            .font(.custom("HelveticaNeue-Regular", size: 20))
-            .padding(.leading)
+            .font(.custom("HelveticaNeue-Bold", size: 20))
+            .padding(.leading, 20)
             .padding(.top)
             
             HStack {
                 RecipeButton(title: "Edit", color: Color("Teal"), width: buttonWidth(for: size)) {
-                    print("Hello")
+                    self.editButtonTapped()
                 }
                 
                 RecipeButton(title: "Delete", color: Color(#colorLiteral(red: 0.9647058824, green: 0.5058823529, blue: 0.137254902, alpha: 1)), width: buttonWidth(for: size)) {
-                    print("Hello")
+                    self.deleteButtonTapped()
                 }
+                .padding(.leading, 5)
                 Spacer()
             }
             .padding(.top, buttonTop)
-            .padding(.leading)
+            .padding(.leading, 20)
         }
         .foregroundColor(Color.white)
+    }
+    
+    // MARK: - Button Actions
+    private func editButtonTapped() {
+        recipeDataModel.configureSelectedRecipe(for: recipeDataModel.selectedRecipe)
+        recipeDataModel.displayEditRecipeView()
+    }
+    
+    private func deleteButtonTapped() {
+        listDataModel.window.displayAlert(title: "Delete Recipe", message: "Are you sure you want to delete this recipe?", okTitle: "Delete") { (_) -> (Void) in
+            self.recipeDataModel.deleteRecipe()
+            self.recipeDataModel.hideViews()
+        }
+    }
+    
+    private func backButtonPressed() {
+        recipeDataModel.hideViews()
     }
     
     // MARK: - View Constants
     
     private var headerViewHeight: CGFloat {
-        return 350
+        return 380
     }
     
     private var headerViewCornerRadius: CGFloat {
@@ -105,9 +133,3 @@ struct RecipeHeaderView: View {
         return 25
     }
 }
-
-//struct RecipeHeaderView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RecipeHeaderView()
-//    }
-//}
