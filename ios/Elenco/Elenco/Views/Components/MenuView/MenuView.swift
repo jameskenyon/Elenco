@@ -75,7 +75,7 @@ struct MenuView: View {
                         Spacer()
                         HStack {
                             Spacer()
-                            Image("backButton")
+                            Image("menuBackButton")
                                 .resizable()
                                 .frame(width: 20, height: 20)
                                 .padding(.trailing, -5)
